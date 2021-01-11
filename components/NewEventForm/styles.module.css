@@ -1,0 +1,18 @@
+.event_form {
+    border: 1px solid;
+    display: block;
+
+}
+
+@media (min-width: 600px) {
+    .event_form {
+        display: flex;
+    }
+}
+
+.event_form__input {
+
+    justify-content: center;
+    display: flex;
+    margin: 8px;
+}
