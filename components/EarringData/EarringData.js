@@ -1,25 +1,96 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import styles from "./styles.module.css";
-import ButtonLink from "../ButtonLink";
 
 export default function EarringData({ earrings, events = [] }) {
-  const getAge = (birth) => {
-  console.log()
-  return moment(birth).fromNow(true)
-  };
-  console.log();
+  const [sortedEvents, setSortedEvents] = useState([]);
   const [showDetails, setShowDetails] = useState("");
-  const handleShowDetails = (earring) => {
+
+  const getAge = (birth) => {
     console.log();
+    return moment(birth).fromNow(true);
+  };
+
+  const handleShowDetails = (earring) => {
     showDetails === earring ? setShowDetails("") : setShowDetails(earring);
   };
 
-  const eventsByEarring = (earring) => {
-    const res = events.filter((event) => event.earring === earring);
+  const [sortBy, setSortBy] = useState("eventCheckDate");
 
+  switch (sortBy) {
+    case "eventType":
+      events.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+      break;
+    case "eventCreate":
+      events.sort((a, b) => {
+        if (a.date > b.date) {
+          return 1;
+        }
+        if (a.date < b.date) {
+          return -1;
+        }
+        return 0;
+      });
+      break;
+    case "eventCheckType":
+      events.sort((a, b) => {
+        if (a.nextEvent.name > b.nextEvent.name) {
+          return 1;
+        }
+        if (a.nextEvent.name < b.nextEvent.name) {
+          return -1;
+        }
+        return 0;
+      });
+      break;
+    case "eventCheckDate":
+      console.log("by check date");
+      events.sort((a, b) => {
+        if (a.nextEvent.date > b.nextEvent.date) {
+          return 1;
+        }
+        if (a.nextEvent.date < b.nextEvent.date) {
+          return -1;
+        }
+        return 0;
+      });
+      break;
+
+    default:
+      break;
+  }
+
+  useEffect(() => {
+    setSortedEvents(events);
+  }, [events]);
+  console.log(sortedEvents);
+
+  const eventsByEarring = (earring) => {
+    const res = sortedEvents.filter((event) => event.earring === earring);
     return res;
   };
+
+  function handleSortEventByName() {
+    const newEventList = events.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      return 0;
+    });
+    return newEventList;
+  }
+
   return (
     <div>
       <h1>Aretes Registrados</h1>
@@ -46,7 +117,9 @@ export default function EarringData({ earrings, events = [] }) {
                 <div className={styles.earring_cell}>
                   {earring.nickName || "vaca"}
                 </div>
-                <div className={styles.earring_cell}>{getAge(earring.birth)}</div>
+                <div className={styles.earring_cell}>
+                  {getAge(earring.birth)}
+                </div>
                 <div
                   className={styles.earring_cell}
                   onClick={() => handleShowDetails(earring.number)}
@@ -62,16 +135,24 @@ export default function EarringData({ earrings, events = [] }) {
                   <h4>Eventos</h4>
                   <div className={styles.hisotry_row}>
                     <div className={styles.history_cell}>
-                      <h5>Evento</h5>
+                      <div onClick={() => setSortBy("eventType")}>
+                        <h5>Evento</h5>
+                      </div>
                     </div>
                     <div className={styles.history_cell}>
-                      <h5>Fecha</h5>
+                      <div onClick={() => setSortBy("eventCreate")}>
+                        <h5>Fecha</h5>
+                      </div>
                     </div>
                     <div className={styles.history_cell}>
-                      <h5>Revisar</h5>
+                      <div onClick={() => setSortBy("eventCheckType")}>
+                        <h5>Revisar</h5>
+                      </div>
                     </div>
                     <div className={styles.history_cell}>
-                      <h5>Fecha</h5>
+                      <div onClick={() => setSortBy("eventCheckDate")}>
+                        <h5>Fecha</h5>
+                      </div>
                     </div>
                   </div>
                   {eventsByEarring(earring.number).length === 0 ? (
@@ -91,7 +172,6 @@ export default function EarringData({ earrings, events = [] }) {
                           </div>
                           <div className={styles.hisotry_cell}>
                             {event.nextEvent?.formatDate}
-                            {console.log(event.nextEvent?.formatDate)}
                           </div>
                         </div>
                       ))}
