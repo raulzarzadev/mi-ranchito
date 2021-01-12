@@ -4,9 +4,9 @@ import styles from "./styles.module.css";
 import ButtonLink from "../ButtonLink";
 
 export default function EarringData({ earrings, events = [] }) {
-  const age = (birth) => {
-    var years = moment().diff(moment(birth, "DD-MM-YYYY"), "years");
-    return years;
+  const getAge = (birth) => {
+  console.log()
+  return moment(birth).fromNow(true)
   };
   console.log();
   const [showDetails, setShowDetails] = useState("");
@@ -46,7 +46,7 @@ export default function EarringData({ earrings, events = [] }) {
                 <div className={styles.earring_cell}>
                   {earring.nickName || "vaca"}
                 </div>
-                <div className={styles.earring_cell}>{age(earring.birth)}</div>
+                <div className={styles.earring_cell}>{getAge(earring.birth)}</div>
                 <div
                   className={styles.earring_cell}
                   onClick={() => handleShowDetails(earring.number)}
