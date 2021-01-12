@@ -1,8 +1,5 @@
-
-.columnsTitles {
+.row {
     display: flex;
     width: 100%;
     justify-content: space-around;
-    margin-bottom: 8px;
-    font-weight: 600;
 }

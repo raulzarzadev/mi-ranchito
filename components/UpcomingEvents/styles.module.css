@@ -1,8 +1,4 @@
-.row {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-}
+
 
 .columnsTitles {
     display: flex;

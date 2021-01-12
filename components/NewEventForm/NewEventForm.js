@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export default function NewEventForm({ handleChange, handleSubmit, form }) {
+export default function NewEventForm({
+  handleChange,
+  handleSubmit,
+  form,
+  earrings,
+}) {
   return (
     <div>
       <div>
@@ -16,13 +21,15 @@ export default function NewEventForm({ handleChange, handleSubmit, form }) {
         >
           <div className={styles.event_form}>
             <div className={styles.event_form__input}>
-              <select onChange={handleChange} name="arete" id="select-animal">
+              <select onChange={handleChange} name="earring" id="select-animal">
                 <option value="" disabled selected>
                   Arete No.
                 </option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
+                {earrings.map((earring) => (
+                  <option value={earring.number}>
+                    {earring.number} {earring?.nickName}
+                  </option>
+                ))}
               </select>
             </div>
             <div className={styles.event_form__input}>

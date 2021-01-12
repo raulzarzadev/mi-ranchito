@@ -1,4 +1,5 @@
 import React from "react";
+import EventRow from "../EventRow";
 import styles from "./styles.module.css";
 
 export default function UpcomingEvents({ events }) {
@@ -19,28 +20,26 @@ export default function UpcomingEvents({ events }) {
   return (
     <div>
       <h1>Proximos eventos</h1>
-      <div className={styles.columnsTitles}>
-        <div>Arete</div>
-        <div>Evento</div>
-        <div>Fecha</div>
-        <div>Revisar</div>
-        <div>Fecha</div>
+
+      <div>
+        {events.length === 0 ? (
+          <h3>No hay proximos eventos</h3>
+        ) : (
+          <>
+            <div className={styles.columnsTitles}>
+              <div>Arete</div>
+              <div>Evento</div>
+              <div>Fecha</div>
+              <div>Revisar</div>
+              <div>Fecha</div>
+            </div>
+            {eventsSorted.map((event, i) => (
+              <EventRow key={i} event={event} />
+            ))}
+          </>
+        )}
       </div>
-      {eventsSorted.map((event, i) => (
-        <EventRow key={i} event={event} />
-      ))}
     </div>
   );
 }
 
-function EventRow({ event }) {
-  return (
-    <div className={styles.row}>
-      <div className={styles.cell}>{event.arete}</div>
-      <div className={styles.cell}>{event.name}</div>
-      <div className={styles.cell}>{event.date}</div>
-      <div className={styles.cell}>{event.nextEvent?.label}</div>
-      <div className={styles.cell}>{event.nextEvent?.formatDate}</div>
-    </div>
-  );
-}

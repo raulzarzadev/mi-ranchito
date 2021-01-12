@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 
 export default function Layout({ children }) {
   return (
-    <div className={styles.container}>
+    <div className={styles.body}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta charSet="utf-8" />
@@ -28,8 +28,10 @@ export default function Layout({ children }) {
           </Link>
         </nav>
       </header>
-      <main>{children}</main>
-      <footer>
+      <div className={styles.container}>
+        <main>{children}</main>
+      </div>
+      <footer className={styles.footer}>
         {"Una app creada por"} <a href="https://raulzarza.com">Raúl Zarza</a>
       </footer>
     </div>
