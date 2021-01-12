@@ -6,7 +6,7 @@ export default function EventRow({ event }) {
     <div className={styles.row}>
       <div className={styles.cell}>{event.earring}</div>
       <div className={styles.cell}>{event.name}</div>
-      <div className={styles.cell}>{event.date}</div>
+      <div className={styles.cell}>{event?.formatDate}</div>
       <div className={styles.cell}>{event.nextEvent?.label}</div>
       <div className={styles.cell}>{event.nextEvent?.formatDate}</div>
     </div>

@@ -41,7 +41,11 @@ export default function Dashboard() {
   };
 
   const handleSubmit = (e) => {
-    const eventDate = moment(form.date).add(12, "hours").format("DD[/]MM");
+    const eventFormatDate = moment(form.date)
+      .add(12, "hours")
+      .format("DD MMMM")
+      .slice(0, 6);
+    const eventDate = new Date(form.date);
     let nextCheck;
     let nextEvent;
     switch (form.name) {
@@ -64,12 +68,14 @@ export default function Dashboard() {
     const newEvent = {
       ...form,
       date: eventDate,
+      formatDate: eventFormatDate,
       nextEvent: {
-        date: nextCheck?.format(),
+        date: new Date(nextCheck),
         label: nextEvent,
-        formatDate: nextCheck?.format("DD MMMM"),
+        formatDate: nextCheck?.format("DD MMMM").slice(0, 6),
       },
     };
+    console.log(newEvent);
 
     setUpcomingEvents([...upcomingEvents, newEvent]);
     setEventsHistory([...eventsHistory, newEvent]);

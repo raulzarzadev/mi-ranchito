@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import moment from "moment";
 import styles from "./styles.module.css";
 import ButtonLink from "../ButtonLink";
-import EventRow from "../EventRow";
+
 export default function EarringData({ earrings, events = [] }) {
   const age = (birth) => {
     var years = moment().diff(moment(birth, "DD-MM-YYYY"), "years");
@@ -84,13 +84,14 @@ export default function EarringData({ earrings, events = [] }) {
                             {event.name}
                           </div>
                           <div className={styles.hisotry_cell}>
-                            {event.date}
+                            {event.formatDate}
                           </div>
                           <div className={styles.hisotry_cell}>
                             {event.nextEvent?.label}
                           </div>
                           <div className={styles.hisotry_cell}>
                             {event.nextEvent?.formatDate}
+                            {console.log(event.nextEvent?.formatDate)}
                           </div>
                         </div>
                       ))}
