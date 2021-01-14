@@ -19,11 +19,11 @@ export default function UpcomingEvents({ events }) {
 
   return (
     <div>
-      <h1>Proximos eventos</h1>
+      <h4>Proximos eventos</h4>
 
       <div>
         {events.length === 0 ? (
-          <h3>No hay proximos eventos</h3>
+          <h5>No hay proximos eventos</h5>
         ) : (
           <>
             <div className={styles.columnsTitles}>

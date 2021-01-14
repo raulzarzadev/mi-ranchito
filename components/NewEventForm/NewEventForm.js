@@ -10,7 +10,7 @@ export default function NewEventForm({
   return (
     <div>
       <div>
-        <h1>Nuevo evento</h1>
+        <h3>Nuevo evento</h3>
       </div>
       <div>
         <form

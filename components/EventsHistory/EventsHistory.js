@@ -19,9 +19,9 @@ export default function EventsHistory({ events }) {
 
   return (
     <div>
-      <h1>Historial de eventos</h1>
+      <h4>Historial de eventos</h4>
       {events.length === 0 ? (
-        <h3>No hay eventos aún</h3>
+        <h5>No hay eventos aún</h5>
       ) : (
         <>
           <div className={styles.columnsTitles}>
