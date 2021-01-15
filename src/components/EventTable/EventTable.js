@@ -8,32 +8,27 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { TableSortLabel, Typography } from "@material-ui/core";
+import { formatEvent } from "../../utils";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 150,
   },
   cell: {
+    textAlign: "center",
     padding: 0,
     width: 50,
   },
 });
 
-function createData(event, date, nextEvent, nextDate) {
-  return { event, date, nextEvent, nextDate };
-}
-
-const rows = [
-  createData("celo ", "2 ago", "parto", "05 jul"),
-  createData("servicio ", "12 sep", "celo", "12 sep"),
-  createData("parto", "19 oct", "servico", "19 ago"),
-  createData("celo", "22 nov", "parto", "30 dic"),
-  createData("servicio", "30 ene", "servico", "15 feb"),
-];
-
-export default function DenseTable({ earringData }) {
+export default function EventTable({
+  title,
+  events,
+  hideEarring,
+}) {
   const classes = useStyles();
   const [sortBy, setSortBy] = useState("event");
+  const rows = events.map((event) => formatEvent(event));
 
   const handleSortBy = (title) => {
     if (title === sortBy) {
@@ -51,14 +46,38 @@ export default function DenseTable({ earringData }) {
     }
   };
 
+  /*   const handleSortBySub = (title) => {
+    if (title === sortBy) {
+      setSortBy(`next-event-${title}-reverse`);
+      rows.sort((a, b) => {
+        if (a.nextEvent[title] < b.nextEvent[title]) return 1;
+        if (a.nextEvent[title] > b.nextEvent[title]) return -1;
+      });
+    } else {
+      setSortBy(`next-event-${title}`);
+      rows.sort((a, b) => {
+        if (a.nextEvent[title] > b.nextEvent[title]) return 1;
+        if (a.nextEvent[title] < b.nextEvent[title]) return -1;
+      });
+    }
+  }; */
+
   return (
     <TableContainer component={Paper}>
-      <Typography variant="h6">Información</Typography>
-      Leche: 40 L Foto: [] Madre: 33A Padre: Muñe mas info
-      <Typography variant="h6">Historial</Typography>
+      <Typography variant="h6">{title}</Typography>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
+            {!hideEarring && (
+              <TableCell className={classes.cell}>
+                <div
+                  onClick={() => handleSortBy("earring")}
+                  style={{ fontWeight: sortBy === "earring" ? 800 : 500 }}
+                >
+                  Arete
+                </div>
+              </TableCell>
+            )}
             <TableCell className={classes.cell}>
               <div
                 onClick={() => handleSortBy("event")}
@@ -77,16 +96,18 @@ export default function DenseTable({ earringData }) {
             </TableCell>
             <TableCell className={classes.cell} align="right">
               <div
-                onClick={() => handleSortBy("nextEvent")}
-                style={{ fontWeight: sortBy === "nextEvent" ? 800 : 500 }}
+                onClick={() => handleSortBy("label")}
+                style={{
+                  fontWeight: sortBy === "next-event-label" ? 800 : 500,
+                }}
               >
                 Rvisar
               </div>
             </TableCell>
             <TableCell className={classes.cell} align="right">
               <div
-                onClick={() => handleSortBy("nextDate")}
-                style={{ fontWeight: sortBy === "nextDate" ? 800 : 500 }}
+                onClick={() => handleSortBy("date")}
+                style={{ fontWeight: sortBy === "next-event-date" ? 800 : 500 }}
               >
                 Fecha
               </div>
@@ -94,19 +115,24 @@ export default function DenseTable({ earringData }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {rows.map((row, i) => (
+            <TableRow key={i}>
+              {!hideEarring && (
+                <TableCell className={classes.cell} component="th" scope="row">
+                  {row.earring}
+                </TableCell>
+              )}
               <TableCell className={classes.cell} component="th" scope="row">
                 {row.event}
               </TableCell>
               <TableCell className={classes.cell} align="right">
-                {row.date}
+                {row.formatDate}
               </TableCell>
               <TableCell className={classes.cell} align="right">
-                {row.nextEvent}
+                {row.nextEvent.label}
               </TableCell>
               <TableCell className={classes.cell} align="right">
-                {row.nextDate}
+                {row.nextEvent.formatDate}
               </TableCell>
             </TableRow>
           ))}

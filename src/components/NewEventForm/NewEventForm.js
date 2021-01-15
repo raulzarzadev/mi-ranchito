@@ -22,12 +22,12 @@ export default function NewEventForm({
           <div className={styles.event_form}>
             <div className={styles.event_form__input}>
               <select onChange={handleChange} name="earring" id="select-animal">
-                <option value="" disabled selected>
+                <option value="des" disabled selected>
                   Arete No.
                 </option>
-                {earrings.map((earring) => (
-                  <option value={earring.number}>
-                    {earring.number} {earring?.nickName}
+                {earrings.map((earring, i) => (
+                  <option key={i} value={earring.number}>
+                    {earring.earring} {earring?.nickName}
                   </option>
                 ))}
               </select>
@@ -39,7 +39,7 @@ export default function NewEventForm({
                 id="select-animal"
                 placeholder="Selecciona una vaca"
               >
-                <option value="" disabled selected>
+                <option value="des" disabled selected>
                   Evento
                 </option>
                 <option value="parto">parto</option>

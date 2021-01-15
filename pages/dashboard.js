@@ -1,40 +1,73 @@
 import Head from "next/head";
-import { useState } from "react";
-import Layout from "../components/Layout";
+import { useEffect, useState } from "react";
 import moment from "moment";
-import UpcomingEvents from "../components/UpcomingEvents";
-import EventsHistory from "../components/EventsHistory";
-import NewEventForm from "../components/NewEventForm";
-import EarringData from "../components/EarringData";
+import Layout from "../src/components/Layout";
+import NewEventForm from "../src/components/NewEventForm";
+import UpcomingEvents from "../src/components/UpcomingEvents";
+import EventsHistory from "../src/components/EventsHistory";
+import EarringTable from "../src/components/EarringTable";
+import { EARRINGS, EVENTS } from "../src/components/HARD_DATA";
 
-const EARRING_DATA = [
-  {
-    number: "01",
-    nickName: "Pinta",
-    birth: "2020-11-28",
-    photo: "",
-  },
-  {
-    number: "023",
-    nickName: "Blanca",
-    birth: "2018-06-01",
-    photo: "",
-  },
-  {
-    number: "11",
-    nickName: "",
-    birth: "2015-1-20",
-    photo: "",
-  },
-];
+const EARRING_DATA = EARRINGS;
+const EVENTS_HISTORY = EVENTS;
+
 moment.locale("es");
 
 export default function Dashboard() {
+  //TODO llamar desde la BD evetnos mayores a la fecha del dia de hoy y en orden ascendente
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [eventsHistory, setEventsHistory] = useState([]);
+  const [earringsData, setEarringsData] = useState(EARRING_DATA || []);
+
   const [form, setForm] = useState({
     date: getToday(),
     earring: "",
     name: "",
   });
+
+  useEffect(() => {
+    const formatedEvents = EVENTS.map((event) => formatEvent(event));
+    setEventsHistory(formatedEvents);
+    setUpcomingEvents(formatedEvents);
+  }, []);
+
+  const formatEvent = (event) => {
+    const eventFormatDate = moment(event.date)
+      .add(12, "hours")
+      .format("DD MMMM")
+      .slice(0, 6);
+    const eventDate = new Date(event.date);
+    let nextCheck;
+    let nextEvent;
+    switch (event.event) {
+      case "parto":
+        nextEvent = "Secado";
+        nextCheck = moment(event.date).add(12, "hours").add(7, "months");
+        break;
+      case "celo":
+        nextEvent = "Celo";
+        nextCheck = moment(event.date).add(12, "hours").add(21, "d");
+        break;
+      case "servicio":
+        nextEvent = "Preña";
+        nextCheck = moment(event.date).add(12, "hours").add(21, "d");
+        break;
+      default:
+        break;
+    }
+    const formatedEvent = {
+      earring: event.earring,
+      event: event.event,
+      date: eventDate,
+      formatDate: eventFormatDate,
+      nextEvent: {
+        date: new Date(nextCheck),
+        label: nextEvent,
+        formatDate: nextCheck?.format("DD MMMM").slice(0, 6),
+      },
+    };
+    return formatedEvent;
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -75,16 +108,11 @@ export default function Dashboard() {
         formatDate: nextCheck?.format("DD MMMM").slice(0, 6),
       },
     };
-    console.log(newEvent);
+    console.log(form);
 
     setUpcomingEvents([...upcomingEvents, newEvent]);
     setEventsHistory([...eventsHistory, newEvent]);
   };
-
-  //TODO llamar desde la BD evetnos mayores a la fecha del dia de hoy y en orden ascendente
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const [eventsHistory, setEventsHistory] = useState([]);
-  const [earringsData, setEarringsData] = useState(EARRING_DATA || []);
 
   function getToday() {
     var date = new Date();
@@ -110,10 +138,11 @@ export default function Dashboard() {
         earrings={earringsData}
       />
       <UpcomingEvents events={upcomingEvents} />
-
       <EventsHistory events={eventsHistory} />
 
-      <EarringData events={eventsHistory} earrings={earringsData} />
+      <EarringTable events={eventsHistory} earrings={earringsData} /> 
+      {/*
+      */}
     </>
   );
 }
