@@ -35,7 +35,7 @@ export default function NewEventForm({
             <div className={styles.event_form__input}>
               <select
                 onChange={handleChange}
-                name="name"
+                name="event"
                 id="select-animal"
                 placeholder="Selecciona una vaca"
               >

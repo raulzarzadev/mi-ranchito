@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -15,9 +15,6 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import EventTable from "../EventTable";
-import { EARRINGS, EVENTS } from "../HARD_DATA";
-
-const DATA = EARRINGS;
 
 const useStyles = makeStyles({
   root: {
@@ -25,23 +22,26 @@ const useStyles = makeStyles({
       borderBottom: "unset",
       padding: 4,
     },
-    cell: {
-      width: 60,
-    },
+  },
+  cell: {
+    width: 60,
+    padding: 0,
+    textAlign: "center",
   },
 });
 
-function Row({ row }) {
+function Row({ row, events }) {
   const [open, setOpen] = React.useState(false);
-  const [events] = useState(EVENTS);
   const classes = useStyles();
-  const eventsByEarring = events.filter(
-    (event) => event.earring === row.earring
-  );
+  const [eventsByEarring, setEventsByEarring] = useState([]);
+  useEffect(() => {
+    setEventsByEarring(events.filter((event) => event.earring === row.earring));
+  }, [events]);
+  console.log(events[0].earring);
   return (
     <React.Fragment>
       <TableRow>
-        <TableCell className={classes.cell} padding="none">
+        <TableCell padding="none">
           <IconButton
             aria-label="expand row"
             size="small"
@@ -79,7 +79,11 @@ function Row({ row }) {
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
-              <EventTable  events={eventsByEarring} title="Historai por Arete" hideEarring/>
+              <EventTable
+                events={eventsByEarring}
+                title="Historai por Arete"
+                hideEarring
+              />
             </Box>
           </Collapse>
         </TableCell>
@@ -88,10 +92,10 @@ function Row({ row }) {
   );
 }
 
-export default function EerringTable() {
+export default function EerringTable({ earrings, events }) {
   const classes = useStyles();
   const [sortBy, setSortBy] = useState("earring");
-  const rows = DATA;
+  const rows = earrings;
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
@@ -110,19 +114,14 @@ export default function EerringTable() {
   };
 
   return (
-    <div style={{ width: 300 }}>
+    <div style={{ width: 300, margin: "0 auto" }}>
       <TableContainer component={Paper}>
         <h4>Aretes Registrados</h4>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
+              <TableCell className={classes.cell} padding="none" />
               <TableCell
-                className={classes.cell}
-                className={classes.cell}
-                padding="none"
-              />
-              <TableCell
-                className={classes.cell}
                 className={classes.cell}
                 padding="none"
                 onClick={() => handleSortRowsBy("earring")}
@@ -132,7 +131,6 @@ export default function EerringTable() {
               </TableCell>
               <TableCell
                 className={classes.cell}
-                className={classes.cell}
                 padding="none"
                 align="center"
                 onClick={() => handleSortRowsBy("birth")}
@@ -141,7 +139,6 @@ export default function EerringTable() {
                 Edad
               </TableCell>
               <TableCell
-                className={classes.cell}
                 className={classes.cell}
                 padding="none"
                 align="center"
@@ -154,7 +151,7 @@ export default function EerringTable() {
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <Row key={i} row={row} />
+              <Row key={i} row={row} events={events} />
             ))}
           </TableBody>
         </Table>

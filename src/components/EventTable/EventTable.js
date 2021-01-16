@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { TableSortLabel, Typography } from "@material-ui/core";
 import { formatEvent } from "../../utils";
+import SelectedTitle from "../SelectedTitle";
 
 const useStyles = makeStyles({
   table: {
@@ -18,49 +19,46 @@ const useStyles = makeStyles({
     textAlign: "center",
     padding: 0,
     width: 50,
+    padding: 0,
   },
 });
 
-export default function EventTable({
-  title,
-  events,
-  hideEarring,
-}) {
+export default function EventTable({ title, events, hideEarring }) {
   const classes = useStyles();
-  const [sortBy, setSortBy] = useState("event");
-  const rows = events.map((event) => formatEvent(event));
-
+  const [sortBy, setSortBy] = useState("date");
   const handleSortBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`);
-      rows.sort((a, b) => {
+      events.sort((a, b) => {
         if (a[title] < b[title]) return 1;
         if (a[title] > b[title]) return -1;
       });
     } else {
       setSortBy(title);
-      rows.sort((a, b) => {
+      events.sort((a, b) => {
         if (a[title] > b[title]) return 1;
         if (a[title] < b[title]) return -1;
       });
     }
   };
 
-  /*   const handleSortBySub = (title) => {
+  const handleSortBySub = (title) => {
     if (title === sortBy) {
-      setSortBy(`next-event-${title}-reverse`);
-      rows.sort((a, b) => {
+      setSortBy(`${title}-reverse`);
+
+      events.sort((a, b) => {
         if (a.nextEvent[title] < b.nextEvent[title]) return 1;
         if (a.nextEvent[title] > b.nextEvent[title]) return -1;
       });
     } else {
-      setSortBy(`next-event-${title}`);
-      rows.sort((a, b) => {
+      setSortBy(`${title}`);
+
+      events.sort((a, b) => {
         if (a.nextEvent[title] > b.nextEvent[title]) return 1;
         if (a.nextEvent[title] < b.nextEvent[title]) return -1;
       });
     }
-  }; */
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -70,74 +68,73 @@ export default function EventTable({
           <TableRow>
             {!hideEarring && (
               <TableCell className={classes.cell}>
-                <div
+                <SelectedTitle
                   onClick={() => handleSortBy("earring")}
-                  style={{ fontWeight: sortBy === "earring" ? 800 : 500 }}
-                >
-                  Arete
-                </div>
+                  selected={sortBy === "earring"}
+                  title="Arete"
+                />
               </TableCell>
             )}
             <TableCell className={classes.cell}>
-              <div
+              <SelectedTitle
                 onClick={() => handleSortBy("event")}
-                style={{ fontWeight: sortBy === "event" ? 800 : 500 }}
-              >
-                Evento
-              </div>
+                selected={sortBy === "event"}
+                title="Evento"
+              />
             </TableCell>
             <TableCell className={classes.cell} align="right">
-              <div
+              <SelectedTitle
                 onClick={() => handleSortBy("date")}
-                style={{ fontWeight: sortBy === "date" ? 800 : 500 }}
-              >
-                Fecha
-              </div>
+                selected={sortBy === "date"}
+                title="Fecha"
+              />
             </TableCell>
             <TableCell className={classes.cell} align="right">
-              <div
-                onClick={() => handleSortBy("label")}
-                style={{
-                  fontWeight: sortBy === "next-event-label" ? 800 : 500,
-                }}
-              >
-                Rvisar
-              </div>
+              <SelectedTitle
+                onClick={() => handleSortBySub("label")}
+                selected={sortBy === "label"}
+                title="Revisar"
+              />
             </TableCell>
             <TableCell className={classes.cell} align="right">
-              <div
-                onClick={() => handleSortBy("date")}
-                style={{ fontWeight: sortBy === "next-event-date" ? 800 : 500 }}
-              >
-                Fecha
-              </div>
+              <SelectedTitle
+                onClick={() => handleSortBySub("date")}
+                selected={sortBy === "date"}
+                title="Fecha"
+              />
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, i) => (
-            <TableRow key={i}>
-              {!hideEarring && (
-                <TableCell className={classes.cell} component="th" scope="row">
-                  {row.earring}
-                </TableCell>
-              )}
-              <TableCell className={classes.cell} component="th" scope="row">
-                {row.event}
-              </TableCell>
-              <TableCell className={classes.cell} align="right">
-                {row.formatDate}
-              </TableCell>
-              <TableCell className={classes.cell} align="right">
-                {row.nextEvent.label}
-              </TableCell>
-              <TableCell className={classes.cell} align="right">
-                {row.nextEvent.formatDate}
-              </TableCell>
-            </TableRow>
+          {events.map((event, i) => (
+            <EventRow key={i} event={event} hideEarring={hideEarring} />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
+const EventRow = ({ event, hideEarring }) => {
+  return (
+    <TableRow>
+      {!hideEarring && (
+        <TableCell component="th" scope="row">
+          {event.earring}
+        </TableCell>
+      )}
+      <TableCell component="th" scope="row">
+        {event.event}
+      </TableCell>
+      <TableCell padding="none" align="right">
+        {event.formatDate}
+      </TableCell>
+      <TableCell padding="none" align="right">
+        {event.nextEvent.label}
+      </TableCell>
+      <TableCell padding="none" align="right">
+        {event.nextEvent.formatDate}
+      </TableCell>
+    </TableRow>
+  );
+};
