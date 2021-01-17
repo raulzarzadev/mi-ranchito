@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
@@ -33,11 +32,11 @@ const useStyles = makeStyles({
 function Row({ row, events }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const [eventsByEarring, setEventsByEarring] = useState([]);
-  useEffect(() => {
-    setEventsByEarring(events.filter((event) => event.earring === row.earring));
-  }, [events]);
-  console.log(events[0].earring);
+
+  const eventByEarring = events.filter(
+    (event) => event.earring === row.earring
+  );
+
   return (
     <React.Fragment>
       <TableRow>
@@ -80,8 +79,8 @@ function Row({ row, events }) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <EventTable
-                events={eventsByEarring}
-                title="Historai por Arete"
+                events={eventByEarring}
+                //title="Historai por Arete"
                 hideEarring
               />
             </Box>
@@ -116,7 +115,7 @@ export default function EerringTable({ earrings, events }) {
   return (
     <div style={{ width: 300, margin: "0 auto" }}>
       <TableContainer component={Paper}>
-        <h4>Aretes Registrados</h4>
+        <h3>Aretes Registrados</h3>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>

@@ -34,67 +34,67 @@ export const EARRINGS = [
 export const EVENTS = [
   {
     earring: "001",
-    event: "parto",
+    type: "parto",
     date: "2019-05-12",
   },
   {
     earring: "002",
-    event: "servicio",
+    type: "servicio",
     date: "2019-12-15",
   },
   {
     earring: "003",
-    event: "parto",
+    type: "parto",
     date: "2020-12-01",
   },
   {
     earring: "003",
-    event: "celo",
+    type: "celo",
     date: "2018-12-25",
   },
   {
     earring: "006",
-    event: "servicio",
+    type: "servicio",
     date: "2019-07-25",
   },
   {
     earring: "004",
-    event: "servicio",
+    type: "servicio",
     date: "2020-12-30",
   },
   {
     earring: "004",
-    event: "parto",
+    type: "parto",
     date: "2018-12-17",
   },
   {
     earring: "004",
-    event: "servicio",
+    type: "servicio",
     date: "2020-11-15",
   },
   {
     earring: "004",
-    event: "celo",
+    type: "celo",
     date: "2020-12-30",
   },
   {
     earring: "005",
-    event: "celo",
+    type: "celo",
     date: "2021-01-12",
   },
   {
     earring: "005",
-    event: "servicio",
+    type: "servicio",
     date: "2019-10-09",
   },
   {
     earring: "006",
-    event: "servicio",
+    type: "servicio",
     date: "2020-03-05",
   },
   {
     earring: "006",
-    event: "parto",
+    type: "parto",
     date: "2021-01-15",
   },
 ];

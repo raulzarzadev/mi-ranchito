@@ -7,8 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { TableSortLabel, Typography } from "@material-ui/core";
-import { formatEvent } from "../../utils";
+import { Typography } from "@material-ui/core";
 import SelectedTitle from "../SelectedTitle";
 
 const useStyles = makeStyles({
@@ -59,6 +58,10 @@ export default function EventTable({ title, events, hideEarring }) {
       });
     }
   };
+
+  console.log(events);
+
+  if (events.length === 0) return <h5>Esta vaca aun no tiene eventos</h5>;
 
   return (
     <TableContainer component={Paper}>
@@ -119,20 +122,20 @@ const EventRow = ({ event, hideEarring }) => {
   return (
     <TableRow>
       {!hideEarring && (
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" align="center" padding="none">
           {event.earring}
         </TableCell>
       )}
-      <TableCell component="th" scope="row">
-        {event.event}
+      <TableCell padding="none" component="th" scope="row" align="center">
+        {event.label}
       </TableCell>
       <TableCell padding="none" align="right">
         {event.formatDate}
       </TableCell>
-      <TableCell padding="none" align="right">
+      <TableCell padding="default" align="center">
         {event.nextEvent.label}
       </TableCell>
-      <TableCell padding="none" align="right">
+      <TableCell padding="none" align="left">
         {event.nextEvent.formatDate}
       </TableCell>
     </TableRow>

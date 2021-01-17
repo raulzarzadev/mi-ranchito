@@ -6,6 +6,7 @@ export default function NewEventForm({
   handleSubmit,
   form,
   earrings,
+  eventsLabels,
 }) {
   return (
     <div>
@@ -26,7 +27,7 @@ export default function NewEventForm({
                   Arete No.
                 </option>
                 {earrings.map((earring, i) => (
-                  <option key={i} value={earring.number}>
+                  <option key={i} value={earring.earring}>
                     {earring.earring} {earring?.nickName}
                   </option>
                 ))}
@@ -42,9 +43,9 @@ export default function NewEventForm({
                 <option value="des" disabled selected>
                   Evento
                 </option>
-                <option value="parto">parto</option>
-                <option value="servicio">servicio</option>
-                <option value="celo">celo</option>
+                {eventsLabels.map((event) => (
+                  <option value={event.type}>{event.label}</option>
+                ))}
               </select>
             </div>
             <div className={styles.event_form__input}>

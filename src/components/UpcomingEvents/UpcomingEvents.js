@@ -1,10 +1,7 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { getToday } from "../../utils";
-import EventRow from "../EventRow";
+import React, { useState } from "react";
 import EventTable from "../EventTable";
 import SelectedTitle from "../SelectedTitle";
-import styles from "./styles.module.css";
 
 export default function UpcomingEvents({ events }) {
   const [range, setRange] = useState("week");
@@ -13,7 +10,6 @@ export default function UpcomingEvents({ events }) {
       event.nextEvent.date > moment().subtract(1, "week") &&
       event.nextEvent.date < moment().add(2, range)
   );
-  console.log(upcomingEvents);
 
   const handleChangeRange = (range) => {
     setRange(range);
@@ -27,7 +23,7 @@ export default function UpcomingEvents({ events }) {
     <>
       {upcomingEvents.length === 0 ? (
         <>
-          <h5>No hay eventos proximos</h5>
+          <h3>No hay eventos proximos</h3>
         </>
       ) : (
         <>

@@ -5,7 +5,7 @@ export default function EventsHistory({ events }) {
   return (
     <>
       {events.length === 0 ? (
-        <h5>No hay eventos aún</h5>
+        <h3>No hay eventos aún</h3>
       ) : (
         <EventTable title="Historial" events={events} />
       )}
