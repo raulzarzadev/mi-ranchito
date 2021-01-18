@@ -37,6 +37,8 @@ function Row({ row, events }) {
     (event) => event.earring === row.earring
   );
 
+  const lastEvent = events.filter((event) => event.earring === row.earring && event.date);
+  console.log(lastEvent);
   return (
     <React.Fragment>
       <TableRow>
@@ -113,7 +115,7 @@ export default function EerringTable({ earrings, events }) {
   };
 
   return (
-    <div style={{ width: 300, margin: "0 auto" }}>
+    <div style={{ margin: "0 auto" }}>
       <TableContainer component={Paper}>
         <h3>Aretes Registrados</h3>
         <Table aria-label="collapsible table">

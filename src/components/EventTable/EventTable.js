@@ -22,9 +22,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function EventTable({ title, events, hideEarring }) {
+export default function EventTable({
+  title,
+  events,
+  hideEarring,
+  upcomingEvents,
+}) {
   const classes = useStyles();
-  const [sortBy, setSortBy] = useState("date");
+  const [sortBy, setSortBy] = useState(upcomingEvents ? "next-date" : "date");
+
   const handleSortBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`);
@@ -42,15 +48,14 @@ export default function EventTable({ title, events, hideEarring }) {
   };
 
   const handleSortBySub = (title) => {
-    if (title === sortBy) {
-      setSortBy(`${title}-reverse`);
-
+    if (`next-${title}` === sortBy) {
+      setSortBy(`next-${title}-reverse`);
       events.sort((a, b) => {
         if (a.nextEvent[title] < b.nextEvent[title]) return 1;
         if (a.nextEvent[title] > b.nextEvent[title]) return -1;
       });
     } else {
-      setSortBy(`${title}`);
+      setSortBy(`next-${title}`);
 
       events.sort((a, b) => {
         if (a.nextEvent[title] > b.nextEvent[title]) return 1;
@@ -59,6 +64,7 @@ export default function EventTable({ title, events, hideEarring }) {
     }
   };
 
+  console.log(sortBy);
   console.log(events);
 
   if (events.length === 0) return <h5>Esta vaca aun no tiene eventos</h5>;
@@ -80,8 +86,8 @@ export default function EventTable({ title, events, hideEarring }) {
             )}
             <TableCell className={classes.cell}>
               <SelectedTitle
-                onClick={() => handleSortBy("event")}
-                selected={sortBy === "event"}
+                onClick={() => handleSortBy("label")}
+                selected={sortBy === "label"}
                 title="Evento"
               />
             </TableCell>
@@ -95,14 +101,14 @@ export default function EventTable({ title, events, hideEarring }) {
             <TableCell className={classes.cell} align="right">
               <SelectedTitle
                 onClick={() => handleSortBySub("label")}
-                selected={sortBy === "label"}
+                selected={sortBy === "next-label"}
                 title="Revisar"
               />
             </TableCell>
             <TableCell className={classes.cell} align="right">
               <SelectedTitle
                 onClick={() => handleSortBySub("date")}
-                selected={sortBy === "date"}
+                selected={sortBy === "next-date"}
                 title="Fecha"
               />
             </TableCell>

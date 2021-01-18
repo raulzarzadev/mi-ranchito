@@ -1,39 +1,65 @@
 import moment from "moment";
 
-export function formatEvent(event) {
-  const eventFormatDate = moment(event.date).add(12, "hours").format("WW YY");
-  const eventDate = new Date(event.date);
+
+export const formatEvent = (event = {}, labels = {}) => {
   let nextCheck;
   let nextEvent;
+
   switch (event.event) {
     case "parto":
-      nextEvent = "Secado";
-      nextCheck = moment(event.date).add(12, "hours").add(7, "months");
+      nextEvent = "celo";
+      nextCheck = moment(event.date).add(12, "hours").add(70, "d");
       break;
     case "celo":
-      nextEvent = "Celo";
+      nextEvent = "celo";
       nextCheck = moment(event.date).add(12, "hours").add(21, "d");
       break;
-    case "servicio":
-      nextEvent = "Preña";
+    case "monta":
+      nextEvent = "gesta";
+      nextCheck = moment(event.date).add(12, "hours").add(80, "d");
+      break;
+    case "insem":
+      nextEvent = "gesta";
+      nextCheck = moment(event.date).add(12, "hours").add(80, "d");
+      break;
+    case "gestaFail":
+      nextEvent = "celo";
       nextCheck = moment(event.date).add(12, "hours").add(21, "d");
       break;
+    case "gestaSuccess":
+      nextEvent = "secado";
+      nextCheck = moment(event.date).add(12, "hours").add(140, "d");
+      break;
+    case "secado":
+      nextEvent = "parto";
+      nextCheck = moment(event.date).add(12, "hours").add(90, "d");
     default:
       break;
   }
+
+  const eventFormatDate = moment(event.date)
+    .add(12, "hours")
+    .format("DD MMMM")
+    .slice(0, 6);
+  const nextEventFormatDate = nextCheck?.format("DD MMMM").slice(0, 6);
+  const eventDate = new Date(event.date);
+  const nextEventDate = new Date(nextCheck);
+
   const formatedEvent = {
     earring: event.earring,
-    event: event.event,
+    type: event.event,
+    label: labels[event.event],
     date: eventDate,
     formatDate: eventFormatDate,
     nextEvent: {
-      date: new Date(nextCheck),
-      label: nextEvent,
-      formatDate: nextCheck?.format("WW-YY"),
+      type: nextEvent,
+      date: nextEventDate,
+      label: labels[nextEvent],
+      formatDate: nextEventFormatDate,
     },
   };
   return formatedEvent;
-}
+};
 
 export function getToday() {
   var date = new Date();

@@ -98,3 +98,25 @@ export const EVENTS = [
     date: "2021-01-15",
   },
 ];
+
+export const EVENTS_LABEL = {
+  parto: "Parto",
+  celo: "Celo",
+  monta: "Monta",
+  insem: "Inseminación",
+  gesta: "Gestación",
+  gestaFail: "G.Fallida",
+  gestaSuccess: "G.Exitosa",
+  secado: "Secado",
+};
+
+export const ALL_EVENTS = [
+  { type: "parto", label: "Parto" },
+  { type: "celo", label: "Celo" },
+  { type: "monta", label: "Monta" },
+  { type: "insem", label: "Insem" },
+  //{ type: "gesta", label: "Gestación" },
+  { type: "gestaFail", label: "G.Fallida" },
+  { type: "gestaSuccess", label: "G.Exitosa" },
+  { type: "secado", label: "Secado" },
+];

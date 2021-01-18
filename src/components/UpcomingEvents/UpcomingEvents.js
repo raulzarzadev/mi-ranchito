@@ -42,7 +42,7 @@ export default function UpcomingEvents({ events }) {
           <EventTable
             title="Proximos..."
             events={upcomingEvents}
-            sortByNextEvent
+            upcomingEvents
           />
         </>
       )}

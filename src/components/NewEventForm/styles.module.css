@@ -11,8 +11,6 @@
 }
 
 .event_form__input {
-
-    justify-content: center;
-    display: flex;
     margin: 8px;
+    text-align: right;
 }
