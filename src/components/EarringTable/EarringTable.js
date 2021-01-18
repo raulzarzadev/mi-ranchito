@@ -37,12 +37,15 @@ function Row({ row, events }) {
     (event) => event.earring === row.earring
   );
 
-  const lastEvent = events.filter((event) => event.earring === row.earring && event.date);
-  console.log(lastEvent);
+  const lastEvent = eventByEarring.sort((a, b) => {
+    if (a.date < b.date) return 1;
+    if (a.date > b.date) return -1;
+  });
+
   return (
     <React.Fragment>
       <TableRow>
-        <TableCell padding="none">
+        <TableCell padding="none" style={{ width: 30 }}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -68,7 +71,7 @@ function Row({ row, events }) {
           {/* TODO cambiar por moment y mostrar edad */}
         </TableCell>
         <TableCell className={classes.cell} padding="none" align="right">
-          {row.lastEvent || "pendiente"}
+          {lastEvent[0]?.label || "-"}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -121,14 +124,23 @@ export default function EerringTable({ earrings, events }) {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell className={classes.cell} padding="none" />
+              <tr></tr>
               <TableCell
                 className={classes.cell}
                 padding="none"
                 onClick={() => handleSortRowsBy("earring")}
                 style={{ fontWeight: sortBy === "earring" ? 800 : 500 }}
               >
-                Arete (nombre)
+                Arete{" "}
+                <span
+                  style={{
+                    fontWeight: 500,
+                    fontStyle: "italic",
+                    fontSize: ".75rem",
+                  }}
+                >
+                  (nombre)
+                </span>
               </TableCell>
               <TableCell
                 className={classes.cell}

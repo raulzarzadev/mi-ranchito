@@ -54,8 +54,8 @@ export default function Dashboard() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         eventsAvaiblable={eventsAvaiblable}
-        form={form}
         earrings={earringsData}
+        form={form}
       />
       <UpcomingEvents events={formatedEvents} />
       <EventsHistory events={formatedEvents} />
