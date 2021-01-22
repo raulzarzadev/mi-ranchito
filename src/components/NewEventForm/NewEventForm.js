@@ -37,8 +37,9 @@ export default function NewEventForm({
                     onChange={handleChange}
                     name="earring"
                     id="select-animal"
+                    defaultValue=""
                   >
-                    <option value="des" disabled selected>
+                    <option value="" disabled>
                       Arete No.
                     </option>
                     {earrings.map((earring, i) => (
@@ -56,11 +57,11 @@ export default function NewEventForm({
                     style={{ width: 150 }}
                     onChange={handleChange}
                     name="event"
-                    value=""
+                    defaultValue=""
                     id="select-animal"
                     placeholder="Selecciona una vaca"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Evento
                     </option>
                     {eventsAvaiblable.map((event, i) => (
