@@ -1,0 +1,23 @@
+.demo {
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+}
+
+.demo_tab {
+    border: 3px solid;
+    padding: 0 4px;
+}
+
+.demo_tab:hover {
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+
+.demo_display {
+    border: 1px solid;
+    max-width: 300px;
+    margin: 16px auto;
+}

@@ -7,7 +7,6 @@ export default function Layout({ children }) {
   return (
     <div className={styles.body}>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -18,12 +17,12 @@ export default function Layout({ children }) {
         <nav className={styles.nav}>
           <Link href="/">
             <div className={styles.nav_link}>
-              <a>Inicio</a>
+              <a>Ingresa</a>
             </div>
           </Link>
-          <Link href="/dashboard">
+          <Link href="/demo">
             <div className={styles.nav_link}>
-              <a>Vacas</a>
+              <a>Demo</a>
             </div>
           </Link>
         </nav>

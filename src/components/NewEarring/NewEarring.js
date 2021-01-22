@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import moment from "moment";
 import styles from "./styles.module.css";
 
-export default function NewEarring() {
+export default function NewEarring({ handleAddEarring }) {
   const [newEarring, setNewEarring] = useState({
     birth: moment().format("YYYY-MM-DD"),
   });
   const handleChange = (e) => {
+    e.preventDefault();
     setNewEarring({ ...newEarring, [e.target.name]: e.target.value });
   };
   const handleSubmit = (form) => {
-    console.log(form);
+    handleAddEarring(form);
   };
   return (
     <form
@@ -50,7 +51,7 @@ export default function NewEarring() {
           </div>
           <div className={styles.item}>
             <span>
-              Nacimiento:{" "}
+              Nacimiento:
               <input
                 style={{ width: "150px" }}
                 type="date"

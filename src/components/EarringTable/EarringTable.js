@@ -54,29 +54,23 @@ function Row({ row, events }) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell
-          className={classes.cell}
-          padding="none"
-          component="th"
-          scope="row"
-        >
+        <TableCell padding="none" component="th" scope="row">
           <div style={{ maxWidth: 80 }}>
             <Typography noWrap>
               {row.earring} {row.nickName}
             </Typography>
           </div>
         </TableCell>
-        <TableCell className={classes.cell} padding="none" align="right">
+        <TableCell padding="none" align="right">
           {row.birth}
           {/* TODO cambiar por moment y mostrar edad */}
         </TableCell>
-        <TableCell className={classes.cell} padding="none" align="right">
+        <TableCell padding="none" align="right">
           {lastEvent[0]?.label || "-"}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
-          className={classes.cell}
           padding="none"
           style={{ paddingBottom: 0, paddingTop: 0 }}
           colSpan={6}
@@ -124,9 +118,8 @@ export default function EerringTable({ earrings, events }) {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <tr></tr>
+              <td></td>
               <TableCell
-                className={classes.cell}
                 padding="none"
                 onClick={() => handleSortRowsBy("earring")}
                 style={{ fontWeight: sortBy === "earring" ? 800 : 500 }}
@@ -143,7 +136,6 @@ export default function EerringTable({ earrings, events }) {
                 </span>
               </TableCell>
               <TableCell
-                className={classes.cell}
                 padding="none"
                 align="center"
                 onClick={() => handleSortRowsBy("birth")}
@@ -152,7 +144,6 @@ export default function EerringTable({ earrings, events }) {
                 Edad
               </TableCell>
               <TableCell
-                className={classes.cell}
                 padding="none"
                 align="center"
                 onClick={() => handleSortRowsBy("lastEvent")}

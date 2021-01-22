@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { getToday } from "../../utils";
 import styles from "./styles.module.css";
 
 export default function NewEventForm({
-  handleChange,
-  handleSubmit,
-  form,
-  earrings,
-  eventsAvaiblable,
+  handleSubmit = () => console.log("submit"),
+  earrings = [],
+  eventsAvaiblable = [],
 }) {
+  const [form, setForm] = useState({
+    date: getToday(),
+    earring: "",
+    event: "",
+  });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   return (
     <div>
       <div>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit(e);
+            handleSubmit(form);
           }}
         >
           <div>
@@ -49,14 +56,17 @@ export default function NewEventForm({
                     style={{ width: 150 }}
                     onChange={handleChange}
                     name="event"
+                    value=""
                     id="select-animal"
                     placeholder="Selecciona una vaca"
                   >
-                    <option value="des" disabled selected>
+                    <option value="" disabled selected>
                       Evento
                     </option>
-                    {eventsAvaiblable.map((event) => (
-                      <option value={event.type}>{event.label}</option>
+                    {eventsAvaiblable.map((event, i) => (
+                      <option key={i} value={event.type}>
+                        {event.label}
+                      </option>
                     ))}
                   </select>
                 </span>

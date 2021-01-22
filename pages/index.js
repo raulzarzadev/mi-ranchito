@@ -16,7 +16,7 @@ export default function Home() {
         Administra mejor e incrementa tus ganacias
       </p>
       <div className={styles.actions}>
-        <ButtonLink href="/dashboard" label="Vacas lecheras" />
+        <ButtonLink href="/demo" label="Demo Vacas lecheras" />
       </div>
     </>
   );
