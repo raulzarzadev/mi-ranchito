@@ -13,8 +13,17 @@ export default function NewEventForm({
     event: "",
   });
   const handleChange = (e) => {
+    setLabelButton("Guardar Evento");
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const [labelButton, setLabelButton] = useState("Guardar Evento");
+  const handleChangeButton = (label) => {
+    setLabelButton(label);
+    setForm({ date: getToday() });
+  };
+
+  let valid = !!!form.earring || !!!form.event || labelButton === "Guardado";
+
   return (
     <div>
       <div>
@@ -22,6 +31,7 @@ export default function NewEventForm({
           onSubmit={(e) => {
             e.preventDefault();
             handleSubmit(form);
+            handleChangeButton("Guardado");
           }}
         >
           <div>
@@ -38,6 +48,7 @@ export default function NewEventForm({
                     name="earring"
                     id="select-animal"
                     defaultValue=""
+                    value={form?.earring || ""}
                   >
                     <option value="" disabled>
                       Arete No.
@@ -56,6 +67,7 @@ export default function NewEventForm({
                   <select
                     style={{ width: 150 }}
                     onChange={handleChange}
+                    value={form?.event || ""}
                     name="event"
                     defaultValue=""
                     id="select-animal"
@@ -86,7 +98,9 @@ export default function NewEventForm({
                 </span>
               </div>
               <div className={styles.event_form__input}>
-                <button type="submit">Guardar Evento</button>
+                <button type="submit" disabled={valid}>
+                  {labelButton}
+                </button>
               </div>
             </div>
           </div>

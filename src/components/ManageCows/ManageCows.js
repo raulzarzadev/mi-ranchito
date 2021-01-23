@@ -26,6 +26,26 @@ export default function ManageCows() {
 
   const handleChangeTab = (tab) => {
     setTabSelected(tab);
+    switch (tab) {
+      case "PROX":
+        setTitle("Proximamente");
+        break;
+      case "COW":
+        setTitle("Nueva Vaca");
+        break;
+      case "EVENT":
+        setTitle("Nueva Evento");
+        break;
+      case "HIST":
+        setTitle("Eventos");
+        break;
+      case "ALL":
+        setTitle("Vacas");
+        break;
+
+      default:
+        break;
+    }
   };
 
   const handleAddEarring = (newEarring) => {
@@ -34,6 +54,8 @@ export default function ManageCows() {
   const handleAddEvent = (newEvent) => {
     setEvents([...events, newEvent]);
   };
+
+  const [title, setTitle] = useState("Proximamente");
 
   return (
     <div>
@@ -86,12 +108,16 @@ export default function ManageCows() {
             <h4>Vacas</h4>
           </div>
         </div>
+        <h3>{title}</h3>
 
         <div
           className={styles.demo_display}
           style={{ display: tabSelected === "COW" ? "block" : "none" }}
         >
-          <NewEarring handleAddEarring={handleAddEarring} />
+          <NewEarring
+            earrings={earringsData}
+            handleAddEarring={handleAddEarring}
+          />
         </div>
         <div
           className={styles.demo_display}

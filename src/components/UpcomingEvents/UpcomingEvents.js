@@ -21,24 +21,24 @@ export default function UpcomingEvents({ events }) {
   };
   return (
     <>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <SelectedTitle
+          onClick={() => handleChangeRange("month")}
+          selected={range === "month"}
+          title="2 meses"
+        />
+        <SelectedTitle
+          onClick={() => handleChangeRange("week")}
+          selected={range === "week"}
+          title="2 semanas"
+        />
+      </div>
       {upcomingEvents.length === 0 ? (
         <>
           <h3>No hay eventos proximos</h3>
         </>
       ) : (
         <>
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <SelectedTitle
-              onClick={() => handleChangeRange("month")}
-              selected={range === "month"}
-              title="2 meses"
-            />
-            <SelectedTitle
-              onClick={() => handleChangeRange("week")}
-              selected={range === "week"}
-              title="2 semanas"
-            />
-          </div>
           <EventTable
             title="Proximos..."
             events={upcomingEvents}

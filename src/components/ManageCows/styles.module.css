@@ -9,6 +9,7 @@
 .demo_tab {
     border: 3px solid;
     padding: 0 4px;
+    display: none;
 }
 
 .demo_tab_selected {
@@ -24,6 +25,12 @@
 
 .demo_display {
     border: 1px solid;
-    max-width: 300px;
+    width: 300px;
     margin: 16px auto;
+}
+
+@media (min-width: 600px) {
+    .demo_display {
+        width: 500px;
+    }
 }
