@@ -23,14 +23,14 @@ export default function UpcomingEvents({ events }) {
     <>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <SelectedTitle
-          onClick={() => handleChangeRange("month")}
-          selected={range === "month"}
-          title="2 meses"
-        />
-        <SelectedTitle
           onClick={() => handleChangeRange("week")}
           selected={range === "week"}
           title="2 semanas"
+        />
+        <SelectedTitle
+          onClick={() => handleChangeRange("month")}
+          selected={range === "month"}
+          title="2 meses"
         />
       </div>
       {upcomingEvents.length === 0 ? (

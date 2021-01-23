@@ -1,8 +1,8 @@
-.demo {
+.demo_tabs {
     background-color: lightblue;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     min-height: 2.5rem;
 }
 
@@ -10,6 +10,7 @@
     border: 3px solid;
     padding: 0 4px;
     display: none;
+
 }
 
 .demo_tab_selected {
@@ -24,13 +25,20 @@
 }
 
 .demo_display {
-    border: 1px solid;
-    width: 300px;
+    width: auto;
     margin: 16px auto;
+    width: 300px;
+}
+
+.demo_display_form{
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid;
 }
 
 @media (min-width: 600px) {
     .demo_display {
         width: 500px;
+        
     }
 }

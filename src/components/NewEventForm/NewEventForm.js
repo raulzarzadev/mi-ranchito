@@ -36,9 +36,6 @@ export default function NewEventForm({
         >
           <div>
             <div>
-              <h3>Nuevo evento</h3>
-            </div>
-            <div>
               <div className={styles.event_form__input}>
                 <span>
                   Vaca:{" "}
@@ -47,7 +44,6 @@ export default function NewEventForm({
                     onChange={handleChange}
                     name="earring"
                     id="select-animal"
-                    defaultValue=""
                     value={form?.earring || ""}
                   >
                     <option value="" disabled>
@@ -69,7 +65,6 @@ export default function NewEventForm({
                     onChange={handleChange}
                     value={form?.event || ""}
                     name="event"
-                    defaultValue=""
                     id="select-animal"
                     placeholder="Selecciona una vaca"
                   >

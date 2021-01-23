@@ -60,7 +60,7 @@ export default function ManageCows() {
   return (
     <div>
       <div>
-        <div className={styles.demo}>
+        <div className={styles.demo_tabs}>
           <div
             className={
               tabSelected === "COW" ? styles.demo_tab : styles.demo_tab_selected
@@ -114,20 +114,24 @@ export default function ManageCows() {
           className={styles.demo_display}
           style={{ display: tabSelected === "COW" ? "block" : "none" }}
         >
-          <NewEarring
-            earrings={earringsData}
-            handleAddEarring={handleAddEarring}
-          />
+          <div className={styles.demo_display_form}>
+            <NewEarring
+              earrings={earringsData}
+              handleAddEarring={handleAddEarring}
+            />
+          </div>
         </div>
         <div
           className={styles.demo_display}
           style={{ display: tabSelected === "EVENT" ? "block" : "none" }}
         >
-          <NewEventForm
-            handleSubmit={handleAddEvent}
-            eventsAvaiblable={eventsAvaiblable}
-            earrings={earringsData}
-          />
+          <div className={styles.demo_display_form}>
+            <NewEventForm
+              handleSubmit={handleAddEvent}
+              eventsAvaiblable={eventsAvaiblable}
+              earrings={earringsData}
+            />
+          </div>
         </div>
         <div
           className={styles.demo_display}

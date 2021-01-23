@@ -6,7 +6,7 @@ export default function SelectedTitle({ title, selected, onClick }) {
     <div
       onClick={onClick}
       style={{ fontWeight: selected ? 700 : 400 }}
-      className={styles.selectedTitle}
+      className={styles.title}
     >
       {title}
     </div>

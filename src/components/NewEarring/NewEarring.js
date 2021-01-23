@@ -38,9 +38,6 @@ export default function NewEarring({ handleAddEarring, earrings }) {
     >
       <div>
         <div>
-          <h3>Nueva Vaca</h3>
-        </div>
-        <div>
           <div className={styles.item}>
             <span>
               No. de Arete:
