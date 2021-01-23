@@ -1,17 +1,17 @@
 export const EARRINGS = [
   {
     earring: "001",
-    nickName: "Pinta",
+    name: "Pinta",
     birth: "2020-12-15",
   },
   {
     earring: "002",
-    nickName: "Pinta",
+    name: "Pinta",
     birth: "2020-07-03",
   },
   {
     earring: "003",
-    nickName: "vaca",
+    name: "vaca",
     birth: "2019-03-20",
   },
 ];

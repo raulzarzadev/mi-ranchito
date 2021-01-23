@@ -50,7 +50,9 @@ export default function NewEarring({ handleAddEarring, earrings }) {
                 onChange={handleChange}
               ></input>
             </span>
-            <div>{alreadyExist && "Este arete ya está registrado"}</div>
+            <div>
+              <em>{alreadyExist && "Este arete ya está registrado"}</em>
+            </div>
           </div>
           <div className={styles.item}>
             <span>

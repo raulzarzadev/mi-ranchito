@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,24 +13,10 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import EventTable from "../EventTable";
-
-const useStyles = makeStyles({
-  root: {
-    "& > *": {
-      borderBottom: "unset",
-      padding: 4,
-    },
-  },
-  cell: {
-    width: 60,
-    padding: 0,
-    textAlign: "center",
-  },
-});
+import moment from "moment";
 
 function Row({ row, events }) {
   const [open, setOpen] = React.useState(false);
-  const classes = useStyles();
 
   const eventByEarring = events.filter(
     (event) => event.earring === row.earring
@@ -57,15 +42,15 @@ function Row({ row, events }) {
         <TableCell padding="none" component="th" scope="row">
           <div style={{ maxWidth: 80 }}>
             <Typography noWrap>
-              {row.earring} {row.nickName}
+              {row.earring} {row.name}
             </Typography>
           </div>
         </TableCell>
-        <TableCell padding="none" align="right">
-          {row.birth}
+        <TableCell padding="none" align="left">
+          {moment(row.birth).fromNow(true)}
           {/* TODO cambiar por moment y mostrar edad */}
         </TableCell>
-        <TableCell padding="none" align="right">
+        <TableCell padding="none" align="center" >
           {lastEvent[0]?.label || "-"}
         </TableCell>
       </TableRow>
@@ -91,7 +76,6 @@ function Row({ row, events }) {
 }
 
 export default function EerringTable({ earrings, events }) {
-  const classes = useStyles();
   const [sortBy, setSortBy] = useState("earring");
   const rows = earrings;
 
