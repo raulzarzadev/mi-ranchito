@@ -13,7 +13,8 @@ export default function Demo() {
       <em>
         Esta pestaña es solo de demostracón, los cambios <strong> NO </strong>
         se guardaran de forma permanete. <br />
-        Para reinciar los valores, recarga la página o preciona F5
+        Para reinciar los valores, recarga la página o presiona{" "}
+        <strong>F5</strong>
       </em>
       <ManageCows />
     </>
