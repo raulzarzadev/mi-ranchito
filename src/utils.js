@@ -32,6 +32,7 @@ export const formatEvent = (event = {}, labels = {}) => {
     case "secado":
       nextEvent = "parto";
       nextCheck = moment(event.date).add(12, "hours").add(90, "d");
+      break;
     default:
       break;
   }

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@cmps/*": ["src/components/*"],
+      "@raiz/*":["./*"]
+    }
+  }
+}

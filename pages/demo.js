@@ -1,7 +1,7 @@
-import Head from "next/head";
-import React from "react";
-import Layout from "../src/components/Layout";
-import ManageCows from "../src/components/ManageCows/ManageCows";
+import Head from 'next/head'
+import React from 'react'
+import Layout from 'src/components/Layout'
+import ManageCows from 'src/components/ManageCows/ManageCows'
 export default function Demo() {
   return (
     <>
@@ -16,7 +16,7 @@ export default function Demo() {
       </em>
       <ManageCows />
     </>
-  );
+  )
 }
 
-Demo.Layout = Layout;
+Demo.Layout = Layout
