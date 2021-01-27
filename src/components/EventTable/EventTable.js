@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
 import SelectedTitle from '@cmps/SelectedTitle'
 
-import styles from "./style.module.css"
+import styles from './style.module.css'
 
 export default function EventTable({
   title,
@@ -55,9 +55,6 @@ export default function EventTable({
       })
     }
   }
-
-  console.log(sortBy)
-  console.log(events)
 
   if (events.length === 0) return <h5>Esta vaca aun no tiene eventos</h5>
 

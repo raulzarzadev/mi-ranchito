@@ -43,4 +43,16 @@
 
 .nav_link {
   padding: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.nav_link:hover {
+  box-shadow: 1px 1px 1px #0004;
+}
+
+.nav_link:active{
+  background-color: #03f5;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }

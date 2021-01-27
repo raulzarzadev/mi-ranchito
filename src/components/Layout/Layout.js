@@ -15,8 +15,13 @@ export default function Layout({ children }) {
           <h4>miranchito.digital</h4>
         </div>
         <nav className={styles.nav}>
-          <Link href="/">
-            <div className={styles.nav_link}>
+        <Link href="/">
+            <div className={styles.nav_link} >
+              <a>H</a>
+            </div>
+          </Link>
+          <Link href="/signin">
+            <div className={styles.nav_link} >
               <a>Ingresa</a>
             </div>
           </Link>
