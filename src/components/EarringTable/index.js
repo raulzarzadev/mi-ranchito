@@ -1,1 +1,1 @@
-export { default } from './EarringTable'
+export { default } from "./EarringTable";

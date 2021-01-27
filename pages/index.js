@@ -19,7 +19,6 @@ export default function Home() {
         <ButtonLink href="/demo" label="Demo Vacas lecheras" />
       </div>
     </>
-    
   );
 }
 

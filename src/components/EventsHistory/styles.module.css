@@ -1,8 +1,7 @@
-
 .columnsTitles {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    margin-bottom: 8px;
-    font-weight: 600;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-bottom: 8px;
+  font-weight: 600;
 }

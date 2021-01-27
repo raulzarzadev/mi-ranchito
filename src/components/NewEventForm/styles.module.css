@@ -1,16 +1,15 @@
 .event_form {
-    border: 1px solid;
-    display: block;
-
+  border: 1px solid;
+  display: block;
 }
 
 @media (min-width: 600px) {
-    .event_form {
-        display: flex;
-    }
+  .event_form {
+    display: flex;
+  }
 }
 
 .event_form__input {
-    margin: 8px;
-    text-align: right;
+  margin: 8px;
+  text-align: right;
 }

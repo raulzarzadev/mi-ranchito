@@ -1,44 +1,42 @@
 .demo_tabs {
-    background-color: lightblue;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    min-height: 2.5rem;
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 2.5rem;
 }
 
 .demo_tab {
-    border: 3px solid;
-    padding: 0 4px;
-    display: none;
-
+  border: 3px solid;
+  padding: 0 4px;
+  display: none;
 }
 
 .demo_tab_selected {
-    border: 3px solid transparent;
-    padding: 0 4px;
-    cursor: pointer;
+  border: 3px solid transparent;
+  padding: 0 4px;
+  cursor: pointer;
 }
 
 .demo_tab:hover {
-    border: 3px solid;
-    cursor: pointer;
+  border: 3px solid;
+  cursor: pointer;
 }
 
 .demo_display {
-    width: auto;
-    margin: 16px auto;
-    width: 300px;
+  width: auto;
+  margin: 16px auto;
+  width: 300px;
 }
 
-.demo_display_form{
-    width: 300px;
-    margin: 0 auto;
-    border: 1px solid;
+.demo_display_form {
+  width: 300px;
+  margin: 0 auto;
+  border: 1px solid;
 }
 
 @media (min-width: 600px) {
-    .demo_display {
-        width: 500px;
-        
-    }
+  .demo_display {
+    width: 500px;
+  }
 }

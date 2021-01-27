@@ -1,50 +1,50 @@
-import React, { useState } from 'react'
-import { getToday } from '../../utils'
-import styles from './styles.module.css'
+import React, { useState } from "react";
+import { getToday } from "../../utils";
+import styles from "./styles.module.css";
 
-export default function NewEventForm ({
-  handleSubmit = () => console.log('submit'),
+export default function NewEventForm({
+  handleSubmit = () => console.log("submit"),
   earrings = [],
-  eventsAvaiblable = []
+  eventsAvaiblable = [],
 }) {
   const [form, setForm] = useState({
     date: getToday(),
-    earring: '',
-    event: ''
-  })
+    earring: "",
+    event: "",
+  });
   const handleChange = (e) => {
-    setLabelButton('Guardar Evento')
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-  const [labelButton, setLabelButton] = useState('Guardar Evento')
+    setLabelButton("Guardar Evento");
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const [labelButton, setLabelButton] = useState("Guardar Evento");
   const handleChangeButton = (label) => {
-    setLabelButton(label)
-    setForm({ date: getToday() })
-  }
+    setLabelButton(label);
+    setForm({ date: getToday() });
+  };
 
-  const valid = !form.earring || !form.event || labelButton === 'Guardado'
+  const valid = !form.earring || !form.event || labelButton === "Guardado";
 
   return (
     <div>
       <div>
         <form
           onSubmit={(e) => {
-            e.preventDefault()
-            handleSubmit(form)
-            handleChangeButton('Guardado')
+            e.preventDefault();
+            handleSubmit(form);
+            handleChangeButton("Guardado");
           }}
         >
           <div>
             <div>
               <div className={styles.event_form__input}>
                 <span>
-                  Vaca:{' '}
+                  Vaca:{" "}
                   <select
                     style={{ width: 150 }}
                     onChange={handleChange}
                     name="earring"
                     id="select-animal"
-                    value={form?.earring || ''}
+                    value={form?.earring || ""}
                   >
                     <option value="" disabled>
                       Arete No.
@@ -59,11 +59,11 @@ export default function NewEventForm ({
               </div>
               <div className={styles.event_form__input}>
                 <span>
-                  Evento:{' '}
+                  Evento:{" "}
                   <select
                     style={{ width: 150 }}
                     onChange={handleChange}
-                    value={form?.event || ''}
+                    value={form?.event || ""}
                     name="event"
                     id="select-animal"
                     placeholder="Selecciona una vaca"
@@ -81,7 +81,7 @@ export default function NewEventForm ({
               </div>
               <div className={styles.event_form__input}>
                 <span>
-                  Fecha:{' '}
+                  Fecha:{" "}
                   <input
                     style={{ width: 150 }}
                     onChange={handleChange}
@@ -102,5 +102,5 @@ export default function NewEventForm ({
         </form>
       </div>
     </div>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from './styles.module.css'
+import React from "react";
+import styles from "./styles.module.css";
 
-export default function SelectedTitle ({ title, selected, onClick }) {
+export default function SelectedTitle({ title, selected, onClick }) {
   return (
     <div
       onClick={onClick}
@@ -10,5 +10,5 @@ export default function SelectedTitle ({ title, selected, onClick }) {
     >
       {title}
     </div>
-  )
+  );
 }

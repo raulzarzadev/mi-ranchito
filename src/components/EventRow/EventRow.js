@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from './styles.module.css'
+import React from "react";
+import styles from "./styles.module.css";
 
-export default function EventRow ({ event }) {
+export default function EventRow({ event }) {
   return (
     <div className={styles.row}>
       <div className={styles.cell}>{event.earring}</div>
@@ -10,5 +10,5 @@ export default function EventRow ({ event }) {
       <div className={styles.cell}>{event.nextEvent?.label}</div>
       <div className={styles.cell}>{event.nextEvent?.formatDate}</div>
     </div>
-  )
+  );
 }
