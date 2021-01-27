@@ -1,61 +1,61 @@
-import React, { useEffect, useState } from "react";
-import { formatEvent } from "../../utils";
-import EarringTable from "../EarringTable";
-import EventsHistory from "../EventsHistory";
-import NewEarring from "../NewEarring";
-import NewEventForm from "../NewEventForm";
-import UpcomingEvents from "../UpcomingEvents";
-import { ALL_EVENTS, EARRINGS, EVENTS_LABEL } from "../HARD_DATA";
-import styles from "./styles.module.css";
+import React, { useEffect, useState } from 'react'
+import { formatEvent } from '../../utils'
+import EarringTable from '../EarringTable'
+import EventsHistory from '../EventsHistory'
+import NewEarring from '../NewEarring'
+import NewEventForm from '../NewEventForm'
+import UpcomingEvents from '../UpcomingEvents'
+import { ALL_EVENTS, EARRINGS, EVENTS_LABEL } from '../HARD_DATA'
+import styles from './styles.module.css'
 
-export default function ManageCows() {
-  const eventsAvaiblable = ALL_EVENTS;
-  const eventLabels = EVENTS_LABEL;
-  const [earringsData, setEarringsData] = useState(EARRINGS);
-  const [events, setEvents] = useState([]);
+export default function ManageCows () {
+  const eventsAvaiblable = ALL_EVENTS
+  const eventLabels = EVENTS_LABEL
+  const [earringsData, setEarringsData] = useState(EARRINGS)
+  const [events, setEvents] = useState([])
 
   const [formatedEvents, setFormatedEvents] = useState(
     events.map((event) => formatEvent(event))
-  );
+  )
 
-  const [tabSelected, setTabSelected] = useState("PROX");
+  const [tabSelected, setTabSelected] = useState('PROX')
 
   useEffect(() => {
-    setFormatedEvents(events.map((event) => formatEvent(event, eventLabels)));
-  }, [events]);
+    setFormatedEvents(events.map((event) => formatEvent(event, eventLabels)))
+  }, [events])
 
   const handleChangeTab = (tab) => {
-    setTabSelected(tab);
+    setTabSelected(tab)
     switch (tab) {
-      case "PROX":
-        setTitle("Proximamente");
-        break;
-      case "COW":
-        setTitle("Nueva Vaca");
-        break;
-      case "EVENT":
-        setTitle("Nueva Evento");
-        break;
-      case "HIST":
-        setTitle("Eventos");
-        break;
-      case "ALL":
-        setTitle("Vacas");
-        break;
+      case 'PROX':
+        setTitle('Proximamente')
+        break
+      case 'COW':
+        setTitle('Nueva Vaca')
+        break
+      case 'EVENT':
+        setTitle('Nueva Evento')
+        break
+      case 'HIST':
+        setTitle('Eventos')
+        break
+      case 'ALL':
+        setTitle('Vacas')
+        break
 
       default:
-        break;
+        break
     }
-  };
+  }
 
   const handleAddEarring = (newEarring) => {
-    setEarringsData([...earringsData, newEarring]);
-  };
+    setEarringsData([...earringsData, newEarring])
+  }
   const handleAddEvent = (newEvent) => {
-    setEvents([...events, newEvent]);
-  };
+    setEvents([...events, newEvent])
+  }
 
-  const [title, setTitle] = useState("Proximamente");
+  const [title, setTitle] = useState('Proximamente')
 
   return (
     <div>
@@ -63,47 +63,47 @@ export default function ManageCows() {
         <div className={styles.demo_tabs}>
           <div
             className={
-              tabSelected === "COW" ? styles.demo_tab : styles.demo_tab_selected
+              tabSelected === 'COW' ? styles.demo_tab : styles.demo_tab_selected
             }
-            onClick={() => handleChangeTab("COW")}
+            onClick={() => handleChangeTab('COW')}
           >
             <h4>Nueva Vaca</h4>
           </div>
           <div
             className={
-              tabSelected === "EVENT"
+              tabSelected === 'EVENT'
                 ? styles.demo_tab
                 : styles.demo_tab_selected
             }
-            onClick={() => handleChangeTab("EVENT")}
+            onClick={() => handleChangeTab('EVENT')}
           >
             <h4>Nuevo evento</h4>
           </div>
           <div
             className={
-              tabSelected === "PROX"
+              tabSelected === 'PROX'
                 ? styles.demo_tab
                 : styles.demo_tab_selected
             }
-            onClick={() => handleChangeTab("PROX")}
+            onClick={() => handleChangeTab('PROX')}
           >
             <h4>Proximamente</h4>
           </div>
           <div
             className={
-              tabSelected === "HIST"
+              tabSelected === 'HIST'
                 ? styles.demo_tab
                 : styles.demo_tab_selected
             }
-            onClick={() => handleChangeTab("HIST")}
+            onClick={() => handleChangeTab('HIST')}
           >
             <h4>Eventos</h4>
           </div>
           <div
             className={
-              tabSelected === "ALL" ? styles.demo_tab : styles.demo_tab_selected
+              tabSelected === 'ALL' ? styles.demo_tab : styles.demo_tab_selected
             }
-            onClick={() => handleChangeTab("ALL")}
+            onClick={() => handleChangeTab('ALL')}
           >
             <h4>Vacas</h4>
           </div>
@@ -112,7 +112,7 @@ export default function ManageCows() {
 
         <div
           className={styles.demo_display}
-          style={{ display: tabSelected === "COW" ? "block" : "none" }}
+          style={{ display: tabSelected === 'COW' ? 'block' : 'none' }}
         >
           <div className={styles.demo_display_form}>
             <NewEarring
@@ -123,7 +123,7 @@ export default function ManageCows() {
         </div>
         <div
           className={styles.demo_display}
-          style={{ display: tabSelected === "EVENT" ? "block" : "none" }}
+          style={{ display: tabSelected === 'EVENT' ? 'block' : 'none' }}
         >
           <div className={styles.demo_display_form}>
             <NewEventForm
@@ -135,23 +135,23 @@ export default function ManageCows() {
         </div>
         <div
           className={styles.demo_display}
-          style={{ display: tabSelected === "PROX" ? "block" : "none" }}
+          style={{ display: tabSelected === 'PROX' ? 'block' : 'none' }}
         >
           <UpcomingEvents events={formatedEvents} />
         </div>
         <div
           className={styles.demo_display}
-          style={{ display: tabSelected === "HIST" ? "block" : "none" }}
+          style={{ display: tabSelected === 'HIST' ? 'block' : 'none' }}
         >
           <EventsHistory events={formatedEvents} />
         </div>
         <div
           className={styles.demo_display}
-          style={{ display: tabSelected === "ALL" ? "block" : "none" }}
+          style={{ display: tabSelected === 'ALL' ? 'block' : 'none' }}
         >
           <EarringTable events={formatedEvents} earrings={earringsData} />
         </div>
       </div>
     </div>
-  );
+  )
 }

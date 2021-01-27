@@ -1,1 +1,1 @@
-export {defaul} from "./MamageCows"
+export { defaul } from './MamageCows'

@@ -1,1 +1,1 @@
-export { default } from "./NewEventForm";
+export { default } from './NewEventForm'

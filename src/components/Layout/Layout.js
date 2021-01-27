@@ -1,9 +1,9 @@
-import React from "react";
-import Head from "next/head";
-import Link from "next/link";
-import styles from "./styles.module.css";
+import React from 'react'
+import Head from 'next/head'
+import Link from 'next/link'
+import styles from './styles.module.css'
 
-export default function Layout({ children }) {
+export default function Layout ({ children }) {
   return (
     <div className={styles.body}>
       <Head>
@@ -31,8 +31,8 @@ export default function Layout({ children }) {
         <main>{children}</main>
       </div>
       <footer className={styles.footer}>
-        {"Una app creada por"} <a href="https://raulzarza.com">Raúl Zarza</a>
+        {'Una app creada por'} <a href="https://raulzarza.com">Raúl Zarza</a>
       </footer>
     </div>
-  );
+  )
 }
