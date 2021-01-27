@@ -8,18 +8,9 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
-import SelectedTitle from '../SelectedTitle'
+import SelectedTitle from '@cmps/SelectedTitle'
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 150,
-  },
-  cell: {
-    textAlign: 'center',
-    padding: 0,
-    width: 50,
-  },
-})
+import styles from "./style.module.css"
 
 export default function EventTable({
   title,
@@ -27,7 +18,6 @@ export default function EventTable({
   hideEarring,
   upcomingEvents,
 }) {
-  const classes = useStyles()
   const [sortBy, setSortBy] = useState(upcomingEvents ? 'next-date' : 'date')
 
   const handleSortBy = (title) => {
@@ -36,12 +26,14 @@ export default function EventTable({
       events.sort((a, b) => {
         if (a[title] < b[title]) return 1
         if (a[title] > b[title]) return -1
+        return 0
       })
     } else {
       setSortBy(title)
       events.sort((a, b) => {
         if (a[title] > b[title]) return 1
         if (a[title] < b[title]) return -1
+        return 0
       })
     }
   }
@@ -73,11 +65,11 @@ export default function EventTable({
   return (
     <TableContainer component={Paper}>
       <Typography variant="h6">{title}</Typography>
-      <Table className={classes.table} size="small" aria-label="a dense table">
+      <Table className={styles.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             {!hideEarring && (
-              <TableCell className={classes.cell}>
+              <TableCell className={styles.cell}>
                 <SelectedTitle
                   onClick={() => handleSortBy('earring')}
                   selected={sortBy === 'earring'}
@@ -85,28 +77,28 @@ export default function EventTable({
                 />
               </TableCell>
             )}
-            <TableCell className={classes.cell}>
+            <TableCell className={styles.cell}>
               <SelectedTitle
                 onClick={() => handleSortBy('label')}
                 selected={sortBy === 'label'}
                 title="Evento"
               />
             </TableCell>
-            <TableCell className={classes.cell} align="right">
+            <TableCell className={styles.cell} align="right">
               <SelectedTitle
                 onClick={() => handleSortBy('date')}
                 selected={sortBy === 'date'}
                 title="Fecha"
               />
             </TableCell>
-            <TableCell className={classes.cell} align="right">
+            <TableCell className={styles.cell} align="right">
               <SelectedTitle
                 onClick={() => handleSortBySub('label')}
                 selected={sortBy === 'next-label'}
                 title="Revisar"
               />
             </TableCell>
-            <TableCell className={classes.cell} align="right">
+            <TableCell className={styles.cell} align="right">
               <SelectedTitle
                 onClick={() => handleSortBySub('date')}
                 selected={sortBy === 'next-date'}
@@ -136,13 +128,13 @@ const EventRow = ({ event, hideEarring }) => {
       <TableCell padding="none" component="th" scope="row" align="center">
         {event.label}
       </TableCell>
-      <TableCell padding="none" align="right">
+      <TableCell padding="none" align="center">
         {event.formatDate}
       </TableCell>
-      <TableCell padding="default" align="center">
+      <TableCell padding="none" align="center">
         {event.nextEvent.label}
       </TableCell>
-      <TableCell padding="none" align="left">
+      <TableCell padding="none" align="center">
         {event.nextEvent.formatDate}
       </TableCell>
     </TableRow>
