@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
 import nookies from 'nookies'
-import { firebaseClient } from '@raiz/firebaseClient'
+import {
+  firebaseClient,
+  loginWithEmail,
+  loginWithFacebook,
+  logout,
+} from '@raiz/firebaseClient'
 
 const AuthContext = createContext({
   user: firebaseClient.User || null,
@@ -11,69 +16,22 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
 
   const facebookLogin = async () => {
-    const facebookProvider = new firebaseClient.auth.FacebookAuthProvider()
-
-    firebaseClient
-      .auth()
-      .signInWithPopup(facebookProvider)
-      .then((result) => {
-        /** @type {firebaseClient.auth.OAuthCredential} */
-        const credential = result.credential
-
-        // The signed-in user info.
-        const user = result.user
-
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const accessToken = credential.accessToken
-
-        // console.log(accessToken, user)
-        nookies.set(undefined, 'token', accessToken)
-        console.log(user)
-        setUser(user)
+    loginWithFacebook()
+      .then((res) => {
+        setUser(res.user)
+        nookies.set(undefined, 'token', res.accessToken)
       })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code
-        const errorMessage = error.message
-        // The email of the user's account used.
-        const email = error.email
-        // The firebase.auth.AuthCredential type that was used.
-        const credential = error.credential
-        console.log(errorCode, errorMessage, credential, email)
-        setUser(null)
-
-        nookies.set(undefined, 'token', '')
-        // ...
-      })
+      .catch((err) => err)
   }
 
   const emailLogin = (email, pass) => {
-    firebaseClient
-      .auth()
-      .signInWithEmailAndPassword(email, pass)
-      .then((res) => {
-        const { user } = res
-        setUser(user)
-        //window.location.href = '/'
-      })
-      .catch((err) => {
-        console.log(err)
-        setUser(null)
-      })
+    loginWithEmail(email, pass)
+      .then((res) => setUser(res.user))
+      .catch((err) => console.log(err))
   }
 
   const signOut = () => {
-    firebaseClient
-      .auth()
-      .signOut()
-      .then((res) => {
-        setUser(null)
-        console.log(res)
-        window.location.href = '/'
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    logout()
   }
 
   useEffect(() => {
@@ -83,7 +41,12 @@ export function AuthProvider({ children }) {
         nookies.set(undefined, 'token', '')
       } else {
         const token = await user.getIdToken()
-
+        setUser({
+          email: user.email,
+          name: user.displayName,
+          image: user.photoURL,
+        })
+        console.log(user)
         nookies.set(undefined, 'token', token)
       }
     })
@@ -99,11 +62,10 @@ export function AuthProvider({ children }) {
     return () => clearInterval(handle)
   }, [])
 
-  
-
   console.log(user)
+
   return (
-    <AuthContext.Provider value={{ user:{ email:user?.email, }, facebookLogin, emailLogin, signOut }}>
+    <AuthContext.Provider value={{ user, facebookLogin, emailLogin, signOut }}>
       {children}
     </AuthContext.Provider>
   )

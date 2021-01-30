@@ -1,13 +1,14 @@
 import { useAuth } from '@raiz/src/context/AuthContext'
+import { useRouter } from 'next/router'
 import React from 'react'
 import styles from './styles.module.css'
-import Router from 'next/router'
 
 export default function SignForm() {
+  const router = useRouter()
   const { facebookLogin } = useAuth()
 
   const handleSignEmail = () => {
-    Router.push('/login')
+    router.push('/login')
   }
   const handleSignFacebook = () => {
     facebookLogin()

@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { firebaseClient } from '../firebaseClient'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import { useRouter } from 'next/router'
 
 export default function Login() {
+  const { emailLogin, user } = useAuth()
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
-  const { emailLogin } = useAuth()
+
+  useEffect(() => {
+    if (user) {
+      console.log('redirect')
+      router.push('/')
+    }
+  }, [user])
+
   const handleEmailLogin = () => {
     emailLogin(email, pass)
   }

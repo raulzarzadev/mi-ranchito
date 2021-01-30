@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
 import styles from './styles.module.css'
-import Router from 'next/router'
 
 export default function Header({ signOut, user }) {
-  if (user) return Router.push('/')
+
+
+ 
   return (
     <header className={styles.header}>
       <div>
