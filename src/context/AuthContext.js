@@ -21,7 +21,10 @@ export function AuthProvider({ children }) {
         setUser(res.user)
         nookies.set(undefined, 'token', res.accessToken)
       })
-      .catch((err) => err)
+      .catch((err) => {
+        nookies.set(undefined, 'token', '')
+        console.log(err)
+      })
   }
 
   const emailLogin = (email, pass) => {
@@ -34,26 +37,31 @@ export function AuthProvider({ children }) {
     logout()
   }
 
+  // console.log(user)
   useEffect(() => {
-    return firebaseClient.auth().onIdTokenChanged(async (user) => {
-      if (!user) {
+    return firebaseClient.auth().onIdTokenChanged(async (data) => {
+      // console.log(data)
+      if (!data) {
         setUser(null)
         nookies.set(undefined, 'token', '')
       } else {
-        const token = await user.getIdToken()
+        const token = await data.getIdToken()
         setUser({
-          email: user.email,
-          name: user.displayName,
-          image: user.photoURL,
+          email: data.email,
+          name: data.displayName,
+          image: data.photoURL,
         })
-        console.log(user)
+        // console.log(data)
+        // console.log(user)
         nookies.set(undefined, 'token', token)
       }
     })
   }, [])
+  // console.log(user)
 
   useEffect(() => {
     const handle = setInterval(async () => {
+      console.log(handle)
       const user = firebaseClient.auth().currentUser
       if (user) await user.getIdToken(true)
     }, 10 * 60 * 1000)
@@ -62,7 +70,7 @@ export function AuthProvider({ children }) {
     return () => clearInterval(handle)
   }, [])
 
-  console.log(user)
+  // console.log(user)
 
   return (
     <AuthContext.Provider value={{ user, facebookLogin, emailLogin, signOut }}>

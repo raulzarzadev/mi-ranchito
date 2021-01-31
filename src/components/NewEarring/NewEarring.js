@@ -27,8 +27,6 @@ export default function NewEarring({ handleAddEarring, earrings }) {
 
   const valid = alreadyExist || !newEarring?.earring
 
-  console.log(newEarring)
-
   return (
     <form
       onSubmit={(e) => {

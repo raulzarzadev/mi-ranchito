@@ -19,6 +19,16 @@ export default function ManageCows() {
     events.map((event) => formatEvent(event))
   )
 
+  // TODO aun hay que optimizar esto
+  function firin(obj) {
+    const auxArr = []
+    for (const key in obj) {
+      auxArr.push({ type: key, label: obj[key] })
+      console.log(key, obj[key])
+    }
+    return auxArr
+  }
+
   const [tabSelected, setTabSelected] = useState('PROX')
 
   useEffect(() => {

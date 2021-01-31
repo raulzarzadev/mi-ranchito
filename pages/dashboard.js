@@ -1,13 +1,23 @@
-import { useAuth } from '@raiz/src/context/AuthContext'
-import Router from 'next/router'
-import React, { useEffect } from 'react'
+import Layout from '@cmps/Layout'
+import ManageCows from '@cmps/ManageCows/ManageCows'
+import Head from 'next/head'
 
-export default function dashboard() {
-  const { user } = useAuth()
+export default function Dashboard() {
+  /* console.log(user)
   useEffect(() => {
     if (!user) {
       Router.push('/')
     }
-  }, [])
-  return <div>dashboard</div>
+  }, []) */
+
+  return (
+    <div>
+      <Head>
+        <title>Mi Ranchito - vacas</title>
+      </Head>
+      <ManageCows />
+    </div>
+  )
 }
+
+Dashboard.Layout = Layout

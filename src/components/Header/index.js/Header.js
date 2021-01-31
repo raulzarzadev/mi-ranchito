@@ -41,7 +41,6 @@ export default function Header({ signOut, user }) {
 }
 
 const Avatar = ({ image, alt = '' }) => {
-  console.log(alt.charAt(0).toUpperCase())
   return (
     <div>
       {image ? (

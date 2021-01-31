@@ -1,5 +1,6 @@
 import firebaseClient from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyChGGTMisnbRri0Vv7Ug6AQXUsGWxzK6jE',
@@ -12,11 +13,18 @@ const firebaseConfig = {
   measurementId: 'G-3WEPWQNX0Q',
 }
 
-if (typeof window !== 'undefined' && !firebaseClient.apps.length) {
-  firebaseClient.initializeApp(firebaseConfig)
-  // firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
-}
+!firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
+// firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
 
+const db = firebaseClient.firestore()
+console.log(db)
+export async function newCow(cow) {
+  console.log('nueva vaca')
+  const res = await db
+    .collection('cows')
+    .add({ earring: '001', name: 'pinta', birth: '2001-12-12' })
+  console.log(res)
+}
 export const loginWithFacebook = async () => {
   const facebookProvider = new firebaseClient.auth.FacebookAuthProvider()
 
@@ -72,11 +80,9 @@ export const logout = async () => {
     .signOut()
     .then(() => {
       console.log('signout')
-      // Sign-out successful.
     })
     .catch((error) => {
       console.log(error)
-      // An error happened.
     })
 }
 
