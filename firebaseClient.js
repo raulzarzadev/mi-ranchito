@@ -3,7 +3,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import { firebaseConfig } from './firebaseConfig'
 
- 
 
 !firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
 // firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
