@@ -2,7 +2,7 @@ import { useState } from 'react'
 import moment from 'moment'
 import styles from './styles.module.css'
 
-export default function NewEarring({ handleAddEarring, earrings }) {
+export default function NewEarring({ handleAddEarring, earrings = [] }) {
   const today = moment().format('YYYY-MM-DD')
   const [newEarring, setNewEarring] = useState({
     birth: today,

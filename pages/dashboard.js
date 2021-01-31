@@ -15,7 +15,7 @@ export default function Dashboard() {
       <Head>
         <title>Mi Ranchito - vacas</title>
       </Head>
-      <ManageCows />
+      <ManageCows/>
     </div>
   )
 }

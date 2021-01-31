@@ -16,15 +16,6 @@ const firebaseConfig = {
 !firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
 // firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
 
-const db = firebaseClient.firestore()
-console.log(db)
-export async function newCow(cow) {
-  console.log('nueva vaca')
-  const res = await db
-    .collection('cows')
-    .add({ earring: '001', name: 'pinta', birth: '2001-12-12' })
-  console.log(res)
-}
 export const loginWithFacebook = async () => {
   const facebookProvider = new firebaseClient.auth.FacebookAuthProvider()
 
@@ -83,6 +74,55 @@ export const logout = async () => {
     })
     .catch((error) => {
       console.log(error)
+    })
+}
+
+const db = firebaseClient.firestore()
+console.log(db && 'db ok')
+
+export async function newCow(cow) {
+  return await db
+    .collection('cows')
+    .add(cow)
+    .catch((err) => console.log(err))
+}
+
+export function newEvent(event) {
+  return db
+    .collection('events')
+    .add(event)
+    .catch((err) => console.log(err))
+}
+
+export async function getUserCows() {
+  return db
+    .collection('cows')
+    .get()
+    .then((snapshot) => {
+      return snapshot.docs.map((doc) => {
+        const data = doc.data()
+        const id = doc.id
+        return {
+          id,
+          ...data,
+        }
+      })
+    })
+}
+
+export function getUserEvents() {
+  return db
+    .collection('events')
+    .get()
+    .then((snapshot) => {
+      return snapshot.docs.map((doc) => {
+        const data = doc.data()
+        const id = doc.id
+        return {
+          id,
+          ...data,
+        }
+      })
     })
 }
 

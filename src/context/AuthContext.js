@@ -61,7 +61,6 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const handle = setInterval(async () => {
-      console.log(handle)
       const user = firebaseClient.auth().currentUser
       if (user) await user.getIdToken(true)
     }, 10 * 60 * 1000)
