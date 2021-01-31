@@ -1,17 +1,9 @@
 import firebaseClient from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import { firebaseConfig } from './firebaseConfig'
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyChGGTMisnbRri0Vv7Ug6AQXUsGWxzK6jE',
-  authDomain: 'ranchito-95fa6.firebaseapp.com',
-  databaseURL: 'https://ranchito-95fa6-default-rtdb.firebaseio.com/',
-  projectId: 'ranchito-95fa6',
-  storageBucket: 'ranchito-95fa6.appspot.com',
-  messagingSenderId: '613301118746',
-  appId: '1:613301118746:web:60dd2458d11185d2d02ea3',
-  measurementId: 'G-3WEPWQNX0Q',
-}
+ 
 
 !firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
 // firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
