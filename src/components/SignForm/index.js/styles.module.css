@@ -7,10 +7,27 @@
     cursor: pointer;
     box-shadow: 1px 1px 1px 2px #0d1a2c33;
 }
-.sign_button:hover{
+
+.sign_button:hover {
     background-color: #06fd;
 }
 
-.sign_button:active{
+.sign_button:active {
     box-shadow: 1px 1px 1px 2px #0d1a2cbb;
+}
+
+.ligth_link {
+    cursor: pointer;
+    color: #06fd;
+    text-decoration: underline;
+    opacity: .7;
+}
+
+.ligth_link:hover {
+    opacity: 1;
+}
+
+.ligth_link:active {
+    box-shadow: 2px 1px 2px 2px #0256;
+
 }

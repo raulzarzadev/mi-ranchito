@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import moment from 'moment'
 import styles from './styles.module.css'
+import { useAuth } from '@raiz/src/context/AuthContext'
 
-export default function NewEarring({ handleAddEarring, earrings }) {
+export default function NewEarring({ handleAddEarring, earrings = [] }) {
   const today = moment().format('YYYY-MM-DD')
+  const { user } = useAuth()
   const [newEarring, setNewEarring] = useState({
     birth: today,
+    userId: user?.id,
   })
 
   const handleChange = (e) => {
@@ -17,23 +20,19 @@ export default function NewEarring({ handleAddEarring, earrings }) {
   const existedEarring = earrings.map((earring) => earring.earring)
   const alreadyExist = existedEarring.includes(newEarring.earring)
 
-  const handleSubmit = (form) => {
-    handleAddEarring(form)
-    setNewEarring({ birth: today })
-    setLabelButton('Guardado')
+  const handleSubmit = () => {
+    handleAddEarring(newEarring)
   }
 
   const [labelButton, setLabelButton] = useState('Guardar')
 
   const valid = alreadyExist || !newEarring?.earring
 
-  console.log(newEarring)
-
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault()
-        handleSubmit(newEarring)
+        handleSubmit()
       }}
     >
       <div>

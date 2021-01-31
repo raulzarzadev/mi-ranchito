@@ -1,50 +1,67 @@
-import React, { useState } from "react";
-import { getToday } from "../../utils";
-import styles from "./styles.module.css";
+import { useAuth } from '@raiz/src/context/AuthContext'
+import React, { useState } from 'react'
+import { getToday } from '../../utils'
+import styles from './styles.module.css'
 
-export default function NewEventForm({
-  handleSubmit = () => console.log("submit"),
+export default function NewEvent({
+  handleAddEvent = () => console.log('submit'),
   earrings = [],
   eventsAvaiblable = [],
 }) {
+  const { user } = useAuth()
+  console.log(user)
   const [form, setForm] = useState({
     date: getToday(),
-    earring: "",
-    event: "",
-  });
-  const handleChange = (e) => {
-    setLabelButton("Guardar Evento");
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-  const [labelButton, setLabelButton] = useState("Guardar Evento");
-  const handleChangeButton = (label) => {
-    setLabelButton(label);
-    setForm({ date: getToday() });
-  };
+    userId: user?.id,
+    earring: '',
+    event: '',
+  })
 
-  const valid = !form.earring || !form.event || labelButton === "Guardado";
+  const handleChange = (e) => {
+    setLabelButton('Guardar Evento')
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+  const handleSubmit = () => {
+    console.log(form)
+    handleAddEvent(form)
+    setLabelButton('Guardado')
+    setForm({ ...form, event: '', earring: '' })
+  }
+  const [labelButton, setLabelButton] = useState('Guardar Evento')
+
+  // TODO Evento revision, comentarios , evento aleatorio
+  // TODO Seleccionar autor del evento, escribir obs
+  // TODO gesta exitosa -> aproximado
+  // TODO if parto => select sexo
+  // TODO nueva vaca,, crear padre
+  // TODO nueva vaca, nac / registro
+  // TODO Cambiar id de vacas a earring - string - nickNmae
+  // TODO ordenar new event earring list by alph
+  // TODO Cambiar a semanas WW-YY
+  // TODO nuevo envento aborto / venta /
+
+  const valid = !form.earring || !form.event || labelButton === 'Guardado'
 
   return (
     <div>
       <div>
         <form
           onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(form);
-            handleChangeButton("Guardado");
+            e.preventDefault()
+            handleSubmit()
           }}
         >
           <div>
             <div>
               <div className={styles.event_form__input}>
                 <span>
-                  Vaca:{" "}
+                  Vaca:{' '}
                   <select
                     style={{ width: 150 }}
                     onChange={handleChange}
                     name="earring"
                     id="select-animal"
-                    value={form?.earring || ""}
+                    value={form?.earring || ''}
                   >
                     <option value="" disabled>
                       Arete No.
@@ -59,11 +76,11 @@ export default function NewEventForm({
               </div>
               <div className={styles.event_form__input}>
                 <span>
-                  Evento:{" "}
+                  Evento:{' '}
                   <select
                     style={{ width: 150 }}
                     onChange={handleChange}
-                    value={form?.event || ""}
+                    value={form?.event || ''}
                     name="event"
                     id="select-animal"
                     placeholder="Selecciona una vaca"
@@ -81,7 +98,7 @@ export default function NewEventForm({
               </div>
               <div className={styles.event_form__input}>
                 <span>
-                  Fecha:{" "}
+                  Fecha:{' '}
                   <input
                     style={{ width: 150 }}
                     onChange={handleChange}
@@ -102,5 +119,5 @@ export default function NewEventForm({
         </form>
       </div>
     </div>
-  );
+  )
 }

@@ -1,13 +1,16 @@
-import React from "react";
-import "../styles/globals.css";
+import { AuthProvider } from '@raiz/src/context/AuthContext'
+import React from 'react'
+import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
-  const Layout = Component.Layout ? Component.Layout : React.Fragment;
+  const Layout = Component.Layout ? Component.Layout : React.Fragment
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  );
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthProvider>
+  )
 }
 
-export default MyApp;
+export default MyApp

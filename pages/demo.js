@@ -1,8 +1,11 @@
+import DemoManageCows from '@cmps/ManageCows/ManageCowsDemo'
+import { useAuth } from '@raiz/src/context/AuthContext'
 import Head from 'next/head'
 import React from 'react'
 import Layout from 'src/components/Layout'
-import ManageCows from 'src/components/ManageCows/ManageCows'
 export default function Demo() {
+  const { user } = useAuth()
+  console.log(user)
   return (
     <>
       <Head>
@@ -14,7 +17,7 @@ export default function Demo() {
         Para reinciar los valores, recarga la página o presiona
         <strong>F5</strong>
       </em>
-      <ManageCows />
+      <DemoManageCows demo/>
     </>
   )
 }

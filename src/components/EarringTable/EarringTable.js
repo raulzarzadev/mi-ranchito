@@ -15,7 +15,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import EventTable from '@cmps/EventTable'
 import moment from 'moment'
 
-function Row({ row, events }) {
+function Row({ row = [], events = [] }) {
   const [open, setOpen] = React.useState(false)
 
   const eventByEarring = events.filter((event) => event.earring === row.earring)
@@ -74,7 +74,7 @@ function Row({ row, events }) {
   )
 }
 
-export default function EerringTable({ earrings, events }) {
+export default function EerringTable({ earrings = [], events = [] }) {
   const [sortBy, setSortBy] = useState('earring')
   const rows = earrings
 
@@ -139,7 +139,7 @@ export default function EerringTable({ earrings, events }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, i) => (
+            {rows?.map((row, i) => (
               <Row key={i} row={row} events={events} />
             ))}
           </TableBody>
