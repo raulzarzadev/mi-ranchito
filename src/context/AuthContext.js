@@ -13,7 +13,7 @@ const AuthContext = createContext({
 })
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(undefined)
 
   const facebookLogin = async () => {
     loginWithFacebook()
@@ -37,39 +37,25 @@ export function AuthProvider({ children }) {
     logout()
   }
 
-  // console.log(user)
   useEffect(() => {
-    return firebaseClient.auth().onIdTokenChanged(async (data) => {
-      // console.log(data)
-      if (!data) {
-        setUser(null)
-        nookies.set(undefined, 'token', '')
-      } else {
-        const token = await data.getIdToken()
+    firebaseClient.auth().onAuthStateChanged((user) => {
+      if (user) {
         setUser({
-          email: data.email,
-          name: data.displayName,
-          image: data.photoURL,
+          email: user.email,
+          name: user.displayName,
+          image: user.photoURL,
+          id: user.uid,
         })
-        // console.log(data)
-        // console.log(user)
-        nookies.set(undefined, 'token', token)
+        console.log(user)
+      } else {
+        setUser(null)
+        console.log('not user')
       }
     })
   }, [])
-  // console.log(user)
 
-  useEffect(() => {
-    const handle = setInterval(async () => {
-      const user = firebaseClient.auth().currentUser
-      if (user) await user.getIdToken(true)
-    }, 10 * 60 * 1000)
-
-    // clean up setInterval
-    return () => clearInterval(handle)
-  }, [])
-
-  // console.log(user)
+  // If do know status user, return
+  if (user === undefined) return 0
 
   return (
     <AuthContext.Provider value={{ user, facebookLogin, emailLogin, signOut }}>

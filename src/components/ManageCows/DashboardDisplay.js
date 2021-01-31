@@ -1,7 +1,7 @@
 import EarringTable from '@cmps/EarringTable'
 import EventsHistory from '@cmps/EventsHistory'
 import NewEarring from '@cmps/NewEarring'
-import NewEventForm from '@cmps/NewEventForm'
+import NewEvent from '@cmps/NewEvent'
 import UpcomingEvents from '@cmps/UpcomingEvents'
 import { ALL_EVENTS, EVENTS_LABEL } from '@raiz/HARD_DATA-COPY'
 import { formatEvent } from '@raiz/src/utils'
@@ -129,8 +129,8 @@ export default function DashboardDisplay({
           style={{ display: tabSelected === 'EVENT' ? 'block' : 'none' }}
         >
           <div className={styles.demo_display_form}>
-            <NewEventForm
-              handleSubmit={handleAddEvent}
+            <NewEvent
+              handleAddEvent={handleAddEvent}
               eventsAvaiblable={eventsAvaiblable}
               earrings={earringsData}
             />

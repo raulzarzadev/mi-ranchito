@@ -3,21 +3,23 @@ import React, { useEffect, useState } from 'react'
 import DashboardDisplay from './DashboardDisplay'
 import {
   newCow,
+  newEvent,
   getUserCows,
   getUserEvents,
-  newEvent,
 } from '@raiz/firebaseClient'
+import { useAuth } from '@raiz/src/context/AuthContext'
 
 export default function ManageCows({ demo }) {
   const [earringsData, setEarringsData] = useState([])
   const [events, setEvents] = useState([])
-
+  const { user } = useAuth()
+  console.log(user)
   const getEarrings = () => {
-    const cows = getUserCows()
+    const cows = getUserCows(user.id)
     return cows
   }
   const getEvents = () => {
-    return getUserEvents()
+    return getUserEvents(user.id)
   }
 
   useEffect(() => {
@@ -25,14 +27,13 @@ export default function ManageCows({ demo }) {
     getEvents().then(setEvents)
   }, [])
 
-  const handleAddEarring = async (newEarring) => {
-    console.log(newEarring)
-    // setEarringsData([...earringsData, newEarring])
-    const res = await newCow(newEarring)
-    console.log(res)
+  const handleAddEarring = (newEarring) => {
+    getEarrings().then(setEarringsData)
+    newCow(newEarring).then((res) => console.log(res))
   }
   const handleAddEvent = (event) => {
-    // setEvents([...events, event])
+    console.log(event)
+    getEvents().then(setEvents)
     newEvent(event).then((res) => console.log(res))
   }
 

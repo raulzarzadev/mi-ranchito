@@ -31,9 +31,9 @@ export const loginWithFacebook = async () => {
 
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       const accessToken = credential.accessToken
-
       return {
         user: {
+          userId: user.uid,
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
@@ -51,13 +51,13 @@ export const loginWithEmail = async (email, pass) => {
   const result = await firebaseClient
     .auth()
     .signInWithEmailAndPassword(email, pass)
-    .then((res) => {
-      console.log(res)
+    .then(({ user }) => {
       return {
         user: {
-          email: res.user.email,
-          name: res.user.displayName,
-          image: res.user.photoURL,
+          userId: user.uid,
+          email: user.email,
+          name: user.displayName,
+          image: user.photoURL,
         },
       }
     })
@@ -88,15 +88,17 @@ export async function newCow(cow) {
 }
 
 export function newEvent(event) {
+  console.log(event)
   return db
     .collection('events')
     .add(event)
     .catch((err) => console.log(err))
 }
 
-export async function getUserCows() {
+export async function getUserCows(userId = '') {
   return db
     .collection('cows')
+    .where('userId', '==', userId)
     .get()
     .then((snapshot) => {
       return snapshot.docs.map((doc) => {
@@ -110,9 +112,10 @@ export async function getUserCows() {
     })
 }
 
-export function getUserEvents() {
+export function getUserEvents(userId = '') {
   return db
     .collection('events')
+    .where('userId', '==', userId)
     .get()
     .then((snapshot) => {
       return snapshot.docs.map((doc) => {
