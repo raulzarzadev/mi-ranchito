@@ -46,7 +46,6 @@ export function AuthProvider({ children }) {
           image: user.photoURL,
           id: user.uid,
         })
-        console.log(user)
       } else {
         setUser(null)
         console.log('not user')

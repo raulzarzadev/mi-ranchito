@@ -9,7 +9,6 @@ export default function NewEvent({
   eventsAvaiblable = [],
 }) {
   const { user } = useAuth()
-  console.log(user)
   const [form, setForm] = useState({
     date: getToday(),
     userId: user?.id,
