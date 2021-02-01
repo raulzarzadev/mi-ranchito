@@ -3,7 +3,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import { firebaseConfig } from './firebaseConfig'
 
-
 !firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
 // firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
 
@@ -54,6 +53,37 @@ export const loginWithEmail = async (email, pass) => {
     })
     .catch((err) => console.log(err))
   return result
+}
+
+export const signupEmail = async (email) => {
+  const actionCodeSettings = {
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be in the authorized domains list in the Firebase Console.
+    url: 'https://miranchito.digital/registro',
+    // This must be true.
+    handleCodeInApp: true,
+    iOS: {
+      bundleId: 'https://miranchito.digital',
+    },
+    android: {
+      packageName: 'https://miranchito.digital',
+      installApp: true,
+      minimumVersion: '12',
+    },
+    dynamicLinkDomain: 'https://miranchito.digital/registro',
+  }
+  await firebaseClient
+    .auth()
+    .sendSignInLinkToEmail(email, actionCodeSettings)
+    .then(() => {
+      // The link was successfully sent. Inform the user.
+      // Save the email locally so you don't need to ask the user for it again
+      // if they open the link on the same device.
+      localStorage.setItem('emailForSignIn', email)
+      // ...
+      // window.location.href = '/'
+    })
+    .catch((err) => console.log(err))
 }
 
 export const logout = async () => {

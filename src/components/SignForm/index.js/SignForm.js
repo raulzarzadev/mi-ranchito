@@ -15,15 +15,17 @@ export default function SignForm() {
   }
 
   return (
-    <>
-      <div>
+    <div className={styles.form}>
+      <div className={styles.form_input}>
         <SignEmail handleClick={handleSignEmail} />
       </div>
-      <div>
+      <div className={styles.form_input}>
         <SignFacebook handleClick={handleSignFacebook} />
       </div>
-      <div className={styles.ligth_link}>o crea una cuenta nueva</div>
-    </>
+      <div className={styles.form_input}>
+        <div className={styles.ligth_link}>o crea una cuenta nueva</div>
+      </div>
+    </div>
   )
 }
 

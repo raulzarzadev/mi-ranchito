@@ -6,6 +6,7 @@ import {
   loginWithEmail,
   loginWithFacebook,
   logout,
+  signupEmail,
 } from '@raiz/firebaseClient'
 
 const AuthContext = createContext({
@@ -28,11 +29,15 @@ export function AuthProvider({ children }) {
   }
 
   const emailLogin = (email, pass) => {
-    loginWithEmail(email, pass)
-      .then((res) => setUser(res.user))
+    console.log(email)
+    loginWithEmail(email)
+      .then((res) => console.log(res))
       .catch((err) => console.log(err))
   }
 
+  const emailSingup = (email, pass) => {
+    signupEmail(email, pass)
+  }
   const signOut = () => {
     logout()
   }
@@ -57,7 +62,9 @@ export function AuthProvider({ children }) {
   if (user === undefined) return 0
 
   return (
-    <AuthContext.Provider value={{ user, facebookLogin, emailLogin, signOut }}>
+    <AuthContext.Provider
+      value={{ user, facebookLogin, emailLogin, signOut, emailSingup }}
+    >
       {children}
     </AuthContext.Provider>
   )

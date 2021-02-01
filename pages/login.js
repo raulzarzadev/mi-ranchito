@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { firebaseClient } from '../firebaseClient'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import { useRouter } from 'next/router'
 
 export default function Login() {
-  const { emailLogin, user } = useAuth()
+  const { emailSingup, emailLogin, user } = useAuth()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
@@ -19,6 +18,11 @@ export default function Login() {
 
   const handleEmailLogin = () => {
     emailLogin(email, pass)
+  }
+
+  const handleSignUpWithEmail= () => {
+    emailSingup(email)
+  
   }
 
   return (
@@ -39,12 +43,7 @@ export default function Login() {
         placeholder={'Password'}
       />
       <button
-        onClick={async () => {
-          await firebaseClient
-            .auth()
-            .createUserWithEmailAndPassword(email, pass)
-          window.location.href = '/'
-        }}
+        onClick={handleSignUpWithEmail}
       >
         Create account
       </button>
