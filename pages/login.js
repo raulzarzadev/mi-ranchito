@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import { useRouter } from 'next/router'
+import LoginForm from '@cmps/SignForm/LoginForm'
+import Layout from '@cmps/Layout'
 
 export default function Login() {
   const { emailSingup, emailLogin, user } = useAuth()
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [pass, setPass] = useState('')
+
+  const LOGIN_PAGE = router.pathname === '/login'
+  const handleSubmit = (form) => {
+    LOGIN_PAGE ? emailLogin(form.email, form.pass) : emailSingup(form.email)
+  }
 
   useEffect(() => {
     if (user) {
@@ -16,38 +20,7 @@ export default function Login() {
     }
   }, [user])
 
-  const handleEmailLogin = () => {
-    emailLogin(email, pass)
-  }
-
-  const handleSignUpWithEmail= () => {
-    emailSingup(email)
-  
-  }
-
-  return (
-    <div>
-      <Link href="/">
-        <a>Go back to home page</a>
-      </Link>
-      <br />
-      <input
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder={'Email'}
-      />
-      <input
-        type={'password'}
-        value={pass}
-        onChange={(e) => setPass(e.target.value)}
-        placeholder={'Password'}
-      />
-      <button
-        onClick={handleSignUpWithEmail}
-      >
-        Create account
-      </button>
-      <button onClick={handleEmailLogin}>Log in</button>
-    </div>
-  )
+  return <LoginForm handleSubmit={handleSubmit} isLoginPage={LOGIN_PAGE} />
 }
+
+Login.Layout = Layout

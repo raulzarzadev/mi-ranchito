@@ -1,4 +1,5 @@
 import { useAuth } from '@raiz/src/context/AuthContext'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import styles from './styles.module.css'
@@ -16,6 +17,9 @@ export default function SignForm() {
 
   return (
     <div className={styles.form}>
+      <div className={styles.form_title}>
+        <h4>Ingresa</h4>
+      </div>
       <div className={styles.form_input}>
         <SignEmail handleClick={handleSignEmail} />
       </div>
@@ -23,7 +27,9 @@ export default function SignForm() {
         <SignFacebook handleClick={handleSignFacebook} />
       </div>
       <div className={styles.form_input}>
-        <div className={styles.ligth_link}>o crea una cuenta nueva</div>
+        <Link href="/signup">
+          <div className={styles.ligth_link}>o Registrate</div>
+        </Link>
       </div>
     </div>
   )
