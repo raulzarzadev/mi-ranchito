@@ -131,37 +131,41 @@ export function newEvent(event) {
 }
 
 export async function getUserCows(userId = '') {
-  return db
-    .collection('cows')
-    .where('userId', '==', userId)
-    .get()
-    .then((snapshot) => {
-      return snapshot.docs.map((doc) => {
-        const data = doc.data()
-        const id = doc.id
-        return {
-          id,
-          ...data,
-        }
+  return (
+    db
+      .collection('cows')
+      // .where('userId', '==', userId)
+      .get()
+      .then((snapshot) => {
+        return snapshot.docs.map((doc) => {
+          const data = doc.data()
+          const id = doc.id
+          return {
+            id,
+            ...data,
+          }
+        })
       })
-    })
+  )
 }
 
 export function getUserEvents(userId = '') {
-  return db
-    .collection('events')
-    .where('userId', '==', userId)
-    .get()
-    .then((snapshot) => {
-      return snapshot.docs.map((doc) => {
-        const data = doc.data()
-        const id = doc.id
-        return {
-          id,
-          ...data,
-        }
+  return (
+    db
+      .collection('events')
+      // .where('userId', '==', userId)
+      .get()
+      .then((snapshot) => {
+        return snapshot.docs.map((doc) => {
+          const data = doc.data()
+          const id = doc.id
+          return {
+            id,
+            ...data,
+          }
+        })
       })
-    })
+  )
 }
 
 export { firebaseClient }
