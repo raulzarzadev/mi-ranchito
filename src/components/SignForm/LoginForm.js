@@ -7,8 +7,16 @@ export default function LoginForm({ handleSubmit, isLoginPage }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
+  const buttonDisabled =
+    (form?.pass === form?.confirmPass && form?.pass?.length > 6) || !isLoginPage
+
   return (
-    <form onSubmit={() => handleSubmit(form)}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        handleSubmit(form)
+      }}
+    >
       <div className={styles.form}>
         <div className={styles.form_title}>
           <h4>{isLoginPage ? ' Ingresa' : 'Registrate'}</h4>
@@ -36,7 +44,7 @@ export default function LoginForm({ handleSubmit, isLoginPage }) {
               <div className={styles.form_input}>
                 <input
                   type={'password'}
-                  value={form?.pass || ''}
+                  value={form?.confirmPass || ''}
                   onChange={handleChange}
                   placeholder={'Confirm Password'}
                   name="confirmPass"
@@ -45,7 +53,9 @@ export default function LoginForm({ handleSubmit, isLoginPage }) {
             </>
           )}
 
-          <button type="submit">Enviar </button>
+          <button type="submit" disabled={buttonDisabled}>
+            Enviar{' '}
+          </button>
 
           <div className={styles.form_input}>
             <div className={styles.ligth_link}>
@@ -56,7 +66,6 @@ export default function LoginForm({ handleSubmit, isLoginPage }) {
               )}
             </div>
           </div>
-          
         </div>
       </div>
     </form>
