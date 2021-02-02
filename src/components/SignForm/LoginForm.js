@@ -1,14 +1,20 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import styles from './styles.module.css'
-export default function LoginForm({ handleSubmit, isLoginPage }) {
-  const [form, setForm] = useState(null)
+export default function LoginForm({ handleSubmit, isLoginPage = false }) {
+  const [form, setForm] = useState({
+    email: '',
+    pass: '',
+    confirmPass: '',
+  })
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
-  const buttonDisabled =
-    (form?.pass === form?.confirmPass && form?.pass?.length > 6) || !isLoginPage
+
+  const isEqual = isLoginPage || form.pass === form.confirmPass 
+  const isToShort = form.pass.length > 3
+  const bottonEnable = !isEqual || !isToShort
 
   return (
     <form
@@ -53,8 +59,8 @@ export default function LoginForm({ handleSubmit, isLoginPage }) {
             </>
           )}
 
-          <button type="submit" disabled={buttonDisabled}>
-            Enviar{' '}
+          <button type="submit" disabled={bottonEnable}>
+            Enviar
           </button>
 
           <div className={styles.form_input}>
