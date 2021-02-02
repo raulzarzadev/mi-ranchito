@@ -13,7 +13,6 @@ export default function ManageCows({ demo }) {
   const [earringsData, setEarringsData] = useState([])
   const [events, setEvents] = useState([])
   const { user } = useAuth()
-  console.log(user)
   const getEarrings = () => {
     const cows = getUserCows(user?.id)
     return cows
@@ -32,7 +31,6 @@ export default function ManageCows({ demo }) {
     newCow(newEarring).then((res) => console.log(res))
   }
   const handleAddEvent = (event) => {
-    console.log(event)
     getEvents().then(setEvents)
     newEvent(event).then((res) => console.log(res))
   }

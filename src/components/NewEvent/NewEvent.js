@@ -21,7 +21,6 @@ export default function NewEvent({
     setForm({ ...form, [e.target.name]: e.target.value })
   }
   const handleSubmit = () => {
-    console.log(form)
     handleAddEvent(form)
     setLabelButton('Guardado')
     setForm({ ...form, event: '', earring: '' })

@@ -30,7 +30,6 @@ export function AuthProvider({ children }) {
   }
 
   const emailLogin = (email, pass) => {
-    console.log(email)
     loginWithEmail(email, pass)
       .then((res) => console.log(res))
       .catch((err) => setErrors(err))
