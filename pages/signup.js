@@ -13,6 +13,7 @@ export default function Signup() {
 
   const handleSubmit = (form) => {
     console.log(form, 'send ')
+
   }
 
   return <LoginForm handleSubmit={handleSubmit} />

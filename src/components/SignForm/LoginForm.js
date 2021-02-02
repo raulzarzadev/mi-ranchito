@@ -11,9 +11,9 @@ export default function LoginForm({ handleSubmit, isLoginPage = false }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
-
-  const isEqual = isLoginPage || form.pass === form.confirmPass 
-  const isToShort = form.pass.length > 3
+  const minLength = 3
+  const isEqual = isLoginPage || form.pass === form.confirmPass
+  const isToShort = form.pass.length > minLength
   const bottonEnable = !isEqual || !isToShort
 
   return (
@@ -43,6 +43,11 @@ export default function LoginForm({ handleSubmit, isLoginPage = false }) {
               placeholder={'Password'}
               name="pass"
             />
+            {!isToShort && (
+              <div>
+                <em>Debe ser al menos de {minLength}</em>
+              </div>
+            )}
           </div>
 
           {!isLoginPage && (
@@ -55,6 +60,11 @@ export default function LoginForm({ handleSubmit, isLoginPage = false }) {
                   placeholder={'Confirm Password'}
                   name="confirmPass"
                 />
+                {!isEqual && (
+                  <div>
+                    <em>Contraseñas deben coincidir</em>
+                  </div>
+                )}
               </div>
             </>
           )}
