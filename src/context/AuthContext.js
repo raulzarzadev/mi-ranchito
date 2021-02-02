@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
 
   const emailLogin = (email, pass) => {
     loginWithEmail(email, pass)
-      .then((res) => console.log(res))
+      .then((res) => setUser(res?.user))
       .catch((err) => setErrors(err))
   }
 
@@ -41,6 +41,7 @@ export function AuthProvider({ children }) {
   const signOut = () => {
     logout()
   }
+
 
   useEffect(() => {
     firebaseClient.auth().onAuthStateChanged((user) => {

@@ -24,7 +24,7 @@ export default function ManageCows({ demo }) {
   useEffect(() => {
     getEarrings().then(setEarringsData)
     getEvents().then(setEvents)
-  }, [])
+  }, [user])
 
   const handleAddEarring = (newEarring) => {
     getEarrings().then(setEarringsData)

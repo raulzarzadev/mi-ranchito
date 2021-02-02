@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 export default function Dashboard() {
   const { user } = useAuth()
   const router = useRouter()
-  //if (!user) router.replace('/')
+  if (!user) router.replace('/')
 
   return (
     <div>
