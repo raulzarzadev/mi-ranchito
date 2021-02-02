@@ -15,6 +15,7 @@ const AuthContext = createContext({
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined)
+  const [errors, setErrors] = useState(null)
 
   const facebookLogin = async () => {
     loginWithFacebook()
@@ -30,9 +31,9 @@ export function AuthProvider({ children }) {
 
   const emailLogin = (email, pass) => {
     console.log(email)
-    loginWithEmail(email)
+    loginWithEmail(email, pass)
       .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+      .catch((err) => setErrors(err))
   }
 
   const emailSingup = (email, pass) => {
@@ -59,11 +60,10 @@ export function AuthProvider({ children }) {
   }, [])
 
   // If do know status user, return
-  if (user === undefined) return 0
 
   return (
     <AuthContext.Provider
-      value={{ user, facebookLogin, emailLogin, signOut, emailSingup }}
+      value={{ user, errors, facebookLogin, emailLogin, signOut, emailSingup }}
     >
       {children}
     </AuthContext.Provider>

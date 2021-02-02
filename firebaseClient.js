@@ -51,11 +51,13 @@ export const loginWithEmail = async (email, pass) => {
         },
       }
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      return err
+    })
   return result
 }
 
-export const signupEmail = async (email) => {
+/* export const signupEmail = async (email) => {
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.
@@ -83,7 +85,19 @@ export const signupEmail = async (email) => {
       // ...
       // window.location.href = '/'
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      return err
+    })
+} */
+
+export const signupEmail = async (email, pass) => {
+  const res = await firebaseClient
+    .auth()
+    .createUserWithEmailAndPassword(email, pass)
+    .catch((err) => {
+      return err
+    })
+  return res
 }
 
 export const logout = async () => {

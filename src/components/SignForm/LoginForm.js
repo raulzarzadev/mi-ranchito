@@ -11,10 +11,10 @@ export default function LoginForm({ handleSubmit, isLoginPage = false }) {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
-  const minLength = 3
+  const minLength = 4
   const isEqual = isLoginPage || form.pass === form.confirmPass
-  const isToShort = form.pass.length > minLength
-  const bottonEnable = !isEqual || !isToShort
+  const isToShort = form.pass.length < minLength
+  const bottonEnable = !isEqual || isToShort
 
   return (
     <form
@@ -43,9 +43,9 @@ export default function LoginForm({ handleSubmit, isLoginPage = false }) {
               placeholder={'Password'}
               name="pass"
             />
-            {!isToShort && (
+            {isToShort && (
               <div>
-                <em>Debe ser al menos de {minLength}</em>
+                <em>Contraseña debe tener al menos {minLength}</em>
               </div>
             )}
           </div>

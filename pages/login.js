@@ -7,15 +7,16 @@ import Layout from '@cmps/Layout'
 export default function Login() {
   const router = useRouter()
   const LOGIN_PAGE = router.pathname === '/login'
-  const { emailSingup, emailLogin, user } = useAuth()
-
-  const handleSubmit = (form) => {
-    LOGIN_PAGE ? emailLogin(form.email, form.pass) : emailSingup(form.email)
-  }
+  const { emailLogin, user } = useAuth()
 
   useEffect(() => {
     user && router.push('/')
   }, [user])
+  
+  const handleSubmit = (form) => {
+    emailLogin(form.email, form.pass)
+  }
+
 
   return <LoginForm handleSubmit={handleSubmit} isLoginPage={LOGIN_PAGE} />
 }

@@ -1,8 +1,8 @@
 import React from 'react'
 import Head from 'next/head'
 import styles from './styles.module.css'
-import { useAuth } from '@raiz/src/context/AuthContext'
 import Header from '@cmps/Header/index.js/Header'
+import { useAuth } from '@raiz/src/context/AuthContext'
 
 export default function Layout({ children }) {
   const { signOut, user } = useAuth()
