@@ -5,6 +5,7 @@ import {
   firebaseClient,
   loginWithEmail,
   loginWithFacebook,
+  loginWithGoogleMail,
   logout,
   signupEmail,
 } from '@raiz/firebaseClient'
@@ -42,6 +43,14 @@ export function AuthProvider({ children }) {
     logout()
   }
 
+  const googleLogin = async () => {
+    loginWithGoogleMail()
+      .then((res) => {
+        console.log(res.user)
+        setUser(res?.user)
+      })
+      .catch((err) => console.log(err))
+  }
 
   useEffect(() => {
     firebaseClient.auth().onAuthStateChanged((user) => {
@@ -63,7 +72,15 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, errors, facebookLogin, emailLogin, signOut, emailSingup }}
+      value={{
+        user,
+        errors,
+        facebookLogin,
+        emailLogin,
+        signOut,
+        emailSingup,
+        googleLogin,
+      }}
     >
       {children}
     </AuthContext.Provider>

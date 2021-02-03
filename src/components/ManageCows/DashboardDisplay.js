@@ -20,14 +20,16 @@ export default function DashboardDisplay({
   const [title, setTitle] = useState('Proximamente')
 
   // TODO aun hay que optimizar esto
-  function firin(obj) {
+  /*  
+ function firin(obj) {
     const auxArr = []
     for (const key in obj) {
       auxArr.push({ type: key, label: obj[key] })
       console.log(key, obj[key])
     }
     return auxArr
-  }
+  } 
+  */
 
   useEffect(() => {
     setFormatedEvents(events.map((event) => formatEvent(event, eventLabels)))

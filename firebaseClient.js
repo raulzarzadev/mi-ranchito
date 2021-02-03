@@ -37,6 +37,32 @@ export const loginWithFacebook = async () => {
   return result
 }
 
+export const loginWithGoogleMail = async () => {
+  const googleProvider = new firebaseClient.auth.GoogleAuthProvider()
+  const res = firebaseClient
+    .auth()
+    .signInWithPopup(googleProvider)
+    .then((res) => {
+      const credential = res.credential
+      const { user } = res
+      const { accessToken } = credential
+      return {
+        user: {
+          userId: user.uid,
+          email: user.email,
+          name: user.displayName,
+          image: user.photoURL,
+        },
+        accessToken,
+      }
+    })
+    .catch((err) => {
+      return err
+    })
+  return res
+  // googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+}
+
 export const loginWithEmail = async (email, pass) => {
   const result = await firebaseClient
     .auth()
