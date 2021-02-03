@@ -3,9 +3,19 @@
   text-align: center;
   padding: 0;
   width: 50px;
-  background-color: ;
 }
 
 .table {
   min-width: 150px,
+}
+
+.event_row{
+  cursor: pointer;
+}
+.event_row:hover{
+  background-color: #ddd5;
+
+}
+.event_row:active{
+  background-color: #ccc;
 }

@@ -136,6 +136,7 @@ export default function EerringTable({ earrings = [], events = [] }) {
               >
                 Ultimo Evento
               </TableCell>
+             
             </TableRow>
           </TableHead>
           <TableBody>
