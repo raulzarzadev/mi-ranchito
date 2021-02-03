@@ -8,11 +8,22 @@ import {
   getUserEvents,
 } from '@raiz/firebaseClient'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import { useRouter } from 'next/router'
 
 export default function ManageCows({ demo }) {
   const [earringsData, setEarringsData] = useState([])
   const [events, setEvents] = useState([])
+  const router = useRouter()
   const { user } = useAuth()
+
+  useEffect(() => {
+    if (!user) {
+      setEvents([])
+      setEarringsData([])
+      router.replace('/')
+    }
+  }, [user])
+  
   const getEarrings = () => {
     const cows = getUserCows(user?.id)
     return cows
