@@ -37,3 +37,7 @@
 .form_input{
     margin:  16px 0;
 }
+
+.form_errors {
+    max-width: 13rem;
+}

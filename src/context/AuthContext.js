@@ -21,12 +21,14 @@ export function AuthProvider({ children }) {
   const facebookLogin = async () => {
     loginWithFacebook()
       .then((res) => {
+        console.log(res)
         setUser(res.user)
         nookies.set(undefined, 'token', res.accessToken)
       })
       .catch((err) => {
         nookies.set(undefined, 'token', '')
         console.log(err)
+        setErrors(err)
       })
   }
 
@@ -49,7 +51,10 @@ export function AuthProvider({ children }) {
         console.log(res.user)
         setUser(res?.user)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setErrors(err)
+        console.log(err)
+      })
   }
 
   useEffect(() => {

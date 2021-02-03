@@ -9,7 +9,7 @@ import { firebaseConfig } from './firebaseConfig'
 export const loginWithFacebook = async () => {
   const facebookProvider = new firebaseClient.auth.FacebookAuthProvider()
 
-  const result = await firebaseClient
+  return await firebaseClient
     .auth()
     .signInWithPopup(facebookProvider)
     .then((result) => {
@@ -31,10 +31,7 @@ export const loginWithFacebook = async () => {
         accessToken,
       }
     })
-    .catch((error) => {
-      console.log(error)
-    })
-  return result
+    
 }
 
 export const loginWithGoogleMail = async () => {
@@ -56,9 +53,7 @@ export const loginWithGoogleMail = async () => {
         accessToken,
       }
     })
-    .catch((err) => {
-      return err
-    })
+   
   return res
   // googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 }
