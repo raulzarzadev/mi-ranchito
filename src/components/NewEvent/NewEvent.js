@@ -24,7 +24,6 @@ export default function NewEvent({
       })
     }
   }, [user])
-  console.log(form)
 
   earrings.sort((a, b) => {
     if (a.earring > b.earring) return 1

@@ -3,19 +3,19 @@ export const EARRINGS = [
     earring: '001',
     name: 'Pinta',
     birth: '2020-12-15',
-    id:'01'
+    id: '01',
   },
   {
     earring: '002',
     name: 'Pinta',
     birth: '2020-07-03',
-    id:'02'
+    id: '02',
   },
   {
     earring: '003',
     name: 'vaca',
     birth: '2019-03-20',
-    id:'03'
+    id: '03',
   },
 ]
 
@@ -84,13 +84,13 @@ export const EVENTS = [
 };
  */
 export const ALL_EVENTS = [
-  { type: 'parto', label: 'Parto' },
-  { type: 'celo', label: 'Celo' },
-  { type: 'monta', label: 'Monta' },
-  { type: 'insem', label: 'Insem' },
-  // { type: "gesta", label: "Gestación" },
-  { type: 'gestaFail', label: 'G.Fallida' },
-  { type: 'gestaSuccess', label: 'G.Exitosa' },
-  { type: 'secado', label: 'Secado' },
-  { type: 'gesta', label: '¿Gesta?' },
+  { type: 'parto', label: 'Parto', nextEvent: 'celo', nextCheckOnWeeks: 8 },
+  { type: 'celo', label: 'Celo', nextEvent: 'celo', nextCheckOnWeeks: 3 },
+  { type: 'monta', label: 'Monta', nextEvent: 'celo', nextCheckOnWeeks: 3 },
+  { type: 'insem', label: 'Insem', nextEvent: 'celo', nextCheckOnWeeks: 3 },
+  { type: 'check', label: 'Revisión', nextEvent: '', nextCheckOnWeeks: 0 },
+  { type: 'gesta', label: '¿Gesta?', nextEvent: '', nextCheckOnWeeks: '' },
+  { type: 'gestaFail', label: 'G.Fallida', nextEvent: '', nextCheckOnWeeks: '' },
+  { type: 'gestaSuccess', label: 'G.Exitosa', nextEvent: '', nextCheckOnWeeks: '' },
+  { type: 'secado', label: 'Secado', nextEvent: '', nextCheckOnWeeks: '' },
 ]
