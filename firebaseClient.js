@@ -23,7 +23,7 @@ export const loginWithFacebook = async () => {
       const accessToken = credential.accessToken
       return {
         user: {
-          userId: user.uid,
+          id: user.uid,
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
@@ -45,7 +45,7 @@ export const loginWithGoogleMail = async () => {
       const { accessToken } = credential
       return {
         user: {
-          userId: user.uid,
+          id: user.uid,
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
@@ -65,7 +65,7 @@ export const loginWithEmail = async (email, pass) => {
     .then(({ user }) => {
       return {
         user: {
-          userId: user.uid,
+          id: user.uid,
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
