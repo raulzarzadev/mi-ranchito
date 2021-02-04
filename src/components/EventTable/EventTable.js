@@ -10,6 +10,7 @@ import { Typography } from '@material-ui/core'
 import SelectedTitle from '@cmps/SelectedTitle'
 
 import styles from './style.module.css'
+import Modal from '@cmps/Modal/Modal'
 
 export default function EventTable({
   title,
@@ -133,7 +134,7 @@ export default function EventTable({
           </TableBody>
         </Table>
       </TableContainer>
-      
+      {/* <Modal /> */}
     </>
   )
 }

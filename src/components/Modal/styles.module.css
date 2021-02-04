@@ -1,0 +1,39 @@
+.modal {
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal_dialog {
+  background-color: #fff;
+  min-width: 200px;
+  min-height: 200px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px #000;
+  display: grid;
+  grid-template-rows: 50px auto 50px;
+}
+
+.modal_header {
+  
+}
+.modal_footer {
+}
+
+.modal_content {
+  height: inherit;
+}
+
+.modal_button_close {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: inherit;
+}
