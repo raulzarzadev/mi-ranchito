@@ -19,7 +19,7 @@ export default function EventTable({
   upcomingEvents,
 }) {
   const handleOpenEventDetails = (eventId) => {
-    console.log(eventId)
+    setEventModal(!eventModal)
   }
 
   const [sortBy, setSortBy] = useState(upcomingEvents ? 'next-date' : 'date')
@@ -62,6 +62,10 @@ export default function EventTable({
   }
 
   if (events.length === 0) return <h5>Esta vaca aun no tiene eventos</h5>
+  const [eventModal, setEventModal] = useState(false)
+  const handleEventModal = () => {
+    setEventModal(!eventModal)
+  }
 
   return (
     <>
@@ -134,7 +138,7 @@ export default function EventTable({
           </TableBody>
         </Table>
       </TableContainer>
-      <Modal />
+      <Modal open={eventModal} handleOpen={handleEventModal} />
     </>
   )
 }

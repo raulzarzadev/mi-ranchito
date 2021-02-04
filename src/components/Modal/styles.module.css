@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #4b4a4aaf;
 }
 .modal_dialog {
   background-color: #fff;
