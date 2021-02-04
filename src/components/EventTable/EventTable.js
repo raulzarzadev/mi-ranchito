@@ -134,7 +134,7 @@ export default function EventTable({
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <Modal /> */}
+      <Modal />
     </>
   )
 }
