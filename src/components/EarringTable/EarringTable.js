@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
@@ -15,16 +15,8 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import EventTable from '@cmps/EventTable'
 import moment from 'moment'
 
-function Row({ row = [], events = [] }) {
+function Row({ row = [] }) {
   const [open, setOpen] = React.useState(false)
-
-  const eventByEarring = events.filter((event) => event.earring === row.earring)
-
-  const lastEvent = eventByEarring.sort((a, b) => {
-    if (a.date < b.date) return 1
-    if (a.date > b.date) return -1
-    return 0
-  })
 
   return (
     <React.Fragment>
@@ -50,7 +42,7 @@ function Row({ row = [], events = [] }) {
           {/* TODO cambiar por moment y mostrar edad */}
         </TableCell>
         <TableCell padding="none" align="center">
-          {lastEvent[0]?.label || '-'}
+          {row?.lastEvent?.label || '-'}
         </TableCell>
       </TableRow>
       <TableRow>
@@ -62,7 +54,7 @@ function Row({ row = [], events = [] }) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <EventTable
-                events={eventByEarring}
+                events={row.events}
                 // title="Historai por Arete"
                 hideEarring
               />
@@ -76,9 +68,38 @@ function Row({ row = [], events = [] }) {
 
 export default function EerringTable({ earrings = [], events = [] }) {
   const [sortBy, setSortBy] = useState('earring')
-  const rows = earrings
+
+  /*   const getEvents = () => {
+    const eventByEarring = earrings.map((earring) => {
+      events.filter((event) => event.earring === earring.earring)
+      return { ...earring, events: eventByEarring }
+    })
+  } */
+
+  const getEventsByEarring = (earring) => {
+    const eventsByEarring = events.filter(
+      (event) => event.earring === earring.earring
+    )
+    return eventsByEarring
+  }
+  const formatEarrings = earrings.map((earring) => {
+    const eventsByEarring = getEventsByEarring(earring)
+    const eventsSorted = eventsByEarring.sort((a, b) => {
+      if (a.date < b.date) return 1
+      if (a.date > b.date) return -1
+      return 0
+    })
+    return {
+      ...earring,
+      events: eventsSorted,
+      lastEvent: eventsSorted[0],
+      lastEventLabel: eventsSorted[0]?.label,
+    }
+  })
 
   const handleSortRowsBy = (title) => {
+    console.log(sortBy)
+    console.log(sortBy)
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)
       rows.sort((a, b) => {
@@ -95,6 +116,9 @@ export default function EerringTable({ earrings = [], events = [] }) {
       })
     }
   }
+  const rows = formatEarrings
+
+  console.log(rows)
 
   return (
     <div style={{ margin: '0 auto' }}>
@@ -131,17 +155,16 @@ export default function EerringTable({ earrings = [], events = [] }) {
               <TableCell
                 padding="none"
                 align="center"
-                onClick={() => handleSortRowsBy('lastEvent')}
-                style={{ fontWeight: sortBy === 'lastEvent' ? 800 : 500 }}
+                onClick={() => handleSortRowsBy('lastEventLabel')}
+                style={{ fontWeight: sortBy === 'lastEventLabel' ? 800 : 500 }}
               >
                 Ultimo Evento
               </TableCell>
-             
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.map((row, i) => (
-              <Row key={i} row={row} events={events} />
+            {rows?.map((row) => (
+              <Row key={row.id} row={row} events={events} />
             ))}
           </TableBody>
         </Table>
