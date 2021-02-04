@@ -21,13 +21,11 @@ export function AuthProvider({ children }) {
   const facebookLogin = async () => {
     loginWithFacebook()
       .then((res) => {
-        console.log(res)
         setUser(res.user)
         nookies.set(undefined, 'token', res.accessToken)
       })
       .catch((err) => {
-        nookies.set(undefined, 'token', '')
-        console.log(err)
+        nookies.set(undefined, 'token', '').log(err)
         setErrors(err)
       })
   }
@@ -48,12 +46,10 @@ export function AuthProvider({ children }) {
   const googleLogin = async () => {
     loginWithGoogleMail()
       .then((res) => {
-        console.log(res.user)
         setUser(res?.user)
       })
       .catch((err) => {
         setErrors(err)
-        console.log(err)
       })
   }
 
