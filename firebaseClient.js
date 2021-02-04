@@ -144,6 +144,7 @@ export async function newCow(cow) {
 }
 
 export function newEvent(event) {
+  console.log(event)
   return db
     .collection('events')
     .add(event)

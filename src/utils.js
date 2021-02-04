@@ -44,9 +44,9 @@ export const formatEvent = (event = {}, eventsAvaliables = []) => {
 
   const eventFormatDate = moment(event.date)
     .add(12, 'hours')
-    .format('WW/YY')
-    .slice(0, 6)
-  const nextEventFormatDate = nextCheck?.format('WW/YY').slice(0, 6)
+    .format('WW / YY')
+    .slice(0, 7)
+  const nextEventFormatDate = nextCheck?.format('WW / YY').slice(0, 7)
   const eventDate = new Date(event.date)
   const nextEventDate = new Date(nextCheck)
 
@@ -57,6 +57,7 @@ export const formatEvent = (event = {}, eventsAvaliables = []) => {
     label: labels[event.event],
     date: eventDate,
     formatDate: eventFormatDate,
+    coments: event.coments,
     nextEvent: {
       type: nextEvent,
       date: nextEventDate,

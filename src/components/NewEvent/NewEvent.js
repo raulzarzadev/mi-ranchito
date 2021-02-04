@@ -1,5 +1,5 @@
 import { useAuth } from '@raiz/src/context/AuthContext'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getToday } from '../../utils'
 import styles from './styles.module.css'
 
@@ -16,6 +16,16 @@ export default function NewEvent({
     event: '',
   })
 
+  useEffect(() => {
+    if (user) {
+      setForm({
+        ...form,
+        userId: user.id,
+      })
+    }
+  }, [user])
+  console.log(form)
+
   earrings.sort((a, b) => {
     if (a.earring > b.earring) return 1
     if (a.earring < b.earring) return -1
@@ -27,6 +37,7 @@ export default function NewEvent({
     setForm({ ...form, [e.target.name]: e.target.value })
   }
   const handleSubmit = () => {
+    console.log(form)
     handleAddEvent(form)
     setLabelButton('Guardado')
     setForm({ ...form, event: '', earring: '' })
@@ -96,6 +107,21 @@ export default function NewEvent({
                       </option>
                     ))}
                   </select>
+                </span>
+              </div>
+              <div className={styles.event_form__input}>
+                <span>
+                  Observaciones:
+                  <textarea
+                    type="text"
+                    rows={2}
+                    style={{ width: 150 }}
+                    onChange={handleChange}
+                    name="coments"
+                    id="observaciones"
+                    value={form?.coments || ''}
+                    placeholder="Detalles"
+                  ></textarea>
                 </span>
               </div>
               <div className={styles.event_form__input}>

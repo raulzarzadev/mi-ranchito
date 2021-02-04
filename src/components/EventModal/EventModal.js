@@ -11,13 +11,19 @@ export default function EventModal({ open, handleOpen, event }) {
     console.log('delete')
   }
   const { nextEvent } = event
+  console.log(event)
   return (
     <Modal handleOpen={handleOpen} open={open} title="Detalles del Evento">
       <div>
-        <div>Evento: {event.label}</div>
+        <div>
+          <strong>Evento:</strong> {event.label}
+        </div>
         <div>Fecha: {moment(event.date).format('DD MMM YY')}</div>
         <div>Semana: {moment(event.date).format('WW')}</div>
-        <div>Siguiente Evento: {nextEvent.label}</div>
+        <div>Detalles : {event.coments}</div>
+        <div>
+          <strong>Siguiente Evento:</strong> {nextEvent.label}
+        </div>
         <div>Fecha: {moment(nextEvent.date).format('DD MMM YY')}</div>
         <div>Semana: {moment(nextEvent.date).format('WW')}</div>
         <div className={styles.actions}>
