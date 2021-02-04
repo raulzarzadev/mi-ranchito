@@ -24,5 +24,16 @@ h6 {
 /*  Theme  */
 
 :root {
+  --black: #000;
   --primary: #0fd;
+  --shadow-1: 1px 1px 3px var(--black);
+  --shadow-2: 1px 1px 6px var(--black);
+  --shadow-3: 1px 1px 6px 3px var(--black);
+}
+
+.box-1 {
+  margin: 8px;
+}
+.box-2 {
+  margin: 16px;
 }

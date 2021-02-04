@@ -11,6 +11,7 @@ import SelectedTitle from '@cmps/SelectedTitle'
 
 import styles from './style.module.css'
 import Modal from '@cmps/Modal/Modal'
+import EventModal from '@cmps/EventModal/EventModal'
 
 export default function EventTable({
   title,
@@ -18,10 +19,6 @@ export default function EventTable({
   hideEarring,
   upcomingEvents,
 }) {
-  const handleOpenEventDetails = (eventId) => {
-    setEventModal(!eventModal)
-  }
-
   const [sortBy, setSortBy] = useState(upcomingEvents ? 'next-date' : 'date')
 
   const handleSortBy = (title) => {
@@ -62,10 +59,6 @@ export default function EventTable({
   }
 
   if (events.length === 0) return <h5>Esta vaca aun no tiene eventos</h5>
-  const [eventModal, setEventModal] = useState(false)
-  const handleEventModal = () => {
-    setEventModal(!eventModal)
-  }
 
   return (
     <>
@@ -132,13 +125,11 @@ export default function EventTable({
                 event={event}
                 hideEarring={hideEarring}
                 upcomingEvents={upcomingEvents}
-                handleOpenEventDetails={handleOpenEventDetails}
               />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Modal open={eventModal} handleOpen={handleEventModal} />
     </>
   )
 }
@@ -149,6 +140,10 @@ const EventRow = ({
   upcomingEvents,
   handleOpenEventDetails,
 }) => {
+  const [eventModal, setEventModal] = useState(false)
+  const handleEventModal = () => {
+    setEventModal(!eventModal)
+  }
   return (
     <>
       <TableRow
@@ -180,12 +175,13 @@ const EventRow = ({
             </TableCell>
           </>
         )}
-        <TableCell
-          onClick={() => handleOpenEventDetails(event.id)}
-          padding="none"
-          align="center"
-        >
-          ver
+        <TableCell padding="none" align="center">
+          <div onClick={handleEventModal}>ver</div>
+          <EventModal
+            event={event}
+            open={eventModal}
+            handleOpen={handleEventModal}
+          />
         </TableCell>
       </TableRow>
     </>
