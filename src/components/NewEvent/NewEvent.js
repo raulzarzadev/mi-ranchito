@@ -37,11 +37,9 @@ export default function NewEvent({
   // TODO Seleccionar autor del evento, escribir obs
   // TODO gesta exitosa -> aproximado
   // TODO if parto => select sexo
-  // TODO nueva vaca,, crear padre
+  // TODO nueva vaca, crear padre
   // TODO nueva vaca, nac / registro
   // TODO Cambiar id de vacas a earring - string - nickNmae
-  // TODO ordenar new event earring list by alph
-  // TODO Cambiar a semanas WW-YY
   // TODO nuevo envento aborto / venta /
 
   const valid = !form.earring || !form.event || labelButton === 'Guardado'

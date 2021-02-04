@@ -12,10 +12,13 @@ export default function Home() {
         <title>Mi Ranchito Digital</title>
       </Head>
 
-      <h1 >Bienvendido a miranchito digital</h1>
+      <h1>
+        Bienvendido a <br /> Mi Ranchito Digital
+      </h1>
 
       <p className={styles.description}>
-        Administra mejor e incrementa tus ganacias
+        Una aplición para monitorear el ciclo{' '}
+        <strong>productivo y reproductivo</strong> de las vacas lecheras.
       </p>
       {user ? (
         <div className={styles.actions}>
