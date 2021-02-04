@@ -16,6 +16,12 @@ export default function NewEvent({
     event: '',
   })
 
+  earrings.sort((a, b) => {
+    if (a.earring > b.earring) return 1
+    if (a.earring < b.earring) return -1
+    return 0
+  })
+
   const handleChange = (e) => {
     setLabelButton('Guardar Evento')
     setForm({ ...form, [e.target.name]: e.target.value })
