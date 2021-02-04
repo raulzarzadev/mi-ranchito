@@ -3,7 +3,7 @@ import EventsHistory from '@cmps/EventsHistory'
 import NewEarring from '@cmps/NewEarring'
 import NewEvent from '@cmps/NewEvent'
 import UpcomingEvents from '@cmps/UpcomingEvents'
-import { ALL_EVENTS, EVENTS_LABEL } from '@raiz/HARD_DATA-COPY'
+import { ALL_EVENTS } from '@raiz/HARD_DATA-COPY'
 import { formatEvent } from '@raiz/src/utils'
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
@@ -15,24 +15,14 @@ export default function DashboardDisplay({
   handleAddEvent,
 }) {
   const eventsAvaiblable = ALL_EVENTS
-  const eventLabels = EVENTS_LABEL
+
   const [tabSelected, setTabSelected] = useState('PROX')
   const [title, setTitle] = useState('Proximamente')
 
-  // TODO aun hay que optimizar esto
-  /*  
- function firin(obj) {
-    const auxArr = []
-    for (const key in obj) {
-      auxArr.push({ type: key, label: obj[key] })
-      console.log(key, obj[key])
-    }
-    return auxArr
-  } 
-  */
-
   useEffect(() => {
-    setFormatedEvents(events.map((event) => formatEvent(event, eventLabels)))
+    setFormatedEvents(
+      events.map((event) => formatEvent(event, eventsAvaiblable))
+    )
   }, [events])
 
   const handleChangeTab = (tab) => {

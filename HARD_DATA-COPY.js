@@ -69,7 +69,7 @@ export const EVENTS = [
   },
 ];
 
-export const EVENTS_LABEL = {
+/* export const EVENTS_LABEL = {
   parto: "Parto",
   celo: "Celo",
   monta: "Monta",
@@ -79,7 +79,7 @@ export const EVENTS_LABEL = {
   gestaSuccess: "G.Exitosa",
   secado: "Secado",
 };
-
+ */
 export const ALL_EVENTS = [
   { type: "parto", label: "Parto" },
   { type: "celo", label: "Celo" },

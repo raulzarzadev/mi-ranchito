@@ -1,6 +1,11 @@
 import moment from 'moment'
 
-export const formatEvent = (event = {}, labels = {}) => {
+export const formatEvent = (event = {}, eventsAvaliables = []) => {
+  const labels = eventsAvaliables.reduce((acum, current) => {
+    const { label, type } = current
+    acum[type] = label
+    return acum
+  }, {})
   let nextCheck
   let nextEvent
 
