@@ -68,38 +68,32 @@ function Row({ row = [] }) {
 
 export default function EerringTable({ earrings = [], events = [] }) {
   const [sortBy, setSortBy] = useState('earring')
+  const [rows, setRows] = useState([])
 
-  /*   const getEvents = () => {
-    const eventByEarring = earrings.map((earring) => {
-      events.filter((event) => event.earring === earring.earring)
-      return { ...earring, events: eventByEarring }
+  const formatEventsEarring = (events, earrings) => {
+    return earrings.map((earring) => {
+      const evts = events.filter((event) => event.earring === earring.earring)
+      const sortedEvts = evts.sort((a, b) => {
+        if (a.date < b.date) return 1
+        if (a.date > b.date) return -1
+        return 0
+      })
+      return {
+        ...earring,
+        events: sortedEvts,
+        lastEvent: sortedEvts[0] || null,
+        lastEventLabel: sortedEvts[0]?.label || '-',
+      }
     })
-  } */
-
-  const getEventsByEarring = (earring) => {
-    const eventsByEarring = events.filter(
-      (event) => event.earring === earring.earring
-    )
-    return eventsByEarring
   }
-  const formatEarrings = earrings.map((earring) => {
-    const eventsByEarring = getEventsByEarring(earring)
-    const eventsSorted = eventsByEarring.sort((a, b) => {
-      if (a.date < b.date) return 1
-      if (a.date > b.date) return -1
-      return 0
-    })
-    return {
-      ...earring,
-      events: eventsSorted,
-      lastEvent: eventsSorted[0],
-      lastEventLabel: eventsSorted[0]?.label,
+
+  useEffect(() => {
+    if (earrings && events) {
+      setRows(formatEventsEarring(events, earrings))
     }
-  })
+  }, [events, earrings])
 
   const handleSortRowsBy = (title) => {
-    console.log(sortBy)
-    console.log(sortBy)
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)
       rows.sort((a, b) => {
@@ -116,9 +110,6 @@ export default function EerringTable({ earrings = [], events = [] }) {
       })
     }
   }
-  const rows = formatEarrings
-
-  console.log(rows)
 
   return (
     <div style={{ margin: '0 auto' }}>
