@@ -3,16 +3,19 @@ export const EARRINGS = [
     earring: '001',
     name: 'Pinta',
     birth: '2020-12-15',
+    id:'01'
   },
   {
     earring: '002',
     name: 'Pinta',
     birth: '2020-07-03',
+    id:'02'
   },
   {
     earring: '003',
     name: 'vaca',
     birth: '2019-03-20',
+    id:'03'
   },
 ]
 

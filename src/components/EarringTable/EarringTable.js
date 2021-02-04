@@ -155,7 +155,7 @@ export default function EerringTable({ earrings = [], events = [] }) {
           </TableHead>
           <TableBody>
             {rows?.map((row) => (
-              <Row key={row.id} row={row} events={events} />
+              <Row key={row.id} row={row} />
             ))}
           </TableBody>
         </Table>
