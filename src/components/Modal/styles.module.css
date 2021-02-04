@@ -17,7 +17,7 @@
   border-radius: 8px;
   box-shadow: 1px 1px 1px 1px #000;
   display: grid;
-  grid-template-rows: 40px auto 30px;
+  grid-template-rows: 35px auto 20px;
 }
 
 .modal_header {
@@ -34,7 +34,9 @@
 }
 
 .modal_content {
-  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal_button_close {
