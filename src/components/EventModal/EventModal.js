@@ -2,10 +2,12 @@ import React from 'react'
 import Modal from '@cmps/Modal/Modal'
 import moment from 'moment'
 import styles from './styles.module.css'
+import { useRouter } from 'next/router'
 
 export default function EventModal({ open, handleOpen, event }) {
-  const handleEditEvent = () => {
-    console.log('edit')
+  const router = useRouter()
+  const handleEditEvent = (id) => {
+    router.push(`/event/edit/${id}`)
   }
   const handleDeleteEvent = () => {
     console.log('delete')
@@ -19,7 +21,9 @@ export default function EventModal({ open, handleOpen, event }) {
         </div>
         <div>Fecha: {moment(event.date).format('DD MMM YY')}</div>
         <div>Semana: {moment(event.date).format('WW')}</div>
-        <div>Detalles : {event.coments}</div>
+        <div>
+          Detalles : <pre>{event.coments}</pre>{' '}
+        </div>
         <div>
           <strong>Siguiente Evento:</strong> {nextEvent.label}
         </div>
@@ -30,7 +34,11 @@ export default function EventModal({ open, handleOpen, event }) {
             <ModalButton danger label="Eliminar" onClick={handleDeleteEvent} />
           </div>
           <div className="box-1">
-            <ModalButton primary label="Editar" onClick={handleEditEvent} />
+            <ModalButton
+              primary
+              label="Editar"
+              onClick={() => handleEditEvent(event.id)}
+            />
           </div>
         </div>
       </div>

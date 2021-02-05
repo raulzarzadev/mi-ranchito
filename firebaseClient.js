@@ -31,7 +31,6 @@ export const loginWithFacebook = async () => {
         accessToken,
       }
     })
-    
 }
 
 export const loginWithGoogleMail = async () => {
@@ -53,7 +52,7 @@ export const loginWithGoogleMail = async () => {
         accessToken,
       }
     })
-   
+
   return res
   // googleProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 }
@@ -76,6 +75,16 @@ export const loginWithEmail = async (email, pass) => {
       return err
     })
   return result
+}
+
+export const getEvent = async (id) => {
+  return db
+    .collection('events')
+    .doc(id)
+    .get()
+    .then((snapshot) => {
+      return snapshot.data()
+    })
 }
 
 /* export const signupEmail = async (email) => {
@@ -187,6 +196,16 @@ export function getUserEvents(userId = '') {
         })
       })
   )
+}
+
+export function updateEvent(eventId, event) {
+  const eventRef = db.collection('events').doc(eventId)
+  return eventRef
+    .update(event)
+    .then(() => {
+      return { ok: true, type: 'EVT_UPDATED' }
+    })
+    .catch((err) => console.log(err))
 }
 
 export { firebaseClient }

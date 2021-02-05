@@ -7,17 +7,26 @@ export default function NewEvent({
   handleAddEvent = () => console.log('submit'),
   earrings = [],
   eventsAvaiblable = [],
+  event = null,
 }) {
+  
   const { user } = useAuth()
   const [form, setForm] = useState({
     date: getToday(),
     userId: user?.id,
+    coments: '',
     earring: '',
     event: '',
   })
 
   useEffect(() => {
-    if (user) {
+    if (event) {
+      setForm(event)
+    }
+  }, [event])
+
+  useEffect(() => {
+    if (user && !event) {
       setForm({
         ...form,
         userId: user.id,
@@ -38,8 +47,10 @@ export default function NewEvent({
   const handleSubmit = () => {
     handleAddEvent(form)
     setLabelButton('Guardado')
-    setForm({ ...form, event: '', earring: '' })
+    setForm({ ...form, event: '', earring: '', coments: '' })
+
   }
+  console.log(form)
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
   // TODO Evento revision, comentarios , evento aleatorio
@@ -131,7 +142,7 @@ export default function NewEvent({
                     type="date"
                     name="date"
                     id="event-date"
-                    value={form.date}
+                    value={form.date || ''}
                   />
                 </span>
               </div>
