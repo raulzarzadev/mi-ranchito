@@ -9,10 +9,10 @@
 .resource:hover {
   box-shadow: var(--shadow-1);
 }
-.resource_media {
-  width: inherit;
-  height: -webkit-fill-available;
-  object-fit: cover;
+.resource_image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .resource_text {
   padding: 8px;
