@@ -3,7 +3,7 @@
   height: 18rem;
   border-radius: 4px;
   display: grid;
-  grid-template-rows: auto 60% auto;
+  grid-template-rows: 4rem 60% auto;
   box-shadow: var(--shadow-2);
 }
 .resource:hover {
@@ -16,4 +16,7 @@
 }
 .resource_text {
   padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

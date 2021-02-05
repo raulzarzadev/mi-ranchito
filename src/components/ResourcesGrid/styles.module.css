@@ -1,0 +1,12 @@
+.resources_grig {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 450px) {
+  .resources_grig {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
