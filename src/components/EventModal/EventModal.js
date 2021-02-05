@@ -21,8 +21,11 @@ export default function EventModal({ open, handleOpen, event }) {
         </div>
         <div>Fecha: {moment(event.date).format('DD MMM YY')}</div>
         <div>Semana: {moment(event.date).format('WW')}</div>
-        <div>
-          Detalles : <pre>{event.coments}</pre>{' '}
+
+        <div className={styles.coments}>
+          {' '}
+          <h5>Detalles :</h5>
+          {event.coments || 'sin detalles'}
         </div>
         <div>
           <strong>Siguiente Evento:</strong> {nextEvent.label}

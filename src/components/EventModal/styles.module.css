@@ -10,15 +10,14 @@
   border: 0.5px solid;
   border-radius: 4px;
   box-shadow: var(--shadow-1);
-  
 }
 
 .btn:hover {
-    box-shadow: var(--shadow-2);
+  box-shadow: var(--shadow-2);
 }
 
-.btn:active{
-      box-shadow: var(--shadow-3);
+.btn:active {
+  box-shadow: var(--shadow-3);
 }
 
 .btn_primary {
@@ -31,4 +30,9 @@
 
 .btn_success {
   background-color: green;
+}
+
+.coments {
+  max-width: 80%;
+  margin: .5rem auto;
 }
