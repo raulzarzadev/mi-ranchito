@@ -11,6 +11,11 @@ a {
   text-decoration: none;
 }
 
+.a:hover {
+  text-decoration: underline;
+  color: var(--blue-1);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -30,6 +35,7 @@ textarea {
 :root {
   --black: #000;
   --primary: #0fd;
+  --blue-1: #185472;
   --shadow-1: 1px 1px 3px var(--black);
   --shadow-2: 1px 1px 6px var(--black);
   --shadow-3: 1px 1px 6px 3px var(--black);

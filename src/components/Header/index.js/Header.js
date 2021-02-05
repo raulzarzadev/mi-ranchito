@@ -3,9 +3,6 @@ import React from 'react'
 import styles from './styles.module.css'
 
 export default function Header({ signOut, user }) {
-
-
- 
   return (
     <header className={styles.header}>
       <div>
@@ -32,6 +29,11 @@ export default function Header({ signOut, user }) {
         <Link href="/demo">
           <div className={styles.nav_link}>
             <a>Demo</a>
+          </div>
+        </Link>
+        <Link href="/sources">
+          <div className={styles.nav_link}>
+            <a>Recursos</a>
           </div>
         </Link>
         {user && <Avatar image={user?.image} alt={user?.name || user?.email} />}

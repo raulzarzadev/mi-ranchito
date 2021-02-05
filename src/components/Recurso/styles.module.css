@@ -1,0 +1,19 @@
+.resource {
+  width: 12rem;
+  height: 18rem;
+  border-radius: 4px;
+  display: grid;
+  grid-template-rows: auto 60% auto;
+  box-shadow: var(--shadow-2);
+}
+.resource:hover {
+  box-shadow: var(--shadow-1);
+}
+.resource_media {
+  width: inherit;
+  height: -webkit-fill-available;
+  object-fit: cover;
+}
+.resource_text {
+  padding: 8px;
+}
