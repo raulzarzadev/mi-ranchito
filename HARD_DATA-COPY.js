@@ -22,51 +22,61 @@ export const EARRINGS = [
 export const EVENTS = [
   {
     earring: '001',
+    visible: true,
     type: 'parto',
     date: '2019-05-12',
   },
   {
     earring: '002',
+    visible: true,
     type: 'servicio',
     date: '2019-12-15',
   },
   {
     earring: '003',
+    visible: true,
     type: 'parto',
     date: '2020-12-01',
   },
   {
     earring: '003',
+    visible: true,
     type: 'celo',
     date: '2018-12-25',
   },
   {
     earring: '006',
+    visible: true,
     type: 'servicio',
     date: '2019-07-25',
   },
   {
     earring: '004',
+    visible: true,
     type: 'servicio',
     date: '2020-12-30',
   },
   {
     earring: '004',
+    visible: true,
     type: 'parto',
     date: '2018-12-17',
   },
   {
     earring: '004',
+    visible: true,
     type: 'servicio',
     date: '2020-11-15',
   },
   {
     earring: '004',
+    visible: true,
     type: 'celo',
     date: '2020-12-30',
   },
   {
     earring: '005',
+    visible: true,
     type: 'celo',
     date: '2021-01-12',
   },
@@ -84,25 +94,100 @@ export const EVENTS = [
 };
  */
 export const ALL_EVENTS = [
-  { type: 'parto', label: 'Parto', nextEvent: 'celo', nextCheckOnWeeks: 8 },
-  { type: 'celo', label: 'Celo', nextEvent: 'celo', nextCheckOnWeeks: 3 },
-  { type: 'monta', label: 'Monta', nextEvent: 'celo', nextCheckOnWeeks: 3 },
-  { type: 'insem', label: 'Insem', nextEvent: 'celo', nextCheckOnWeeks: 3 },
-  { type: 'check', label: 'Revisión', nextEvent: '', nextCheckOnWeeks: 0 },
-  { type: 'gesta', label: '¿Gesta?', nextEvent: '', nextCheckOnWeeks: '' },
+  // deprecar monta / insem /gesta
+
   {
+    visible: false,
+    type: 'monta',
+    label: 'Monta',
+    nextEvent: 'celo',
+    nextCheckOnDays: 21,
+    from0Day: 0,
+  },
+  {
+    visible: false,
+    type: 'insem',
+    label: 'Insem',
+    nextEvent: 'celo',
+    nextCheckOnDays: 3,
+    from0Day: 0,
+  },
+  {
+    visible: false,
+    type: 'check',
+    label: 'Revisión',
+    nextEvent: '',
+    nextCheckOnDays: 0,
+    from0Day: 0,
+  },
+  {
+    visible: false,
+    type: 'gesta',
+    label: '¿Gesta?',
+    nextEvent: '',
+    nextCheckOnDays: '',
+    from0Day: 0,
+  },
+
+  // Good to use
+  {
+    visible: true,
+    type: 'serv',
+    label: 'Servicio',
+    nextEvent: 'celo',
+    nextCheckOnDays: 21,
+    from0Day: 0,
+  },
+  {
+    visible: true,
+    type: 'celo',
+    label: 'Celo',
+    nextEvent: 'celo',
+    nextCheckOnDays: 21,
+    from0Day: 21,
+  },
+  {
+    visible: true,
+    type: 'check',
+    label: 'Revisión',
+    nextEvent: 'gesta',
+    nextCheckOnDays: 65,
+    from0Day: 65,
+  },
+
+  {
+    visible: false,
     type: 'gestaFail',
     label: 'G.Fallida',
-    nextEvent: '',
-    nextCheckOnWeeks: '',
+    nextEvent: 'celo',
+    nextCheckOnDays: 0,
+    from0Day: 65,
   },
   {
+    visible: false,
     type: 'gestaSuccess',
     label: 'G.Exitosa',
-    nextEvent: '',
-    nextCheckOnWeeks: '',
+    nextEvent: 'seca',
+    nextCheckOnDays: 140,
+    from0Day: 65,
   },
-  { type: 'secado', label: 'Secado', nextEvent: '', nextCheckOnWeeks: '' },
+  {
+    visible: true,
+    type: 'secado',
+    label: 'Secado',
+    nextEvent: 'parto',
+    nextCheckOnDays: 90,
+    from0Day: 210,
+  },
+  {
+    visible: true,
+    type: 'parto',
+    label: 'Parto',
+    nextEvent: 'celo',
+    nextCheckOnDays: 60,
+    from0Day: 283,
+  },
+  
 ]
 
 export const RESOURCES = [

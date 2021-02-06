@@ -6,12 +6,19 @@ export default function Header({ signOut, user }) {
   return (
     <header className={styles.header}>
       <div>
-        <h4>miranchito.digital</h4>
+        <Link href="/">
+          <h4>miranchito.digital</h4>
+        </Link>
       </div>
       <nav className={styles.nav}>
-        <Link href="/">
+        <Link href="/demo">
           <div className={styles.nav_link}>
-            <a>H</a>
+            <a>Demo</a>
+          </div>
+        </Link>
+        <Link href="/sources">
+          <div className={styles.nav_link}>
+            <a>Recursos</a>
           </div>
         </Link>
         {!user && (
@@ -26,16 +33,6 @@ export default function Header({ signOut, user }) {
             <a>Salir</a>
           </div>
         )}
-        <Link href="/demo">
-          <div className={styles.nav_link}>
-            <a>Demo</a>
-          </div>
-        </Link>
-        <Link href="/sources">
-          <div className={styles.nav_link}>
-            <a>Recursos</a>
-          </div>
-        </Link>
         {user && <Avatar image={user?.image} alt={user?.name || user?.email} />}
       </nav>
     </header>
