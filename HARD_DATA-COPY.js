@@ -94,41 +94,6 @@ export const EVENTS = [
 };
  */
 export const ALL_EVENTS = [
-  // deprecar monta / insem /gesta
-
-  {
-    visible: false,
-    type: 'monta',
-    label: 'Monta',
-    nextEvent: 'celo',
-    nextCheckOnDays: 21,
-    from0Day: 0,
-  },
-  {
-    visible: false,
-    type: 'insem',
-    label: 'Insem',
-    nextEvent: 'celo',
-    nextCheckOnDays: 3,
-    from0Day: 0,
-  },
-  {
-    visible: false,
-    type: 'check',
-    label: 'Revisión',
-    nextEvent: '',
-    nextCheckOnDays: 0,
-    from0Day: 0,
-  },
-  {
-    visible: false,
-    type: 'gesta',
-    label: '¿Gesta?',
-    nextEvent: '',
-    nextCheckOnDays: '',
-    from0Day: 0,
-  },
-
   // Good to use
   {
     visible: true,
@@ -187,7 +152,41 @@ export const ALL_EVENTS = [
     nextCheckOnDays: 60,
     from0Day: 283,
   },
-  
+
+  // deprecar monta / insem /gesta
+
+  {
+    visible: false,
+    type: 'monta',
+    label: '*Monta',
+    nextEvent: 'celo',
+    nextCheckOnDays: 21,
+    from0Day: 0,
+  },
+  {
+    visible: false,
+    type: 'insem',
+    label: '*Insem',
+    nextEvent: 'celo',
+    nextCheckOnDays: 3,
+    from0Day: 0,
+  },
+  {
+    visible: false,
+    type: 'check',
+    label: '*Revisión',
+    nextEvent: '',
+    nextCheckOnDays: 0,
+    from0Day: 0,
+  },
+  {
+    visible: false,
+    type: 'gesta',
+    label: '*¿Gesta?',
+    nextEvent: '',
+    nextCheckOnDays: '',
+    from0Day: 0,
+  },
 ]
 
 export const RESOURCES = [

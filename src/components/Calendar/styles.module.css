@@ -1,7 +1,7 @@
 .calendar {
-  border: 1px solid;
   display: grid;
   gap: 0.5rem;
+  padding: 8px;
 }
 
 .calendar_row {

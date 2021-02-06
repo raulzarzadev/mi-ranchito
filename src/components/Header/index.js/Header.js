@@ -11,11 +11,19 @@ export default function Header({ signOut, user }) {
         </Link>
       </div>
       <nav className={styles.nav}>
-        <Link href="/demo">
-          <div className={styles.nav_link}>
-            <a>Demo</a>
-          </div>
-        </Link>
+        {user ? (
+          <Link href="/dashboard">
+            <div className={styles.nav_link}>
+              <a>Mis Vacas</a>
+            </div>
+          </Link>
+        ) : (
+          <Link href="/demo">
+            <div className={styles.nav_link}>
+              <a>Demo</a>
+            </div>
+          </Link>
+        )}
         <Link href="/sources">
           <div className={styles.nav_link}>
             <a>Recursos</a>
