@@ -1,71 +1,56 @@
+import { EVENTS_TYPES, PERIODS } from '@raiz/constants/EVENTS_INFO'
 import moment from 'moment'
 
-export const formatEvent = (event = {}, eventsAvaliables = []) => {
-  const labels = eventsAvaliables.reduce((acum, current) => {
-    const { label, type } = current
-    acum[type] = label
-    return acum
-  }, {})
-  let nextCheck
-  let nextEvent
+export function formatedTypes() {
+  return EVENTS_TYPES.map((event) => {
+    const auxArr = []
+    event.nextEvents.forEach((event) => {
+      auxArr.push(EVENTS_TYPES.find(({ type }) => type === event))
+    })
+    return { ...event, nextEvents: auxArr }
+  })
+}
 
-  switch (event.event) {
-    case 'parto':
-      nextEvent = 'celo'
-      nextCheck = moment(event.date).add(12, 'hours').add(70, 'd')
-      break
-    case 'celo':
-      nextEvent = 'celo'
-      nextCheck = moment(event.date).add(12, 'hours').add(21, 'd')
-      break
-    case 'monta':
-      nextEvent = 'gesta'
-      nextCheck = moment(event.date).add(12, 'hours').add(80, 'd')
-      break
-    case 'insem':
-      nextEvent = 'gesta'
-      nextCheck = moment(event.date).add(12, 'hours').add(80, 'd')
-      break
-    case 'gestaFail':
-      nextEvent = 'celo'
-      nextCheck = moment(event.date).add(12, 'hours').add(21, 'd')
-      break
-    case 'gestaSuccess':
-      nextEvent = 'secado'
-      nextCheck = moment(event.date).add(12, 'hours').add(140, 'd')
-      break
-    case 'secado':
-      nextEvent = 'parto'
-      nextCheck = moment(event.date).add(12, 'hours').add(90, 'd')
-      break
-    default:
-      break
+/* ----------------------------------------------------- */
+
+export function formatType(type) {
+  const events = EVENTS_TYPES.map((event) => {
+    const auxArr = []
+    event.nextEvents.forEach((event) => {
+      auxArr.push(EVENTS_TYPES.find(({ type }) => type === event))
+    })
+    return { ...event, nextEvents: auxArr }
+  })
+  const event = events.find((evt) => evt.type === type)
+  return event
+}
+
+export function formatDates(date) {
+  return { date: new Date(date), pretyDate: moment(date).format('WW / YY') }
+}
+
+export function formatNextEvents(events, mainDate) {
+  const originDate = new Date(mainDate)
+  return events?.map((event) => {
+    console.log(event.onDay)
+    const formatDate = moment(mainDate).add(event.onDay, 'd').format('WW / YY')
+    const date = new Date(moment(originDate).add(event.onDay, 'd').format())
+    return { date, formatDate, ...event }
+  })
+}
+
+/* ----------------------------------------- */
+
+export const formatEvent = (event = {}) => {
+  const setTypes = formatType(event?.event)
+  const setDates = formatDates(event?.date)
+  const setNextEvents = formatNextEvents(setTypes?.nextEvents, event?.date)
+  return {
+    ...setTypes,
+    ...setDates,
+    nextEvents: setNextEvents,
+    nextEvent: setNextEvents && setNextEvents[0],
   }
-
-  const eventFormatDate = moment(event.date)
-    .add(12, 'hours')
-    .format('WW / YY')
-    .slice(0, 7)
-  const nextEventFormatDate = nextCheck?.format('WW / YY').slice(0, 7)
-  const eventDate = new Date(event.date)
-  const nextEventDate = new Date(nextCheck)
-
-  const formatedEvent = {
-    id: event.id,
-    earring: event.earring,
-    type: event.event,
-    label: labels[event.event],
-    date: eventDate,
-    formatDate: eventFormatDate,
-    coments: event.coments,
-    nextEvent: {
-      type: nextEvent,
-      date: nextEventDate,
-      label: labels[nextEvent],
-      formatDate: nextEventFormatDate,
-    },
-  }
-  return formatedEvent
 }
 
 export function getToday() {

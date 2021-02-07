@@ -20,7 +20,7 @@ export default function Calendar() {
           <>
             {event.visible && (
               <div className={styles.calendar_row}>
-                <div>{event.label}</div>
+                <div className={styles.calendar_title}>{event.label} </div>
                 <div>
                   <ProgressBar progress={event.from0Day} />
                 </div>

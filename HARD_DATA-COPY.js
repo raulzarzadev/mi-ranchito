@@ -173,14 +173,6 @@ export const ALL_EVENTS = [
   },
   {
     visible: false,
-    type: 'check',
-    label: '*Revisión',
-    nextEvent: '',
-    nextCheckOnDays: 0,
-    from0Day: 0,
-  },
-  {
-    visible: false,
     type: 'gesta',
     label: '*¿Gesta?',
     nextEvent: '',

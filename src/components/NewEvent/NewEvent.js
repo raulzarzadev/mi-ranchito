@@ -1,15 +1,13 @@
 import { useAuth } from '@raiz/src/context/AuthContext'
 import React, { useEffect, useState } from 'react'
-import { getToday } from '../../utils'
+import { formatedTypes, getToday } from '../../utils'
 import styles from './styles.module.css'
 
 export default function NewEvent({
   handleAddEvent = () => console.log('submit'),
   earrings = [],
-  eventsAvaiblable = [],
   event = null,
 }) {
-  
   const { user } = useAuth()
   const [form, setForm] = useState({
     date: getToday(),
@@ -18,6 +16,8 @@ export default function NewEvent({
     earring: '',
     event: '',
   })
+
+  const eventsAvaiblable = formatedTypes()
 
   useEffect(() => {
     if (event) {
@@ -48,7 +48,6 @@ export default function NewEvent({
     handleAddEvent(form)
     setLabelButton('Guardado')
     setForm({ ...form, event: '', earring: '', coments: '' })
-
   }
   console.log(form)
   const [labelButton, setLabelButton] = useState('Guardar Evento')

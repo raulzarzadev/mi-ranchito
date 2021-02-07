@@ -3,8 +3,7 @@ import EventsHistory from '@cmps/EventsHistory'
 import NewEarring from '@cmps/NewEarring'
 import NewEvent from '@cmps/NewEvent'
 import UpcomingEvents from '@cmps/UpcomingEvents'
-import { ALL_EVENTS } from '@raiz/HARD_DATA-COPY'
-import { formatEvent } from '@raiz/src/utils'
+import { formatEvent, formatType } from '@raiz/src/utils'
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 
@@ -14,16 +13,17 @@ export default function DashboardDisplay({
   handleAddEarring,
   handleAddEvent,
 }) {
-  const eventsAvaiblable = ALL_EVENTS
-
   const [tabSelected, setTabSelected] = useState('PROX')
   const [title, setTitle] = useState('Proximamente')
-
+  
   useEffect(() => {
-    setFormatedEvents(
-      events.map((event) => formatEvent(event, eventsAvaiblable))
-    )
+    if (events) {
+      setFormatedEvents(
+        events.map((event) => formatEvent(event))
+      )
+    }
   }, [events])
+  console.log(events)
 
   const handleChangeTab = (tab) => {
     setTabSelected(tab)
@@ -121,11 +121,7 @@ export default function DashboardDisplay({
           style={{ display: tabSelected === 'EVENT' ? 'block' : 'none' }}
         >
           <div className={styles.demo_display_form}>
-            <NewEvent
-              handleAddEvent={handleAddEvent}
-              eventsAvaiblable={eventsAvaiblable}
-              earrings={earringsData}
-            />
+            <NewEvent handleAddEvent={handleAddEvent} earrings={earringsData} />
           </div>
         </div>
         <div
