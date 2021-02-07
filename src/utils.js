@@ -1,4 +1,4 @@
-import { EVENTS_TYPES, PERIODS } from '@raiz/constants/EVENTS_INFO'
+import { EVENTS_TYPES } from '@raiz/constants/EVENTS_INFO'
 import moment from 'moment'
 
 export function formatedTypes() {
@@ -26,7 +26,7 @@ export function formatType(type) {
 }
 
 export function formatDates(date) {
-  return { date: new Date(date), pretyDate: moment(date).format('WW / YY') }
+  return { date: new Date(date), formatDate: moment(date).format('WW / YY') }
 }
 
 export function formatNextEvents(events, mainDate) {
@@ -46,6 +46,7 @@ export const formatEvent = (event = {}) => {
   const setDates = formatDates(event?.date)
   const setNextEvents = formatNextEvents(setTypes?.nextEvents, event?.date)
   return {
+    ...event,
     ...setTypes,
     ...setDates,
     nextEvents: setNextEvents,

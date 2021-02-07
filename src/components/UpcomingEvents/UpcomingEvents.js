@@ -5,18 +5,19 @@ import SelectedTitle from "../SelectedTitle";
 
 export default function UpcomingEvents({ events }) {
   const [range, setRange] = useState("week");
+  console.log(events)
   let upcomingEvents = events.filter(
     (event) =>
-      event.nextEvent.date > moment().subtract(1, "week") &&
-      event.nextEvent.date < moment().add(2, range)
+      event.nextEvent?.date > moment().subtract(1, "week") &&
+      event.nextEvent?.date < moment().add(2, range)
   );
 
   const handleChangeRange = (range) => {
     setRange(range);
     upcomingEvents = events.filter(
       (event) =>
-        event.nextEvent.date > moment().subtract(1, "week") &&
-        event.nextEvent.date < moment().add(2, range)
+        event.nextEvent?.date > moment().subtract(1, "week") &&
+        event.nextEvent?.date < moment().add(2, range)
     );
   };
   return (
