@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 
 export default function EventModal({ open, handleOpen, event }) {
   const router = useRouter()
-  console.log(event)
   const handleEditEvent = (id) => {
     router.push(`/event/edit/${id}`)
   }

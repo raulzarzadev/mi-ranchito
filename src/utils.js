@@ -13,7 +13,7 @@ export function formatedTypes() {
 
 /* ----------------------------------------------------- */
 
-export function formatType(type) {
+function formatType(type) {
   const events = EVENTS_TYPES.map((event) => {
     const auxArr = []
     event.nextEvents.forEach((event) => {
@@ -25,11 +25,11 @@ export function formatType(type) {
   return event
 }
 
-export function formatDates(date) {
+function formatDates(date) {
   return { date: new Date(date), formatDate: moment(date).format('WW / YY') }
 }
 
-export function formatNextEvents(events, mainDate) {
+function formatNextEvents(events, mainDate) {
   const originDate = new Date(mainDate)
   return events?.map((event) => {
     console.log(event.onDay)
