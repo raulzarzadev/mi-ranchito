@@ -145,18 +145,13 @@ export const logout = async () => {
 const db = firebaseClient.firestore()
 console.log(db && 'db ok')
 
+
+/*  COWS and EARRIGS */
+
 export async function newCow(cow) {
   return await db
     .collection('cows')
     .add(cow)
-    .catch((err) => console.log(err))
-}
-
-export function newEvent(event) {
-  console.log(event)
-  return db
-    .collection('events')
-    .add(event)
     .catch((err) => console.log(err))
 }
 
@@ -177,6 +172,16 @@ export async function getUserCows(userId = '') {
         })
       })
   )
+}
+
+/* EVENTS */
+
+export function newEvent(event) {
+  console.log(event)
+  return db
+    .collection('events')
+    .add(event)
+    .catch((err) => console.log(err))
 }
 
 export function getUserEvents(userId = '') {
@@ -206,6 +211,19 @@ export function updateEvent(eventId, event) {
       return { ok: true, type: 'EVT_UPDATED' }
     })
     .catch((err) => console.log(err))
+}
+
+export function deleteEvent(eventId) {
+  return db
+    .collection('events')
+    .doc(eventId)
+    .delete()
+    .then(() => {
+      return { ok: true, type: 'EVT_DELETED' }
+    })
+    .catch(() => {
+      return { ok: false, type: 'DELETE_ERR' }
+    })
 }
 
 export { firebaseClient }

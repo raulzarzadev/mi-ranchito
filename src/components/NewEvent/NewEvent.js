@@ -1,11 +1,12 @@
 import { useAuth } from '@raiz/src/context/AuthContext'
+import useCows from '@raiz/src/hooks/useCows'
+import useEvents from '@raiz/src/hooks/useEvents'
 import React, { useEffect, useState } from 'react'
 import { formatedTypes, getToday } from '../../utils'
 import styles from './styles.module.css'
 
 export default function NewEvent({
-  handleAddEvent = () => console.log('submit'),
-  earrings = [],
+ 
   event = null,
 }) {
   const { user } = useAuth()
@@ -16,6 +17,21 @@ export default function NewEvent({
     earring: '',
     event: '',
   })
+
+  const { cows } = useCows()
+  const { addEvent } = useEvents()
+  const [earrings, setEarrings] = useState(cows || [])
+  useEffect(() => {
+    setEarrings(cows)
+  }, [cows])
+
+
+  earrings.sort((a, b) => {
+    if (a.earring > b.earring) return 1
+    if (a.earring < b.earring) return -1
+    return 0
+  })
+  // console.log(earrings)
 
   const eventsAvaiblable = formatedTypes()
 
@@ -34,22 +50,15 @@ export default function NewEvent({
     }
   }, [user])
 
-  earrings.sort((a, b) => {
-    if (a.earring > b.earring) return 1
-    if (a.earring < b.earring) return -1
-    return 0
-  })
-
   const handleChange = (e) => {
     setLabelButton('Guardar Evento')
     setForm({ ...form, [e.target.name]: e.target.value })
   }
   const handleSubmit = () => {
-    handleAddEvent(form)
+    addEvent(form)
     setLabelButton('Guardado')
     setForm({ ...form, event: '', earring: '', coments: '' })
   }
-  console.log(form)
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
   // TODO Evento revision, comentarios , evento aleatorio

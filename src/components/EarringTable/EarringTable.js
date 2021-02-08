@@ -14,6 +14,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import EventTable from '@cmps/EventTable'
 import moment from 'moment'
+import useCows from '@raiz/src/hooks/useCows'
+import useEvents from '@raiz/src/hooks/useEvents'
 
 function Row({ row = [] }) {
   const [open, setOpen] = React.useState(false)
@@ -66,32 +68,11 @@ function Row({ row = [] }) {
   )
 }
 
-export default function EerringTable({ earrings = [], events = [] }) {
+export default function EerringTable() {
+  const { formatedCows } = useCows()
+  const rows = formatedCows
   const [sortBy, setSortBy] = useState('earring')
-  const [rows, setRows] = useState([])
-
-  const formatEventsEarring = (events, earrings) => {
-    return earrings.map((earring) => {
-      const evts = events.filter((event) => event.earring === earring.earring)
-      const sortedEvts = evts.sort((a, b) => {
-        if (a.date < b.date) return 1
-        if (a.date > b.date) return -1
-        return 0
-      })
-      return {
-        ...earring,
-        events: sortedEvts,
-        lastEvent: sortedEvts[0] || null,
-        lastEventLabel: sortedEvts[0]?.label || '-',
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (earrings && events) {
-      setRows(formatEventsEarring(events, earrings))
-    }
-  }, [events, earrings])
+  console.log('cows', formatedCows)
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {

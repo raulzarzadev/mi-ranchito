@@ -2,10 +2,12 @@ import { useState } from 'react'
 import moment from 'moment'
 import styles from './styles.module.css'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import useCows from '@raiz/src/hooks/useCows'
 
-export default function NewEarring({ handleAddEarring, earrings = [] }) {
-  const today = moment().format('YYYY-MM-DD')
+export default function NewEarring() {
   const { user } = useAuth()
+  const { handleNewCow, cows } = useCows()
+  const today = moment().format('YYYY-MM-DD')
   const [newEarring, setNewEarring] = useState({
     birth: today,
     userId: user?.id,
@@ -17,13 +19,11 @@ export default function NewEarring({ handleAddEarring, earrings = [] }) {
     setLabelButton('Guardar')
   }
 
-  const existedEarring = earrings.map((earring) => earring.earring)
+  const existedEarring = cows.map((earring) => earring.earring)
   const alreadyExist = existedEarring.includes(newEarring.earring)
-
   const handleSubmit = () => {
-    handleAddEarring(newEarring)
+    handleNewCow(newEarring)
   }
-
   const [labelButton, setLabelButton] = useState('Guardar')
 
   const valid = alreadyExist || !newEarring?.earring

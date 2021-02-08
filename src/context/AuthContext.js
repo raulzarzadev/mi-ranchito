@@ -52,25 +52,24 @@ export function AuthProvider({ children }) {
         setErrors(err)
       })
   }
-
   useEffect(() => {
-    firebaseClient.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUser({
-          email: user.email,
-          name: user.displayName,
-          image: user.photoURL,
-          id: user.uid,
-        })
-      } else {
-        setUser(null)
-        console.log('not user')
-      }
-    })
+   
+      firebaseClient.auth().onAuthStateChanged((user) => {
+        if (user) {
+          setUser({
+            email: user.email,
+            name: user.displayName,
+            image: user.photoURL,
+            id: user.uid,
+          })
+        } else {
+          setUser(null)
+          console.log('not user')
+        }
+      })
   }, [])
 
   // If do know status user, return
-
   return (
     <AuthContext.Provider
       value={{

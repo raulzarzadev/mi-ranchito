@@ -1,7 +1,10 @@
-import React from "react";
-import EventTable from "../EventTable";
+import useEvents from '@raiz/src/hooks/useEvents'
+import React from 'react'
+import EventTable from '../EventTable'
 
-export default function EventsHistory({ events }) {
+export default function EventsHistory() {
+  const { formatedEvents } = useEvents()
+  const events = formatedEvents
   return (
     <>
       {events.length === 0 ? (
@@ -10,5 +13,5 @@ export default function EventsHistory({ events }) {
         <EventTable title="Historial" events={events} />
       )}
     </>
-  );
+  )
 }

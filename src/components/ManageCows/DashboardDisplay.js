@@ -3,27 +3,12 @@ import EventsHistory from '@cmps/EventsHistory'
 import NewEarring from '@cmps/NewEarring'
 import NewEvent from '@cmps/NewEvent'
 import UpcomingEvents from '@cmps/UpcomingEvents'
-import { formatEvent, formatType } from '@raiz/src/utils'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 
-export default function DashboardDisplay({
-  events,
-  earringsData,
-  handleAddEarring,
-  handleAddEvent,
-}) {
+export default function DashboardDisplay({}) {
   const [tabSelected, setTabSelected] = useState('PROX')
   const [title, setTitle] = useState('Proximamente')
-  
-  useEffect(() => {
-    if (events) {
-      setFormatedEvents(
-        events.map((event) => formatEvent(event))
-      )
-    }
-  }, [events])
-  console.log(events)
 
   const handleChangeTab = (tab) => {
     setTabSelected(tab)
@@ -48,9 +33,6 @@ export default function DashboardDisplay({
         break
     }
   }
-  const [formatedEvents, setFormatedEvents] = useState(
-    events.map((event) => formatEvent(event))
-  )
 
   return (
     <div>
@@ -110,10 +92,7 @@ export default function DashboardDisplay({
           style={{ display: tabSelected === 'COW' ? 'block' : 'none' }}
         >
           <div className={styles.demo_display_form}>
-            <NewEarring
-              earrings={earringsData}
-              handleAddEarring={handleAddEarring}
-            />
+            <NewEarring />
           </div>
         </div>
         <div
@@ -121,26 +100,26 @@ export default function DashboardDisplay({
           style={{ display: tabSelected === 'EVENT' ? 'block' : 'none' }}
         >
           <div className={styles.demo_display_form}>
-            <NewEvent handleAddEvent={handleAddEvent} earrings={earringsData} />
+            <NewEvent />
           </div>
         </div>
         <div
           className={styles.demo_display}
           style={{ display: tabSelected === 'PROX' ? 'block' : 'none' }}
         >
-          <UpcomingEvents events={formatedEvents} />
+          {/* <UpcomingEvents /> */}
         </div>
         <div
           className={styles.demo_display}
           style={{ display: tabSelected === 'HIST' ? 'block' : 'none' }}
         >
-          <EventsHistory events={formatedEvents} />
+           <EventsHistory /> 
         </div>
         <div
           className={styles.demo_display}
           style={{ display: tabSelected === 'ALL' ? 'block' : 'none' }}
         >
-          <EarringTable events={formatedEvents} earrings={earringsData} />
+          <EarringTable /> 
         </div>
       </div>
     </div>
