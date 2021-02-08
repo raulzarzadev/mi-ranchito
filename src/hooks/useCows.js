@@ -35,9 +35,10 @@ export default function useCows() {
   
   */
   const { user } = useAuth()
+  const { events } = useEvents()
+
   const [errors, setErrors] = useState(null)
   const [cows, setCows] = useState([])
-  const { events } = useEvents()
 
   const addCow = (cow) => {
     newCow(cow)
@@ -54,11 +55,6 @@ export default function useCows() {
     }
   }, [user])
 
-  useEffect(() => {
-    setFormatedCows(formatEventsByEarring(events, cows))
-  }, [])
-
-  const [formatedCows, setFormatedCows] = useState([])
-  // const formatedCows = formatEventsByEarring(events, cows)
-  return { errors, cows, formatedCows, addCow, removeCow }
+  const formatedCows = formatEventsByEarring(events, cows)
+  return { errors, cows: formatedCows, addCow, removeCow }
 }

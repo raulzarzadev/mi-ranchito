@@ -1,15 +1,18 @@
 import { useAuth } from '@raiz/src/context/AuthContext'
 import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { formatedTypes, getToday } from '../../utils'
 import styles from './styles.module.css'
 
-export default function NewEvent({
- 
-  event = null,
-}) {
+export default function NewEvent({ event = null, editPage }) {
+  const router = useRouter()
   const { user } = useAuth()
+  const { cows } = useCows()
+  const { addEvent, editEvent } = useEvents()
+  const earrings = cows
+  
   const [form, setForm] = useState({
     date: getToday(),
     userId: user?.id,
@@ -17,14 +20,7 @@ export default function NewEvent({
     earring: '',
     event: '',
   })
-
-  const { cows } = useCows()
-  const { addEvent } = useEvents()
-  const [earrings, setEarrings] = useState(cows || [])
-  useEffect(() => {
-    setEarrings(cows)
-  }, [cows])
-
+  
 
   earrings.sort((a, b) => {
     if (a.earring > b.earring) return 1
@@ -55,9 +51,12 @@ export default function NewEvent({
     setForm({ ...form, [e.target.name]: e.target.value })
   }
   const handleSubmit = () => {
-    addEvent(form)
+    event?.id ? editEvent(event?.id, form) : addEvent(form)
     setLabelButton('Guardado')
     setForm({ ...form, event: '', earring: '', coments: '' })
+    setTimeout(() => {
+      router.back()
+    }, 300);
   }
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 

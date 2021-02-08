@@ -77,16 +77,6 @@ export const loginWithEmail = async (email, pass) => {
   return result
 }
 
-export const getEvent = async (id) => {
-  return db
-    .collection('events')
-    .doc(id)
-    .get()
-    .then((snapshot) => {
-      return snapshot.data()
-    })
-}
-
 /* export const signupEmail = async (email) => {
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
@@ -145,8 +135,17 @@ export const logout = async () => {
 const db = firebaseClient.firestore()
 console.log(db && 'db ok')
 
+/* ---------------- COWS and EARRIGS ----------------*/
 
-/*  COWS and EARRIGS */
+export async function getCow(id) {
+  return db
+    .collection('cows')
+    .doc(id)
+    .get()
+    .then((snapshot) => {
+      return { id, ...snapshot.data() }
+    })
+}
 
 export async function newCow(cow) {
   return await db
@@ -174,13 +173,26 @@ export async function getUserCows(userId = '') {
   )
 }
 
-/* EVENTS */
+/* ------------EVENTS------------ */
+
+export const getEvent = async (id) => {
+  return db
+    .collection('events')
+    .doc(id)
+    .get()
+    .then((snapshot) => {
+      return { id, ...snapshot.data() }
+    })
+}
 
 export function newEvent(event) {
   console.log(event)
   return db
     .collection('events')
     .add(event)
+    .then(() => {
+      return { ok: true, type: 'EVT_CREATED' }
+    })
     .catch((err) => console.log(err))
 }
 

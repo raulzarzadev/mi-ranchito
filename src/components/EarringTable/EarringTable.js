@@ -69,10 +69,10 @@ function Row({ row = [] }) {
 }
 
 export default function EerringTable() {
-  const { formatedCows } = useCows()
-  const rows = formatedCows
+  const { cows } = useCows()
+  const rows = cows
   const [sortBy, setSortBy] = useState('earring')
-  console.log('cows', formatedCows)
+  console.log('cows', cows)
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {

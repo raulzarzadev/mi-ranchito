@@ -3,8 +3,7 @@ import React from 'react'
 import EventTable from '../EventTable'
 
 export default function EventsHistory() {
-  const { formatedEvents } = useEvents()
-  const events = formatedEvents
+  const { events } = useEvents()
   return (
     <>
       {events.length === 0 ? (

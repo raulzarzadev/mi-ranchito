@@ -1,4 +1,9 @@
-import { deleteEvent, getUserEvents, newEvent } from '@raiz/firebaseClient'
+import {
+  deleteEvent,
+  getUserEvents,
+  newEvent,
+  updateEvent,
+} from '@raiz/firebaseClient'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { formatEvent } from '../utils'
@@ -17,6 +22,10 @@ export default function useEvents() {
     deleteEvent(eventId)
       .then((res) => console.log(res))
       .catch(setErrors)
+    getEvents(user.id)
+  }
+  const editEvent = (eventId, event) => {
+    updateEvent(eventId, event).then((res) => console.log(res))
   }
 
   const getEvents = (userId) => {
@@ -30,6 +39,6 @@ export default function useEvents() {
   }, [user])
 
   const formatedEvents = events.map((event) => formatEvent(event))
-  
-  return { errors, events, formatedEvents, addEvent, removeEvent }
+
+  return { errors, events: formatedEvents, addEvent, removeEvent, editEvent }
 }
