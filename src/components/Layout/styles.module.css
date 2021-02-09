@@ -1,28 +1,21 @@
 .body {
   text-align: center;
+  display: grid;
+  grid-template-rows: auto auto auto;
 }
 
-.container {
-  min-height: 80vh;
+.main_container {
+  min-height: calc(100vh - 280px);
   padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.main {
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* min-height: 80vh;
+ */
 }
 
 .footer {
   width: 100%;
   border-top: 1px solid #eaeaea;
+  background-color: #eecdcd;
   display: flex;
   justify-content: center;
   align-items: center;

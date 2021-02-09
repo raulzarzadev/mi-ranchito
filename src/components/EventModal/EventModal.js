@@ -19,16 +19,20 @@ export default function EventModal({ open, handleOpen, event }) {
   }
   const [openDelete, setOpenDelete] = useState(false)
   const { nextEvent } = event
+  console.log(event)
   return (
     <>
       <Modal handleOpen={handleOpen} open={open} title="Detalles del Evento">
-        <div>
+        <div className={styles.modal_container}>
           <div>
             <strong>Evento:</strong> {event?.label}{' '}
             <em>{event?.type || event?.event}</em>
           </div>
           <div>Fecha: {moment(event?.date).format('DD MMM YY')}</div>
-          <div>Semana: {moment(event?.date).format('WW')}</div>
+          <div>
+            {' '}
+            <em>{event.fromNow}</em>
+          </div>
 
           <div className={styles.coments}>
             {' '}
@@ -36,12 +40,11 @@ export default function EventModal({ open, handleOpen, event }) {
             {event?.coments || 'sin detalles'}
           </div>
           <div>
-            <strong>Siguiente Evento:</strong> {nextEvent?.label}
-            <em>{nextEvent?.type}</em>
+            <strong>Siguiente Evento:</strong>{' '}
+            {nextEvent?.label || <em>{nextEvent?.type}</em>}
           </div>
-          <div>Dentro de: {moment(nextEvent?.date).fromNow(true)}</div>
           <div>Fecha: {moment(nextEvent?.date).format('DD MMM YY')}</div>
-          <div>Semana: {moment(nextEvent?.date).format('WW')}</div>
+          <div>Dentro de: {moment(nextEvent?.date).fromNow(true)}</div>
           <div className={styles.actions}>
             <div className="box-1">
               <ModalButton

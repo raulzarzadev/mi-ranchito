@@ -1,0 +1,21 @@
+.dashboard_nav {
+  display: grid;
+  gap: 4px;
+  grid-auto-flow: row;
+  width: 100%;
+}
+
+.dashboard_btn {
+  padding: 4px;
+  border: 1px solid;
+}
+.dashboard_btn:hover {
+  background-color: gray;
+}
+
+@media (min-width: 500px) {
+  .dashboard_nav {
+    grid-auto-flow: column;
+    background-color: red;
+  }
+}

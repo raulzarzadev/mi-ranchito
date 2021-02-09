@@ -13,13 +13,40 @@ import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import EventTable from '@cmps/EventTable'
-import moment from 'moment'
 import useCows from '@raiz/src/hooks/useCows'
-import useEvents from '@raiz/src/hooks/useEvents'
+import styles from './styles.module.css'
+import L from '@cmps/L/L'
+
+function RowDetails({ row }) {
+  return (
+    <div>
+        <L href={`/dashboard-cows/newEvent?earring=${row.earring}`}>
+          Nuevo Evento
+        </L>
+      <span style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <h5>Ultimo Evento: </h5>
+        <h6>
+          {row.lastEvent?.label}{' '}
+          <em>{row.lastEvent?.type || row.lastEvent?.event}</em>
+        </h6>
+        <h6>{row.lastEvent?.fromNow}</h6>
+      </span>
+      <Box></Box>
+      <h5>Proximos Eventos: </h5>
+      <div className={styles.upcomming_display}>
+        {row?.upcomingEvents?.map((next, i) => (
+          <div key={i} className={styles.upcomming_event}>
+            <div>{next.label || next.type || next.event}</div>
+            <div>{next.fromNow}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function Row({ row = [] }) {
   const [open, setOpen] = React.useState(false)
-
   return (
     <React.Fragment>
       <TableRow>
@@ -40,7 +67,7 @@ function Row({ row = [] }) {
           </div>
         </TableCell>
         <TableCell padding="none" align="left">
-          {moment(row.birth).fromNow(true)}
+          {row.age}
         </TableCell>
         <TableCell padding="none" align="center">
           {row?.lastEvent?.label || '-'}
@@ -53,6 +80,7 @@ function Row({ row = [] }) {
           colSpan={6}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
+            <RowDetails row={row} />
             <Box margin={1}>
               <EventTable
                 events={row.events}
@@ -67,10 +95,11 @@ function Row({ row = [] }) {
   )
 }
 
-export default function EerringTable() {
+export default function EerringTable({ title }) {
   const { cows } = useCows()
   const rows = cows
   const [sortBy, setSortBy] = useState('earring')
+  console.log(rows[0])
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
@@ -92,11 +121,10 @@ export default function EerringTable() {
 
   // TODO no funciona el sort otra vez
 
-
   return (
     <div style={{ margin: '0 auto' }}>
       <TableContainer component={Paper}>
-        <h3>Aretes Registrados</h3>
+        <h3>{title}</h3>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>

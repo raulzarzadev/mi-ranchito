@@ -1,0 +1,15 @@
+.upcomming_display {
+  display: flex;
+  background-color: aqua;
+  padding: 4px;
+  gap: 4px;
+  max-width: 300px;
+}
+.upcomming_event {
+  background-color: #fff;
+  display: block;
+  padding: 4px;
+  text-align: center;
+  width: 100px;
+  font-size: .45rem;
+}

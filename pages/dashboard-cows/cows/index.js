@@ -5,7 +5,7 @@ import React from 'react'
 export default function cows() {
   return (
     <div>
-      <EarringTable />
+      <EarringTable title={'Todos lo aretes'} />
     </div>
   )
 }

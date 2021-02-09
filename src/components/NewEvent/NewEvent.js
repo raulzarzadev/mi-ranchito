@@ -6,21 +6,21 @@ import React, { useEffect, useState } from 'react'
 import { formatedTypes, getToday } from '../../utils'
 import styles from './styles.module.css'
 
-export default function NewEvent({ event = null, editPage }) {
+export default function NewEvent({ event = null }) {
   const router = useRouter()
   const { user } = useAuth()
   const { cows } = useCows()
   const { addEvent, editEvent } = useEvents()
+  const earringNo = router?.query?.earring
   const earrings = cows
-  
+
   const [form, setForm] = useState({
     date: getToday(),
     userId: user?.id,
     coments: '',
-    earring: '',
+    earring: earringNo || '',
     event: '',
   })
-  
 
   earrings.sort((a, b) => {
     if (a.earring > b.earring) return 1
@@ -56,7 +56,7 @@ export default function NewEvent({ event = null, editPage }) {
     setForm({ ...form, event: '', earring: '', coments: '' })
     setTimeout(() => {
       router.back()
-    }, 300);
+    }, 300)
   }
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 

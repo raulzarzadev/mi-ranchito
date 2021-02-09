@@ -1,4 +1,4 @@
-import { getUserCows, getUserEvents, newCow } from '@raiz/firebaseClient'
+import { getUserCows,  newCow } from '@raiz/firebaseClient'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { formatEventsByEarring } from '../utils'

@@ -1,3 +1,6 @@
+.modal_container{
+  padding: 8px;
+}
 .actions {
   display: flex;
   justify-content: space-around;

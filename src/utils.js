@@ -26,13 +26,17 @@ function formatType(type) {
 }
 
 function formatDates(date) {
-  return { date: new Date(date), formatDate: moment(date).format('WW / YY') }
+  return {
+    date: new Date(date),
+    formatDate: moment(date).format('WW / YY'),
+    fromNow: moment(date).fromNow(),
+  }
 }
 
 function formatNextEvents(events, mainDate) {
   const originDate = mainDate
   return events?.map((event) => {
-    const fromNow = moment(originDate).fromNow(true)
+    const fromNow = moment(originDate).add(event.onDay, 'd').fromNow(true)
     const formatDate = moment(originDate)
       .add(event.onDay, 'd')
       .format('WW / YY')
@@ -45,6 +49,7 @@ function formatNextEvents(events, mainDate) {
 
 export function formatEventsByEarring(events, earrings) {
   return earrings.map((earring) => {
+    const age = moment(earring.birth).fromNow(true)
     const evts = events.filter((event) => event.earring === earring.earring)
     const sortedEvts = evts.sort((a, b) => {
       if (a.date < b.date) return 1
@@ -53,7 +58,9 @@ export function formatEventsByEarring(events, earrings) {
     })
     return {
       ...earring,
+      age,
       events: sortedEvts,
+      upcomingEvents: sortedEvts[0]?.nextEvents,
       lastEvent: sortedEvts[0] || null,
       lastEventLabel: sortedEvts[0]?.label || '-',
     }
