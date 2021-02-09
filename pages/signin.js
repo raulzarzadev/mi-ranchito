@@ -18,4 +18,3 @@ export default function Signin() {
   )
 }
 
-Signin.Layout = Layout

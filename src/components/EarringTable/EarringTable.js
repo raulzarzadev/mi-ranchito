@@ -41,7 +41,6 @@ function Row({ row = [] }) {
         </TableCell>
         <TableCell padding="none" align="left">
           {moment(row.birth).fromNow(true)}
-          {/* TODO cambiar por moment y mostrar edad */}
         </TableCell>
         <TableCell padding="none" align="center">
           {row?.lastEvent?.label || '-'}
@@ -72,7 +71,6 @@ export default function EerringTable() {
   const { cows } = useCows()
   const rows = cows
   const [sortBy, setSortBy] = useState('earring')
-  console.log('cows', cows)
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
@@ -91,6 +89,9 @@ export default function EerringTable() {
       })
     }
   }
+
+  // TODO no funciona el sort otra vez
+
 
   return (
     <div style={{ margin: '0 auto' }}>

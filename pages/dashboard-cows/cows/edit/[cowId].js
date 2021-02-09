@@ -1,3 +1,4 @@
+import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import NewEarring from '@cmps/NewEarring'
 import { getCow } from '@raiz/firebaseClient'
 import { useRouter } from 'next/router'
@@ -13,3 +14,5 @@ export default function editCow() {
     </div>
   )
 }
+
+editCow.DashboardCowsLayout = DashboardCowsLayout

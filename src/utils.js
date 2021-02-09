@@ -30,11 +30,14 @@ function formatDates(date) {
 }
 
 function formatNextEvents(events, mainDate) {
-  const originDate = new Date(mainDate)
+  const originDate = mainDate
   return events?.map((event) => {
-    const formatDate = moment(mainDate).add(event.onDay, 'd').format('WW / YY')
+    const fromNow = moment(originDate).fromNow(true)
+    const formatDate = moment(originDate)
+      .add(event.onDay, 'd')
+      .format('WW / YY')
     const date = new Date(moment(originDate).add(event.onDay, 'd').format())
-    return { date, formatDate, ...event }
+    return { date, formatDate, fromNow, ...event }
   })
 }
 
@@ -58,9 +61,10 @@ export function formatEventsByEarring(events, earrings) {
 }
 
 export const formatEvent = (event = {}) => {
-  const setTypes = formatType(event?.event)
-  const setDates = formatDates(event?.date)
-  const setNextEvents = formatNextEvents(setTypes?.nextEvents, event?.date)
+  const date = event.date || new Date()
+  const setTypes = formatType(event.type || event.event)
+  const setDates = formatDates(date)
+  const setNextEvents = formatNextEvents(setTypes?.nextEvents, date)
   return {
     ...event,
     ...setTypes,

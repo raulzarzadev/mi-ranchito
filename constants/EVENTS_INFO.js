@@ -19,7 +19,7 @@ export const EVENTS_TYPES = [
   {
     type: 'first_serv',
     label: 'Primer Servicio',
-    onDay: 0,
+    onDay: PERIODS.first_serv,
     nextEvents: ['serv'],
   },
   {

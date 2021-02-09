@@ -1,9 +1,11 @@
-import { ALL_EVENTS } from '@raiz/HARD_DATA-COPY'
+import { EVENTS_TYPES } from '@raiz/constants/EVENTS_INFO'
+import { formatEvent } from '@raiz/src/utils'
 import styles from './styles.module.css'
 
 export default function Calendar() {
-  const eventsAvailables = ALL_EVENTS
-  console.log(eventsAvailables)
+  const events = EVENTS_TYPES
+  const formatedEvents = events.map((event) => formatEvent(event))
+  console.log(formatedEvents)
   return (
     <div>
       <div className={styles.calendar}>
@@ -16,18 +18,17 @@ export default function Calendar() {
             <h5>Desde el celo</h5>
           </div>
         </div>
-        {eventsAvailables.map((event) => (
-          <>
-            {event.visible && (
-              <div className={styles.calendar_row}>
-                <div className={styles.calendar_title}>{event.label} </div>
-                <div>
-                  <ProgressBar progress={event.from0Day} />
-                </div>
+        {formatedEvents.map((event, i) => (
+          <div key={i}>
+            <div className={styles.calendar_row}>
+              <div className={styles.calendar_title}>{event.label} </div>
+              <div>
+                <ProgressBar progress={event.onDay} />
               </div>
-            )}
-          </>
+            </div>
+          </div>
         ))}
+        
       </div>
     </div>
   )

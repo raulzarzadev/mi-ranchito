@@ -9,7 +9,7 @@ export default function EventModal({ open, handleOpen, event }) {
   const { removeEvent } = useEvents()
   const router = useRouter()
   const handleEditEvent = (id) => {
-    router.push(`/event/edit/${id}`)
+    router.push(`/dashboard-cows/events/edit/${id}`)
   }
   const handleOpenDeleteModal = () => {
     setOpenDelete(!openDelete)

@@ -1,10 +1,10 @@
-import Layout from '@cmps/Layout'
+import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import NewEvent from '@cmps/NewEvent'
-import { getEvent} from '@raiz/firebaseClient'
+import { getEvent } from '@raiz/firebaseClient'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
-export default function EditCow() {
+export default function EditEvent() {
   const router = useRouter()
   const { eventId } = router?.query
   const [event, setEvent] = useState({})
@@ -23,4 +23,4 @@ export default function EditCow() {
   )
 }
 
-EditCow.Layout = Layout
+EditEvent.SecondaryLayout = DashboardCowsLayout

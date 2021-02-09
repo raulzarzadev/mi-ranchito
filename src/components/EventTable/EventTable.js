@@ -10,7 +10,6 @@ import { Typography } from '@material-ui/core'
 import SelectedTitle from '@cmps/SelectedTitle'
 
 import styles from './style.module.css'
-import Modal from '@cmps/Modal/Modal'
 import EventModal from '@cmps/EventModal/EventModal'
 
 export default function EventTable({
@@ -49,7 +48,6 @@ export default function EventTable({
       })
     } else {
       setSortBy(`next-${title}`)
-
       events.sort((a, b) => {
         if (a.nextEvent[title] > b.nextEvent[title]) return 1
         if (a.nextEvent[title] < b.nextEvent[title]) return -1

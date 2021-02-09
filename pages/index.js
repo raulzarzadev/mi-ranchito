@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import styles from 'styles/Home.module.css'
-import Layout from 'src/components/Layout'
 import ButtonLink from 'src/components/ButtonLink'
 import { useAuth } from '@raiz/src/context/AuthContext'
-
 
 export default function Home() {
   const { user } = useAuth()
@@ -24,7 +22,7 @@ export default function Home() {
       </p>
       {user ? (
         <div className={styles.actions}>
-          <ButtonLink href="/dashboard" label="Mis Vacas" />
+          <ButtonLink href="/dashboard-cows" label="Mis Vacas" />
         </div>
       ) : (
         <div className={styles.actions}>
@@ -34,5 +32,3 @@ export default function Home() {
     </>
   )
 }
-
-Home.Layout = Layout

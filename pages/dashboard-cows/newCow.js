@@ -1,4 +1,4 @@
-import Layout from '@cmps/Layout'
+import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import NewEarring from '@cmps/NewEarring'
 import React from 'react'
 
@@ -10,4 +10,4 @@ export default function newCow() {
   )
 }
 
-newCow.Layout = Layout
+newCow.SecondaryLayout = DashboardCowsLayout

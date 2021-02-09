@@ -38,6 +38,8 @@ export default function useEvents() {
     }
   }, [user])
 
+  
+
   const formatedEvents = events.map((event) => formatEvent(event))
 
   return { errors, events: formatedEvents, addEvent, removeEvent, editEvent }

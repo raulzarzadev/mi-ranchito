@@ -1,5 +1,5 @@
+import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EventTable from '@cmps/EventTable'
-import Layout from '@cmps/Layout'
 import useEvents from '@raiz/src/hooks/useEvents'
 import React from 'react'
 
@@ -12,4 +12,4 @@ export default function events() {
   )
 }
 
-events.Layout = Layout
+events.SecondaryLayout = DashboardCowsLayout

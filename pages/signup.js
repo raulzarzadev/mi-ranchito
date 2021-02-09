@@ -17,4 +17,3 @@ export default function Signup() {
 
   return <LoginForm handleSubmit={handleSubmit} />
 }
-Signup.Layout = Layout

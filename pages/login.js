@@ -21,4 +21,3 @@ export default function Login() {
   return <LoginForm handleSubmit={handleSubmit} isLoginPage={LOGIN_PAGE} />
 }
 
-Login.Layout = Layout

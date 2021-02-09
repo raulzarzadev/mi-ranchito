@@ -1,5 +1,5 @@
+import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EarringTable from '@cmps/EarringTable'
-import Layout from '@cmps/Layout'
 import React from 'react'
 
 export default function cows() {
@@ -10,4 +10,4 @@ export default function cows() {
   )
 }
 
-cows.Layout = Layout
+cows.SecondaryLayout = DashboardCowsLayout
