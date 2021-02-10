@@ -32,7 +32,7 @@ function RowDetails({ row }) {
           </L>
         </div>
         <div className={styles.link}>
-          <L href={`/dashboard-cows/newRecord?earring=${row.earring}`}>
+          <L href={`/dashboard-cows/cow?id=${row.id}`}>
             <div className={styles.btn_link}>Ver Detalles</div>
           </L>
         </div>
