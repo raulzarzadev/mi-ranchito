@@ -4,7 +4,7 @@
   background-color: aqua;
   padding: 4px;
   gap: 4px;
-  max-width: 300px;
+  width: 100%;
 }
 .upcomming_event {
   background-color: #fff;

@@ -4,9 +4,9 @@ import React from 'react'
 
 export default function cows() {
   return (
-    <div>
+    <>
       <EarringTable title={'Todos lo aretes'} />
-    </div>
+    </>
   )
 }
 

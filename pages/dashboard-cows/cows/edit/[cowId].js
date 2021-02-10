@@ -9,9 +9,9 @@ export default function editCow() {
   const { cowId } = router.query
   const { cow } = getCow(cowId)
   return (
-    <div>
+    <>
       <NewEarring cow={cow} editPage />
-    </div>
+    </>
   )
 }
 

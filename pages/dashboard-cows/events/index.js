@@ -6,9 +6,9 @@ import React from 'react'
 export default function events() {
   const { events } = useEvents()
   return (
-    <div>
+    <>
       <EventTable events={events} title="Todos Los Eventos" />
-    </div>
+    </>
   )
 }
 

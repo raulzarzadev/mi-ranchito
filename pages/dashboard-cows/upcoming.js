@@ -5,9 +5,9 @@ import useEvents from '@raiz/src/hooks/useEvents'
 export default function upcoming() {
   const { events } = useEvents()
   return (
-    <div>
+    <>
       <UpcomingEvents events={events} />
-    </div>
+    </>
   )
 }
 

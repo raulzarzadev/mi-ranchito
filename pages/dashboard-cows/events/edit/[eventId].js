@@ -16,11 +16,11 @@ export default function EditEvent() {
   }, [eventId])
 
   return (
-    <div>
+    <>
       Editar Vaca
       <NewEvent editPage event={event} />
-    </div>
+    </>
   )
 }
 
-EditEvent.SecondaryLayout = DashboardCowsLayout
+EditEvent.SecondaryLayout = DashboardCowsLayou

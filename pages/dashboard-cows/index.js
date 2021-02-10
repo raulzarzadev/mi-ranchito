@@ -3,9 +3,9 @@ import React from 'react'
 
 export default function DashboardCows() {
   return (
-    <div>
+    <>
       <div>Aqui podras ...</div>
-    </div>
+    </>
   )
 }
 

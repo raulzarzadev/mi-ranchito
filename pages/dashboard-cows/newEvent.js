@@ -4,9 +4,9 @@ import React from 'react'
 
 export default function newEvent() {
   return (
-    <div>
+    <>
       <NewEvent />
-    </div>
+    </>
   )
 }
 

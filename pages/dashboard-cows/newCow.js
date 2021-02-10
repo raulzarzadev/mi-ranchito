@@ -4,9 +4,9 @@ import React from 'react'
 
 export default function newCow() {
   return (
-    <div>
+    <>
       <NewEarring />
-    </div>
+    </>
   )
 }
 

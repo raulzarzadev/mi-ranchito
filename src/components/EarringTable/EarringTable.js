@@ -148,54 +148,52 @@ export default function EerringTable({ title }) {
   // TODO no funciona el sort otra vez
 
   return (
-    <div style={{ margin: '0 auto' }}>
-      <TableContainer component={Paper}>
-        <h3>{title}</h3>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <td></td>
-              <TableCell
-                padding="none"
-                onClick={() => handleSortRowsBy('earring')}
-                style={{ fontWeight: sortBy === 'earring' ? 800 : 500 }}
+    <TableContainer component={Paper}>
+      <h3>{title}</h3>
+      <Table aria-label="collapsible table">
+        <TableHead>
+          <TableRow>
+            <td></td>
+            <TableCell
+              padding="none"
+              onClick={() => handleSortRowsBy('earring')}
+              style={{ fontWeight: sortBy === 'earring' ? 800 : 500 }}
+            >
+              Arete{' '}
+              <span
+                style={{
+                  fontWeight: 500,
+                  fontStyle: 'italic',
+                  fontSize: '.75rem',
+                }}
               >
-                Arete{' '}
-                <span
-                  style={{
-                    fontWeight: 500,
-                    fontStyle: 'italic',
-                    fontSize: '.75rem',
-                  }}
-                >
-                  (nombre)
-                </span>
-              </TableCell>
-              <TableCell
-                padding="none"
-                align="center"
-                onClick={() => handleSortRowsBy('birth')}
-                style={{ fontWeight: sortBy === 'birth' ? 800 : 500 }}
-              >
-                Edad
-              </TableCell>
-              <TableCell
-                padding="none"
-                align="center"
-                onClick={() => handleSortRowsBy('lastEventLabel')}
-                style={{ fontWeight: sortBy === 'lastEventLabel' ? 800 : 500 }}
-              >
-                Ultimo Evento
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows?.map((row) => (
-              <Row key={row.id} row={row} />
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+                (nombre)
+              </span>
+            </TableCell>
+            <TableCell
+              padding="none"
+              align="center"
+              onClick={() => handleSortRowsBy('birth')}
+              style={{ fontWeight: sortBy === 'birth' ? 800 : 500 }}
+            >
+              Edad
+            </TableCell>
+            <TableCell
+              padding="none"
+              align="center"
+              onClick={() => handleSortRowsBy('lastEventLabel')}
+              style={{ fontWeight: sortBy === 'lastEventLabel' ? 800 : 500 }}
+            >
+              Ultimo Evento
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows?.map((row) => (
+            <Row key={row.id} row={row} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
