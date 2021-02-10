@@ -19,7 +19,6 @@ export default function EventModal({ open, handleOpen, event }) {
   }
   const [openDelete, setOpenDelete] = useState(false)
   const { nextEvent } = event
-  console.log(event)
   return (
     <>
       <Modal handleOpen={handleOpen} open={open} title="Detalles del Evento">

@@ -15,7 +15,6 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import EventTable from '@cmps/EventTable'
 import useCows from '@raiz/src/hooks/useCows'
 import styles from './styles.module.css'
-import L from '@cmps/L/L'
 import BtnLink from '@cmps/BtnLink/BtnLink'
 
 function RowDetails({ row }) {
@@ -116,7 +115,6 @@ export default function EerringTable({ title }) {
   const { cows } = useCows()
   const rows = cows
   const [sortBy, setSortBy] = useState('earring')
-  console.log(rows[0])
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {

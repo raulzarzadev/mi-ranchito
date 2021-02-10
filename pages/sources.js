@@ -1,5 +1,4 @@
 import Calendar from '@cmps/Calendar/Calendar'
-import Layout from '@cmps/Layout'
 import ResourcesGrid from '@cmps/ResourcesGrid/ResourcesGrid'
 import React from 'react'
 

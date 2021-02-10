@@ -14,7 +14,7 @@ export default function useEvents() {
   const [errors, setErrors] = useState(null)
 
   const addEvent = (event) => {
-    newEvent(event)
+    newEvent({ userId: user.id, ...event })
       .then((res) => console.log(res))
       .catch(setErrors)
   }
@@ -37,8 +37,6 @@ export default function useEvents() {
       getEvents(user.id)
     }
   }, [user])
-
-  
 
   const formatedEvents = events.map((event) => formatEvent(event))
 

@@ -1,4 +1,3 @@
-import { useAuth } from '@raiz/src/context/AuthContext'
 import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
@@ -8,7 +7,6 @@ import styles from './styles.module.css'
 
 export default function NewEvent({ event = null }) {
   const router = useRouter()
-  const { user } = useAuth()
   const { cows } = useCows()
   const { addEvent, editEvent } = useEvents()
   const earringNo = router?.query?.earring
@@ -16,7 +14,6 @@ export default function NewEvent({ event = null }) {
 
   const [form, setForm] = useState({
     date: getToday(),
-    userId: user?.id,
     coments: '',
     earring: earringNo || '',
     event: '',
@@ -36,15 +33,6 @@ export default function NewEvent({ event = null }) {
       setForm(event)
     }
   }, [event])
-
-  useEffect(() => {
-    if (user && !event) {
-      setForm({
-        ...form,
-        userId: user.id,
-      })
-    }
-  }, [user])
 
   const handleChange = (e) => {
     setLabelButton('Guardar Evento')

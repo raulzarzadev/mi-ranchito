@@ -1,4 +1,3 @@
-import Layout from '@cmps/Layout'
 import SignForm from '@cmps/SignForm/SignForm'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import { useRouter } from 'next/router'

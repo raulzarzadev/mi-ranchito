@@ -2,9 +2,15 @@ import Head from 'next/head'
 import styles from 'styles/Home.module.css'
 import ButtonLink from 'src/components/ButtonLink'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Home() {
   const { user } = useAuth()
+  const router = useRouter()
+  useEffect(() => {
+    if (user === null) router.replace('/login')
+  })
 
   return (
     <>
@@ -20,15 +26,12 @@ export default function Home() {
         Una aplición para monitorear el ciclo{' '}
         <strong>productivo y reproductivo</strong> de las vacas lecheras.
       </p>
-      {user ? (
         <div className={styles.actions}>
           <ButtonLink href="/dashboard-cows" label="Mis Vacas" />
         </div>
-      ) : (
-        <div className={styles.actions}>
+       {/*  <div className={styles.actions}>
           <ButtonLink href="/demo" label="Demo Vacas lecheras" />
-        </div>
-      )}
+        </div> */}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { EVENTS_TYPES } from '@raiz/constants/EVENTS_INFO'
+import { EVENTS_TYPES, PERIODS } from '@raiz/constants/EVENTS_INFO'
 import moment from 'moment'
 
 export function formatedTypes() {
@@ -33,10 +33,13 @@ function formatDates(date) {
   }
 }
 
-function formatNextEvents(events, mainDate) {
+function formatNextEvents(events, mainDate, mainOnDay) {
   const originDate = mainDate
+  console.log(mainOnDay)
   return events?.map((event) => {
-    const fromNow = moment(originDate).add(event.onDay, 'd').fromNow(true)
+    const fromNow = moment(originDate)
+      .add(event.onDay- mainOnDay , 'd')
+      .fromNow()
     const formatDate = moment(originDate)
       .add(event.onDay, 'd')
       .format('WW / YY')
@@ -49,7 +52,7 @@ function formatNextEvents(events, mainDate) {
 
 export function formatEventsByEarring(events, earrings) {
   return earrings.map((earring) => {
-    const age = moment(earring.birth).fromNow(true)
+    const age = moment(earring.birth).fromNow()
     const evts = events.filter((event) => event.earring === earring.earring)
     const sortedEvts = evts.sort((a, b) => {
       if (a.date < b.date) return 1
@@ -68,14 +71,16 @@ export function formatEventsByEarring(events, earrings) {
 }
 
 export const formatEvent = (event = {}) => {
+  const onDay = PERIODS[event.type || event.event]
   const date = event.date || new Date()
   const setTypes = formatType(event.type || event.event)
   const setDates = formatDates(date)
-  const setNextEvents = formatNextEvents(setTypes?.nextEvents, date)
+  const setNextEvents = formatNextEvents(setTypes?.nextEvents, date, onDay)
   return {
     ...event,
     ...setTypes,
     ...setDates,
+    onDay,
     nextEvents: setNextEvents,
     nextEvent: setNextEvents && setNextEvents[0],
   }
