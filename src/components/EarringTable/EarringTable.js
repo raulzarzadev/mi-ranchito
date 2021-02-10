@@ -20,30 +20,56 @@ import L from '@cmps/L/L'
 function RowDetails({ row }) {
   return (
     <div>
-        <L href={`/dashboard-cows/newEvent?earring=${row.earring}`}>
-          Nuevo Evento
-        </L>
-      <span style={{ display: 'flex', justifyContent: 'space-around' }}>
+      <div className={styles.links_box}>
+        <div className={styles.link}>
+          <L href={`/dashboard-cows/newEvent?earring=${row.earring}`}>
+            <div className={styles.btn_link}>Nuevo Evento</div>
+          </L>
+        </div>{' '}
+        <div className={styles.link}>
+          <L href={`/dashboard-cows/newRecord?earring=${row.earring}`}>
+            <div className={styles.btn_link}>Nuevo Registro</div>
+          </L>
+        </div>
+        <div className={styles.link}>
+          <L href={`/dashboard-cows/newRecord?earring=${row.earring}`}>
+            <div className={styles.btn_link}>Ver Detalles</div>
+          </L>
+        </div>
+      </div>
+      <div className={styles.lastEvent_row}>
         <h5>Ultimo Evento: </h5>
         <h6>
           {row.lastEvent?.label}{' '}
           <em>{row.lastEvent?.type || row.lastEvent?.event}</em>
         </h6>
         <h6>{row.lastEvent?.fromNow}</h6>
-      </span>
-      <Box></Box>
-      <h5>Proximos Eventos: </h5>
-      <div className={styles.upcomming_display}>
-        {row?.upcomingEvents?.map((next, i) => (
-          <div key={i} className={styles.upcomming_event}>
-            <div>{next.label || next.type || next.event}</div>
-            <div>{next.fromNow}</div>
-          </div>
-        ))}
       </div>
+      <EventsRow title="Proximos Eventos" events={row.upcomingEvents} />
+      <EventsRow title="Ultimos Registros" events={[]} />
     </div>
   )
 }
+
+const EventsRow = ({ title, events = [] }) => (
+  <>
+    <h5>{title} </h5>
+    <div className={styles.upcomming_display}>
+      {events.length ? (
+        events.map((event, i) => (
+          <div key={i} className={styles.upcomming_event}>
+            <div>{event.label || event.type || event.event}</div>
+            <div>{event.fromNow}</div>
+          </div>
+        ))
+      ) : (
+        <div className={styles.upcoming_empty}>
+          <div> sin elementos que mostrar</div>
+        </div>
+      )}
+    </div>
+  </>
+)
 
 function Row({ row = [] }) {
   const [open, setOpen] = React.useState(false)

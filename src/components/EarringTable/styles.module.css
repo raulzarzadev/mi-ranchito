@@ -1,5 +1,6 @@
 .upcomming_display {
   display: flex;
+  justify-content: center;
   background-color: aqua;
   padding: 4px;
   gap: 4px;
@@ -10,6 +11,36 @@
   display: block;
   padding: 4px;
   text-align: center;
-  width: 100px;
-  font-size: .45rem;
+  width: 70px;
+  font-size: 0.45rem;
+}
+.upcoming_empty {
+  display: flex;
+  justify-content: center;
+}
+
+.links_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link {
+  margin: 8px;
+}
+
+.btn_link {
+  display: flex;
+  width: fit-content;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-1);
+}
+.btn_link:hover {
+  box-shadow: var(--shadow-2);
+}
+.lastEvent_row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
