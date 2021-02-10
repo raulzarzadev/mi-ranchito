@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Modal from '@cmps/Modal/Modal'
-import moment from 'moment'
 import styles from './styles.module.css'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
@@ -27,11 +26,9 @@ export default function EventModal({ open, handleOpen, event }) {
             <strong>Evento:</strong> {event?.label}{' '}
             <em>{event?.type || event?.event}</em>
           </div>
-          <div>Fecha: {moment(event?.date).format('DD MMM YY')}</div>
-          <div>
-            {' '}
-            <em>{event.fromNow}</em>
-          </div>
+          <em>{event.fromNow}</em>
+          <div>Fecha: {event.formatDate}</div>
+          <div></div>
 
           <div className={styles.coments}>
             {' '}
@@ -42,8 +39,8 @@ export default function EventModal({ open, handleOpen, event }) {
             <strong>Siguiente Evento:</strong>{' '}
             {nextEvent?.label || <em>{nextEvent?.type}</em>}
           </div>
-          <div>Fecha: {moment(nextEvent?.date).format('DD MMM YY')}</div>
-          <div>Dentro de: {moment(nextEvent?.date).fromNow(true)}</div>
+          <em>{nextEvent?.fromNow}</em>
+          <div>Fecha: {nextEvent?.formatDate}</div>
           <div className={styles.actions}>
             <div className="box-1">
               <ModalButton

@@ -28,21 +28,18 @@ function formatType(type) {
 function formatDates(date) {
   return {
     date: new Date(date),
-    formatDate: moment(date).format('WW / YY'),
+    formatDate: moment(date).format('DD MMM YY'),
     fromNow: moment(date).fromNow(),
   }
 }
 
 function formatNextEvents(events, mainDate, mainOnDay) {
   const originDate = mainDate
-  console.log(mainOnDay)
   return events?.map((event) => {
     const fromNow = moment(originDate)
-      .add(event.onDay- mainOnDay , 'd')
+      .add(event.onDay - mainOnDay, 'd')
       .fromNow()
-    const formatDate = moment(originDate)
-      .add(event.onDay, 'd')
-      .format('WW / YY')
+    const formatDate = moment(originDate).add(event.onDay, 'd').format('DD MMM YY')
     const date = new Date(moment(originDate).add(event.onDay, 'd').format())
     return { date, formatDate, fromNow, ...event }
   })
