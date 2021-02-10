@@ -37,7 +37,7 @@ function RowDetails({ row }) {
           </L>
         </div>
       </div>
-      <div className={styles.lastEvent_row}>
+      <div className={styles.lastEvent_row}>  
         <h5>Ultimo Evento: </h5>
         <h6>
           {row.lastEvent?.label}{' '}

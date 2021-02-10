@@ -16,6 +16,5 @@
 @media (min-width: 500px) {
   .dashboard_nav {
     grid-auto-flow: column;
-    background-color: red;
   }
 }
