@@ -16,28 +16,22 @@ import EventTable from '@cmps/EventTable'
 import useCows from '@raiz/src/hooks/useCows'
 import styles from './styles.module.css'
 import L from '@cmps/L/L'
+import BtnLink from '@cmps/BtnLink/BtnLink'
 
 function RowDetails({ row }) {
   return (
     <div>
       <div className={styles.links_box}>
-        <div className={styles.link}>
-          <L href={`/dashboard-cows/newEvent?earring=${row.earring}`}>
-            <div className={styles.btn_link}>Nuevo Evento</div>
-          </L>
-        </div>{' '}
-        <div className={styles.link}>
-          <L href={`/dashboard-cows/newRecord?earring=${row.earring}`}>
-            <div className={styles.btn_link}>Nuevo Registro</div>
-          </L>
-        </div>
-        <div className={styles.link}>
-          <L href={`/dashboard-cows/cow?id=${row.id}`}>
-            <div className={styles.btn_link}>Ver Detalles</div>
-          </L>
-        </div>
+        <BtnLink
+          href={`/dashboard-cows/newEvent?earring=${row.earring}`}
+          label="Nuevo Evento"
+        />
+        <BtnLink
+          href={`/dashboard-cows/cow?id=${row.id}`}
+          label="Nuevo Evento"
+        />
       </div>
-      <div className={styles.lastEvent_row}>  
+      <div className={styles.lastEvent_row}>
         <h5>Ultimo Evento: </h5>
         <h6>
           {row.lastEvent?.label}{' '}
@@ -149,6 +143,11 @@ export default function EerringTable({ title }) {
 
   return (
     <TableContainer component={Paper}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <BtnLink href={'/dashboard-cows/newCow'} label="Nueva vaca" />
+        <BtnLink href={'/dashboard-cows/newEvent'} label="Nuevo Evento" />
+        <BtnLink href={'/dashboard-cows/newRecord'} label="Nuevo Registro" />
+      </div>
       <h3>{title}</h3>
       <Table aria-label="collapsible table">
         <TableHead>
