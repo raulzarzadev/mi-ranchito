@@ -23,4 +23,4 @@ export default function EditEvent() {
   )
 }
 
-EditEvent.SecondaryLayout = DashboardCowsLayou
+EditEvent.SecondaryLayout = DashboardCowsLayout
