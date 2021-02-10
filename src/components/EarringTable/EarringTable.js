@@ -26,10 +26,7 @@ function RowDetails({ row }) {
           href={`/dashboard-cows/newEvent?earring=${row.earring}`}
           label="Nuevo Evento"
         />
-        <BtnLink
-          href={`/dashboard-cows/cow?id=${row.id}`}
-          label="Nuevo Evento"
-        />
+        <BtnLink href={`/dashboard-cows/cow?id=${row.id}`} label="Detalles " />
       </div>
       <div className={styles.lastEvent_row}>
         <h5>Ultimo Evento: </h5>
