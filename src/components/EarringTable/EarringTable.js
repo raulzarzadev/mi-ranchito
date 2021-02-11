@@ -22,7 +22,7 @@ function RowDetails({ row }) {
     <div>
       <div className={styles.links_box}>
         <BtnLink
-          href={`/dashboard-cows/newEvent?earring=${row.earring}`}
+          href={`/dashboard-cows/newEvent?earring=${row.earring}&earringId=${row.id}`}
           label="Nuevo Evento"
         />
         <BtnLink href={`/dashboard-cows/cow?id=${row.id}`} label="Detalles " />

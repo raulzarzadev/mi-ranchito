@@ -14,7 +14,7 @@ import EventModal from '@cmps/EventModal/EventModal'
 
 export default function EventTable({
   title,
-  events,
+  events = [],
   hideEarring,
   upcomingEvents,
 }) {
@@ -62,7 +62,7 @@ export default function EventTable({
     <>
       <TableContainer component={Paper}>
         <Typography variant="h6">{title}</Typography>
-        
+
         <Table className={styles.table} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>

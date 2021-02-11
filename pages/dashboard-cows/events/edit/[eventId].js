@@ -14,6 +14,7 @@ export default function EditEvent() {
       getEvent(eventId).then(setEvent)
     }
   }, [eventId])
+  console.log(event)
 
   return (
     <>

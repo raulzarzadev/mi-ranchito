@@ -1,12 +1,26 @@
+/* 
+Ciclo Reproductivo
+
+1. Nace = dia 0
+2. Primer servicio = nace + 15 meses // 450 dias
+3. Celo = dia 0
+4. Servicio  = celo + 12 horas 
+5. Celo(gestaFallida)  = servicio + 21 dias 
+6. Palpacion = servicio + 3 meses // dia 100
+7. Seca = servicio + 7 meses // dia 200
+8. Parto = servicio + 9 meses //  dia 283
+9. ProxServ = parto + 3 meses // 90 dias
+
+*/
 export const PERIODS = {
   nace: 0,
   first_serv: 450,
-  serv: 0,
-  celo: 21,
-  palp: 90,
-  seca: 200,
-  parto: 283,
-  next_serv: 343,
+  serv: -283,
+  celo: -253,
+  palp: -190,
+  seca: -90,
+  parto: 0,
+  next_serv: 90,
 }
 
 export const EVENTS_TYPES = [
@@ -75,6 +89,6 @@ export const EVENTS_TYPES = [
     type: 'next_serv',
     label: 'Prox. Servicio',
     onDay: PERIODS.next_serv,
-    nextEvents: ['celo'],
+    nextEvents: ['serv'],
   },
 ]

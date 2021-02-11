@@ -175,6 +175,20 @@ export async function getUserCows(userId = '') {
 
 /* ------------EVENTS------------ */
 
+export const getEventsByCow = (cowId) => {
+  return db
+    .collection('events')
+    .where('earringId', '==', cowId)
+    .get()
+    .then((snapshot) => {
+      return snapshot.docs.map((doc) => {
+        const data = doc.data()
+        const id = doc.id
+        return { id, ...data }
+      })
+    })
+}
+
 export const getEvent = async (id) => {
   return db
     .collection('events')
@@ -186,7 +200,6 @@ export const getEvent = async (id) => {
 }
 
 export function newEvent(event) {
-  console.log(event)
   return db
     .collection('events')
     .add(event)

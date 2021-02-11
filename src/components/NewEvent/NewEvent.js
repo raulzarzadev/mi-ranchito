@@ -10,12 +10,15 @@ export default function NewEvent({ event = null }) {
   const { cows } = useCows()
   const { addEvent, editEvent } = useEvents()
   const earringNo = router?.query?.earring
+  const earringId = router.query?.earringId
   const earrings = cows
+  console.log(router.query)
 
   const [form, setForm] = useState({
     date: getToday(),
     coments: '',
     earring: earringNo || '',
+    earringId,
     event: '',
   })
 
