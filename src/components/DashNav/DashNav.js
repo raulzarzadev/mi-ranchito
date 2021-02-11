@@ -1,3 +1,4 @@
+import BtnBack from '@cmps/BtnBack/BtnBack'
 import L from '@cmps/L/L'
 import React, { useState } from 'react'
 import styles from './styles.module.css'
@@ -9,6 +10,7 @@ export default function DashNav({ links = [] }) {
   }
   return (
     <nav className={styles.dashboard_nav}>
+      <BtnBack />
       {links.map((link) => (
         <L key={link.id} href={link?.href}>
           <div

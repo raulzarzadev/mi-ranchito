@@ -1,6 +1,7 @@
 import firebaseClient from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import { doc } from 'prettier'
 import { firebaseConfig } from './firebaseConfig'
 
 !firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
@@ -188,6 +189,8 @@ export const getEventsByCow = (cowId) => {
       })
     })
 }
+
+
 
 export const getEvent = async (id) => {
   return db

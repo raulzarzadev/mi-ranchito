@@ -12,6 +12,7 @@ Ciclo Reproductivo
 9. ProxServ = parto + 3 meses // 90 dias
 
 */
+
 export const PERIODS = {
   nace: 0,
   first_serv: 450,

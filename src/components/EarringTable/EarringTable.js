@@ -88,6 +88,9 @@ function Row({ row = [] }) {
         <TableCell padding="none" align="center">
           {row?.lastEvent?.label || '-'}
         </TableCell>
+        <TableCell padding="none" align="center">
+          <BtnLink label="ver" href={`/dashboard-cows/cow?id=${row.id}`} />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell
@@ -179,6 +182,9 @@ export default function EerringTable({ title }) {
               style={{ fontWeight: sortBy === 'lastEventLabel' ? 800 : 500 }}
             >
               Ultimo Evento
+            </TableCell>
+            <TableCell padding="none" align="left">
+              Acción
             </TableCell>
           </TableRow>
         </TableHead>

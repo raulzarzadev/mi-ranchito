@@ -39,7 +39,9 @@ function formatNextEvents(events, mainDate, mainOnDay) {
     const fromNow = moment(originDate)
       .add(event.onDay - mainOnDay, 'd')
       .fromNow()
-    const formatDate = moment(originDate).add(event.onDay, 'd').format('DD MMM YY')
+    const formatDate = moment(originDate)
+      .add(event.onDay, 'd')
+      .format('DD MMM YY')
     const date = new Date(moment(originDate).add(event.onDay, 'd').format())
     return { date, formatDate, fromNow, ...event }
   })
@@ -92,4 +94,33 @@ export function getToday() {
   if (day < 10) day = '0' + day
   const today = year + '-' + month + '-' + day
   return today
+}
+
+/* --------------------------Funciones usadas una vez--------------------------------- */
+
+const updateEarringsToIncludeEarringId = async () => {
+  // Se creo est afuncion para acutlaulzar los eventos y que incluyan el id delearrign y no solo el numero del arete
+  const aretes = await db
+    .collection('cows')
+    .get()
+    .then((snapshot) => {
+      return snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() }
+      })
+    })
+  // console.log(earr)
+  const events = await db
+    .collection('events')
+    .get()
+    .then((snapshot) =>
+      snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() }
+      })
+    )
+
+  events.forEach((event) => {
+    const owner = aretes.find((arete) => arete.earring === event.earring)
+    const newE = { ...event, earringId: owner.id }
+    // updateEvent(newE.id, newE)
+  })
 }
