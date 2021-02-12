@@ -4,9 +4,9 @@ import NewRecord from '@cmps/NewRecord'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 export default function newRecord() {
   const router = useRouter()
-  const { earring } = router?.query
-  console.log(earring)
-  return <NewRecord earring={earring} />
+  const { earring, earringId } = router?.query
+  console.log(earring, earringId)
+  return <NewRecord earring={{ earring, earringId }} />
 }
 
 newRecord.SecondaryLayout = DashboardCowsLayout

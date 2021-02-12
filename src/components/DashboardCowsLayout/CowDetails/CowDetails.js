@@ -23,7 +23,7 @@ export default function CowDetails({ cowId }) {
         />
         <BtnLink
           label="Nuevo Registro"
-          href={`/dashboard-cow/newRecord?earring=${cow?.earring}&earringId=${cow?.id}`}
+          href={`/dashboard-cows/newRecord?earring=${cow?.earring}&earringId=${cow?.id}`}
         />
       </div>
       <div>Id: {cow?.id}</div>

@@ -8,7 +8,8 @@ const links = [
   // { id: '6', href: '/dashboard-cows/newRecord', label: 'Nuevo Registro' },
   // { id: '3', href: '/dashboard-cows/newEvent', label: 'Nuevo Evento' },
   { id: '1', href: '/dashboard-cows/cows', label: 'Vacas' },
-  { id: '4', href: '/dashboard-cows/events', label: 'Eventos' },
+  { id: '4', href: '/dashboard-cows/upcoming', label: 'Proxminos Eventos' },
+  { id: '8', href: '/dashboard-cows/records', label: 'Registros' },
   // { id: '7', href: '/dashboard-cows/cow', label: 'Detalles de Vaca' },
 ]
 

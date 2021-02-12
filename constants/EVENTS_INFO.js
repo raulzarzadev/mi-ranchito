@@ -6,9 +6,11 @@ Ciclo Reproductivo
 3. Celo = dia 0
 4. Servicio  = celo + 12 horas 
 5. Celo(gestaFallida)  = servicio + 21 dias 
+
 6. Palpacion = servicio + 3 meses // dia 100
 7. Seca = servicio + 7 meses // dia 200
 8. Parto = servicio + 9 meses //  dia 283
+
 9. ProxServ = parto + 3 meses // 90 dias
 
 */
