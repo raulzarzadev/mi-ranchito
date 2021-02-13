@@ -13,6 +13,10 @@
   background-color: gray;
 }
 
+.dashboard_btn_selected {
+  background-color: gray;
+}
+
 @media (min-width: 500px) {
   .dashboard_nav {
     grid-auto-flow: column;

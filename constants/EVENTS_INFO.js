@@ -15,7 +15,7 @@ Ciclo Reproductivo
 
 */
 
-export const PERIODS = {
+/* export const PERIODS = {
   nace: 0,
   first_serv: 450,
   serv: -283,
@@ -24,8 +24,18 @@ export const PERIODS = {
   seca: -90,
   parto: 0,
   next_serv: 90,
-}
+} */
 
+export const PERIODS = {
+  nace: 0,
+  first_serv: 450,
+  serv: 0,
+  celo: 21,
+  palp: 100,
+  seca: 200,
+  parto: 283,
+  next_serv: 90,
+}
 export const EVENTS_TYPES = [
   {
     type: 'registry',

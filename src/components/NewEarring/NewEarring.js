@@ -6,7 +6,7 @@ import useCows from '@raiz/src/hooks/useCows'
 
 export default function NewEarring() {
   const { user } = useAuth()
-  const { addCow, cows } = useCows()
+  const { handleNewCow, cows } = useCows()
   const today = moment().format('YYYY-MM-DD')
   const [newEarring, setNewEarring] = useState({
     birth: today,
@@ -22,7 +22,7 @@ export default function NewEarring() {
   const existedEarring = cows.map((earring) => earring.earring)
   const alreadyExist = existedEarring.includes(newEarring.earring)
   const handleSubmit = () => {
-    addCow(newEarring)
+    handleNewCow(newEarring)
   }
   const [labelButton, setLabelButton] = useState('Guardar')
 

@@ -32,8 +32,8 @@ export default function EventModal({ open, handleOpen, event }) {
 
           <div className={styles.coments}>
             {' '}
-            <h5>Detalles :</h5>
-            {event?.coments || 'sin detalles'}
+            <h5>Comentarios :</h5>
+            {event?.coments || 'sin '}
           </div>
           <div>
             <strong>Siguiente Evento:</strong>{' '}

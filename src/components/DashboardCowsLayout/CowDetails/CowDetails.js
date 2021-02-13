@@ -29,7 +29,7 @@ export default function CowDetails({ cowId }) {
       <div>Id: {cow?.id}</div>
       <div>Arete: {cow?.earring}</div>
       <div>Nombre/apodo: {cow?.name}</div>
-      <EventTable title={`Eventos de ${cow?.earring}`} events={cow?.events} />
+      <EventTable upcomingEvents title={`Eventos de ${cow?.earring}`} events={cow?.events} />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -75,24 +75,22 @@ export default function EventTable({
                   />
                 </TableCell>
               )}
-              {!upcomingEvents && (
-                <>
-                  <TableCell className={styles.cell}>
-                    <SelectedTitle
-                      onClick={() => handleSortBy('label')}
-                      selected={sortBy === 'label'}
-                      title="Evento"
-                    />
-                  </TableCell>
-                  <TableCell className={styles.cell} align="right">
-                    <SelectedTitle
-                      onClick={() => handleSortBy('date')}
-                      selected={sortBy === 'date'}
-                      title="Semana"
-                    />
-                  </TableCell>
-                </>
-              )}
+              <>
+                <TableCell className={styles.cell}>
+                  <SelectedTitle
+                    onClick={() => handleSortBy('label')}
+                    selected={sortBy === 'label'}
+                    title="Evento"
+                  />
+                </TableCell>
+                <TableCell className={styles.cell} align="right">
+                  <SelectedTitle
+                    onClick={() => handleSortBy('date')}
+                    selected={sortBy === 'date'}
+                    title="Semana"
+                  />
+                </TableCell>
+              </>
               {upcomingEvents && (
                 <>
                   <TableCell className={styles.cell} align="right">
@@ -106,7 +104,7 @@ export default function EventTable({
                     <SelectedTitle
                       onClick={() => handleSortBySub('date')}
                       selected={sortBy === 'next-date'}
-                      title="Semana"
+                      title="Fecha"
                     />
                   </TableCell>
                 </>
@@ -143,6 +141,25 @@ const EventRow = ({
   const handleEventModal = () => {
     setEventModal(!eventModal)
   }
+  const nextEventDate =
+    Date.parse(new Date(event.nextEvent.date)) / (3600 * 24 * 1000)
+  const today = Date.parse(new Date()) / (3600 * 24 * 1000)
+
+  const [color, setColor] = useState('')
+
+  useEffect(() => {
+    if (nextEventDate - today < 1) return setColor('red')
+    if (nextEventDate - today > 0 && nextEventDate - today < 5) {
+      console.log('verde')
+      return setColor('green')
+    }
+    if (nextEventDate - today > 5) return setColor('blue')
+  }, [])
+
+  console.log(nextEventDate - today < 1 && 'red')
+  console.log(nextEventDate - today > 1 && 'blue')
+  console.log(nextEventDate - today >  && 'blue')
+
   return (
     <>
       <TableRow
@@ -154,28 +171,36 @@ const EventRow = ({
             {event.earring}
           </TableCell>
         )}
-        {!upcomingEvents && (
-          <>
-            <TableCell padding="none" component="th" scope="row" align="center">
-              {event.label}
-            </TableCell>
-            <TableCell padding="none" align="center">
-              {event.formatDate}
-            </TableCell>
-          </>
-        )}
+        <>
+          <TableCell padding="none" component="th" scope="row" align="center">
+            {event.label}
+          </TableCell>
+          <TableCell padding="none" align="center">
+            {event.formatDate}
+          </TableCell>
+        </>
         {upcomingEvents && (
           <>
             <TableCell padding="none" align="center">
               {event.nextEvent.label}
             </TableCell>
             <TableCell padding="none" align="center">
+              <div
+                style={{
+                  width: '15px',
+                  borderRadius: '50%',
+                  height: '15px',
+                  backgroundColor: color,
+                  margin: '0 auto',
+                }}
+              ></div>
               {event.nextEvent.formatDate}
             </TableCell>
           </>
         )}
         <TableCell padding="none" align="center">
           <div onClick={handleEventModal}>ver</div>
+
           <EventModal
             event={event}
             open={eventModal}

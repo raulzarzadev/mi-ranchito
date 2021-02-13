@@ -6,7 +6,7 @@ export default function upcoming() {
   const { events } = useEvents()
   return (
     <>
-      <UpcomingEvents events={events} />
+      <UpcomingEvents events={events}   />
     </>
   )
 }
