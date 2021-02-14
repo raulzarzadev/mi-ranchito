@@ -87,7 +87,7 @@ export default function EventTable({
                   <SelectedTitle
                     onClick={() => handleSortBy('date')}
                     selected={sortBy === 'date'}
-                    title="Semana"
+                    title="Creado"
                   />
                 </TableCell>
               </>
@@ -145,20 +145,12 @@ const EventRow = ({
     Date.parse(new Date(event.nextEvent.date)) / (3600 * 24 * 1000)
   const today = Date.parse(new Date()) / (3600 * 24 * 1000)
 
-  const [color, setColor] = useState('')
+  const [color, setColor] = useState('yellow')
 
   useEffect(() => {
     if (nextEventDate - today < 1) return setColor('red')
-    if (nextEventDate - today > 0 && nextEventDate - today < 5) {
-      console.log('verde')
-      return setColor('green')
-    }
-    if (nextEventDate - today > 5) return setColor('blue')
+    if (nextEventDate - today > 10) return setColor('green')
   }, [])
-
-  console.log(nextEventDate - today < 1 && 'red')
-  console.log(nextEventDate - today > 1 && 'blue')
-  console.log(nextEventDate - today >  && 'blue')
 
   return (
     <>
@@ -176,7 +168,7 @@ const EventRow = ({
             {event.label}
           </TableCell>
           <TableCell padding="none" align="center">
-            {event.formatDate}
+            {event.fromNow}
           </TableCell>
         </>
         {upcomingEvents && (
@@ -184,7 +176,7 @@ const EventRow = ({
             <TableCell padding="none" align="center">
               {event.nextEvent.label}
             </TableCell>
-            <TableCell padding="none" align="center">
+            <TableCell padding="none" align="center" >
               <div
                 style={{
                   width: '15px',
@@ -194,7 +186,7 @@ const EventRow = ({
                   margin: '0 auto',
                 }}
               ></div>
-              {event.nextEvent.formatDate}
+              {event.nextEvent.fromNow}
             </TableCell>
           </>
         )}

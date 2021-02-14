@@ -29,8 +29,9 @@ Ciclo Reproductivo
 export const PERIODS = {
   nace: 0,
   first_serv: 450,
-  serv: 0,
-  celo: 21,
+  celo: 0,
+  celoFail: 21,
+  serv: 0.5,
   palp: 100,
   seca: 200,
   parto: 283,
@@ -54,7 +55,7 @@ export const EVENTS_TYPES = [
     label: 'Compra',
     onDay: 0,
     nextEvents: [],
-  },
+  }, 
   {
     type: 'nace',
     label: 'Nacimiento',
@@ -74,10 +75,16 @@ export const EVENTS_TYPES = [
     nextEvents: ['serv', 'celo', 'palp', 'seca', 'parto', 'next_serv'],
   },
   {
+    type: 'celoFail',
+    label: 'Celo (Gesta Fallida)',
+    onDay: 21,
+    nextEvents: [],
+  },
+  {
     type: 'serv',
     label: 'Servicio',
     onDay: PERIODS.serv,
-    nextEvents: ['celo', 'palp', 'seca', 'parto', 'next_serv'],
+    nextEvents: ['celoFail', 'palp', 'seca', 'parto', 'next_serv'],
   },
   {
     type: 'palp',

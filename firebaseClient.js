@@ -190,8 +190,6 @@ export const getEventsByCow = (cowId) => {
     })
 }
 
-
-
 export const getEvent = async (id) => {
   return db
     .collection('events')
@@ -255,3 +253,24 @@ export function deleteEvent(eventId) {
 }
 
 export { firebaseClient }
+
+/* ------------Functions used just once----------- */
+
+const updateDatesSavedToDateType = async () => {
+  const events = await db
+    .collection('events')
+    .get()
+    .then((snapshot) => {
+      return snapshot.docs.map((doc) => {
+        return { ...doc.data() }
+      })
+    })
+
+  console.log(events)
+  const updatedEvents = events.map((event) => {
+    return { ...event, date: new Date(event.date) }
+  })
+  console.log(updatedEvents)
+}
+
+updateDatesSavedToDateType()

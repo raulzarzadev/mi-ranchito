@@ -42,8 +42,8 @@ export default function useEvents() {
     const formatedEvents = events.map((event) => formatEvent(event))
     console.log(formatedEvents)
     return formatedEvents
-  }
-
+    }
+    
   useEffect(() => {
     if (user) {
       getEvents(user.id)

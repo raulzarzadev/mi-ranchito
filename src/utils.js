@@ -95,6 +95,16 @@ export function getToday() {
   const today = year + '-' + month + '-' + day
   return today
 }
+export function formatInputDate(date) {
+  const dateObj = date ? new Date(date) : new Date()
+  let day = dateObj.getDate()
+  let month = dateObj.getMonth() + 1
+  const year = dateObj.getFullYear()
+  if (month < 10) month = '0' + month
+  if (day < 10) day = '0' + day
+  const today = year + '-' + month + '-' + day
+  return today
+}
 
 /* --------------------------Funciones usadas una vez--------------------------------- */
 
