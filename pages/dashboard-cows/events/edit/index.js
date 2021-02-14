@@ -7,18 +7,18 @@ import React, { useEffect, useState } from 'react'
 export default function EditEvent() {
   const router = useRouter()
   const { eventId } = router?.query
-  const [event, setEvent] = useState({})
+  const [event, setEvent] = useState(null)
 
   useEffect(() => {
     if (eventId) {
       getEvent(eventId).then(setEvent)
     }
   }, [eventId])
-  console.log(event)
-
+  
+  
   return (
     <>
-      Editar Vaca
+    <h4>Editar Evento</h4>
       <NewEvent editPage event={event} />
     </>
   )

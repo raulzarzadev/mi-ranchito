@@ -26,12 +26,21 @@ export default function Home() {
         Una aplición para monitorear el ciclo{' '}
         <strong>productivo y reproductivo</strong> de las vacas lecheras.
       </p>
-        <div className={styles.actions}>
-          <ButtonLink href="/dashboard-cows" label="Mis Vacas" />
-        </div>
-       {/*  <div className={styles.actions}>
+      <div className={styles.actions}>
+        <ButtonLink href="/dashboard-cows" label="Mis Vacas" />
+      </div>
+      {/*  <div className={styles.actions}>
           <ButtonLink href="/demo" label="Demo Vacas lecheras" />
         </div> */}
     </>
   )
 }
+
+// TODO Evento revision, comentarios , evento aleatorio
+// TODO Seleccionar autor del evento, escribir obs
+// TODO gesta exitosa -> aproximado
+// TODO if parto => select sexo
+// TODO nueva vaca, crear padre
+// TODO nueva vaca, nac / registro
+// TODO Cambiar id de vacas a earring - string - nickNmae
+// TODO nuevo envento aborto / venta /

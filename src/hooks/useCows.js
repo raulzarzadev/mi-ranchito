@@ -14,7 +14,6 @@ export default function useCows() {
 
   const [errors, setErrors] = useState(null)
   const [cows, setCows] = useState([])
-  const [cow, setCow] = useState({})
 
   const addCow = (cow) => {
     newCow(cow)
@@ -39,6 +38,7 @@ export default function useCows() {
       getUserCows(user.id).then(setCows).catch(setErrors)
     }
   }, [user])
+
 
   const formatedCows = formatEventsByEarring(events, cows)
   return { errors, cows: formatedCows, addCow, removeCow, getCowDetails }

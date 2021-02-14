@@ -40,7 +40,6 @@ export default function useEvents() {
       })
       .catch((err) => console.log(err))
     const formatedEvents = events.map((event) => formatEvent(event))
-    console.log(formatedEvents)
     return formatedEvents
     }
     
