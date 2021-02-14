@@ -142,7 +142,7 @@ const EventRow = ({
     setEventModal(!eventModal)
   }
   const nextEventDate =
-    Date.parse(new Date(event.nextEvent.date)) / (3600 * 24 * 1000)
+    Date.parse(new Date(event?.nextEvent?.date)) / (3600 * 24 * 1000)
   const today = Date.parse(new Date()) / (3600 * 24 * 1000)
 
   const [color, setColor] = useState('yellow')
@@ -158,7 +158,7 @@ const EventRow = ({
         className={styles.event_row}
         // style={{ backgroundColor: color % 2 !== 0 && 'transparent' }}
       >
-        {!hideEarring && (
+        {!hideEarring && (  
           <TableCell component="th" scope="row" align="center" padding="none">
             {event.earring}
           </TableCell>

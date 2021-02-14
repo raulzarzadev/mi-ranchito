@@ -106,31 +106,4 @@ export function formatInputDate(date) {
   return today
 }
 
-/* --------------------------Funciones usadas una vez--------------------------------- */
 
-const updateEarringsToIncludeEarringId = async () => {
-  // Se creo est afuncion para acutlaulzar los eventos y que incluyan el id delearrign y no solo el numero del arete
-  const aretes = await db
-    .collection('cows')
-    .get()
-    .then((snapshot) => {
-      return snapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() }
-      })
-    })
-  // console.log(earr)
-  const events = await db
-    .collection('events')
-    .get()
-    .then((snapshot) =>
-      snapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() }
-      })
-    )
-
-  events.forEach((event) => {
-    const owner = aretes.find((arete) => arete.earring === event.earring)
-    const newE = { ...event, earringId: owner.id }
-    // updateEvent(newE.id, newE)
-  })
-}

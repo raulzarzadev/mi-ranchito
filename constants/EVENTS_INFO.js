@@ -35,7 +35,7 @@ export const PERIODS = {
   palp: 100,
   seca: 200,
   parto: 283,
-  next_serv: 90,
+  next_serv: 340,
 }
 export const EVENTS_TYPES = [
   {

@@ -10,10 +10,10 @@ export default function NewEvent({ event = null }) {
   const { cows } = useCows()
   const { addEvent, editEvent } = useEvents()
   const earringNo = router?.query?.earring
-  const earringId = router.query?.earringId
   const earrings = cows
-  console.log(router.query)
-
+  const [earringId, setEarringId] = useState(
+    cows.find((cow) => cow.earring === form?.earring)
+  )
   const [form, setForm] = useState({
     date: getToday(),
     coments: '',
@@ -21,6 +21,13 @@ export default function NewEvent({ event = null }) {
     earringId,
     event: '',
   })
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      earringId: cows.find((cow) => cow.earring === form?.earring)?.id,
+    })
+  }, [form.earring])
 
   earrings.sort((a, b) => {
     if (a.earring > b.earring) return 1
@@ -41,6 +48,8 @@ export default function NewEvent({ event = null }) {
     setLabelButton('Guardar Evento')
     setForm({ ...form, [e.target.name]: e.target.value })
   }
+  console.log(form)
+
   const handleSubmit = () => {
     event?.id ? editEvent(event?.id, form) : addEvent(form)
     setLabelButton('Guardado')
