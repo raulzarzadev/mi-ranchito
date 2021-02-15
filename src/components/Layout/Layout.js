@@ -15,9 +15,7 @@ export default function Layout({ children }) {
       <div className={styles.body}>
         <Header signOut={signOut} user={user} />
         <main className={styles.main_container}>{children}</main>
-        <footer className={styles.footer}>
-          {'Una app creada por'} <a href="https://raulzarza.com">Raúl Zarza</a>
-        </footer>
+       {/* w */}
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
+import BottomNav from './BottomNav'
 import styles from './styles.module.css'
-import DashNav from '@cmps/DashNav/DashNav'
 
 const links = [
   // { id: '5', href: '/dashboard-cows/upcoming', label: 'Proximos' },
@@ -16,8 +16,8 @@ const links = [
 export default function DashboardCowsLayout({ children }) {
   return (
     <>
-      <DashNav links={links} />
       <div className={styles.dash_container}>{children}</div>
+      <BottomNav links={links} />
     </>
   )
 }

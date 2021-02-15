@@ -1,4 +1,4 @@
-import CowDetails from '@cmps/DashboardCowsLayout/CowDetails/CowDetails'
+import CowDetails from '@cmps/CowDetails/CowDetails'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import { useRouter } from 'next/router'
 import React from 'react'

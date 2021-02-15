@@ -23,7 +23,7 @@ export default function Home() {
       </h1>
 
       <p className={styles.description}>
-        Una aplición para monitorear el ciclo{' '}
+        Una aplición para monitorear el ciclo
         <strong>productivo y reproductivo</strong> de las vacas lecheras.
       </p>
       <div className={styles.actions}>

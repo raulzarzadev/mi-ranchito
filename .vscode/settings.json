@@ -1,0 +1,8 @@
+{
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "emmet.extensionsPath": "",
+    "emmet.showSuggestionsAsSnippets": true,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggest.showSnippets": true,
+    "editor.snippetSuggestions": "top"
+}
