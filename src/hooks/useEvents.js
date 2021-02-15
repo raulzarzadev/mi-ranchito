@@ -14,6 +14,12 @@ export default function useEvents() {
   const [events, setEvents] = useState([])
   const [errors, setErrors] = useState(null)
 
+  useEffect(() => {
+    if (user) {
+      getEvents(user.id)
+    }
+  }, [user])
+
   const addEvent = (event) => {
     newEvent({ userId: user.id, ...event })
       .then((res) => console.log(res))
@@ -23,40 +29,30 @@ export default function useEvents() {
     deleteEvent(eventId)
       .then((res) => console.log(res))
       .catch(setErrors)
-    getEvents(user.id)
   }
+
   const editEvent = (eventId, event) => {
     updateEvent(eventId, event).then((res) => console.log(res))
   }
 
-  const getEvents = (userId) => {
-    getUserEvents(userId).then(setEvents).catch(setErrors)
+  const getEvents = async (userId) => {
+    getUserEvents(userId).then((res) => setEvents(res))
   }
 
-  const getCowEvents = async (cowId) => {
-    const events = await getEventsByCow(cowId)
-      .then((res) => {
-        return res
-      })
-      .catch((err) => console.log(err))
-    const formatedEvents = events.map((event) => formatEvent(event))
-    return formatedEvents
-    }
-    
+  const [formatedEvents, setFormatedEvents] = useState([])
   useEffect(() => {
-    if (user) {
-      getEvents(user.id)
+    if (events.length) {
+      setFormatedEvents(events.map((event) => formatEvent(event)))
     }
-  }, [user])
+  }, [events])
 
-  const formatedEvents = events.map((event) => formatEvent(event))
-
+  console.log(events, formatedEvents)
   return {
     errors,
     events: formatedEvents,
     addEvent,
     removeEvent,
     editEvent,
-    getCowEvents,
+    // getCowEvents,
   }
 }

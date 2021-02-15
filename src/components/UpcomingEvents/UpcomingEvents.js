@@ -23,6 +23,7 @@ export default function UpcomingEvents({ events }) {
     handleChangeRange(2, 'week')
   }, [events])
 
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>

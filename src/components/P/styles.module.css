@@ -1,0 +1,12 @@
+.paragraph {
+  margin: 0;
+  padding: 1rem;
+  font-size: 1rem;
+}
+.secondary {
+  font-weight: 350;
+}
+
+.strong {
+  font-weight: 600;
+}

@@ -11,16 +11,10 @@ export default function Header({ signOut, user }) {
         </Link>
       </div>
       <nav className={styles.nav}>
-        {user ? (
+        {user && (
           <Link href="/dashboard-cows">
             <div className={styles.nav_link}>
               <a>Mis Vacas</a>
-            </div>
-          </Link>
-        ) : (
-          <Link href="/demo">
-            <div className={styles.nav_link}>
-              <a>Demo</a>
             </div>
           </Link>
         )}

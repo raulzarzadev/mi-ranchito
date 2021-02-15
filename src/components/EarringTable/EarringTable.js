@@ -140,60 +140,68 @@ export default function EerringTable({ title }) {
   // TODO no funciona el sort otra vez
 
   return (
-    <TableContainer component={Paper}>
+    <>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <BtnLink href={'/dashboard-cows/newCow'} label="Nueva vaca" />
         <BtnLink href={'/dashboard-cows/newEvent'} label="Nuevo Evento" />
         <BtnLink href={'/dashboard-cows/newRecord'} label="Nuevo Registro" />
       </div>
-      <h3>{title}</h3>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <td></td>
-            <TableCell
-              padding="none"
-              onClick={() => handleSortRowsBy('earring')}
-              style={{ fontWeight: sortBy === 'earring' ? 800 : 500 }}
-            >
-              Arete{' '}
-              <span
-                style={{
-                  fontWeight: 500,
-                  fontStyle: 'italic',
-                  fontSize: '.75rem',
-                }}
-              >
-                (nombre)
-              </span>
-            </TableCell>
-            <TableCell
-              padding="none"
-              align="center"
-              onClick={() => handleSortRowsBy('birth')}
-              style={{ fontWeight: sortBy === 'birth' ? 800 : 500 }}
-            >
-              Edad
-            </TableCell>
-            <TableCell
-              padding="none"
-              align="center"
-              onClick={() => handleSortRowsBy('lastEventLabel')}
-              style={{ fontWeight: sortBy === 'lastEventLabel' ? 800 : 500 }}
-            >
-              Ultimo Evento
-            </TableCell>
-            <TableCell padding="none" align="left">
-              Acción
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows?.map((row) => (
-            <Row key={row.id} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+      <TableContainer component={Paper}>
+        <h3>{title}</h3>
+        {rows.length === 0 ? (
+          <h4>Aun no hay aretes creados</h4>
+        ) : (
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <td></td>
+                <TableCell
+                  padding="none"
+                  onClick={() => handleSortRowsBy('earring')}
+                  style={{ fontWeight: sortBy === 'earring' ? 800 : 500 }}
+                >
+                  Arete{' '}
+                  <span
+                    style={{
+                      fontWeight: 500,
+                      fontStyle: 'italic',
+                      fontSize: '.75rem',
+                    }}
+                  >
+                    (nombre)
+                  </span>
+                </TableCell>
+                <TableCell
+                  padding="none"
+                  align="center"
+                  onClick={() => handleSortRowsBy('birth')}
+                  style={{ fontWeight: sortBy === 'birth' ? 800 : 500 }}
+                >
+                  Edad
+                </TableCell>
+                <TableCell
+                  padding="none"
+                  align="center"
+                  onClick={() => handleSortRowsBy('lastEventLabel')}
+                  style={{
+                    fontWeight: sortBy === 'lastEventLabel' ? 800 : 500,
+                  }}
+                >
+                  Ultimo Evento
+                </TableCell>
+                <TableCell padding="none" align="left">
+                  Acción
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <Row key={row.id} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        )}
+      </TableContainer>
+    </>
   )
 }

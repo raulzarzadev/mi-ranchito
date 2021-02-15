@@ -152,6 +152,7 @@ const EventRow = ({
     if (nextEventDate - today > 10) return setColor('green')
   }, [])
 
+
   return (
     <>
       <TableRow
@@ -174,7 +175,7 @@ const EventRow = ({
         {upcomingEvents && (
           <>
             <TableCell padding="none" align="center">
-              {event.nextEvent.label}
+              {event.nextEvent?.label}
             </TableCell>
             <TableCell padding="none" align="center" >
               <div
@@ -186,7 +187,7 @@ const EventRow = ({
                   margin: '0 auto',
                 }}
               ></div>
-              {event.nextEvent.fromNow}
+              {event.nextEvent?.fromNow}
             </TableCell>
           </>
         )}

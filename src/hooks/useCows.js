@@ -1,4 +1,10 @@
-import { getCow, getUserCows, newCow } from '@raiz/firebaseClient'
+import {
+  deleteCow,
+  getCow,
+  deleteCowEvents,
+  getUserCows,
+  newCow,
+} from '@raiz/firebaseClient'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { formatEventsByEarring } from '../utils'
@@ -6,7 +12,7 @@ import useEvents from './useEvents'
 
 export default function useCows() {
   const { user } = useAuth()
-  const { events, addEvent, getCowEvents } = useEvents()
+  const { events, addEvent } = useEvents()
 
   const [errors, setErrors] = useState(null)
   const [cows, setCows] = useState([])
@@ -20,14 +26,23 @@ export default function useCows() {
       .catch((err) => console.log(err))
     getUserCows(user.id).then(setCows).catch(setErrors)
   }
-  const removeCow = (cowId) => {
-    console.log('eliminar vaca',)
+
+  const removeCow = async (cowId) => {
+    await deleteCowEvents(cowId)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+    await deleteCow(cowId)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err))
+    await getUserCows(user.id).then(setCows).catch(setErrors)
   }
 
   const getCowDetails = async (cowId) => {
     const cow = await getCow(cowId).catch((err) => console.log(err))
-    const events = await getCowEvents(cowId).catch((err) => console.log(err))
-    return { ...cow, events }
+    const eventsByEarring = await events?.filter(
+      (event) => event.earringId === cowId
+    )
+    return { ...cow, events: eventsByEarring }
   }
 
   useEffect(() => {

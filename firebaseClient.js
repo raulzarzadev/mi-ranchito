@@ -136,7 +136,53 @@ export const logout = async () => {
 const db = firebaseClient.firestore()
 console.log(db && 'db ok')
 
-/* ---------------- COWS and EARRIGS ----------------*/
+/* ---------------- COWS and EARRIGS ---------------- */
+
+export async function deleteCowEvents(earringId) {
+  const refs = await db
+    .collection('events')
+    .where('earringId', '==', earringId)
+    .get()
+  return await refs.docs.forEach((ref) => {
+    db.collection('events')
+      .doc(ref.id)
+      .delete()
+      .then((res) => {
+        return { ok: true, type: 'EVT_DELETED' }
+      })
+      .catch((err) => console.log(err))
+    return { ok: true, type: 'COW_EVTS_DELETED' }
+  })
+
+  /* const batch = db.batch()
+  const refGroup = await db
+  .collection('events')
+  .where('earringId', '==', earringId)
+  
+  console.log(refGroup) */
+
+  /*  batch.delete(refGroup)
+  
+  batch
+  .commit()
+  .then((res) => {
+    console.log(res)
+    return { ok: true, type: 'MANY_EVTS_DELETED' }
+  })
+  .catch((err) => console.log(err))
+  */
+}
+
+export async function deleteCow(id) {
+  return db
+    .collection('cows')
+    .doc(id)
+    .delete()
+    .then((res) => {
+      return { ok: true, type: 'COW_DELETED' }
+    })
+    .catch((err) => console.log(err))
+}
 
 export async function getCow(id) {
   return db
@@ -144,7 +190,11 @@ export async function getCow(id) {
     .doc(id)
     .get()
     .then((snapshot) => {
-      return { id, ...snapshot.data() }
+      if (snapshot.data()) {
+        return { ok: true, type: 'GET_USER', id, ...snapshot.data() }
+      } else {
+        return { ok: false, type: 'NOT_EXIST' }
+      }
     })
 }
 
@@ -171,6 +221,7 @@ export async function getUserCows(userId = '') {
           }
         })
       })
+      .catch((err) => console.log(err))
   )
 }
 
@@ -188,6 +239,7 @@ export const getEventsByCow = (cowId) => {
         return { id, ...data }
       })
     })
+    .catch((err) => console.log(err))
 }
 
 export const getEvent = async (id) => {
@@ -210,7 +262,7 @@ export function newEvent(event) {
     .catch((err) => console.log(err))
 }
 
-export function getUserEvents(userId = '') {
+export async function getUserEvents(userId = '') {
   return (
     db
       .collection('events')
