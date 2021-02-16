@@ -1,4 +1,3 @@
-import BtnLink from '@cmps/BtnLink/BtnLink'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import EventTable from '../EventTable'
@@ -23,13 +22,8 @@ export default function UpcomingEvents({ events }) {
     handleChangeRange(2, 'week')
   }, [events])
 
-
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <BtnLink href={'/dashboard-cows/newEvent'} label="Nuevo Evento" />
-        <BtnLink href={'/dashboard-cows/events'} label="Todos los eventos" />
-      </div>
       <h2>En las proximas..</h2>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <SelectedTitle

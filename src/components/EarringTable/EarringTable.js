@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Box from '@material-ui/core/Box'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
@@ -141,11 +141,6 @@ export default function EerringTable({ title }) {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <BtnLink href={'/dashboard-cows/newCow'} label="Nueva vaca" />
-        <BtnLink href={'/dashboard-cows/newEvent'} label="Nuevo Evento" />
-        <BtnLink href={'/dashboard-cows/newRecord'} label="Nuevo Registro" />
-      </div>
       <TableContainer component={Paper}>
         <h3>{title}</h3>
         {rows.length === 0 ? (

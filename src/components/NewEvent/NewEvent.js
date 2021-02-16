@@ -1,3 +1,4 @@
+import { Btn1, Btn2 } from '@cmps/Btns'
 import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
@@ -23,8 +24,6 @@ export default function NewEvent({ event = null }) {
 
   const eventsAvaiblable = formatedTypes()
 
-
-
   useEffect(() => {
     setForm({ ...form, earringId, earring: earringNo })
   }, [earringId])
@@ -36,7 +35,7 @@ export default function NewEvent({ event = null }) {
   }, [event])
 
   const [labelButton, setLabelButton] = useState('Guardar Evento')
- 
+
   const handleChange = (e) => {
     setLabelButton('Guardar Evento')
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -57,6 +56,7 @@ export default function NewEvent({ event = null }) {
     if (a.earring < b.earring) return -1
     return 0
   })
+  console.log(valid)
 
   return (
     <div>
@@ -141,9 +141,7 @@ export default function NewEvent({ event = null }) {
                 </span>
               </div>
               <div className={styles.event_form__input}>
-                <button type="submit" disabled={valid}>
-                  {labelButton}
-                </button>
+                <Btn1 disabled={valid}>{labelButton}</Btn1>
               </div>
             </div>
           </div>

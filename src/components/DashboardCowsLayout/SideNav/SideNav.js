@@ -1,6 +1,5 @@
-import { H1, H2, H3 } from '@cmps/H'
-import { L1, L2 } from '@cmps/L'
-import { P1, P2, P3 } from '@cmps/P'
+import { H3 } from '@cmps/H'
+import { L2 } from '@cmps/L'
 import styles from './styles.module.css'
 
 export default function SideNav({ links = [] }) {

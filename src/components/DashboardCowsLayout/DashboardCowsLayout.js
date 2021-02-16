@@ -26,7 +26,7 @@ const links = [
     label: 'Nuevo Evento',
   },
   {
-    side: 'secondary',
+    side: 'primary',
     id: '7',
     href: '/dashboard-cows/cow',
     label: 'Detalles de Vaca',
