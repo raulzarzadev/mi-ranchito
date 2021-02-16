@@ -1,30 +1,25 @@
 import styles from './styles.module.css'
 
-export function Btn1({ children = 'submit', onClick = () => {}, ...rest }) {
+export function Btn1({
+  children = 'submit',
+
+  ...rest
+}) {
   return (
-    <button
-      {...rest}
-      className={`${styles.btn} ${styles.btn_1}`}
-      onClick={(e) => {
-        e.preventDefault()
-        onClick()
-      }}
-    >
+    <button className={`${styles.btn} ${styles.btn_1}`} {...rest}>
       {children}
     </button>
   )
 }
 
-export function Btn2({ children = 'submit', onClick = () => {}, ...rest }) {
+export function Btn2({
+  type = 'submit',
+  children = 'submit',
+
+  ...rest
+}) {
   return (
-    <button
-      {...rest}
-      className={`${styles.btn} ${styles.btn_2}`}
-      onClick={(e) => {
-        e.preventDefault()
-        onClick()
-      }}
-    >
+    <button className={`${styles.btn} ${styles.btn_2}`} {...rest}>
       {children}
     </button>
   )

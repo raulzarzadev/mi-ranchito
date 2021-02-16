@@ -2,6 +2,9 @@
   border: 1px solid;
   display: block;
 }
+.title {
+  margin: 2rem 0;
+}
 
 @media (min-width: 600px) {
   .event_form {

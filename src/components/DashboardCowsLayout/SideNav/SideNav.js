@@ -9,26 +9,26 @@ export default function SideNav({ links = [] }) {
       <div className={`${styles.common} ${styles.side_links}`}>
         <div className={styles.link_section}>
           <H3>- Ver -</H3>
-          {links.map((link) => (
-            <>
+          {links.map((link, i) => (
+            <div key={i}>
               {link.side === 'primary' && (
                 <div>
                   <L2 href={link.href}>{link.label}</L2>
                 </div>
               )}
-            </>
+            </div>
           ))}
         </div>
         <div className={styles.link_section}>
           <H3>- Nuevo -</H3>
-          {links.map((link) => (
-            <>
+          {links.map((link, i) => (
+            <div key={i}>
               {link.side === 'secondary' && (
                 <div>
                   <L2 href={link.href}>{link.label}</L2>
                 </div>
               )}
-            </>
+            </div>
           ))}
         </div>
       </div>

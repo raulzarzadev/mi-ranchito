@@ -1,4 +1,5 @@
-import { Btn1, Btn2 } from '@cmps/Btns'
+import { Btn1 } from '@cmps/Btns'
+import { H2 } from '@cmps/H'
 import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
@@ -36,6 +37,11 @@ export default function NewEvent({ event = null }) {
 
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
+  const handleSelectCow = (e) => {
+    const earringNo = cows.find((cow) => cow.id === e.target.value)?.id
+    setForm({ ...form, earring: earringNo, earringId: e.target.value })
+  }
+
   const handleChange = (e) => {
     setLabelButton('Guardar Evento')
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -57,12 +63,17 @@ export default function NewEvent({ event = null }) {
     return 0
   })
   console.log(valid)
+  console.log(form)
 
   return (
     <div>
+      <div className={styles.title}>
+        <H2>Nuevo Evento</H2>
+      </div>
       <div>
         <form
           onSubmit={(e) => {
+            console.log('sub')
             e.preventDefault()
             handleSubmit()
           }}
@@ -74,7 +85,7 @@ export default function NewEvent({ event = null }) {
                   Vaca:{' '}
                   <select
                     style={{ width: 150 }}
-                    onChange={handleChange}
+                    onChange={handleSelectCow}
                     name="earringId"
                     id="select-animal"
                     value={form?.earringId || ''}
@@ -141,7 +152,9 @@ export default function NewEvent({ event = null }) {
                 </span>
               </div>
               <div className={styles.event_form__input}>
-                <Btn1 disabled={valid}>{labelButton}</Btn1>
+                <Btn1  disabled={valid}>
+                  {labelButton}
+                </Btn1>
               </div>
             </div>
           </div>

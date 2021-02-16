@@ -13,9 +13,8 @@ export default function Layout({ children }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className={styles.body}>
-       {/*  <Header signOut={signOut} user={user} /> */}
+       <Header signOut={signOut} user={user} /> 
         <main className={styles.main_container}>{children}</main>
-       {/* w */}
       </div>
     </>
   )

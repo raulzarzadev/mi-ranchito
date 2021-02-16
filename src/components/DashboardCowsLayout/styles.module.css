@@ -6,4 +6,19 @@
   width: 100%;
   max-width: 450px;
   margin: 0 auto;
+  margin-bottom: 5rem;
+}
+.cows_dashboard {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+}
+
+@media (min-width: 500px) {
+  .cows_dashboard {
+    margin-left: 8rem;
+  }
+  .dash_container {
+    margin-bottom: 0;
+  }
 }

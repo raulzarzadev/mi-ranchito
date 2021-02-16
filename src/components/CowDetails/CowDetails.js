@@ -34,17 +34,6 @@ export default function CowDetails({ cowId }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <BtnLink
-          label="Nuevo Evento"
-          href={`/dashboard-cows/newEvent?earring=${cow?.earring}&earringId=${cow?.id}`}
-        />
-        <BtnLink
-          label="Nuevo Registro"
-          href={`/dashboard-cows/newRecord?earring=${cow?.earring}&earringId=${cow?.id}`}
-        />
-        <BtnModal label="Eliminar" danger onClick={handleOpenDeleteModal} />
-      </div>
       <div>Id: {cow?.id}</div>
       <div>Arete: {cow?.earring}</div>
       <div>Nombre/apodo: {cow?.name}</div>

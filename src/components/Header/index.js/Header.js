@@ -5,19 +5,12 @@ import styles from './styles.module.css'
 export default function Header({ signOut, user }) {
   return (
     <header className={styles.header}>
-      <div>
-        <Link href="/">
-          <h4>miranchito.digital</h4>
-        </Link>
-      </div>
       <nav className={styles.nav}>
-        {user && (
-          <Link href="/dashboard-cows">
-            <div className={styles.nav_link}>
-              <a>Mis Vacas</a>
-            </div>
-          </Link>
-        )}
+        <Link href="/">
+          <div className={styles.nav_link}>
+            <a>Home</a>
+          </div>
+        </Link>
         <Link href="/sources">
           <div className={styles.nav_link}>
             <a>Recursos</a>

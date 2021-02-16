@@ -11,8 +11,13 @@ const links = [
     label: 'Proximos',
   },
   { side: 'primary', id: '1', href: '/dashboard-cows/cows', label: 'Vacas' },
-  { side: 'primary', id: '9', href: '/dashboard-cows/events', label: 'Eventos' },
-  
+  {
+    side: 'primary',
+    id: '9',
+    href: '/dashboard-cows/events',
+    label: 'Eventos',
+  },
+
   {
     side: 'primary',
     id: '8',
@@ -61,16 +66,15 @@ const links = [
     href: '/dashboard-cows/new',
     label: 'Nuevo',
   },
-  
 ]
 
 export default function DashboardCowsLayout({ children }) {
   return (
-    <>
+    <div className={styles.cows_dashboard}>
       <div className={styles.dash_container}>{children}</div>
 
-      <BottomNav links={links} />
+      <BottomNav links={links.filter((link) => link.side === 'bottom')} />
       <SideNav links={links} />
-    </>
+    </div>
   )
 }
