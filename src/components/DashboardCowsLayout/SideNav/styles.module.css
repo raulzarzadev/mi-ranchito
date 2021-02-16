@@ -1,0 +1,37 @@
+.side_navigation {
+ 
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: auto;
+
+  display: grid;
+  grid-template-rows: 70px auto 70px;
+  box-shadow: var(--shadow-2);
+  display: none;
+}
+
+.common {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side_logo {
+}
+.side_links {
+  flex-direction: column;
+  padding: 4px;
+}
+.link_section {
+  padding: 16px 0;
+}
+.side_options {
+}
+
+@media (min-width: 500px) {
+  .side_navigation {
+    display: grid;
+  }
+}

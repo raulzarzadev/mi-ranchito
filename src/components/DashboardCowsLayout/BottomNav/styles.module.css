@@ -1,4 +1,4 @@
-.navigation {
+.bottom_navigation {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -9,4 +9,10 @@
   justify-content: space-around;
   align-items: center;
   box-shadow: var(--shadow-2);
+}
+
+@media (min-width: 500px) {
+  .bottom_navigation {
+    display: none;
+  }
 }

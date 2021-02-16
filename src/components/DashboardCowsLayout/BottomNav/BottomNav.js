@@ -1,12 +1,12 @@
-import L2 from '@cmps/L2/L2'
+import BtnBottom from '@cmps/BtnBottom/BtnBottom'
 import styles from './styles.module.css'
 
-export default function BottomNav() {
+export default function BottomNav({ links = [] }) {
   return (
-    <div className={styles.navigation}>
-      <L2 href="/" label="Vacas" />
-      <L2 href="/" label="Eventos" />
-      <L2 href="/" label="Nuevo" />
+    <div className={styles.bottom_navigation}>
+      {links.map((link) => (
+        <>{link.side === 'bottom' && <BtnBottom href={link.href} label={link.label} />}</>
+      ))}
     </div>
   )
 }

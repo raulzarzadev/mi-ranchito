@@ -1,8 +1,24 @@
 .link {
-  font-size: 0.7rem;
+  height: inherit;
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.link_ext {
+.l1 {
+  font-weight: 400;
+  font-size: 1.2rem;
 }
-.link_int {
+.l1:hover {
+  font-weight: 600;
 }
 
+.l2 {
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+.l2:hover {
+  opacity: 1;
+  font-weight: 500;
+}

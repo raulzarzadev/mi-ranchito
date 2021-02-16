@@ -5,7 +5,8 @@
 }
 
 .main_container {
-  min-height: calc(100vh - 280px);
+  display: flex;
+  min-height: calc(100vh - 80px);
   padding: 0 0.5rem;
 
   /* min-height: 80vh;
@@ -21,3 +22,9 @@
   align-items: center;
   min-height: 200px;
 }
+@media (min-width: 500px) {
+  .main_container {
+    padding-left: 8rem;
+  }
+}
+
