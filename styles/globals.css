@@ -28,7 +28,6 @@ h6 {
   margin: 0;
 }
 
-
 textarea {
   resize: none;
 }
@@ -38,7 +37,12 @@ textarea {
 :root {
   --black: #000;
   --primary: rgb(108, 179, 255);
-  --danger:rgb(255, 101, 101);
+  --primary-ligth: rgb(203, 249, 255);
+  
+  --white: #fff;
+  --black: #000;
+
+  --danger: rgb(255, 101, 101);
   --blue-1: #185472;
   --shadow-1: 1px 1px 3px var(--black);
   --shadow-2: 1px 1px 6px var(--black);

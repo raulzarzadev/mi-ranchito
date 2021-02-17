@@ -13,7 +13,6 @@ import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import EventTable from '@cmps/EventTable'
-import useCows from '@raiz/src/hooks/useCows'
 import styles from './styles.module.css'
 import BtnLink from '@cmps/BtnLink/BtnLink'
 

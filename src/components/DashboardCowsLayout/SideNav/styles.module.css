@@ -1,5 +1,5 @@
 .side_navigation {
- 
+  background-color: var(--white);
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +28,6 @@
   padding: 16px 0;
 }
 .side_options {
-  
 }
 
 @media (min-width: 500px) {

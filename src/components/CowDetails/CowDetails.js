@@ -10,11 +10,10 @@ import { formatEventsCow } from '@raiz/src/utils'
 
 export default function CowDetails() {
   const router = useRouter()
-  const id = router.query.id
+  const {id} = router.query
   const [cowData, setCowData] = useState()
   const [eventsData, setEventsData] = useState()
   const [details, setDetails] = useState(undefined)
-  console.log(id)
   const getCowDetails = () => {
     getCow(id).then((res) => setCowData(res))
     getEventsByCow(id).then((res) => setEventsData(res))
@@ -43,6 +42,7 @@ export default function CowDetails() {
   }
 
   if (details === undefined) return 'loading ...'
+  
   const { earring, name, registryDate, age, events } = details
   return (
     <>
