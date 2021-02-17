@@ -8,10 +8,10 @@ export default function Login() {
   const LOGIN_PAGE = router.pathname === '/login'
   const { emailLogin, user } = useAuth()
 
-  
   useEffect(() => {
+   
     router.prefetch('/dashboard-cows')
-    if (user) router.replace('/')
+    if (user) router.replace('/signin')
   }, [user])
 
   const handleSubmit = (form) => {

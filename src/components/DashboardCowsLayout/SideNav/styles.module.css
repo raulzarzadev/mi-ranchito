@@ -30,6 +30,16 @@
 .side_options {
 }
 
+.image_logo{
+  cursor: pointer;
+  width: 120px;
+
+}
+.image_logo:hover{
+  box-shadow: var(--shadow-2);
+  
+}
+
 @media (min-width: 500px) {
   .side_navigation {
     display: grid;

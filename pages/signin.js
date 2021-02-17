@@ -8,11 +8,5 @@ export default function Signin() {
   useEffect(() => {
     user && router.replace('/')
   }, [user])
-  return (
-    <div >
-      <SignForm />
-    </div>
-  )
+  return <SignForm />
 }
-
-  

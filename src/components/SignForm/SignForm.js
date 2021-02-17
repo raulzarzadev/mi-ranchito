@@ -30,7 +30,7 @@ export default function SignForm() {
   }
 
   return (
-    <>
+    <div className={styles.signin_page}>
       <div className={styles.form}>
         <div className={styles.form_title}>
           <h4>Ingresa</h4>
@@ -60,6 +60,6 @@ export default function SignForm() {
         </div> 
       */}
       </div>
-    </>
+    </div>
   )
 }

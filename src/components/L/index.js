@@ -1,5 +1,13 @@
 import styles from './styles.module.css'
 import Link from 'next/link'
+
+export function L({ children, href = '' }) {
+  return (
+    <Link href={href}>
+      <a>{children}</a>
+    </Link>
+  )
+}
 export function L1({ children, href = '' }) {
   return (
     <Link href={href}>
@@ -19,7 +27,7 @@ export function L2({ children, href = '' }) {
 export function Lb({ children, href = '' }) {
   return (
     <Link href={href}>
-      <a style={{fontSize:'.9rem'}}>{children}</a>
+      <a style={{ fontSize: '.9rem' }}>{children}</a>
     </Link>
   )
 }

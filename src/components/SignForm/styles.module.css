@@ -1,43 +1,56 @@
+.signin_page {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .sign_button {
-    border-radius: 10px;
-    background-color: #06f9;
-    padding: 16px;
-    width: inherit;
-    cursor: pointer;
-    box-shadow: 1px 1px 1px 2px #0d1a2c33;
+  border-radius: 10px;
+  background-color: #06f9;
+  padding: 16px;
+  width: inherit;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px 2px #0d1a2c33;
 }
 
 .sign_button:hover {
-    background-color: #06fd;
+  background-color: #06fd;
 }
 
 .sign_button:active {
-    box-shadow: 1px 1px 1px 2px #0d1a2cbb;
+  box-shadow: 1px 1px 1px 2px #0d1a2cbb;
 }
 
 .ligth_link {
-    cursor: pointer;
-    color: #06fd;
-    opacity: .7;
+  cursor: pointer;
+  color: #06fd;
+  opacity: 0.7;
 }
 
 .ligth_link:hover {
-    text-decoration: underline;
-    opacity: 1;
+  text-decoration: underline;
+  opacity: 1;
 }
 
 .ligth_link:active {
-    box-shadow: 2px 1px 2px 2px #0256;
+  box-shadow: 2px 1px 2px 2px #0256;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-.form_input{
-    margin:  16px 0;
+.login_page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.form_input {
+  margin: 16px 0;
 }
 
 .form_errors {
-    max-width: 13rem;
+  max-width: 13rem;
 }

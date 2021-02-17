@@ -1,3 +1,4 @@
+import { L } from '@cmps/L'
 import Link from 'next/link'
 import React from 'react'
 import styles from './styles.module.css'
@@ -6,11 +7,14 @@ export default function Header({ signOut, user }) {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <Link href="/">
-          <div className={styles.nav_link}>
-            <a>Home</a>
-          </div>
-        </Link>
+        <L href={'/'}>
+          <img
+            src="/assets/Logo.svg"
+            alt="hola"
+            className={styles.image_logo}
+          />
+        </L>
+
         <Link href="/sources">
           <div className={styles.nav_link}>
             <a>Recursos</a>
