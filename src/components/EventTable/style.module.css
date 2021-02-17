@@ -6,16 +6,31 @@
 }
 
 .table {
-  min-width: 150px,
+  min-width: 150px;
 }
 
-.event_row{
+.event_row {
   cursor: pointer;
 }
-.event_row:hover{
+.event_row:hover {
   background-color: #ddd5;
-
 }
-.event_row:active{
+.event_row:active {
   background-color: #ccc;
+}
+
+.badge_status {
+  width: 20px;
+  height: 20px;
+  background-color: var(--success);
+}
+
+.badge_status[status='danger'] {
+  background-color: var(--danger);
+}
+.badge_status[status='success'] {
+  background-color: var(--success);
+}
+.badge_status[status='warning'] {
+  background-color: var(--warning);
 }

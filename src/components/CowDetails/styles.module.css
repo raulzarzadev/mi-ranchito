@@ -1,4 +1,12 @@
 .modal_actions {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button_box {
+  display: flex;
+  width: 200px;
+  justify-content: space-around;
+  padding: 0.5rem;
+  margin: 1rem 0;
 }

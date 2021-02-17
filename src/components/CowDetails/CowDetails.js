@@ -10,7 +10,7 @@ import { formatEventsCow } from '@raiz/src/utils'
 
 export default function CowDetails() {
   const router = useRouter()
-  const {id} = router.query
+  const { id } = router.query
   const [cowData, setCowData] = useState()
   const [eventsData, setEventsData] = useState()
   const [details, setDetails] = useState(undefined)
@@ -42,7 +42,7 @@ export default function CowDetails() {
   }
 
   if (details === undefined) return 'loading ...'
-  
+
   const { earring, name, registryDate, age, events } = details
   return (
     <>
@@ -51,11 +51,11 @@ export default function CowDetails() {
       <div>Nombre/apodo: {name}</div>
       <div>Edad : {age}</div>
       <div>Registro: {registryDate}</div>
-      <div style={{ padding: '8px', margin: '8px' }}>
+      <div className={styles.button_box}>
         <Btn2 label="Eliminar" onClick={handleOpenDeleteModal} />
         <Btn1
           label="Nuevo Evento"
-          href={`/dashboard-cows/newEvent?cowId=${id}`}
+          href={`/dashboard-cows/newEvent?earringId=${id}`}
         />
       </div>
       <EventTable

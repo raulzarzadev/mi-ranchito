@@ -42,6 +42,8 @@ textarea {
   --white: #fff;
   --black: #000;
 
+  --success: rgb(96, 177, 76);
+  --warning:rgb(149, 243, 112);
   --danger: rgb(255, 101, 101);
   --blue-1: #185472;
   --shadow-1: 1px 1px 3px var(--black);

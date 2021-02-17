@@ -7,7 +7,6 @@
   align-items: flex-end;
   justify-content: center;
   padding-right: 1rem;
-
 }
 
 .nav {
@@ -46,7 +45,6 @@
 @media (min-width: 600px) {
   .header {
     display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
   }
 }

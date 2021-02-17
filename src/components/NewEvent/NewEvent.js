@@ -15,6 +15,16 @@ export default function NewEvent({ event = null }) {
   const earringNo = router?.query?.earring
   const earringId = router?.query?.earringId
 
+  useEffect(() => {
+    if (earringId) {
+      const earringNo = cows.find((cow) => cow.id === earringId)?.earring
+      setForm({
+        ...form,
+        earring: earringNo,
+      })
+    }
+  }, [earringId, cows])
+
   const [form, setForm] = useState({
     date: getToday(),
     coments: '',
@@ -34,6 +44,7 @@ export default function NewEvent({ event = null }) {
       setForm(event)
     }
   }, [event])
+  console.log(form)
 
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
@@ -62,8 +73,6 @@ export default function NewEvent({ event = null }) {
     if (a.earring < b.earring) return -1
     return 0
   })
-  console.log(valid)
-  console.log(form)
 
   return (
     <div>
@@ -152,9 +161,7 @@ export default function NewEvent({ event = null }) {
                 </span>
               </div>
               <div className={styles.event_form__input}>
-                <Btn1  disabled={valid}>
-                  {labelButton}
-                </Btn1>
+                <Btn1 disabled={valid}>{labelButton}</Btn1>
               </div>
             </div>
           </div>

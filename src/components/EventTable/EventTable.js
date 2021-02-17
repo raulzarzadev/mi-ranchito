@@ -145,11 +145,11 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
     Date.parse(new Date(event?.nextEvent?.date)) / (3600 * 24 * 1000)
   const today = Date.parse(new Date()) / (3600 * 24 * 1000)
 
-  const [color, setColor] = useState('yellow')
+  const [status, setStatus] = useState('warning')
 
   useEffect(() => {
-    if (nextEventDate - today < 1) return setColor('red')
-    if (nextEventDate - today > 10) return setColor('green')
+    if (nextEventDate - today < 1) return setStatus('danger')
+    if (nextEventDate - today > 10) return setStatus('success')
   }, [])
 
   return (
@@ -177,15 +177,9 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
               {event.nextEvent?.label}
             </TableCell>
             <TableCell padding="none" align="center">
-              <div
-                style={{
-                  width: '15px',
-                  borderRadius: '50%',
-                  height: '15px',
-                  backgroundColor: color,
-                  margin: '0 auto',
-                }}
-              ></div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <StatusBadge status={status} />
+              </div>
               {event.nextEvent?.fromNow}
             </TableCell>
           </>
@@ -202,4 +196,8 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
       </TableRow>
     </>
   )
+}
+
+function StatusBadge({ status = 'success' }) {
+  return <div status={status} className={styles.badge_status} />
 }
