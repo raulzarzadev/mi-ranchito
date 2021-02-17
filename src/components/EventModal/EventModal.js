@@ -3,6 +3,7 @@ import Modal from '@cmps/Modal/Modal'
 import styles from './styles.module.css'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
+import { Btn1, Btn2 } from '@cmps/Btns'
 
 export default function EventModal({ open, handleOpen, event }) {
   const { removeEvent } = useEvents()
@@ -43,18 +44,10 @@ export default function EventModal({ open, handleOpen, event }) {
           <div>Fecha: {nextEvent?.formatDate}</div>
           <div className={styles.actions}>
             <div className="box-1">
-              <ModalButton
-                danger
-                label="Eliminar"
-                onClick={handleOpenDeleteModal}
-              />
+              <Btn2 label="Eliminar" onClick={handleOpenDeleteModal} />
             </div>
             <div className="box-1">
-              <ModalButton
-                primary
-                label="Editar"
-                onClick={() => handleEditEvent(event.id)}
-              />
+              <Btn1 label="Editar" onClick={() => handleEditEvent(event.id)} />
             </div>
           </div>
         </div>
@@ -66,8 +59,7 @@ export default function EventModal({ open, handleOpen, event }) {
             <em>Tambien se eliminaran eventos ligados con este</em>
           </div>
           <div>
-            <ModalButton
-              danger
+            <Btn2
               label="Eliminar"
               onClick={() => handleRemoveEvent(event.id)}
             />
@@ -75,26 +67,5 @@ export default function EventModal({ open, handleOpen, event }) {
         </div>
       </Modal>
     </>
-  )
-}
-
-function ModalButton({ onClick, label, primary, secondary, danger, success }) {
-  return (
-    <button
-      onClick={(e) => {
-        e.preventDefault()
-        onClick()
-      }}
-      className={`
-      ${styles.btn} 
-      ${styles.btn_primary}
-      ${primary && styles.btn_primary}
-      ${secondary && styles.btn_secondary}
-      ${danger && styles.btn_danger}
-      ${success && styles.btn_success}
-    `}
-    >
-      {label}
-    </button>
   )
 }

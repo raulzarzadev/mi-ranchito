@@ -39,6 +39,12 @@ export const PERIODS = {
 }
 export const EVENTS_TYPES = [
   {
+    type: 'registration',
+    label: 'Registro',
+    onDay: 0,
+    nextEvents: [],
+  },
+  {
     type: 'registry',
     label: 'Registro',
     onDay: 0,
@@ -55,7 +61,7 @@ export const EVENTS_TYPES = [
     label: 'Compra',
     onDay: 0,
     nextEvents: [],
-  }, 
+  },
   {
     type: 'nace',
     label: 'Nacimiento',

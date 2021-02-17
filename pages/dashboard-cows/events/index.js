@@ -6,6 +6,7 @@ import React from 'react'
 
 export default function events() {
   const { events } = useEvents()
+  console.log(events)
   return (
     <>
       <Head>

@@ -5,13 +5,13 @@ import {
   updateEvent,
   getEventsByCow,
 } from '@raiz/firebaseClient'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { formatEvent } from '../utils'
 
 export default function useEvents() {
   const { user } = useAuth()
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState(undefined)
   const [errors, setErrors] = useState(null)
 
   useEffect(() => {
@@ -36,23 +36,23 @@ export default function useEvents() {
   }
 
   const getEvents = async (userId) => {
-    getUserEvents(userId).then((res) => setEvents(res))
+    getUserEvents(userId)
+      .then((res) => {
+        const formatedEvents = res.map((event) => formatEvent(event))
+        setEvents(formatedEvents)
+      })
+      .catch((err) => {
+        console.log(err)
+        setEvents(null)
+      })
   }
 
-  const [formatedEvents, setFormatedEvents] = useState([])
-  useEffect(() => {
-    if (events.length) {
-      setFormatedEvents(events.map((event) => formatEvent(event)))
-    }
-  }, [events])
 
-  console.log(events, formatedEvents)
   return {
     errors,
-    events: formatedEvents,
+    events,
     addEvent,
     removeEvent,
     editEvent,
-    // getCowEvents,
   }
 }

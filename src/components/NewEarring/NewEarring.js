@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import moment from 'moment'
 import styles from './styles.module.css'
-import { useAuth } from '@raiz/src/context/AuthContext'
 import useCows from '@raiz/src/hooks/useCows'
+import { getToday } from '@raiz/src/utils'
 
 export default function NewEarring() {
-  const { user } = useAuth()
   const { addCow, cows } = useCows()
   const today = moment().format('YYYY-MM-DD')
   const [newEarring, setNewEarring] = useState({
     birth: today,
-    userId: user?.id,
+    registryDate: getToday(),
   })
 
   const handleChange = (e) => {
@@ -27,7 +26,7 @@ export default function NewEarring() {
   const [labelButton, setLabelButton] = useState('Guardar')
 
   const valid = alreadyExist || !newEarring?.earring
-
+  console.log(newEarring)
   return (
     <form
       onSubmit={(e) => {
@@ -68,12 +67,12 @@ export default function NewEarring() {
           </div>
           <div className={styles.item}>
             <span>
-              Nacimiento:
+              Fecha de Registro:
               <input
                 style={{ width: '150px' }}
                 type="date"
                 placeholder="Fecha de Nacimiento"
-                name="birth"
+                name="registryDate"
                 value={newEarring.birth}
                 onChange={handleChange}
               ></input>

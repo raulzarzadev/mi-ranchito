@@ -89,7 +89,7 @@ function Row({ row = [] }) {
           {row?.lastEvent?.label || '-'}
         </TableCell>
         <TableCell padding="none" align="center">
-          <BtnLink label="ver" href={`/dashboard-cows/cow?id=${row.id}`} />
+          <BtnLink label="ver" as={`/dashboard-cows/cow?id=${row.id}`} href={`/dashboard-cows/cow`} />
         </TableCell>
       </TableRow>
       <TableRow>

@@ -38,7 +38,7 @@ export default function NewEvent({ event = null }) {
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
   const handleSelectCow = (e) => {
-    const earringNo = cows.find((cow) => cow.id === e.target.value)?.id
+    const earringNo = cows.find((cow) => cow.id === e.target.value)?.earring
     setForm({ ...form, earring: earringNo, earringId: e.target.value })
   }
 

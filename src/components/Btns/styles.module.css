@@ -3,9 +3,10 @@
   min-width: 30px;
   border-radius: 20px;
   cursor: pointer;
+  box-shadow: var(--shadow-1);
 }
 .btn:hover {
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-2);
 }
 .btn[disabled] {
   box-shadow: none;

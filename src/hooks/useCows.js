@@ -18,9 +18,13 @@ export default function useCows() {
   const [cows, setCows] = useState([])
 
   const addCow = (cow) => {
-    newCow(cow)
+    newCow({ userId: user.id, ...cow })
       .then((res) => {
-        addEvent()
+        addEvent({
+          registryDate: cow.registryDate,
+          earring: cow.earring,
+          event: 'registration',
+        })
         console.log(res)
       })
       .catch((err) => console.log(err))
@@ -52,5 +56,6 @@ export default function useCows() {
   }, [user])
 
   const formatedCows = formatEventsByEarring(events, cows)
+
   return { errors, cows: formatedCows, addCow, removeCow, getCowDetails }
 }

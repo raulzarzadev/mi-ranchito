@@ -69,6 +69,12 @@ export function formatEventsByEarring(events, earrings) {
   })
 }
 
+export function formatEventsCow(cow, events) {
+  const age = moment(cow?.birth).fromNow()
+  const formatEvents = events?.map((event) => formatEvent(event))
+  return { ...cow, age, events: formatEvents }
+}
+
 export const formatEvent = (event = {}) => {
   const onDay = PERIODS[event.type || event.event]
   const date = event.date || new Date()
@@ -105,5 +111,3 @@ export function formatInputDate(date) {
   const today = year + '-' + month + '-' + day
   return today
 }
-
-
