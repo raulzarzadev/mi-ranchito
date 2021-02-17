@@ -2,6 +2,11 @@
   text-align: center;
   display: grid;
   grid-template-rows: auto auto auto;
+  background-image: url('/assets/Fondo.svg');
+  background-color: rgba(256, 256, 256, 100%);
+
+  background-size: cover;
+  background-repeat: repeat-y;
 }
 
 .main_container {
