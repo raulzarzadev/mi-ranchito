@@ -55,7 +55,7 @@ export default function useCows() {
     }
   }, [user])
 
-  const formatedCows = formatEventsByEarring(events, cows)
+  // const formatedCows = formatEventsByEarring(events, cows)
 
-  return { errors, cows: formatedCows, addCow, removeCow, getCowDetails }
+  return { errors, cows, addCow, removeCow, getCowDetails }
 }

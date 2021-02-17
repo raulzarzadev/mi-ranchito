@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import Collapse from '@material-ui/core/Collapse'
 import IconButton from '@material-ui/core/IconButton'
@@ -89,7 +89,11 @@ function Row({ row = [] }) {
           {row?.lastEvent?.label || '-'}
         </TableCell>
         <TableCell padding="none" align="center">
-          <BtnLink label="ver" as={`/dashboard-cows/cow?id=${row.id}`} href={`/dashboard-cows/cow`} />
+          <BtnLink
+            label="ver"
+            as={`/dashboard-cows/cow?id=${row.id}`}
+            href={`/dashboard-cows/cow`}
+          />
         </TableCell>
       </TableRow>
       <TableRow>
@@ -114,10 +118,15 @@ function Row({ row = [] }) {
   )
 }
 
-export default function EerringTable({ title }) {
-  const { cows } = useCows()
-  const rows = cows
+export default function EerringTable({ title, earrings }) {
   const [sortBy, setSortBy] = useState('earring')
+  const [rows, setRows] = useState([])
+
+  useEffect(() => {
+    if (earrings) {
+      setRows(earrings)
+    }
+  }, [earrings])
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
@@ -136,8 +145,6 @@ export default function EerringTable({ title }) {
       })
     }
   }
-
-  // TODO no funciona el sort otra vez
 
   return (
     <>

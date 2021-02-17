@@ -69,10 +69,21 @@ export function formatEventsByEarring(events, earrings) {
   })
 }
 
-export function formatEventsCow(cow, events) {
-  const age = moment(cow?.birth).fromNow()
-  const formatEvents = events?.map((event) => formatEvent(event))
-  return { ...cow, age, events: formatEvents }
+export function formatEventsCow(earring, events) {
+  const age = moment(earring.birth).fromNow()
+  const evts = events.filter((event) => event.earring === earring.earring)
+  const sortedEvts = evts.sort((a, b) => {
+    if (a.date < b.date) return 1
+    if (a.date > b.date) return -1
+    return 0
+  })
+  return {
+    ...earring,
+    age,
+    events: events.map((evt) => formatEvent(evt)),
+    lastEvent: formatEvent(sortedEvts[0]) || null,
+    lastEventLabel: sortedEvts[0]?.label || '-',
+  }
 }
 
 export const formatEvent = (event = {}) => {

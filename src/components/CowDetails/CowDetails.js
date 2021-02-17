@@ -5,58 +5,45 @@ import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
 import { Btn1, Btn2 } from '@cmps/Btns'
 import { deleteCow, getCow, getEventsByCow } from '@raiz/firebaseClient'
-import { formatEventsCow } from '@raiz/src/utils'
 import { useRouter } from 'next/router'
+import { formatEventsCow } from '@raiz/src/utils'
 
 export default function CowDetails() {
   const router = useRouter()
-  const [cowId, setCowId] = useState(null)
+  const { id } = router.query
+  const [cowData, setCowData] = useState()
+  const [eventsData, setEventsData] = useState()
+  const [details, setDetails] = useState(undefined)
+
+  const getCowDetails = () => {
+    getCow(id).then((res) => setCowData(res))
+    getEventsByCow(id).then((res) => setEventsData(res))
+  }
 
   useEffect(() => {
-    setCowId(router?.query?.id)
-  }, [router])
-
-  console.log(cowId)
-  console.log(router)
-
-  const [cow, setCow] = useState(undefined)
-  const [events, setEvents] = useState(undefined)
-
-  useEffect(() => {
-    if (cowId) {
-      getCow(cowId).then((res) => setCow(res))
-      getEventsByCow(cowId).then((res) => setEvents(res))
+    if ((cowData, eventsData)) {
+      setDetails(formatEventsCow(cowData, eventsData))
     }
-  }, [cowId])
+  }, [cowData, eventsData, id])
 
-  const [formatedCows, setFormatedCows] = useState(undefined)
+  console.log(details)
 
   useEffect(() => {
-    if (cow && events) {
-      setFormatedCows(formatEventsCow(cow, events))
+    if (id) {
+      getCowDetails(id)
     }
-  }, [cowId, cow, events])
-  console.log(events)
-  return (
-    <>
-      {formatedCows ? (
-        <CowInfo cow={formatedCows} deleteCow={deleteCow} />
-      ) : (
-        'Loading ...'
-      )}
-    </>
-  )
-}
+  }, [id])
 
-const CowInfo = ({ cow = {}, deleteCow }) => {
-  const { earring, name, events, age, id, registryDate } = cow
-  const [deleteModal, setDeleteModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState()
   const handleOpenDeleteModal = () => {
     setDeleteModal(!deleteModal)
   }
   const handleDelete = (id) => {
     deleteCow(id)
   }
+
+  if (details === undefined) return 'loading ...'
+  const { earring, name, registryDate, age, events } = details
   return (
     <>
       <div>Id: {id}</div>

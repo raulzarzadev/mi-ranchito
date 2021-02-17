@@ -227,6 +227,7 @@ export async function getUserCows(userId = '') {
 
 /* ------------EVENTS------------ */
 
+
 export const getEventsByCow = (cowId) => {
   return db
     .collection('events')

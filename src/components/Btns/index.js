@@ -5,9 +5,9 @@ export function Btn1({ href = null, children = 'submit', label, ...rest }) {
   if (href) {
     return (
       <Lb href={href}>
-        <a className={`${styles.btn} ${styles.btn_1}`} {...rest}>
+        <div className={`${styles.btn} ${styles.btn_1}`} {...rest}>
           {label || children}
-        </a>
+        </div>
       </Lb>
     )
   } else {
@@ -23,9 +23,9 @@ export function Btn2({ href = null, children = 'submit', label, ...rest }) {
   if (href) {
     return (
       <Lb href={href}>
-        <a className={`${styles.btn} ${styles.btn_2}`} {...rest}>
+        <div className={`${styles.btn} ${styles.btn_2}`} {...rest}>
           {label || children}
-        </a>
+        </div>
       </Lb>
     )
   } else {

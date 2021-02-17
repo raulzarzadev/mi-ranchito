@@ -1,11 +1,16 @@
+import { getUserEvents } from '@raiz/firebaseClient'
+import { useAuth } from '@raiz/src/context/AuthContext'
+import { formatEvent } from '@raiz/src/utils'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import EventTable from '../EventTable'
 import SelectedTitle from '../SelectedTitle'
 
-export default function UpcomingEvents({ events }) {
+export default function UpcomingEvents() {
+  const [events, setEvents] = useState(undefined)
   const [range, setRange] = useState('2week')
   const [upcomingEvents, setUpcomingEvents] = useState([])
+  const { user } = useAuth()
 
   const handleChangeRange = (quatity, range) => {
     setRange(quatity + range)
@@ -19,8 +24,21 @@ export default function UpcomingEvents({ events }) {
   }
 
   useEffect(() => {
-    handleChangeRange(2, 'week')
-  }, [events])
+    if (user) {
+      getUserEvents(user.id)
+        .then((res) => {
+          setEvents(res)
+          setUpcomingEvents(res.map((event) => formatEvent(event)))
+        })
+        .catch((err) => {
+          console.log(err)
+          setEvents(null)
+        })
+    }
+  }, [user])
+
+
+  if (events === undefined) return 'Loading...'
 
   return (
     <div>

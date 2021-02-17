@@ -19,7 +19,7 @@ export default function EventTable({
   upcomingEvents,
 }) {
   const [sortBy, setSortBy] = useState(upcomingEvents ? 'next-date' : 'date')
-  console.log(events)
+
   const handleSortBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)
@@ -136,11 +136,7 @@ export default function EventTable({
   )
 }
 
-const EventRow = ({
-  event,
-  hideEarring,
-  upcomingEvents,
-}) => {
+const EventRow = ({ event, hideEarring, upcomingEvents }) => {
   const [eventModal, setEventModal] = useState(false)
   const handleEventModal = () => {
     setEventModal(!eventModal)
