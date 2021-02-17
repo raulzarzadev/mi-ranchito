@@ -7,6 +7,7 @@ import EventTable from '../EventTable'
 import SelectedTitle from '../SelectedTitle'
 
 export default function UpcomingEvents() {
+  
   const [events, setEvents] = useState(undefined)
   const [range, setRange] = useState('2week')
   const [upcomingEvents, setUpcomingEvents] = useState([])

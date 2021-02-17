@@ -10,34 +10,34 @@ import { formatEventsCow } from '@raiz/src/utils'
 
 export default function CowDetails() {
   const router = useRouter()
-  const { id } = router.query
+  const id = router.query.id
   const [cowData, setCowData] = useState()
   const [eventsData, setEventsData] = useState()
   const [details, setDetails] = useState(undefined)
-
+  console.log(id)
   const getCowDetails = () => {
     getCow(id).then((res) => setCowData(res))
     getEventsByCow(id).then((res) => setEventsData(res))
   }
 
   useEffect(() => {
-    if ((cowData, eventsData)) {
-      setDetails(formatEventsCow(cowData, eventsData))
-    }
-  }, [cowData, eventsData, id])
-
-  console.log(details)
-
-  useEffect(() => {
     if (id) {
-      getCowDetails(id)
+      getCowDetails()
     }
   }, [id])
 
+  useEffect(() => {
+    if ((cowData, eventsData)) {
+      setDetails(formatEventsCow(cowData, eventsData))
+    }
+  }, [cowData, eventsData])
+
   const [deleteModal, setDeleteModal] = useState()
+
   const handleOpenDeleteModal = () => {
     setDeleteModal(!deleteModal)
   }
+
   const handleDelete = (id) => {
     deleteCow(id)
   }
