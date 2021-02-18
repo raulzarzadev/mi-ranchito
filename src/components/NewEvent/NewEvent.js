@@ -14,7 +14,7 @@ export default function NewEvent({ event = null }) {
   const [earrings, setEarrings] = useState()
 
   const earringNo = router?.query?.earring
-  const earringId = router?.query?.earringId
+  const earringId = router?.query?.cowId
 
   // TODO funcion getCows
   useEffect(() => {
@@ -97,7 +97,6 @@ export default function NewEvent({ event = null }) {
     (event) => event.type === form.event
   )?.options
 
-  console.log(form)
 
   return (
     <div>
@@ -107,12 +106,10 @@ export default function NewEvent({ event = null }) {
       <div>
         <form
           onSubmit={(e) => {
-            console.log('sub')
             e.preventDefault()
             handleSubmit()
           }}
         >
-          <div>
             <div>
               <div className={styles.event_form__input}>
                 <span>
@@ -224,7 +221,6 @@ export default function NewEvent({ event = null }) {
                 <Btn1 disabled={valid}>{labelButton}</Btn1>
               </div>
             </div>
-          </div>
         </form>
       </div>
     </div>

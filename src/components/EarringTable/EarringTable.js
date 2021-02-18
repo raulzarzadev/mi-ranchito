@@ -12,68 +12,81 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
-import EventTable from '@cmps/EventTable'
 import styles from './styles.module.css'
 import BtnLink from '@cmps/BtnLink/BtnLink'
+import { Btn1, Btn2 } from '@cmps/Btns'
+import useCows from 'src/hooks/useCows'
+import { H3 } from '@cmps/H'
+import { P1 } from '@cmps/P'
 
 function RowDetails({ row }) {
+  const { removeCow } = useCows()
+  const handleDeleteCow = () => {
+    removeCow(row.id).then((res) => console.log(res))
+  }
+  const upcommingEvents = row.lastEvent.nextEvents
   return (
     <div>
       <div className={styles.links_box}>
-        <BtnLink
-          href={`/dashboard-cows/newEvent?earring=${row.earring}&earringId=${row.id}`}
-          label="Nuevo Evento"
-        />
-        <BtnLink href={`/dashboard-cows/cow/${row.id}`} label="Detalles " />
+        <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
+        <Btn2 onClick={handleDeleteCow}>Eliminar</Btn2>
+      </div>
+      {console.log(row)}
+      <div className={styles.lastEvent_row}>
+        <div>
+          <H3>Ultimo Evento</H3>
+          <div style={{ display: 'flex' }}>
+            <div style={{ margin: '8px', textAlign: 'center' }}>
+              {row.lastEvent.label}
+              <div>
+                <em>{row.lastEvent.type}</em>
+              </div>
+            </div>
+
+            <div style={{ margin: '8px', textAlign: 'center' }}>
+              {row.lastEvent.formatDate}{' '}
+              <div>
+                <em>{row.lastEvent.fromNow}</em>
+              </div>
+            </div>
+
+            <div style={{ margin: '8px', textAlign: 'center' }}>
+              {`Comentarios`}
+              <div>
+                <em>
+                  {row.lastEvent.eventOption} , {row.lastEvent.coments}
+                </em>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className={styles.lastEvent_row}>
-        <h5>Ultimo Evento: </h5>
-        <h6>
-          {row.lastEvent?.label}{' '}
-          <em>{row.lastEvent?.type || row.lastEvent?.event}</em>
-        </h6>
-        <h6>{row.lastEvent?.fromNow}</h6>
+        <div>
+          <H3>{`Proximos Eventos`}</H3>
+          {console.log(upcommingEvents)}
+          <div style={{ display: 'flex' }}>
+            {upcommingEvents.map((event, i) => (
+              <div key={i} style={{ margin: '8px', textAlign: 'center' }}>
+                <P1>{event.label} </P1>
+                <em>{event.type}</em>
+                <div>
+                  <P1>{event.formatDate}</P1> <em>{event.fromNow}</em>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <EventsRow title="Proximos Eventos" events={row.upcomingEvents} />
-      <EventsRow title="Ultimos Registros" events={[]} />
     </div>
   )
 }
-
-const EventsRow = ({ title, events = [] }) => (
-  <>
-    <h5>{title} </h5>
-    <div className={styles.upcomming_display}>
-      {events.length ? (
-        events.map((event, i) => (
-          <div key={i} className={styles.upcomming_event}>
-            <div>{event.label || event.type || event.event}</div>
-            <div>{event.fromNow}</div>
-          </div>
-        ))
-      ) : (
-        <div className={styles.upcoming_empty}>
-          <div> sin elementos que mostrar</div>
-        </div>
-      )}
-    </div>
-  </>
-)
 
 function Row({ row = [] }) {
   const [open, setOpen] = React.useState(false)
   return (
     <React.Fragment>
       <TableRow>
-        <TableCell padding="none" style={{ width: 30 }}>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-          </IconButton>
-        </TableCell>
         <TableCell padding="none" component="th" scope="row">
           <div style={{ maxWidth: 80 }}>
             <Typography noWrap>
@@ -88,10 +101,17 @@ function Row({ row = [] }) {
           {row?.lastEvent?.label || '-'}
         </TableCell>
         <TableCell padding="none" align="center">
-          <BtnLink
-            label="ver"
-            href={`/dashboard-cows/cow/${row.id}`}
-          />
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? (
+              <KeyboardArrowUpIcon fontSize="large" />
+            ) : (
+              <KeyboardArrowDownIcon fontSize="large" />
+            )}
+          </IconButton>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -101,14 +121,8 @@ function Row({ row = [] }) {
           colSpan={6}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            {/* <RowDetails row={row} /> */}
-            <Box margin={1}>
-             {/*  <EventTable
-                events={row.events}
-                // title="Historai por Arete"
-                hideEarring
-              /> */}
-            </Box>
+            <RowDetails row={row} />
+            <Box margin={1}></Box>
           </Collapse>
         </TableCell>
       </TableRow>
@@ -125,8 +139,6 @@ export default function EerringTable({ title, earrings }) {
       setRows(earrings)
     }
   }, [earrings])
-
-  console.log(earrings)
 
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
@@ -156,7 +168,6 @@ export default function EerringTable({ title, earrings }) {
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
-                <td></td>
                 <TableCell
                   padding="none"
                   onClick={() => handleSortRowsBy('earring')}
@@ -189,15 +200,15 @@ export default function EerringTable({ title, earrings }) {
                     fontWeight: sortBy === 'lastEventLabel' ? 800 : 500,
                   }}
                 >
-                  Ultimo Evento
+                  Estatus
                 </TableCell>
-                <TableCell padding="none" align="left">
-                  Acción
+                <TableCell padding="checkbox" align="center">
+                  ver
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row,i) => (
+              {rows.map((row, i) => (
                 <Row key={`${row.id}${i}`} row={row} />
               ))}
             </TableBody>

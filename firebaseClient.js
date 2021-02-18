@@ -153,24 +153,6 @@ export async function deleteCowEvents(earringId) {
       .catch((err) => console.log(err))
     return { ok: true, type: 'COW_EVTS_DELETED' }
   })
-
-  /* const batch = db.batch()
-  const refGroup = await db
-  .collection('events')
-  .where('earringId', '==', earringId)
-  
-  console.log(refGroup) */
-
-  /*  batch.delete(refGroup)
-  
-  batch
-  .commit()
-  .then((res) => {
-    console.log(res)
-    return { ok: true, type: 'MANY_EVTS_DELETED' }
-  })
-  .catch((err) => console.log(err))
-  */
 }
 
 export async function deleteCow(id) {
@@ -233,8 +215,6 @@ export function updateCow(cowId, cow) {
     })
     .catch((err) => console.log(err))
 }
-
-
 
 /* ------------EVENTS------------ */
 
