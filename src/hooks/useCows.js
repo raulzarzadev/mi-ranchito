@@ -6,6 +6,7 @@ import {
   newCow,
   getUserEvents,
   getEventsByCow,
+  updateCow,
 } from '@raiz/firebaseClient'
 import { useAuth } from '../context/AuthContext'
 import { formatEventsByEarrings, formatEventsCow } from '../utils'
@@ -51,5 +52,11 @@ export default function useCows() {
     return formatEventsCow(cow, events)
   }
 
-  return { getCowDetails, getCows, addCow, removeCow }
+  const editCow = (cowId, newCow) => {
+    return updateCow(cowId, newCow).then((res) => {
+      return res
+    })
+  }
+
+  return { getCowDetails, getCows, addCow, removeCow, editCow }
 }

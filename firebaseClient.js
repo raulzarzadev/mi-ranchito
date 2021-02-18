@@ -224,6 +224,17 @@ export async function getUserCows(userId = '') {
       .catch((err) => console.log(err))
   )
 }
+export function updateCow(cowId, cow) {
+  const eventRef = db.collection('cows').doc(cowId)
+  return eventRef
+    .update(cow)
+    .then(() => {
+      return { ok: true, type: 'COW_UPDATED' }
+    })
+    .catch((err) => console.log(err))
+}
+
+
 
 /* ------------EVENTS------------ */
 

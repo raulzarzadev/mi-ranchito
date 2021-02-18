@@ -19,7 +19,7 @@ export default function CowDetails() {
       getCowDetails(id).then((res) => setDetails(res))
     }
   }, [])
-  console.log(details)
+  
   const [deleteModal, setDeleteModal] = useState()
 
   const handleOpenDeleteModal = () => {
@@ -45,6 +45,10 @@ export default function CowDetails() {
         <Btn1
           label="Nuevo Evento"
           href={`/dashboard-cows/newEvent?earringId=${id}`}
+        />
+        <Btn1
+          label="Editar"
+          href={`/dashboard-cows/cows/edit/${id}`}
         />
       </div>
       <EventTable

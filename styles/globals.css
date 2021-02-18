@@ -38,14 +38,14 @@ textarea {
   --black: #000;
   --primary: rgb(108, 179, 255);
   --primary-ligth: rgb(203, 249, 255);
-  --secondary:rgb(109, 202, 90);
-  --secondary-ligth:rgb(180, 255, 165);
-  
+  --secondary: rgb(109, 202, 90);
+  --secondary-ligth: rgb(180, 255, 165);
+
   --white: #fff;
   --black: #000;
 
   --success: rgb(96, 177, 76);
-  --warning:rgb(149, 243, 112);
+  --warning: rgb(149, 243, 112);
   --danger: rgb(255, 101, 101);
   --blue-1: #185472;
   --shadow-1: 1px 1px 3px var(--black);
@@ -58,4 +58,10 @@ textarea {
 }
 .box-2 {
   margin: 16px;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
