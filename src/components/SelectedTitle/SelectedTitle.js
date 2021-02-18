@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./styles.module.css";
+import React from 'react'
+import styles from './styles.module.css'
 
 export default function SelectedTitle({ title, selected, onClick }) {
   return (
@@ -9,6 +9,7 @@ export default function SelectedTitle({ title, selected, onClick }) {
       className={styles.title}
     >
       {title}
+      <div selected={selected} className={styles.button_underline}></div>
     </div>
-  );
+  )
 }

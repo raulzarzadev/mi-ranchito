@@ -5,3 +5,15 @@
   margin-bottom: 8px;
   font-weight: 600;
 }
+.select_box {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 14px;
+  min-width: 300px;
+}
+.button_underline {
+  height: 4px;
+  width: 95%;
+  background-color: transparent;
+}
