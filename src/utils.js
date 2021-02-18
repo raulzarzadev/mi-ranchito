@@ -49,29 +49,19 @@ function formatNextEvents(events, mainDate, mainOnDay) {
 
 /* ----------------------------------------- */
 
-export function formatEventsByEarring(events, earrings) {
+export function formatEventsByEarring(earrings, events) {
   return earrings.map((earring) => {
-    const age = moment(earring.birth).fromNow()
-    const evts = events.filter((event) => event.earring === earring.earring)
-    const sortedEvts = evts.sort((a, b) => {
-      if (a.date < b.date) return 1
-      if (a.date > b.date) return -1
-      return 0
-    })
-    return {
-      ...earring,
-      age,
-      events: sortedEvts,
-      upcomingEvents: sortedEvts[0]?.nextEvents,
-      lastEvent: sortedEvts[0] || null,
-      lastEventLabel: sortedEvts[0]?.label || '-',
-    }
+    const earringsEvents = events.filter(
+      (event) => event.earringId === earring.id
+    )
+    return formatEventsCow(earring, earringsEvents)
   })
 }
 
 export function formatEventsCow(earring, events) {
+  console.log(earring, events)
   const age = moment(earring.birth).fromNow()
-  const evts = events.filter((event) => event.earring === earring.earring)
+  const evts = events.filter((event) => event.earringId === earring.id)
   const sortedEvts = evts.sort((a, b) => {
     if (a.date < b.date) return 1
     if (a.date > b.date) return -1

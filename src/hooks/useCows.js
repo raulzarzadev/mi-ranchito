@@ -7,7 +7,6 @@ import {
 } from '@raiz/firebaseClient'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { formatEventsByEarring } from '../utils'
 import useEvents from './useEvents'
 
 export default function useCows() {
@@ -55,7 +54,6 @@ export default function useCows() {
     }
   }, [user])
 
-  // const formatedCows = formatEventsByEarring(events, cows)
 
   return { errors, cows, addCow, removeCow, getCowDetails }
 }
