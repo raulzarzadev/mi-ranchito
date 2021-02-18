@@ -8,29 +8,29 @@ import EventTable from '../EventTable'
 import SelectedTitle from '../SelectedTitle'
 import styles from './styles.module.css'
 
-
 export default function UpcomingEvents() {
   const [events, setEvents] = useState(undefined)
-  const [range, setRange] = useState('2week')
+  const [range, setRange] = useState('1-week')
   const [upcomingEvents, setUpcomingEvents] = useState([])
   const { user } = useAuth()
 
-  const handleChangeRange = (quatity, range) => {
-    setRange(quatity + range)
-    setUpcomingEvents(
-      events.filter(
-        (event) =>
-          event.nextEvent?.date > moment().subtract(1, 'week') &&
-          event.nextEvent?.date < moment().add(quatity, range)
-      )
-    )
+  const handleChangeRange = (quantity, lapse) => {
+    const rangeFromNow = moment().add(quantity, lapse)._d
+    const filterdEvents = events.filter((event) => {
+      console.log(rangeFromNow > event.nextEvent?.date)
+      return rangeFromNow > event.nextEvent?.date
+    })
+    setUpcomingEvents(filterdEvents)
+    setRange(`${quantity}-${lapse}`)
   }
+
+  console.log(range)
 
   useEffect(() => {
     if (user) {
       getUserEvents(user.id)
         .then((res) => {
-          setEvents(res)
+          setEvents(res.map((event) => formatEvent(event)))
           setUpcomingEvents(res.map((event) => formatEvent(event)))
         })
         .catch((err) => {
@@ -40,33 +40,29 @@ export default function UpcomingEvents() {
     }
   }, [user])
 
-  if (events === undefined) return 'Loading...'
+  console.log(upcomingEvents)
 
+  const selectOptions = [
+    { key: '1', label: 'Semana', type: 'week', quantity: 1 },
+    { key: '2', label: 'Semanas', type: 'week', quantity: 2 },
+    { key: '3', label: 'Mes', type: 'month', quantity: 1 },
+    { key: '4', label: 'Meses', type: 'month', quantity: 2 },
+    { key: '5', label: 'Meses', type: 'month', quantity: 5 },
+  ]
+
+  if (events === undefined) return 'Loading...'
   return (
     <div>
       <H2>Proximos eventos</H2>
       <div className={styles.select_box}>
-        <SelectedTitle
-          onClick={() => handleChangeRange(2, 'week')}
-          selected={range === '2week'}
-          title="2 semanas"
-        />
-        <SelectedTitle
-          onClick={() => handleChangeRange(1, 'month')}
-          selected={range === '1month'}
-          title="1 mes"
-        />
-
-        <SelectedTitle
-          onClick={() => handleChangeRange(2, 'month')}
-          selected={range === '2month'}
-          title="2 meses"
-        />
-        <SelectedTitle
-          onClick={() => handleChangeRange(3, 'month')}
-          selected={range === '3month'}
-          title="3 meses"
-        />
+        {selectOptions.map((option) => (
+          <SelectedTitle
+            key={option.key}
+            onClick={() => handleChangeRange(option.quantity, option.type)}
+            selected={range === `${option.quantity}-${option.type}`}
+            title={`${option.quantity} ${option.label}`}
+          />
+        ))}
       </div>
       {upcomingEvents.length === 0 ? (
         <>
