@@ -57,7 +57,7 @@ export default function NewEvent({ event = null }) {
   }
 
   const handleChangeDate = (e) => {
-    const date = new Date(e.target.value || form.date)
+    const date = new Date(e.target.value)
     setForm({ ...form, date })
   }
 
@@ -101,7 +101,7 @@ export default function NewEvent({ event = null }) {
 
   return (
     <div>
-      <div className={styles.title}>
+      <div className="box-1">
         <H2>Nuevo Evento</H2>
       </div>
       <div>

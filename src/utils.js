@@ -33,46 +33,35 @@ function formatDates(date) {
   }
 }
 
-function formatNextEvents(events, mainDate, mainOnDay) {
-  const originDate = mainDate
-  return events?.map((event) => {
-    const fromNow = moment(originDate)
-      .add(event.onDay - mainOnDay, 'd')
-      .fromNow()
-    const formatDate = moment(originDate)
-      .add(event.onDay, 'd')
-      .format('DD MMM YY')
-    const date = new Date(moment(originDate).add(event.onDay, 'd').format())
-    return { date, formatDate, fromNow, ...event }
-  })
-}
 
-/* ----------------------------------------- */
-
-export function formatEventsByEarring(earrings, events) {
+/*  --------------- FORMAT EVENTS ------------- */
+export function formatEventsByEarrings(earrings, events) {
   return earrings.map((earring) => {
-    const earringsEvents = events.filter(
+    const earringEvents = events.filter(
       (event) => event.earringId === earring.id
     )
-    return formatEventsCow(earring, earringsEvents)
+    return formatEventsCow(earring, earringEvents)
   })
 }
 
 export function formatEventsCow(earring, events) {
-  console.log(earring, events)
   const age = moment(earring.birth).fromNow()
-  const evts = events.filter((event) => event.earringId === earring.id)
-  const sortedEvts = evts.sort((a, b) => {
-    if (a.date < b.date) return 1
-    if (a.date > b.date) return -1
-    return 0
-  })
+  const evts = events
+    .filter((event) => event.earringId === earring.id)
+    .sort((a, b) => {
+      if (a.date < b.date) return 1
+      if (a.date > b.date) return -1
+      return 0
+    })
+  const formatedEvents = evts?.map((event) => formatEvent(event))
+  const lastEvent = !!evts && formatEvent(evts[0])
+
   return {
     ...earring,
     age,
-    events: events.map((evt) => formatEvent(evt)),
-    lastEvent: formatEvent(sortedEvts[0]) || null,
-    lastEventLabel: sortedEvts[0]?.label || '-',
+    events: formatedEvents,
+    lastEventLabel: lastEvent?.label,
+    lastEvent,
   }
 }
 
@@ -91,6 +80,22 @@ export const formatEvent = (event = {}) => {
     nextEvent: setNextEvents && setNextEvents[0],
   }
 }
+
+function formatNextEvents(events, mainDate, mainOnDay) {
+  const originDate = mainDate
+  return events?.map((event) => {
+    const fromNow = moment(originDate)
+      .add(event.onDay - mainOnDay, 'd')
+      .fromNow()
+    const formatDate = moment(originDate)
+      .add(event.onDay, 'd')
+      .format('DD MMM YY')
+    const date = new Date(moment(originDate).add(event.onDay, 'd').format())
+    return { date, formatDate, fromNow, ...event }
+  })
+}
+
+/*  --------------- FORMAT EVENTS ------------- */
 
 export function getToday() {
   const date = new Date()
@@ -111,4 +116,8 @@ export function formatInputDate(date) {
   if (day < 10) day = '0' + day
   const today = year + '-' + month + '-' + day
   return today
+}
+
+export const fromNow = (date) => {
+  return date ? moment(date).fromNow() : moment().fromNow()
 }

@@ -1,95 +1,127 @@
 import { useEffect, useState } from 'react'
-import moment from 'moment'
 import styles from './styles.module.css'
 import useCows from '@raiz/src/hooks/useCows'
-import { getToday } from '@raiz/src/utils'
+import { formatInputDate, fromNow } from '@raiz/src/utils'
+import { H2 } from '@cmps/H'
+import { Btn1 } from '@cmps/Btns'
 
 export default function NewEarring() {
   const { addCow, getCows } = useCows()
-  const today = moment().format('YYYY-MM-DD')
-  const [newEarring, setNewEarring] = useState({
-    birth: today,
-    registryDate: getToday(),
+  const [form, setForm] = useState({
+    registryDate: new Date().toISOString(),
   })
+  const [earrings, setEarrings] = useState()
 
   const handleChange = (e) => {
-    e.preventDefault()
-    setNewEarring({ ...newEarring, [e.target.name]: e.target.value })
-    setLabelButton('Guardar')
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const [earrings, setEarrings] = useState()
-  // TODO funcion getCows
   useEffect(() => {
     getCows().then((res) => setEarrings(res))
   }, [])
 
-  const alreadyExist = earrings.includes(newEarring.earring)
+  const alreadyExist = earrings?.find(
+    (earring) => earring.earring === form.earring
+  )
+  const [actions, setActions] = useState('new')
   const handleSubmit = () => {
-    addCow(newEarring)
+    addCow(form).then((res) => {
+      setActions('saved')
+      setForm({ id: res?.id })
+    })
   }
-  const [labelButton, setLabelButton] = useState('Guardar')
 
-  const valid = alreadyExist || !newEarring?.earring
-  console.log(newEarring)
+  console.log(form)
+  const handleChangeDate = (e) => {
+    const registryDate = new Date(e.target.value || form.date).toISOString()
+    setForm({ ...form, registryDate })
+  }
+
+  const valid = !!alreadyExist || !form?.earring
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault()
-        handleSubmit()
-      }}
-    >
-      <div>
+    <div>
+      <div className="box-1">
+        <H2>Nueva Vaca</H2>
+      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit()
+        }}
+      >
         <div>
           <div className={styles.item}>
-            <span>
-              No. de Arete:
+            <span className={styles.input_label}>
+              {`Identificador* :`}
               <input
-                style={{ width: '150px' }}
+                className={styles.text_input}
                 type="text"
-                placeholder="Arete No."
+                placeholder="Numero de arete"
                 name="earring"
-                value={newEarring?.earring || ''}
+                value={form?.earring || ''}
                 onChange={handleChange}
+                autoFocus
+                autoComplete="off"
               ></input>
-            </span>
-            <div>
               <em>{alreadyExist && 'Este arete ya está registrado'}</em>
-            </div>
+            </span>
+            <div></div>
           </div>
           <div className={styles.item}>
-            <span>
-              Nombre:{' '}
+            <span className={styles.input_label}>
+              {`Nombre :`}
               <input
-                style={{ width: '150px' }}
-                value={newEarring?.name || ''}
+                className={styles.text_input}
+                value={form?.name || ''}
                 type="text"
-                placeholder="Nombre (opcional)"
+                placeholder="(opcional)"
                 name="name"
                 onChange={handleChange}
+                autoComplete="off"
               ></input>
             </span>
           </div>
           <div className={styles.item}>
-            <span>
-              Fecha de Registro:
+            <span className={styles.input_label}>
+              <span>
+                {`Registro :`} <em>{fromNow(form.registryDate) || ''}</em>
+              </span>
               <input
-                style={{ width: '150px' }}
+                className={styles.date}
                 type="date"
-                placeholder="Fecha de Nacimiento"
                 name="registryDate"
-                value={newEarring.birth}
-                onChange={handleChange}
+                value={formatInputDate(form.registryDate)}
+                onChange={handleChangeDate}
               ></input>
             </span>
           </div>
-          <div className={styles.item}>
-            <button type="submit" disabled={valid}>
-              {labelButton}
-            </button>
-          </div>
+          {actions === 'new' && (
+            <div className={styles.actions}>
+              <div className={styles.item}>
+                <Btn1 disabled={valid}>Guardar</Btn1>
+              </div>
+            </div>
+          )}
+          {actions === 'saved' && (
+            <div className={styles.actions}>
+              <div className={styles.item}>
+                <Btn1 href={`/dashboard-cows/newEvent?cowId=${form?.id}`}>
+                  Nuevo evento
+                </Btn1>
+              </div>
+              <div className={styles.item}>
+                <Btn1
+                  href={`/dashboard-cows/newCow`}
+                  onClick={() => setActions('new')}
+                >
+                  Nuevo Vaca
+                </Btn1>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }

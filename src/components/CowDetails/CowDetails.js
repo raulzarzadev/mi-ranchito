@@ -4,33 +4,22 @@ import P from '@cmps/P/P'
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
 import { Btn1, Btn2 } from '@cmps/Btns'
-import { deleteCow, getCow, getEventsByCow } from '@raiz/firebaseClient'
+import { deleteCow, getCow } from '@raiz/firebaseClient'
 import { useRouter } from 'next/router'
-import { formatEventsCow } from '@raiz/src/utils'
+import useCows from '@raiz/src/hooks/useCows'
 
 export default function CowDetails() {
   const router = useRouter()
+  const { getCowDetails } = useCows()
   const { id } = router.query
-  const [cowData, setCowData] = useState()
-  const [eventsData, setEventsData] = useState()
   const [details, setDetails] = useState(undefined)
-  const getCowDetails = () => {
-    getCow(id).then((res) => setCowData(res))
-    getEventsByCow(id).then((res) => setEventsData(res))
-  }
 
   useEffect(() => {
     if (id) {
-      getCowDetails()
+      getCowDetails(id).then((res) => setDetails(res))
     }
-  }, [id])
-
-  useEffect(() => {
-    if ((cowData, eventsData)) {
-      setDetails(formatEventsCow(cowData, eventsData))
-    }
-  }, [cowData, eventsData])
-
+  }, [])
+  console.log(details)
   const [deleteModal, setDeleteModal] = useState()
 
   const handleOpenDeleteModal = () => {

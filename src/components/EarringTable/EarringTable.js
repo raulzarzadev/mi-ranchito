@@ -101,13 +101,13 @@ function Row({ row = [] }) {
           colSpan={6}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <RowDetails row={row} />
+            {/* <RowDetails row={row} /> */}
             <Box margin={1}>
-              <EventTable
+             {/*  <EventTable
                 events={row.events}
                 // title="Historai por Arete"
                 hideEarring
-              />
+              /> */}
             </Box>
           </Collapse>
         </TableCell>
@@ -197,8 +197,8 @@ export default function EerringTable({ title, earrings }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <Row key={row.id} row={row} />
+              {rows.map((row,i) => (
+                <Row key={`${row.id}${i}`} row={row} />
               ))}
             </TableBody>
           </Table>
