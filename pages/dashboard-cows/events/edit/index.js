@@ -14,8 +14,7 @@ export default function EditEvent() {
       getEvent(eventId).then(setEvent)
     }
   }, [eventId])
-  
-  
+
   return (
     <>
     <h4>Editar Evento</h4>
