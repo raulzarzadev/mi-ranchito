@@ -1,17 +1,22 @@
+import { getCow } from '@raiz/firebaseClient'
 import useCows from '@raiz/src/hooks/useCows'
 import { useRecords } from '@raiz/src/hooks/useRecords'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import {  getToday } from '../../utils'
+import { getToday } from '../../utils'
 import styles from './styles.module.css'
 
 export default function NewRecord({ earring, record = null }) {
   const router = useRouter()
-  const { cows } = useCows()
+  const { getCows } = useCows()
   const { addRecord, editRecord } = useRecords()
   const earringNo = router?.query?.earring
   const earringId = router.query?.earringId
-  const earrings = cows
+  const [earrings, setEarrings] = useState()
+  // TODO funcion getCows
+  useEffect(() => {
+    getCows().then((res) => setEarrings(res))
+  }, [])
   console.log(router.query)
 
   const [form, setForm] = useState({

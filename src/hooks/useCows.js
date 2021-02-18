@@ -4,6 +4,7 @@ import {
   deleteCowEvents,
   getUserCows,
   newCow,
+  getUserEvents,
 } from '@raiz/firebaseClient'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
@@ -27,7 +28,6 @@ export default function useCows() {
         console.log(res)
       })
       .catch((err) => console.log(err))
-    getUserCows(user.id).then(setCows).catch(setErrors)
   }
 
   const removeCow = async (cowId) => {
@@ -37,7 +37,6 @@ export default function useCows() {
     await deleteCow(cowId)
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
-    await getUserCows(user.id).then(setCows).catch(setErrors)
   }
 
   const getCowDetails = async (cowId) => {
@@ -47,13 +46,12 @@ export default function useCows() {
     )
     return { ...cow, events: eventsByEarring }
   }
+  console.log(user)
+  const getCows = async () => {
+    const cows = await getUserCows(user?.id).then((res) => console.log(res))
+    const events = await getUserEvents(user?.id).then((res) => console.log(res))
+    console.log({ events, cows })
+  }
 
-  useEffect(() => {
-    if (user) {
-      getUserCows(user.id).then(setCows).catch(setErrors)
-    }
-  }, [user])
-
-
-  return { errors, cows, addCow, removeCow, getCowDetails }
+  return { errors, getCows, addCow, removeCow, getCowDetails }
 }

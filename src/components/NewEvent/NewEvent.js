@@ -4,26 +4,32 @@ import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { formatedTypes, getToday } from '../../utils'
+import { formatedTypes, formatInputDate, getToday } from '../../utils'
 import styles from './styles.module.css'
 
 export default function NewEvent({ event = null }) {
   const router = useRouter()
-  const { cows } = useCows()
+  const { getCows } = useCows()
   const { addEvent, editEvent } = useEvents()
-  const earrings = cows
+  const [earrings, setEarrings] = useState()
+
   const earringNo = router?.query?.earring
   const earringId = router?.query?.earringId
 
+  // TODO funcion getCows
+  useEffect(() => {
+    getCows().then((res) => setEarrings(res))
+  }, [])
+
   useEffect(() => {
     if (earringId) {
-      const earringNo = cows.find((cow) => cow.id === earringId)?.earring
+      const earringNo = earrings.find((cow) => cow.id === earringId)?.earring
       setForm({
         ...form,
         earring: earringNo,
       })
     }
-  }, [earringId, cows])
+  }, [earringId, earrings])
 
   const [form, setForm] = useState({
     date: getToday(),
@@ -32,8 +38,6 @@ export default function NewEvent({ event = null }) {
     earringId: earringId || '',
     event: '',
   })
-
-  const eventsAvaiblable = formatedTypes()
 
   useEffect(() => {
     setForm({ ...form, earringId, earring: earringNo })
@@ -44,13 +48,17 @@ export default function NewEvent({ event = null }) {
       setForm(event)
     }
   }, [event])
-  console.log(form)
 
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
   const handleSelectCow = (e) => {
-    const earringNo = cows.find((cow) => cow.id === e.target.value)?.earring
+    const earringNo = earrings.find((cow) => cow.id === e.target.value)?.earring
     setForm({ ...form, earring: earringNo, earringId: e.target.value })
+  }
+
+  const handleChangeDate = (e) => {
+    const date = new Date(e.target.value || form.date)
+    setForm({ ...form, date })
   }
 
   const handleChange = (e) => {
@@ -68,11 +76,28 @@ export default function NewEvent({ event = null }) {
   }
 
   const valid = !form.earring || !form.event || labelButton === 'Guardado'
-  earrings.sort((a, b) => {
-    if (a.earring > b.earring) return 1
-    if (a.earring < b.earring) return -1
+
+  const eventsAvaiblable = formatedTypes()?.sort((a, b) => {
+    if (a.label > b.label) return 1
+    if (a.label < b.label) return -1
     return 0
   })
+
+  const regularEvents = eventsAvaiblable.filter(
+    (event) => event.category === 'regular'
+  )
+  const specialsEvents = eventsAvaiblable.filter(
+    (event) => event.category === 'special'
+  )
+  const adminEvents = eventsAvaiblable.filter(
+    (event) => event.category === 'admin'
+  )
+
+  const optionsType = eventsAvaiblable.find(
+    (event) => event.type === form.event
+  )?.options
+
+  console.log(form)
 
   return (
     <div>
@@ -91,18 +116,17 @@ export default function NewEvent({ event = null }) {
             <div>
               <div className={styles.event_form__input}>
                 <span>
-                  Vaca:{' '}
                   <select
-                    style={{ width: 150 }}
+                    className={styles.select}
                     onChange={handleSelectCow}
                     name="earringId"
                     id="select-animal"
                     value={form?.earringId || ''}
                   >
                     <option value="" disabled>
-                      Arete No.
+                      {`Selecciona Arete`}
                     </option>
-                    {earrings.map((earring, i) => (
+                    {earrings?.map((earring, i) => (
                       <option key={i} value={earring.id}>
                         {earring.earring} {earring?.nickName}
                       </option>
@@ -112,9 +136,8 @@ export default function NewEvent({ event = null }) {
               </div>
               <div className={styles.event_form__input}>
                 <span>
-                  Evento:{' '}
                   <select
-                    style={{ width: 150 }}
+                    className={styles.select}
                     onChange={handleChange}
                     value={form?.event || ''}
                     name="event"
@@ -122,23 +145,61 @@ export default function NewEvent({ event = null }) {
                     placeholder="Selecciona una vaca"
                   >
                     <option value="" disabled>
-                      Evento
+                      {` Selecciona Evento`}
                     </option>
-                    {eventsAvaiblable.map((event, i) => (
-                      <option key={i} value={event.type}>
-                        {event.label}
-                      </option>
-                    ))}
+                    <optgroup label="Periodicos">
+                      {regularEvents?.map((event, i) => (
+                        <option key={i} value={event.type}>
+                          {event.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Especiales">
+                      {specialsEvents?.map((event, i) => (
+                        <option key={i} value={event.type}>
+                          {event.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Administrativos">
+                      {adminEvents?.map((event, i) => (
+                        <option key={i} value={event.type}>
+                          {event.label}
+                        </option>
+                      ))}
+                    </optgroup>
                   </select>
                 </span>
               </div>
+              {optionsType?.length > 0 && (
+                <div className={styles.event_form__input}>
+                  <span>
+                    <select
+                      className={styles.select}
+                      onChange={handleChange}
+                      name="eventOption"
+                      id="select-event-option"
+                      value={form?.eventOption || ''}
+                    >
+                      <option value="" disabled>
+                        {`Detalles`}
+                      </option>
+                      {optionsType?.map((option, i) => (
+                        <option key={i} value={option.type}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
+                </div>
+              )}
+
               <div className={styles.event_form__input}>
                 <span>
-                  Observaciones:
                   <textarea
                     type="text"
                     rows={2}
-                    style={{ width: 150 }}
+                    className={styles.textarea}
                     onChange={handleChange}
                     name="coments"
                     id="observaciones"
@@ -149,14 +210,13 @@ export default function NewEvent({ event = null }) {
               </div>
               <div className={styles.event_form__input}>
                 <span>
-                  Fecha:{' '}
                   <input
-                    style={{ width: 150 }}
-                    onChange={handleChange}
+                    className={styles.date}
+                    onChange={handleChangeDate}
                     type="date"
                     name="date"
                     id="event-date"
-                    value={form.date || ''}
+                    value={formatInputDate(form.date)}
                   />
                 </span>
               </div>
