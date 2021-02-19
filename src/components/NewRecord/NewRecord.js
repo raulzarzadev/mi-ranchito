@@ -1,4 +1,10 @@
-import { getCow } from '@raiz/firebaseClient'
+import styles from './styles.module.css'
+
+export default function NewRecord() {
+  return <div className={styles.new_record}>Nuevo Registro</div>
+}
+/* 
+
 import useCows from '@raiz/src/hooks/useCows'
 import { useRecords } from '@raiz/src/hooks/useRecords'
 import { useRouter } from 'next/router'
@@ -161,3 +167,4 @@ export default function NewRecord({ earring, record = null }) {
     </div>
   )
 }
+ */

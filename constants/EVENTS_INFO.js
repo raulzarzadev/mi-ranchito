@@ -37,6 +37,7 @@ export const PERIODS = {
   parto: 283,
   next_serv: 340,
   rest_time: 90,
+  abortion: 0,
 }
 export const EVENTS_TYPES = [
   /* -------------PERIODDICOS----------------- */
@@ -97,7 +98,7 @@ export const EVENTS_TYPES = [
   {
     type: 'abortion',
     label: 'Aborto',
-    onDay: 0,
+    onDay: PERIODS.abortion,
     options: [],
     nextEvents: ['rest_time'],
     category: 'special',
@@ -129,31 +130,31 @@ export const EVENTS_TYPES = [
   /* -------------ADMINISTRATIVOS----------------- */
 
   {
-    category: 'admin',
     type: 'registry',
     label: 'Registro',
     onDay: 0,
     nextEvents: [],
+    category: 'admin',
   },
   {
-    category: 'admin',
     type: 'venta',
     label: 'Venta',
     onDay: 0,
     nextEvents: [],
+    category: 'admin',
   },
   {
-    category: 'admin',
     type: 'compra',
     label: 'Compra',
     onDay: 0,
     nextEvents: [],
+    category: 'admin',
   },
   {
-    category: 'admin',
     type: 'nace',
     label: 'Nacimiento',
     onDay: 0,
     nextEvents: ['first_serv'],
+    category: 'admin',
   },
 ]

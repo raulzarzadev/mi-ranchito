@@ -84,14 +84,14 @@ function formatNextEvents(events, mainDate, mainOnDay) {
   const originDate = mainDate
   return events?.map((event) => {
     const fromNow = moment(originDate)
-      .add(event.onDay - mainOnDay, 'd')
+      .add(event?.onDay - mainOnDay, 'd')
       .fromNow()
     const formatDate = moment(originDate)
-      .add(event.onDay - mainOnDay, 'd')
+      .add(event?.onDay - mainOnDay, 'd')
       .format('DD MMM YY')
     const date = new Date(
       moment(originDate)
-        .add(event.onDay - mainOnDay, 'd')
+        .add(event?.onDay - mainOnDay, 'd')
         .format()
     )
     return { date, formatDate, fromNow, ...event }
