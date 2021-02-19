@@ -1,5 +1,4 @@
-.home {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.logotipo {
+  width: 80%;
+  max-width: 300px;
 }

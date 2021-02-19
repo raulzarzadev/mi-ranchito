@@ -5,11 +5,7 @@ import { useEffect } from 'react'
 import Home from '@cmps/Home/Home'
 
 export default function HomePage() {
-  const { user } = useAuth()
-  const router = useRouter()
-  useEffect(() => {
-    if (user === null) router.replace('/login')
-  })
+  
 
   return (
     <>
