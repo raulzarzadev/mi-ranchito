@@ -19,7 +19,7 @@ export default function CowDetails() {
       getCowDetails(id).then((res) => setDetails(res))
     }
   }, [])
-  
+
   const [deleteModal, setDeleteModal] = useState()
 
   const handleOpenDeleteModal = () => {
@@ -41,15 +41,18 @@ export default function CowDetails() {
       <div>Edad : {age}</div>
       <div>Registro: {registryDate}</div>
       <div className={styles.button_box}>
-        <Btn2 label="Eliminar" onClick={handleOpenDeleteModal} />
-        <Btn1
-          label="Nuevo Evento"
-          href={`/dashboard-cows/newEvent?earringId=${id}`}
-        />
-        <Btn1
-          label="Editar"
-          href={`/dashboard-cows/cows/edit/${id}`}
-        />
+        <div className="box-1">
+          <Btn2 label="Eliminar" onClick={handleOpenDeleteModal} />
+        </div>
+        <div className="box-1">
+          <Btn1
+            label="Nuevo Evento"
+            href={`/dashboard-cows/newEvent?earringId=${id}`}
+          />
+        </div>
+        <div className="box-1">
+          <Btn1 label="Editar" href={`/dashboard-cows/cows/edit/${id}`} />
+        </div>
       </div>
       <EventTable
         upcomingEvents

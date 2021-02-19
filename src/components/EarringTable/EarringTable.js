@@ -13,68 +13,88 @@ import Paper from '@material-ui/core/Paper'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import styles from './styles.module.css'
-import BtnLink from '@cmps/BtnLink/BtnLink'
 import { Btn1, Btn2 } from '@cmps/Btns'
 import useCows from 'src/hooks/useCows'
 import { H3 } from '@cmps/H'
-import { P1 } from '@cmps/P'
+import { P1, P3 } from '@cmps/P'
 
 function RowDetails({ row }) {
   const { removeCow } = useCows()
   const handleDeleteCow = () => {
     removeCow(row.id).then((res) => console.log(res))
   }
-  const upcommingEvents = row.lastEvent.nextEvents
+  const { lastEvent } = row
+  const upcommingEvents = lastEvent?.nextEvents
   return (
     <div>
       <div className={styles.links_box}>
-        <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
-        <Btn2 onClick={handleDeleteCow}>Eliminar</Btn2>
+        <div className="box-1">
+          <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
+        </div>
+        <div className="box-1">
+          <Btn2 onClick={handleDeleteCow}>Eliminar</Btn2>
+        </div>
       </div>
       {console.log(row)}
       <div className={styles.lastEvent_row}>
         <div>
           <H3>Ultimo Evento</H3>
-          <div style={{ display: 'flex' }}>
-            <div style={{ margin: '8px', textAlign: 'center' }}>
-              {row.lastEvent.label}
-              <div>
-                <em>{row.lastEvent.type}</em>
+          {lastEvent ? (
+            <div style={{ display: 'flex' }}>
+              <div style={{ margin: '8px', textAlign: 'center' }}>
+                {lastEvent?.label}
+                <div>
+                  <em>{lastEvent?.type}</em>
+                </div>
               </div>
-            </div>
 
-            <div style={{ margin: '8px', textAlign: 'center' }}>
-              {row.lastEvent.formatDate}{' '}
-              <div>
-                <em>{row.lastEvent.fromNow}</em>
+              <div style={{ margin: '8px', textAlign: 'center' }}>
+                {lastEvent?.formatDate}{' '}
+                <div>
+                  <em>{lastEvent?.fromNow}</em>
+                </div>
               </div>
-            </div>
 
-            <div style={{ margin: '8px', textAlign: 'center' }}>
-              {`Comentarios`}
-              <div>
-                <em>
-                  {row.lastEvent.eventOption} , {row.lastEvent.coments}
-                </em>
+              <div style={{ margin: '8px', textAlign: 'center' }}>
+                {`Comentarios`}
+                <div>
+                  <em>
+                    {lastEvent?.eventOption} , {lastEvent?.coments}
+                  </em>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <P3>No hay eventos aún</P3>
+          )}
         </div>
       </div>
       <div className={styles.lastEvent_row}>
         <div>
           <H3>{`Proximos Eventos`}</H3>
-          {console.log(upcommingEvents)}
-          <div style={{ display: 'flex' }}>
-            {upcommingEvents.map((event, i) => (
-              <div key={i} style={{ margin: '8px', textAlign: 'center' }}>
-                <P1>{event.label} </P1>
-                <em>{event.type}</em>
-                <div>
-                  <P1>{event.formatDate}</P1> <em>{event.fromNow}</em>
-                </div>
-              </div>
-            ))}
+          <div className={styles.upcoming_line}>
+            {upcommingEvents ? (
+              <>
+                {upcommingEvents?.map((event, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      margin: '8px',
+                      textAlign: 'center',
+                      minWidth: '100px',
+                    }}
+                  >
+                    <P1>{event.label} </P1>
+                    <em>{event.type}</em>
+                    <div>
+                      <P1>{event.formatDate}</P1> <em>{event.fromNow}</em>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <P3>No hay proximos eventos</P3>
+            )}
           </div>
         </div>
       </div>
@@ -95,10 +115,10 @@ function Row({ row = [] }) {
           </div>
         </TableCell>
         <TableCell padding="none" align="left">
-          {row.age}
+          {row.registry}
         </TableCell>
         <TableCell padding="none" align="center">
-          {row?.lastEvent?.label || '-'}
+          {row.lastEvent?.label || '-'}
         </TableCell>
         <TableCell padding="none" align="center">
           <IconButton
@@ -186,11 +206,11 @@ export default function EerringTable({ title, earrings }) {
                 </TableCell>
                 <TableCell
                   padding="none"
-                  align="center"
+                  align="left"
                   onClick={() => handleSortRowsBy('birth')}
                   style={{ fontWeight: sortBy === 'birth' ? 800 : 500 }}
                 >
-                  Edad
+                  Registro
                 </TableCell>
                 <TableCell
                   padding="none"

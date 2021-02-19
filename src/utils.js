@@ -33,7 +33,6 @@ function formatDates(date) {
   }
 }
 
-
 /*  --------------- FORMAT EVENTS ------------- */
 export function formatEventsByEarrings(earrings, events) {
   return earrings.map((earring) => {
@@ -45,7 +44,7 @@ export function formatEventsByEarrings(earrings, events) {
 }
 
 export function formatEventsCow(earring, events) {
-  const age = moment(earring.birth).fromNow()
+  const registry = moment(earring.registryDate).fromNow()
   const evts = events
     .filter((event) => event.earringId === earring.id)
     .sort((a, b) => {
@@ -54,11 +53,11 @@ export function formatEventsCow(earring, events) {
       return 0
     })
   const formatedEvents = evts?.map((event) => formatEvent(event))
-  const lastEvent = !!evts && formatEvent(evts[0])
+  const lastEvent = (!!evts?.length && formatEvent(evts[0])) || undefined
 
   return {
     ...earring,
-    age,
+    registry,
     events: formatedEvents,
     lastEventLabel: lastEvent?.label,
     lastEvent,
@@ -88,9 +87,13 @@ function formatNextEvents(events, mainDate, mainOnDay) {
       .add(event.onDay - mainOnDay, 'd')
       .fromNow()
     const formatDate = moment(originDate)
-      .add(event.onDay, 'd')
+      .add(event.onDay - mainOnDay, 'd')
       .format('DD MMM YY')
-    const date = new Date(moment(originDate).add(event.onDay, 'd').format())
+    const date = new Date(
+      moment(originDate)
+        .add(event.onDay - mainOnDay, 'd')
+        .format()
+    )
     return { date, formatDate, fromNow, ...event }
   })
 }
