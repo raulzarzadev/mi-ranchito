@@ -57,7 +57,7 @@ const links = [
   {
     side: 'bottom',
     id: '13',
-    href: '/dashboard-cows/events',
+    href: '/dashboard-cows/upcoming',
     label: 'Eventos',
   },
   {

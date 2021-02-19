@@ -1,3 +1,4 @@
+import { Btn1, Btn2 } from '@cmps/Btns'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EventTable from '@cmps/EventTable'
 import { getUserEvents } from '@raiz/firebaseClient'
@@ -9,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 export default function events() {
   const { user } = useAuth()
   const [events, setEvents] = useState()
-  
+
   useEffect(() => {
     if (user) {
       getUserEvents(user.id)
@@ -29,6 +30,9 @@ export default function events() {
       <Head>
         <title>admin / Eventos</title>
       </Head>
+      <div className="box-1">
+        <Btn1 href="/dashboard-cows/upcoming"> Ver Proximos </Btn1>
+      </div>
       <EventTable events={events} title="Todos Los Eventos" />
     </>
   )
