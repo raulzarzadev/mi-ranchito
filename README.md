@@ -1,30 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Logo](public/assets/Logotipo.svg)
 
-## Getting Started
+## Visita [MiRanchito.digital](https://miranchito.digital)
 
-First, run the development server:
+# Contenido
 
-```bash
-npm run dev
-# or
-yarn dev
+- ## [Motivaciones](#motivaciones)
+- ## [Inicio Rapido](#Inicio-rapido)
+- ## [Caracteristicas Incluidas](#Caracteristicas-incluidas)
+- ## [Caracteristicas Futuras](#caracterisitcas-futuras)
+- ## [Herramientas de desarrollo](#Herramientas-de-desarrollo)
+- ## [Bugs y requests](#Bugs-y-requests)
+
+## Motivaciones
+
+El Software puede contribuir a optimizar la producción agricola. Pero este debe ser económico y accesible
+
+## Inicio Rapido
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+git clone git@github.com:raulzarzadev/mi-ranchito.git
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+cd mi-ranchito/
 
-## Learn More
+yarn dev
 
-To learn more about Next.js, take a look at the following resources:
+yarn build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+yarn start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+Variables de entorno ( Firebase Config )
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+PROJECT_ID
+
+PRIVATE_KEY
+
+CLIENT_EMAIL
+
+
+```
+
+## Caracteristicas Incluidas
+
+- Dashboard interactivo para monitoreo del estado del ganado lechero
+- Registro y seguimiento de eventos
+
+## Caracterisitcas Futuras
+
+- Funcionalidad sin internet
+- Registros de producción de leche
+- Segimiento Genealogico
+
+## Herramientas de desarrollo
+
+- Nextjs
+- Material UI (+/- 10%)
+- Firebase
+- Slint & pretier
+
+## Bugs y requests
+
+Puedes hacer pullrequests y seran aceptados siempre y cuando cumplan con requisitos minimos de claridad
+
+Reporta un bug, excribeme en [github](https://github.com/raulzarzadev)
