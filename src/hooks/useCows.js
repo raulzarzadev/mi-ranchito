@@ -38,7 +38,6 @@ export default function useCows() {
     const events = await getUserEvents(user?.id).then((res) => {
       return res
     })
-    console.log(events)
     return formatEventsByEarrings(cows, events)
   }
 
@@ -49,7 +48,6 @@ export default function useCows() {
     const events = await getEventsByCow(cowId).then((res) => {
       return res
     })
-    console.log(events)
     return formatEventsCow(cow, events)
   }
 

@@ -89,11 +89,13 @@ function formatNextEvents(events, mainDate, mainOnDay) {
     const formatDate = moment(originDate)
       .add(event?.onDay - mainOnDay, 'd')
       .format('DD MMM YY')
+
     const date = new Date(
       moment(originDate)
         .add(event?.onDay - mainOnDay, 'd')
         .format()
     )
+
     return { date, formatDate, fromNow, ...event }
   })
 }

@@ -4,7 +4,7 @@ import P from '@cmps/P/P'
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
 import { Btn1, Btn2 } from '@cmps/Btns'
-import { deleteCow, getCow } from '@raiz/firebaseClient'
+import { deleteCow } from '@raiz/firebaseClient'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
 
