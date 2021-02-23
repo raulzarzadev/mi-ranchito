@@ -1,5 +1,6 @@
 import { H1, H3 } from '@cmps/H'
 import Modal from '@cmps/Modal/Modal'
+import { P3 } from '@cmps/P'
 import P from '@cmps/P/P'
 import useCows from '@raiz/src/hooks/useCows'
 import Head from 'next/head'
@@ -9,33 +10,40 @@ import styles from './styles.module.css'
 export default function CowsDasboard() {
   const { getCows } = useCows()
   const [cows, setCows] = useState(undefined)
-  const [loading, setLoading] = useState(true)
-console.log(cows)
-  const upcommingEvents = cows
-    ?.map((cow) => {
-      const cowInfo = { id: cow.id, earring: cow.earring, nickname: cow.name }
-      const nextEvents = cow.lastEvent?.nextEvents.map((evt) => {
-        return { ...evt, cow: cowInfo }
-      })
-      return nextEvents
-    })
-    .flat()
-    .sort((a, b) => a.date - b.date)
 
-  console.log(upcommingEvents)
   useEffect(() => {
     getCows()
-      .then((res) => {
-        setLoading(false)
-        setCows(res)
-      })
-      .catch((err) => {
-        setLoading(false)
-        console.log(err)
-      })
+      .then((res) => setCows(res))
+      .catch((err) => console.log(err))
   }, [])
 
-  if (loading) return 'Cargando...'
+  const [events, setEvents] = useState([])
+
+  const formatEvts = cows
+    ?.reduce((acc, cow) => {
+      if (!cow.lastEvent) return [...acc]
+      const cowInfo = { id: cow.id, earring: cow.earring, name: cow.name }
+      const cowEvents = cow.lastEvent.nextEvents.map((evt) => {
+        const month = evt.date.getMonth()
+        return { ...cowInfo, evt: { ...evt, month } }
+      })
+      return [...acc, cowEvents]
+    }, [])
+    .flat()
+    .sort((a, b) => b.evt.date - a.evt.date)
+    .filter(({ evt }) => evt.date.getYear() === new Date().getYear())
+
+  console.log(formatEvts)
+
+  /* 
+  
+  {
+    earring:47,
+    upcomignEvents:[
+      {}
+    ]
+  }
+  */
 
   const monthsNames = [
     'Ene',
@@ -52,40 +60,17 @@ console.log(cows)
     'Dic',
   ]
 
-  const monthEvents = upcommingEvents?.reduce((acc, item, i, arr) => {
-    const month = monthsNames[item.date.getMonth()]
-    const events = arr.filter(
-      (evt) => evt?.date?.getMonth() === item.date.getMonth()
-    )
-    const servicios = events.filter((evt) => evt.type === 'serv')
-    const partos = events.filter((evt) => evt.type === 'parto')
-    const gestantes = events.filter(
-      (evt) =>
-        evt.type === 'palp' || evt.type === 'next_serv' || evt.type === 'secado'
-    )
-
-    if (acc?.find((evt) => evt.month === month)) return [...acc]
-    return [
-      ...acc,
-      {
-        month,
-        events: {
-          servicios,
-          partos,
-          gestantes,
-        },
-      },
-    ]
-  }, [])
-
-  /*   const Feb = monthEvents.find((month) => month.month === 'Feb')
+  /*   
+  const Feb = monthEvents.find((month) => month.month === 'Feb')
   console.log(Feb.events.filter((evt) => evt.type === 'serv'))
  */
-  const rows = [
-    { title: 'Partos', type: 'partos' },
-    { title: 'Servicios', type: 'servicios' },
-    { title: 'Gestantes', type: 'gestantes' },
-  ]
+
+  const eventsByMonth = monthsNames.map((month, i) => {
+    return { month, events: formatEvts?.filter(({ evt }) => evt.month === i) }
+  })
+
+  console.log(eventsByMonth)
+
   return (
     <>
       <Head>
@@ -96,29 +81,20 @@ console.log(cows)
         <H3>Estadisticas</H3>
         <div>
           <P>Vacas registradas: {cows?.length}</P>
+          <P>Eventos: {formatEvts?.length}</P>
           <div className={styles.dash_grid}>
             <div className={styles.grid_row}>
-              <div className={styles.grid_title}>Evts / Mes</div>
-              {rows.map((row, i) => (
-                <div key={i} className={styles.grid_title}>
-                  {row.title}
-                </div>
+              <div className={styles.grid_cell}>Evts/Mes</div>
+              <div className={styles.grid_title}>Partos</div>
+              <div className={styles.grid_title}>Servicios</div>
+              <div className={styles.grid_title}>Secados</div>
+              <div className={styles.grid_title}>Celos</div>
+            </div>
+            <div className={styles.dash_body}>
+              {eventsByMonth.map(({ month, events }) => (
+                <Month key={month} events={events} title={month} />
               ))}
             </div>
-            {/*    <div className={styles.grid_row}>
-              <div className={styles.grid_title}>ene</div>
-              <div className={styles.grid_cell}>5</div>
-              <div className={styles.grid_cell}>7</div>
-            </div> */}
-
-            {monthEvents?.map((month, i) => (
-              <Month
-                key={i}
-                rows={rows}
-                events={month.events}
-                title={month.month}
-              />
-            ))}
           </div>
         </div>
       </div>
@@ -126,47 +102,63 @@ console.log(cows)
   )
 }
 
-const Month = ({ events, title, rows }) => {
+const Month = ({ events, title }) => {
+  /*  if (events?.length === 0)
+    return <div className={styles.grid_title}>{title}</div>
+ */
+  const partos = events?.filter(({ evt }) => evt.type === 'parto')
+  const servicios = events?.filter(
+    ({ evt }) => evt.type === 'serv' || evt.type === 'next_serv'
+  )
+  const secas = events?.filter(({ evt }) => evt.type === 'seca')
+  const celos = events?.filter(({ evt }) => evt.type === 'celo')
+
+  console.log(partos, servicios)
+
+  const [info, setInfo] = useState([])
+  const [openModal, setOpenModal] = useState(false)
+  const handleClick = (evts) => {
+    setInfo(evts)
+    setOpenModal(true)
+  }
   return (
     <div className={styles.grid_row}>
       <div className={styles.grid_title}>{title}</div>
-      {rows.map((row, i) => (
-        <>
-          <div
-            onClick={() => {
-              // setModalInfo(events[row.type])
-              // setOpenModal(!openModal)
-            }}
-            key={i}
-            className={styles.grid_cell}
-          >
-            {events[row.type].length}
-          </div>
-        </>
-      ))}
-      {/* <Modal
+      <Cell evts={partos} handleClick={handleClick} />
+      <Cell evts={servicios} handleClick={handleClick} />
+      <Cell evts={secas} handleClick={handleClick} />
+      <Cell evts={celos} handleClick={handleClick} />
+      <Modal
         title="Detalles "
         open={openModal}
         handleOpen={() => setOpenModal(!openModal)}
       >
-        
-        <H3></H3>
-        <div className={styles.upcoming_grid}>
-          {events.map((evt, i) => (
-            <div key={i} className={styles.upcoming_event}>
-              <div>{`Arete : ${evt.cow.earring} - ${evt.cow.nickname}`}</div>
-              <div>
-                {`Evento : ${evt.label} `}
-                <em>{evt.type}</em>
+        <div className={styles.modal}>
+          <H3>Eventos del mes </H3>
+          <div className={styles.upcoming_grid}>
+            {!info.length && <P3>No hay eventos</P3>}
+            {info?.map(({ evt, earring, name }, i) => (
+              <div key={i} className={styles.upcoming_event}>
                 <div>
-                  <div>{evt.formatDate}</div>
-                  <em>{evt.fromNow}</em>
+                  Arete : {earring} {name}
                 </div>
+                Evento :
+                <div>
+                  {evt.label} <em>{evt.type}</em>
+                </div>
+                <div>{evt.formatDate}</div>
+                <div>{evt.fromNow}</div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </Modal> */}
+      </Modal>
     </div>
   )
 }
+
+const Cell = ({ evts = [], handleClick }) => (
+  <div className={styles.grid_cell} onClick={() => handleClick(evts)}>
+    {evts.length}
+  </div>
+)

@@ -6,6 +6,12 @@ import styles from './styles.module.css'
 const links = [
   {
     side: 'primary',
+    id: '129',
+    href: '/dashboard-cows',
+    label: 'Pizarra',
+  },
+  {
+    side: 'primary',
     id: '5',
     href: '/dashboard-cows/upcoming',
     label: 'Proximos',
@@ -18,11 +24,17 @@ const links = [
     label: 'Eventos',
   },
 
-  {
+  /* {
     side: 'primary',
     id: '8',
     href: '/dashboard-cows/records',
     label: 'Registros',
+  }, */
+  {
+    side: 'secondary',
+    id: '2',
+    href: '/dashboard-cows/newCow',
+    label: 'Nueva Vaca',
   },
   {
     side: 'secondary',
@@ -30,23 +42,24 @@ const links = [
     href: '/dashboard-cows/newEvent',
     label: 'Nuevo Evento',
   },
-  {
+  /* {
     side: 'primary',
     id: '7',
     href: '/dashboard-cows/cow',
     label: 'Detalles de Vaca',
-  },
-  {
+  }, */
+  /* {
     side: 'secondary',
     id: '6',
     href: '/dashboard-cows/newRecord',
     label: 'Nuevo Registro',
-  },
+  }, */
+
   {
-    side: 'secondary',
-    id: '2',
-    href: '/dashboard-cows/newCow',
-    label: 'Nueva Vaca',
+    side: 'bottom',
+    id: '122',
+    href: '/dashboard-cows',
+    label: 'Dash',
   },
   {
     side: 'bottom',
