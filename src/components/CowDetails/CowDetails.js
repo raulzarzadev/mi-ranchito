@@ -7,6 +7,7 @@ import { Btn1, Btn2 } from '@cmps/Btns'
 import { deleteCow } from '@raiz/firebaseClient'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
+import LastEventView from '@cmps/LastEventView'
 
 export default function CowDetails() {
   const router = useRouter()
@@ -16,7 +17,9 @@ export default function CowDetails() {
 
   useEffect(() => {
     if (id) {
-      getCowDetails(id).then((res) => setDetails(res))
+      getCowDetails(id)
+        .then((res) => setDetails(res))
+        .catch((err) => console.log(err))
     }
   }, [])
 
@@ -32,7 +35,8 @@ export default function CowDetails() {
 
   if (details === undefined) return 'loading ...'
 
-  const { earring, name, registryDate, age, events } = details
+  const { earring, name, registryDate, age, events, lastEvent } = details
+  console.log(events)
   return (
     <>
       <div>Id: {id}</div>
@@ -54,9 +58,10 @@ export default function CowDetails() {
           <Btn1 label="Editar" href={`/dashboard-cows/cows/edit/${id}`} />
         </div>
       </div>
+      <LastEventView lastEvent={lastEvent} />
       <EventTable
         upcomingEvents
-        title={`Eventos de ${earring}`}
+        title={`Historial de ${earring}`}
         events={events}
       />
       <Modal open={deleteModal} handleOpen={handleOpenDeleteModal}>

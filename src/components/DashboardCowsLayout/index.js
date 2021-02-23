@@ -64,6 +64,7 @@ export default function CowsDasboard() {
           <div className={styles.dash_grid}>
             <div className={styles.grid_row}>
               <div className={styles.grid_cell}>Evts/Mes</div>
+              <div className={styles.grid_title}>Gestantes</div>
               <div className={styles.grid_title}>Partos</div>
               <div className={styles.grid_title}>Servicios</div>
               <div className={styles.grid_title}>Secados</div>
@@ -88,6 +89,7 @@ const Month = ({ events, title }) => {
   )
   const secas = events?.filter(({ evt }) => evt.type === 'seca')
   const celos = events?.filter(({ evt }) => evt.type === 'celo')
+  const gestantes = events?.filter(({ evt }) => evt.type === 'serv')
 
   const [info, setInfo] = useState([])
   const [openModal, setOpenModal] = useState(false)
@@ -100,6 +102,7 @@ const Month = ({ events, title }) => {
   return (
     <div className={styles.grid_row}>
       <div className={styles.grid_title}>{title}</div>
+      <Cell evts={gestantes} handleClick={handleClick} />
       <Cell evts={partos} handleClick={handleClick} />
       <Cell evts={servicios} handleClick={handleClick} />
       <Cell evts={secas} handleClick={handleClick} />
