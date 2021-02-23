@@ -17,8 +17,6 @@ export default function CowsDasboard() {
       .catch((err) => console.log(err))
   }, [])
 
-  const [events, setEvents] = useState([])
-
   const formatEvts = cows
     ?.reduce((acc, cow) => {
       if (!cow.lastEvent) return [...acc]
@@ -32,18 +30,6 @@ export default function CowsDasboard() {
     .flat()
     .sort((a, b) => b.evt.date - a.evt.date)
     .filter(({ evt }) => evt.date.getYear() === new Date().getYear())
-
-  console.log(formatEvts)
-
-  /* 
-  
-  {
-    earring:47,
-    upcomignEvents:[
-      {}
-    ]
-  }
-  */
 
   const monthsNames = [
     'Ene',
@@ -60,16 +46,9 @@ export default function CowsDasboard() {
     'Dic',
   ]
 
-  /*   
-  const Feb = monthEvents.find((month) => month.month === 'Feb')
-  console.log(Feb.events.filter((evt) => evt.type === 'serv'))
- */
-
   const eventsByMonth = monthsNames.map((month, i) => {
     return { month, events: formatEvts?.filter(({ evt }) => evt.month === i) }
   })
-
-  console.log(eventsByMonth)
 
   return (
     <>
@@ -103,9 +82,6 @@ export default function CowsDasboard() {
 }
 
 const Month = ({ events, title }) => {
-  /*  if (events?.length === 0)
-    return <div className={styles.grid_title}>{title}</div>
- */
   const partos = events?.filter(({ evt }) => evt.type === 'parto')
   const servicios = events?.filter(
     ({ evt }) => evt.type === 'serv' || evt.type === 'next_serv'
@@ -113,14 +89,14 @@ const Month = ({ events, title }) => {
   const secas = events?.filter(({ evt }) => evt.type === 'seca')
   const celos = events?.filter(({ evt }) => evt.type === 'celo')
 
-  console.log(partos, servicios)
-
   const [info, setInfo] = useState([])
   const [openModal, setOpenModal] = useState(false)
+
   const handleClick = (evts) => {
     setInfo(evts)
     setOpenModal(true)
   }
+
   return (
     <div className={styles.grid_row}>
       <div className={styles.grid_title}>{title}</div>

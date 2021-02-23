@@ -19,10 +19,11 @@
   grid-auto-flow: column;
 }
 .dash_body {
-  width: 300px;
+  width: 150px;
   overflow: auto;
   display: grid;
   grid-auto-flow: column;
+  box-shadow: inset 1px 1px 5px 0px;
 }
 
 .grid_title {
@@ -67,6 +68,9 @@
 }
 
 @media (min-width: 500px) {
+  .dash_body {
+    width: 270px;
+  }
   .cows_dashboard {
     margin-left: 8rem;
   }
