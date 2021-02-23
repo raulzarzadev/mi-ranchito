@@ -51,7 +51,7 @@ export default function CowDetails() {
         <div className="box-1">
           <Btn1
             label="Nuevo Evento"
-            href={`/dashboard-cows/newEvent?earringId=${id}`}
+            href={`/dashboard-cows/newEvent?cowId=${id}`}
           />
         </div>
         <div className="box-1">

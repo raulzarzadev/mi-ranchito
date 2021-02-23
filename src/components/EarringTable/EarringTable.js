@@ -15,29 +15,49 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import styles from './styles.module.css'
 import { Btn1, Btn2 } from '@cmps/Btns'
 import useCows from 'src/hooks/useCows'
-import { H3 } from '@cmps/H'
-import { P1, P3 } from '@cmps/P'
 import LastEventView from '@cmps/LastEventView'
+import Modal from '@cmps/Modal/Modal'
+import { P1 } from '@cmps/P'
 
 function RowDetails({ row }) {
   const { removeCow } = useCows()
   const handleDeleteCow = () => {
     removeCow(row.id).then((res) => console.log(res))
   }
+  const [deleteModal, setDeleteModal] = useState()
+
+  const handleOpenDeleteModal = () => {
+    setDeleteModal(!deleteModal)
+  }
   const { lastEvent } = row
-  const upcommingEvents = lastEvent?.nextEvents
   return (
     <div>
       <div className={styles.links_box}>
         <div className="box-1">
-          <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
+          <Btn2 onClick={handleOpenDeleteModal}>Eliminar</Btn2>
         </div>
         <div className="box-1">
-          <Btn2 onClick={handleDeleteCow}>Eliminar</Btn2>
+          <Btn1 href={`/dashboard-cows/newEvent?cowId=${row.id}`}>
+            Nuevo Evento
+          </Btn1>
+        </div>
+        <div className="box-1">
+          <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
         </div>
       </div>
-      {console.log(row)}
       <LastEventView lastEvent={lastEvent} />
+      <Modal open={deleteModal} handleOpen={handleOpenDeleteModal}>
+        <div style={{ maxWidth: '200px' }}>
+          <P1 primary>
+            Eliminaras esta vaca y todos los eventos relacionados con esta.
+          </P1>
+          <P1 strong>¿Estas seguro?</P1>
+          <div className={styles.modal_actions}>
+            <Btn2 label="Eliminar" onClick={() => handleDeleteCow(row.id)} />
+            <Btn1 label="Cancelar" />
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

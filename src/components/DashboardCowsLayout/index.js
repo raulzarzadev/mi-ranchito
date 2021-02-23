@@ -32,18 +32,18 @@ export default function CowsDasboard() {
     .filter(({ evt }) => evt.date.getYear() === new Date().getYear())
 
   const monthsNames = [
-    'Ene',
-    'Feb',
-    'Mar',
-    'Abr',
-    'May',
-    'Jun',
-    'Jul',
-    'Ago',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dic',
+    { month: 'Ene', label: 'Enero' },
+    { month: 'Feb', label: 'Febrero' },
+    { month: 'Mar', label: 'Marzo' },
+    { month: 'Abr', label: 'Abril' },
+    { month: 'May', label: 'Mayo' },
+    { month: 'Jun', label: 'Junio' },
+    { month: 'Jul', label: 'Julio' },
+    { month: 'Ago', label: 'Agosto' },
+    { month: 'Sep', label: 'Septiempre' },
+    { month: 'Oct', label: 'Octubre' },
+    { month: 'Nov', label: 'Noviembre' },
+    { month: 'Dic', label: 'Diciembre' },
   ]
 
   const eventsByMonth = monthsNames.map((month, i) => {
@@ -72,7 +72,7 @@ export default function CowsDasboard() {
             </div>
             <div className={styles.dash_body}>
               {eventsByMonth.map(({ month, events }) => (
-                <Month key={month} events={events} title={month} />
+                <Month key={month} events={events} month={month} />
               ))}
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function CowsDasboard() {
   )
 }
 
-const Month = ({ events, title }) => {
+const Month = ({ events, month }) => {
   const partos = events?.filter(({ evt }) => evt.type === 'parto')
   const servicios = events?.filter(
     ({ evt }) => evt.type === 'serv' || evt.type === 'next_serv'
@@ -90,10 +90,10 @@ const Month = ({ events, title }) => {
   const secas = events?.filter(({ evt }) => evt.type === 'seca')
   const celos = events?.filter(({ evt }) => evt.type === 'celo')
   const gestantes = events?.filter(({ evt }) => evt.type === 'serv')
-
-  const [info, setInfo] = useState([])
+  const lactantes = events?.filter(({ evt }) => evt.type === 'parto')
+  const [info, setInfo] = useState({})
   const [openModal, setOpenModal] = useState(false)
-
+  console.log(info)
   const handleClick = (evts) => {
     setInfo(evts)
     setOpenModal(true)
@@ -101,32 +101,50 @@ const Month = ({ events, title }) => {
 
   return (
     <div className={styles.grid_row}>
-      <div className={styles.grid_title}>{title}</div>
-      <Cell evts={gestantes} handleClick={handleClick} />
-      <Cell evts={partos} handleClick={handleClick} />
-      <Cell evts={servicios} handleClick={handleClick} />
-      <Cell evts={secas} handleClick={handleClick} />
-      <Cell evts={celos} handleClick={handleClick} />
+      <div className={styles.grid_title}>{month.month}</div>
+      <Cell
+        meta={{ month, type: 'gestantes' }}
+        evts={gestantes}
+        handleClick={handleClick}
+      />
+      <Cell
+        meta={{ month, type: 'partos' }}
+        evts={partos}
+        handleClick={handleClick}
+      />
+      <Cell
+        meta={{ month, type: 'servicios' }}
+        evts={servicios}
+        handleClick={handleClick}
+      />
+      <Cell
+        meta={{ month, type: 'secas' }}
+        evts={secas}
+        handleClick={handleClick}
+      />
+      <Cell
+        meta={{ month, type: 'celos' }}
+        evts={celos}
+        handleClick={handleClick}
+      />
       <Modal
         title="Detalles "
         open={openModal}
         handleOpen={() => setOpenModal(!openModal)}
       >
         <div className={styles.modal}>
-          <H3>Eventos del mes </H3>
+          <H3>{`${info.meta?.type} de ${info.meta?.month?.label}`} </H3>
           <div className={styles.upcoming_grid}>
-            {!info.length && <P3>No hay eventos</P3>}
-            {info?.map(({ evt, earring, name }, i) => (
+            {!info.events?.length && <P3>No hay eventos</P3>}
+            {info.events?.map(({ evt, earring, name }, i) => (
               <div key={i} className={styles.upcoming_event}>
+                {console.log(evt)}
                 <div>
-                  Arete : {earring} {name}
+                  Arete :{earring} {name}
                 </div>
-                Evento :
-                <div>
-                  {evt.label} <em>{evt.type}</em>
-                </div>
-                <div>{evt.formatDate}</div>
+                Fecha :<div>{evt.formatDate}</div>
                 <div>{evt.fromNow}</div>
+                <div>{evt.comets}</div>
               </div>
             ))}
           </div>
@@ -136,8 +154,11 @@ const Month = ({ events, title }) => {
   )
 }
 
-const Cell = ({ evts = [], handleClick }) => (
-  <div className={styles.grid_cell} onClick={() => handleClick(evts)}>
+const Cell = ({ evts = [], handleClick, meta }) => (
+  <div
+    className={styles.grid_cell}
+    onClick={() => handleClick({ meta, events: evts })}
+  >
     {evts.length}
   </div>
 )
