@@ -4,20 +4,17 @@ import React from 'react'
 
 export default function Sources() {
   return (
-    <div>
-      <div>
-        <div className="box-2">
-          <h4>Calendario</h4>
-        </div>
+    <div className="center">
+      <div className="box-2">
+        <h4>Calendario</h4>
         <Calendar />
-      </div>
-      <div>
-        <div className="box-2">
-          <h4>Recursos</h4>
+        <div>
+          <div className="box-2">
+            <h4>Recursos</h4>
+          </div>
+          <ResourcesGrid />
         </div>
-        <ResourcesGrid />
       </div>
     </div>
   )
 }
-

@@ -16,7 +16,9 @@ export default function HomePage() {
       <Head>
         <title>Mi Ranchito Digital</title>
       </Head>
-      <Home />
+      <div className='center'>
+        <Home />
+      </div>
 
       {/*  <div className={styles.actions}>
           <ButtonLink href="/demo" label="Demo Vacas lecheras" />
