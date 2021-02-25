@@ -73,6 +73,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+.stats_item:hover {
+  box-shadow: var(--shadow-1);
+}
+.stats_item:active{
+  box-shadow: var(--shadow-2);
 }
 .grid_stats {
   display: flex;
