@@ -199,7 +199,14 @@ const StatusItem = ({ icon, alt, data = [] }) => {
       <img key={icon} src={icon} alt={alt} className={styles.stats_icon} />
       <H2>{data?.length}</H2>
       <Modal open={open} handleOpen={() => setOpen(!open)}>
-        <div style={{ width: '90%' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '90%',
+            maxHeight:'60vh'
+          }}
+        >
           {data.map((cow) => (
             <div
               key={cow.id}
