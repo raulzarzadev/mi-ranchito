@@ -82,13 +82,16 @@
 }
 
 @media (min-width: 500px) {
-  .dash_body {
-    width: 450px;
-  }
   .cows_dashboard {
     margin-left: 8rem;
   }
   .dash_container {
     margin-bottom: 0;
+  }
+}
+
+@media (min-width: 700px) {
+  .dash_body {
+    width: 450px;
   }
 }
