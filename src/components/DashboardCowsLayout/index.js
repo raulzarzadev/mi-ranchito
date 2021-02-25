@@ -1,3 +1,4 @@
+import { Btn1 } from '@cmps/Btns'
 import { H1, H2, H3 } from '@cmps/H'
 import Modal from '@cmps/Modal/Modal'
 import { P3 } from '@cmps/P'
@@ -73,43 +74,26 @@ export default function CowsDasboard() {
         <H3>Estadisticas</H3>
         <div>
           <div className={styles.grid_stats}>
-            <div className={styles.stats_item}>
-              <img
-                src="/assets/icons/cows.svg"
-                alt="pregnant"
-                className={styles.stats_icon}
-              />
-              <H2>{cows?.length}</H2>
-            </div>
-            <div className={styles.stats_item}>
-              <img
-                src="/assets/icons/pregnant.svg"
-                alt="pregnant"
-                className={styles.stats_icon}
-              />
-              <H2>{gestantes?.length}</H2>
-            </div>
-            <div className={styles.stats_item}>
-              <img
-                src="/assets/icons/milk.svg"
-                alt="pregnant"
-                className={styles.stats_icon}
-              />
-              <H2>{lactantes?.length}</H2>
-            </div>
-            <div className={styles.stats_item}>
-              <img
-                src="/assets/icons/milk.svg"
-                alt="pregnant"
-                className={styles.stats_icon}
-              />
-              <img
-                src="/assets/icons/pregnant.svg"
-                alt="pregnant"
-                className={styles.stats_icon}
-              />
-              <H2>{lactAndGest?.length}</H2>
-            </div>
+            <StatusItem
+              icons={['/assets/icons/cows.svg']}
+              alt="cows"
+              data={cows}
+            />
+            <StatusItem
+              icons={['/assets/icons/pregnant.svg']}
+              alt="gestatnes"
+              data={gestantes}
+            />
+            <StatusItem
+              icons={['/assets/icons/milk.svg']}
+              alt="lactantes"
+              data={lactantes}
+            />
+            <StatusItem
+              icons={['/assets/icons/milk.svg', '/assets/icons/pregnant.svg']}
+              alt="cows"
+              data={lactAndGest}
+            />
           </div>
 
           <div className={styles.dash_grid}>
@@ -206,3 +190,37 @@ const Cell = ({ evts = [], handleClick, meta }) => (
     {evts.length}
   </div>
 )
+
+const StatusItem = ({ icons, data = [] }) => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div className={styles.stats_item} onClick={() => setOpen(!open)}>
+      {icons.map((icon) => (
+        <img key={icon} src={icon} alt={icon} className={styles.stats_icon} />
+      ))}
+      <H2>{data?.length}</H2>
+      <Modal open={open} handleOpen={() => setOpen(!open)}>
+        <div style={{ width: '90%' }}>
+          {data.map((cow) => (
+            <div
+              key={cow.id}
+              style={{
+                border: '1px solid',
+                margin: '8px',
+                padding: '8px',
+                borderRadius: '8px',
+              }}
+            >
+              vaca: {cow.earring} <div>status:</div>
+              {cow.statuses.map((status) => (
+                <div key={status}>{status}</div>
+              ))}
+              <Btn1 label="Detalles" href={`/dashboard-cows/cow/${cow.id}`} />
+            </div>
+          ))}
+        </div>
+      </Modal>
+    </div>
+  )
+}
