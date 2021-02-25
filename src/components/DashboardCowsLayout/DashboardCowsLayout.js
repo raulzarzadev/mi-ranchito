@@ -60,12 +60,14 @@ const links = [
     id: '122',
     href: '/dashboard-cows',
     label: 'Dash',
+    icon: '/assets/icons/farm.svg',
   },
   {
     side: 'bottom',
     id: '12',
     href: '/dashboard-cows/cows',
     label: 'Vacas',
+    icon: '/assets/icons/cows.svg',
   },
   {
     side: 'bottom',

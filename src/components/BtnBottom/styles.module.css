@@ -10,7 +10,6 @@
     border-radius: 50%;
     background-color: aqua;
     box-shadow: .5px .5px .5px #000;
-
   }
   .button:hover {
     font-weight: bolder;
