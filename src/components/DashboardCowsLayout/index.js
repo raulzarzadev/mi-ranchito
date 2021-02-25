@@ -75,22 +75,22 @@ export default function CowsDasboard() {
         <div>
           <div className={styles.grid_stats}>
             <StatusItem
-              icons={['/assets/icons/cows.svg']}
+              icon={'/assets/icons/cows.svg'}
               alt="cows"
               data={cows}
             />
             <StatusItem
-              icons={['/assets/icons/pregnant.svg']}
+              icon={'/assets/icons/pregnant.svg'}
               alt="gestatnes"
               data={gestantes}
             />
             <StatusItem
-              icons={['/assets/icons/milk.svg']}
+              icon={'/assets/icons/milk.svg'}
               alt="lactantes"
               data={lactantes}
             />
             <StatusItem
-              icons={['/assets/icons/milk.svg', '/assets/icons/pregnant.svg']}
+              icon={'/assets/icons/pregAndMilk.svg'}
               alt="cows"
               data={lactAndGest}
             />
@@ -191,14 +191,12 @@ const Cell = ({ evts = [], handleClick, meta }) => (
   </div>
 )
 
-const StatusItem = ({ icons, data = [] }) => {
+const StatusItem = ({ icon, alt, data = [] }) => {
   const [open, setOpen] = useState(false)
 
   return (
     <div className={styles.stats_item} onClick={() => setOpen(!open)}>
-      {icons.map((icon) => (
-        <img key={icon} src={icon} alt={icon} className={styles.stats_icon} />
-      ))}
+      <img key={icon} src={icon} alt={alt} className={styles.stats_icon} />
       <H2>{data?.length}</H2>
       <Modal open={open} handleOpen={() => setOpen(!open)}>
         <div style={{ width: '90%' }}>

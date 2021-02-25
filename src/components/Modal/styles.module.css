@@ -21,6 +21,8 @@
   box-shadow: 1px 1px 1px 1px #000;
   display: grid;
   grid-template-rows: 35px auto 20px;
+  max-height: 90vh;
+  box-shadow: 5px 5px 20px 1px;
 }
 
 .modal_header {
@@ -28,6 +30,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
+  box-shadow: 0.1px -5px 8px;
 }
 .modal_title {
   width: 80%;
@@ -39,7 +42,8 @@
 .modal_content {
   display: flex;
   justify-content: center;
-  align-items: center;
+  overflow-y: auto;
+  height: 80vh;
 }
 
 .modal_button_close {
