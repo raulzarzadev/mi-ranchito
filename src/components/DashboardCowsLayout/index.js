@@ -1,4 +1,4 @@
-import { H1, H3 } from '@cmps/H'
+import { H1, H2, H3 } from '@cmps/H'
 import Modal from '@cmps/Modal/Modal'
 import { P3 } from '@cmps/P'
 import P from '@cmps/P/P'
@@ -20,7 +20,12 @@ export default function CowsDasboard() {
   const formatEvts = cows
     ?.reduce((acc, cow) => {
       if (!cow.lastEvent) return [...acc]
-      const cowInfo = { id: cow.id, earring: cow.earring, name: cow.name }
+      const cowInfo = {
+        id: cow.id,
+        earring: cow.earring,
+        name: cow.name,
+        statuses: cow.statuses,
+      }
       const cowEvents = cow.lastEvent.nextEvents.map((evt) => {
         const month = evt.date.getMonth()
         return { ...cowInfo, evt: { ...evt, month } }
@@ -50,6 +55,14 @@ export default function CowsDasboard() {
     return { month, events: formatEvts?.filter(({ evt }) => evt.month === i) }
   })
 
+  const gestantes = cows?.filter((cow) => cow?.statuses?.includes('gestante'))
+  const lactantes = cows?.filter((cow) => cow?.statuses?.includes('lactante'))
+  const lactAndGest = cows?.filter(
+    (cow) =>
+      cow?.statuses?.includes('lactante') && cow?.statuses?.includes('gestante')
+  )
+  console.log(lactAndGest)
+
   return (
     <>
       <Head>
@@ -59,12 +72,49 @@ export default function CowsDasboard() {
         <H1>Vacas</H1>
         <H3>Estadisticas</H3>
         <div>
-          <P>Vacas registradas: {cows?.length}</P>
-          <P>Eventos: {formatEvts?.length}</P>
+          <div className={styles.grid_stats}>
+            <div className={styles.stats_item}>
+              <img
+                src="/assets/icons/cows.svg"
+                alt="pregnant"
+                className={styles.stats_icon}
+              />
+              <H2>{cows?.length}</H2>
+            </div>
+            <div className={styles.stats_item}>
+              <img
+                src="/assets/icons/pregnant.svg"
+                alt="pregnant"
+                className={styles.stats_icon}
+              />
+              <H2>{gestantes?.length}</H2>
+            </div>
+            <div className={styles.stats_item}>
+              <img
+                src="/assets/icons/milk.svg"
+                alt="pregnant"
+                className={styles.stats_icon}
+              />
+              <H2>{lactantes?.length}</H2>
+            </div>
+            <div className={styles.stats_item}>
+              <img
+                src="/assets/icons/milk.svg"
+                alt="pregnant"
+                className={styles.stats_icon}
+              />
+              <img
+                src="/assets/icons/pregnant.svg"
+                alt="pregnant"
+                className={styles.stats_icon}
+              />
+              <H2>{lactAndGest?.length}</H2>
+            </div>
+          </div>
+
           <div className={styles.dash_grid}>
             <div className={styles.grid_row}>
               <div className={styles.grid_cell}>Evts/Mes</div>
-              <div className={styles.grid_title}>Gestantes</div>
               <div className={styles.grid_title}>Partos</div>
               <div className={styles.grid_title}>Servicios</div>
               <div className={styles.grid_title}>Secados</div>
@@ -83,17 +133,15 @@ export default function CowsDasboard() {
 }
 
 const Month = ({ events, month }) => {
+  const secas = events?.filter(({ evt }) => evt.type === 'seca')
+  const celos = events?.filter(({ evt }) => evt.type === 'celo')
   const partos = events?.filter(({ evt }) => evt.type === 'parto')
   const servicios = events?.filter(
     ({ evt }) => evt.type === 'serv' || evt.type === 'next_serv'
   )
-  const secas = events?.filter(({ evt }) => evt.type === 'seca')
-  const celos = events?.filter(({ evt }) => evt.type === 'celo')
-  const gestantes = events?.filter(({ evt }) => evt.type === 'serv')
-  const lactantes = events?.filter(({ evt }) => evt.type === 'parto')
+
   const [info, setInfo] = useState({})
   const [openModal, setOpenModal] = useState(false)
-  console.log(info)
   const handleClick = (evts) => {
     setInfo(evts)
     setOpenModal(true)
@@ -102,11 +150,7 @@ const Month = ({ events, month }) => {
   return (
     <div className={styles.grid_row}>
       <div className={styles.grid_title}>{month.month}</div>
-      <Cell
-        meta={{ month, type: 'gestantes' }}
-        evts={gestantes}
-        handleClick={handleClick}
-      />
+
       <Cell
         meta={{ month, type: 'partos' }}
         evts={partos}

@@ -17,7 +17,8 @@ import { Btn1, Btn2 } from '@cmps/Btns'
 import useCows from 'src/hooks/useCows'
 import LastEventView from '@cmps/LastEventView'
 import Modal from '@cmps/Modal/Modal'
-import { P1 } from '@cmps/P'
+import { P1, P3 } from '@cmps/P'
+import { H2 } from '@cmps/H'
 
 function RowDetails({ row }) {
   const { removeCow } = useCows()
@@ -29,7 +30,7 @@ function RowDetails({ row }) {
   const handleOpenDeleteModal = () => {
     setDeleteModal(!deleteModal)
   }
-  const { lastEvent } = row
+  const { lastEvent, statuses } = row
   return (
     <div>
       <div className={styles.links_box}>
@@ -43,6 +44,14 @@ function RowDetails({ row }) {
         </div>
         <div className="box-1">
           <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
+        </div>
+      </div>
+      <div className="center">
+        <div className="box-1">
+          <P3>Status</P3>
+          {statuses?.map((status) => (
+            <H2 key={status}>{status}</H2>
+          ))}
         </div>
       </div>
       <LastEventView lastEvent={lastEvent} />
@@ -78,7 +87,10 @@ function Row({ row = [] }) {
           {row.registry}
         </TableCell>
         <TableCell padding="none" align="center">
-          {row.lastEvent?.label || '-'}
+          {/* {row.lastEvent?.label || '-'} */}
+          {row.statuses.map((status) => (
+            <div key={status}>{status}</div>
+          ))}
         </TableCell>
         <TableCell padding="none" align="center">
           <IconButton

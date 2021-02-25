@@ -3,7 +3,6 @@ import { P1, P3 } from '@cmps/P'
 import styles from './styles.module.css'
 
 export default function LastEventView({ lastEvent }) {
-  console.log(lastEvent)
   const upcommingEvents = lastEvent?.nextEvents
   return (
     <>
@@ -18,9 +17,8 @@ export default function LastEventView({ lastEvent }) {
                   <em>{lastEvent?.type}</em>
                 </div>
               </div>
-
               <div style={{ margin: '8px', textAlign: 'center' }}>
-                {lastEvent?.formatDate}{' '}
+                {lastEvent?.formatDate}
                 <div>
                   <em>{lastEvent?.fromNow}</em>
                 </div>

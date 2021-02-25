@@ -66,10 +66,24 @@
   align-items: center;
   gap: 8px;
 }
+.stats_icon {
+  width: 30px;
+}
+.stats_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.grid_stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem;
+}
 
 @media (min-width: 500px) {
   .dash_body {
-     width: 450px; 
+    width: 450px;
   }
   .cows_dashboard {
     margin-left: 8rem;
