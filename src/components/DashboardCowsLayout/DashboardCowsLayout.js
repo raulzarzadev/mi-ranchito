@@ -88,8 +88,8 @@ export default function DashboardCowsLayout({ children }) {
     <div className={styles.cows_dashboard}>
       <div className={styles.dash_container}>{children}</div>
 
-      <BottomNav links={links.filter((link) => link.side === 'bottom')} />
       <SideNav links={links} />
+      <BottomNav links={links.filter((link) => link.side === 'bottom')} />
     </div>
   )
 }

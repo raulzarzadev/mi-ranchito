@@ -17,9 +17,10 @@
 .dash_grid {
   display: grid;
   grid-auto-flow: column;
+  width: 100&;
 }
 .dash_body {
-  width: 150px;
+  width: 80%;
   overflow: auto;
   display: grid;
   grid-auto-flow: column;
@@ -80,7 +81,7 @@
 .stats_item:hover {
   box-shadow: var(--shadow-1);
 }
-.stats_item:active{
+.stats_item:active {
   box-shadow: var(--shadow-2);
 }
 .grid_stats {
@@ -96,11 +97,5 @@
   }
   .dash_container {
     margin-bottom: 0;
-  }
-}
-
-@media (min-width: 700px) {
-  .dash_body {
-    width: 450px;
   }
 }

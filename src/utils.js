@@ -45,7 +45,7 @@ export function formatEventsByEarrings(earrings, events) {
 
 const setCowStatus = (evts = []) => {
   const prevEvent = evts[1]?.event
-  const lastEvent = evts[0].event
+  const lastEvent = evts[0]?.event
   const auxArr = []
   if (lastEvent === 'serv' || lastEvent === 'palp' || lastEvent === 'seca')
     auxArr.push('gestante')

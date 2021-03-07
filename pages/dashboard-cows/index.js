@@ -1,14 +1,12 @@
 import CowsDasboard from '@cmps/DashboardCowsLayout'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 
-export default function DashboardCows() {
-  const router = useRouter()
-  useEffect(() => {
-    router.prefetch('/dashboard-cows/cows')
-  })
-  return <CowsDasboard />
+export default function PrivateDashboard() {
+  return (
+    <PrivateRoute
+      Component={CowsDasboard}
+      SecondaryLayout={DashboardCowsLayout}
+    />
+  )
 }
-
-DashboardCows.SecondaryLayout = DashboardCowsLayout

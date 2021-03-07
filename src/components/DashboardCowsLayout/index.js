@@ -11,11 +11,17 @@ import styles from './styles.module.css'
 export default function CowsDasboard() {
   const { getCows } = useCows()
   const [cows, setCows] = useState(undefined)
-
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     getCows()
-      .then((res) => setCows(res))
-      .catch((err) => console.log(err))
+      .then((res) => {
+        setLoading(false)
+        setCows(res)
+      })
+      .catch((err) => {
+        setLoading(false)
+        console.log(err)
+      })
   }, [])
 
   const formatEvts = cows
@@ -62,10 +68,10 @@ export default function CowsDasboard() {
     (cow) =>
       cow?.statuses?.includes('lactante') && cow?.statuses?.includes('gestante')
   )
-  console.log(lactAndGest)
+  if (loading) return <div className="center">{`'Cargando...'`}</div>
 
   return (
-    <>
+    <div className="center">
       <Head>
         <title>admin / Vacas </title>
       </Head>
@@ -105,14 +111,14 @@ export default function CowsDasboard() {
               <div className={styles.grid_title}>Celos</div>
             </div>
             <div className={styles.dash_body}>
-              {eventsByMonth.map(({ month, events }) => (
-                <Month key={month} events={events} month={month} />
+              {eventsByMonth.map(({ month, events }, i) => (
+                <Month key={i} events={events} month={month} />
               ))}
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -166,7 +172,6 @@ const Month = ({ events, month }) => {
             {!info.events?.length && <P3>No hay eventos</P3>}
             {info.events?.map(({ evt, earring, name }, i) => (
               <div key={i} className={styles.upcoming_event}>
-                {console.log(evt)}
                 <div>
                   Arete :{earring} {name}
                 </div>
@@ -204,7 +209,7 @@ const StatusItem = ({ icon, alt, data = [] }) => {
             display: 'flex',
             flexDirection: 'column',
             width: '90%',
-            maxHeight:'60vh'
+            maxHeight: '60vh',
           }}
         >
           {data.map((cow) => (
