@@ -43,6 +43,21 @@ export function formatEventsByEarrings(earrings, events) {
   })
 }
 
+const setCowStatus = (evts = []) => {
+  const prevEvent = evts[1]?.event
+  const lastEvent = evts[0]?.event
+  const auxArr = []
+  if (lastEvent === 'serv' || lastEvent === 'palp' || lastEvent === 'seca')
+    auxArr.push('gestante')
+  if (lastEvent === 'parto') {
+    auxArr.push('lactante')
+  }
+  if (prevEvent === 'parto' || lastEvent === 'palp') {
+    auxArr.push('lactante')
+  }
+  return auxArr
+}
+
 export function formatEventsCow(earring, events) {
   const registry = moment(earring.registryDate).fromNow()
   const evts = events
@@ -54,10 +69,11 @@ export function formatEventsCow(earring, events) {
     })
   const formatedEvents = evts?.map((event) => formatEvent(event))
   const lastEvent = (!!evts?.length && formatEvent(evts[0])) || undefined
-
+  const statuses = setCowStatus(evts)
   return {
     ...earring,
     registry,
+    statuses,
     events: formatedEvents,
     lastEventLabel: lastEvent?.label,
     lastEvent,
@@ -89,11 +105,13 @@ function formatNextEvents(events, mainDate, mainOnDay) {
     const formatDate = moment(originDate)
       .add(event?.onDay - mainOnDay, 'd')
       .format('DD MMM YY')
+
     const date = new Date(
       moment(originDate)
         .add(event?.onDay - mainOnDay, 'd')
         .format()
     )
+
     return { date, formatDate, fromNow, ...event }
   })
 }

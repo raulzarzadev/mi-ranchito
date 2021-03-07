@@ -5,7 +5,7 @@ export default function BottomNav({ links = [] }) {
   return (
     <div className={styles.bottom_navigation}>
       {links.map((link, i) => (
-        <BtnBottom key={i} href={link.href} label={link.label} />
+        <BtnBottom key={i} href={link.href} label={link.label} icon={link.icon} />
       ))}
     </div>
   )

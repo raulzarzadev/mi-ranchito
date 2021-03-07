@@ -1,13 +1,13 @@
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import NewEarring from '@cmps/NewEarring'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import React from 'react'
 
-export default function newCow() {
-  return (
-    <>
-      <NewEarring />
-    </>
-  )
+function NewCow() {
+  return <NewEarring />
 }
 
-newCow.SecondaryLayout = DashboardCowsLayout
+export default function Private() {
+  return <PrivateRoute Component={NewCow} SecondaryLayout={DashboardCowsLayout}/>
+}
+

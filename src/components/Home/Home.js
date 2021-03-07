@@ -1,8 +1,10 @@
 import { Btn1 } from '@cmps/Btns'
 import ButtonLink from '@cmps/ButtonLink'
+import { useAuth } from '@raiz/src/context/AuthContext'
 import styles from './styles.module.css'
 
 export default function Home() {
+  const { user } = useAuth()
   return (
     <div className="center">
       <div style={{ margin: '0 auto' }}>
@@ -20,7 +22,11 @@ export default function Home() {
           <strong>productivo y reproductivo</strong> de las vacas lecheras.
         </p>
         <div className={styles.actions}>
-          <Btn1 href="/dashboard-cows" label="Mis Vacas" />
+          {user ? (
+            <ButtonLink href="/dashboard-cows" label="Mis Vacas" />
+          ) : (
+            <ButtonLink href="/signin" label="Ingresa " />
+          )}
         </div>
       </div>
     </div>

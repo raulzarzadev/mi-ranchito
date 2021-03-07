@@ -4,8 +4,8 @@ import styles from './styles.module.css'
 
 export default function ButtonLink({ href, label }) {
   return (
-    <div className={styles.link}>
-      <Link href={href}>{label}</Link>
-    </div>
+    <Link href={href}>
+      <div className={styles.link}> {label}</div>
+    </Link>
   )
 }

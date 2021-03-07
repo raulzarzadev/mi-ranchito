@@ -35,10 +35,12 @@ export const PERIODS = {
   palp: 100,
   seca: 200,
   parto: 283,
-  next_serv: 340,
+  next_serv: 370,
   rest_time: 90,
   abortion: 0,
 }
+
+// TODO el flujo de los detalles no esta optimizado 
 export const EVENTS_TYPES = [
   /* -------------PERIODDICOS----------------- */
 

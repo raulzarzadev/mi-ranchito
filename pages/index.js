@@ -1,12 +1,7 @@
 import Head from 'next/head'
-import { useAuth } from '@raiz/src/context/AuthContext'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import Home from '@cmps/Home/Home'
 
 export default function HomePage() {
-  
-
   return (
     <>
       <Head>

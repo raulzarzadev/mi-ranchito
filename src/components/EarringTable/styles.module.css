@@ -4,19 +4,7 @@
   align-items: center;
 }
 
-.lastEvent_row {
+.modal_actions {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-}
-.upcoming_line {
-  width: 300px;
-  display: flex;
-  overflow: auto;
-}
-
-@media (min-width: 900px) {
-  .upcoming_line {
-    width: 500px;
-  }
 }
