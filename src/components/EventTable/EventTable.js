@@ -22,7 +22,7 @@ export default function EventTable({
   useEffect(() => {
     setSortBy('next-date-reverse')
   }, [upcomingEvents])
-  
+
   const handleSortBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)
@@ -117,9 +117,6 @@ export default function EventTable({
                   </TableCell>
                 </>
               )}
-              <TableCell padding="none" width="40px" align="right">
-                Acción
-              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -159,6 +156,7 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
     <>
       <TableRow
         className={styles.event_row}
+
         // style={{ backgroundColor: color % 2 !== 0 && 'transparent' }}
       >
         {!hideEarring && (
@@ -167,8 +165,19 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
           </TableCell>
         )}
         <>
-          <TableCell padding="none" component="th" scope="row" align="center">
+          <TableCell
+            onClick={handleEventModal}
+            padding="none"
+            component="th"
+            scope="row"
+            align="center"
+          >
             {event.label}
+            <EventModal
+              event={event}
+              open={eventModal}
+              handleOpen={handleEventModal}
+            />
           </TableCell>
           <TableCell padding="none" align="center">
             {event.fromNow}
@@ -187,15 +196,6 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
             </TableCell>
           </>
         )}
-        <TableCell padding="none" align="center">
-          <div onClick={handleEventModal}>ver</div>
-
-          <EventModal
-            event={event}
-            open={eventModal}
-            handleOpen={handleEventModal}
-          />
-        </TableCell>
       </TableRow>
     </>
   )

@@ -15,12 +15,12 @@ export default function UpcomingEvents() {
 
   const handleChangeRange = (newRange) => {
     const today = new Date().getDate()
-    const todayInMs = new Date().getTime()
+    const SinceFrom = new Date().setDate(new Date().getDate() - 7)
     const range = new Date().setDate(today + newRange)
-    
+    console.log(SinceFrom)
     const filterdEvents = events?.filter((event) => {
       const nextEventDate = new Date(event.nextEvent?.date).getTime()
-      return todayInMs < nextEventDate && nextEventDate < range
+      return SinceFrom < nextEventDate && nextEventDate < range
     })
     setUpcomingEvents(filterdEvents)
     setRange(newRange)
