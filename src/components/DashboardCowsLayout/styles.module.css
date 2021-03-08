@@ -12,6 +12,7 @@
   width: 100%;
   margin: 0 auto;
   display: flex;
+  margin : 1rem 
 }
 
 .dash_grid {
@@ -88,7 +89,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
+  margin: 2rem 0;
 }
 
 @media (min-width: 500px) {

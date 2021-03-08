@@ -151,7 +151,7 @@ export default function EerringTable({ title, earrings }) {
   }
 
   return (
-    <>
+    <div className={styles.cows_page}>
       <TableContainer component={Paper}>
         <h3>{title}</h3>
         {rows.length === 0 ? (
@@ -207,6 +207,6 @@ export default function EerringTable({ title, earrings }) {
           </Table>
         )}
       </TableContainer>
-    </>
+    </div>
   )
 }

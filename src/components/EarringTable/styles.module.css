@@ -8,3 +8,7 @@
   display: flex;
   justify-content: space-around;
 }
+
+.cows_page{
+  margin: 1rem 0;
+}

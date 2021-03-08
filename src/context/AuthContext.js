@@ -9,12 +9,15 @@ import {
   logout,
   signupEmail,
 } from '@raiz/firebaseClient'
+import { useRouter } from 'next/router'
 
 const AuthContext = createContext({
   user: firebaseClient.User || null,
 })
 
 export function AuthProvider({ children }) {
+  const router = useRouter()
+
   const [user, setUser] = useState(undefined)
   const [errors, setErrors] = useState(null)
 
@@ -40,6 +43,7 @@ export function AuthProvider({ children }) {
     signupEmail(email, pass)
   }
   const signOut = () => {
+    router.replace('/')
     logout()
   }
 
@@ -53,20 +57,19 @@ export function AuthProvider({ children }) {
       })
   }
   useEffect(() => {
-   
-      firebaseClient.auth().onAuthStateChanged((user) => {
-        if (user) {
-          setUser({
-            email: user.email,
-            name: user.displayName,
-            image: user.photoURL,
-            id: user.uid,
-          })
-        } else {
-          setUser(null)
-          console.log('not user')
-        }
-      })
+    firebaseClient.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setUser({
+          email: user.email,
+          name: user.displayName,
+          image: user.photoURL,
+          id: user.uid,
+        })
+      } else {
+        setUser(null)
+        console.log('not user')
+      }
+    })
   }, [])
 
   // If do know status user, return

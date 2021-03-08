@@ -18,8 +18,11 @@ export default function EventTable({
   hideEarring,
   upcomingEvents,
 }) {
-  const [sortBy, setSortBy] = useState(upcomingEvents ? 'next-date' : 'date')
-
+  const [sortBy, setSortBy] = useState('')
+  useEffect(() => {
+    setSortBy('next-date-reverse')
+  }, [upcomingEvents])
+  
   const handleSortBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)
