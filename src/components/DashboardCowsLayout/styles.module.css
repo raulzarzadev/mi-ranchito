@@ -100,3 +100,9 @@
     margin-bottom: 0;
   }
 }
+
+@media (min-width:900px){
+  .dash_container{
+    max-width: 700px;
+  }
+}

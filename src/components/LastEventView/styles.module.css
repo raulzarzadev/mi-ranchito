@@ -4,13 +4,13 @@
   align-items: center;
 }
 .upcoming_line {
-  width: 300px;
+  max-width: 270px;
   display: flex;
   overflow: auto;
 }
 
 @media (min-width: 900px) {
   .upcoming_line {
-     width: 400px; 
+     max-width: 600px; 
   }
 }
