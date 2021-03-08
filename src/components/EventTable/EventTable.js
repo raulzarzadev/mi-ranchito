@@ -11,6 +11,7 @@ import SelectedTitle from '@cmps/SelectedTitle'
 
 import styles from './style.module.css'
 import EventModal from '@cmps/EventModal/EventModal'
+import { L } from '@cmps/L'
 
 export default function EventTable({
   title,
@@ -19,6 +20,7 @@ export default function EventTable({
   upcomingEvents,
 }) {
   const [sortBy, setSortBy] = useState('')
+
   useEffect(() => {
     setSortBy('next-date-reverse')
   }, [upcomingEvents])
@@ -111,7 +113,7 @@ export default function EventTable({
                   >
                     <SelectedTitle
                       onClick={() => handleSortBySub('date')}
-                      selected={sortBy === 'next-date'}
+                      selected={sortBy === 'next-date-reverse'}
                       title="Fecha"
                     />
                   </TableCell>
@@ -151,6 +153,7 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
     if (nextEventDate - today < 1) return setStatus('danger')
     if (nextEventDate - today > 10) return setStatus('success')
   }, [])
+  console.log(event)
 
   return (
     <>
@@ -161,7 +164,8 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
       >
         {!hideEarring && (
           <TableCell component="th" scope="row" align="center" padding="none">
-            {event.earring}
+            
+            <L href={`/dashboard-cows/cow/${event.earringId}`}>{event.earring}</L>
           </TableCell>
         )}
         <>
@@ -189,7 +193,13 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
               {event.nextEvent?.label}
             </TableCell>
             <TableCell padding="none" align="center">
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  position: 'relative',
+                }}
+              >
                 <StatusBadge status={status} />
               </div>
               {event.nextEvent?.fromNow}
