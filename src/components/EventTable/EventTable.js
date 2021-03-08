@@ -153,7 +153,6 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
     if (nextEventDate - today < 1) return setStatus('danger')
     if (nextEventDate - today > 10) return setStatus('success')
   }, [])
-  console.log(event)
 
   return (
     <>

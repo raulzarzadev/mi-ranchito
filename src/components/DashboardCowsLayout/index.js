@@ -68,7 +68,7 @@ export default function CowsDasboard() {
     (cow) =>
       cow?.statuses?.includes('lactante') && cow?.statuses?.includes('gestante')
   )
-  if (loading) return <div className="center">{`'Cargando...'`}</div>
+  if (loading) return <div className="center">{`Cargando...`}</div>
 
   return (
     <div className="center">
@@ -76,9 +76,8 @@ export default function CowsDasboard() {
         <title>admin / Vacas </title>
       </Head>
       <div className={styles.cows_dasboard}>
-        <H1>Vacas</H1>
-        <H3>Estadisticas</H3>
         <div>
+          <H1>Estado actual del ganado: </H1>
           <div className={styles.grid_stats}>
             <StatusItem
               icon={'/assets/icons/cows.svg'}
@@ -102,6 +101,7 @@ export default function CowsDasboard() {
             />
           </div>
 
+          <H1>Eventos por mes </H1>
           <div className={styles.dash_grid}>
             <div className={styles.grid_row}>
               <div className={styles.grid_cell}>Evts/Mes</div>

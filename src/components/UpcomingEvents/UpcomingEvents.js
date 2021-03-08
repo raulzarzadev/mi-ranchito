@@ -17,7 +17,6 @@ export default function UpcomingEvents() {
     const today = new Date().getDate()
     const SinceFrom = new Date().setDate(new Date().getDate() - 7)
     const range = new Date().setDate(today + newRange)
-    console.log(SinceFrom)
     const filterdEvents = events?.filter((event) => {
       const nextEventDate = new Date(event.nextEvent?.date).getTime()
       return SinceFrom < nextEventDate && nextEventDate < range
@@ -43,7 +42,6 @@ export default function UpcomingEvents() {
     }
   }, [user])
 
-  console.log(upcomingEvents)
 
   const selectOptions = [
     { label: '1 Semana', value: 7 },
