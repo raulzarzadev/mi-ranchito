@@ -24,7 +24,6 @@ export default function CowDetails() {
         .catch((err) => console.log(err))
     }
   }, [id])
-  console.log(details)
   const [deleteModal, setDeleteModal] = useState()
 
   const handleOpenDeleteModal = () => {
