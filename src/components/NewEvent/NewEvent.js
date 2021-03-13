@@ -16,7 +16,6 @@ export default function NewEvent({ event = null }) {
   const earringNo = router?.query?.earring
   const earringId = router?.query?.cowId
 
-  // TODO funcion getCows
   useEffect(() => {
     getCows().then((res) => setEarrings(res))
   }, [])
@@ -100,8 +99,9 @@ export default function NewEvent({ event = null }) {
   return (
     <div>
       <div className="box-1">
-        <H2>Nuevo Evento</H2>
+        <H2>{`Nuevo Evento`}</H2>
       </div>
+      
       <div>
         <form
           onSubmit={(e) => {
