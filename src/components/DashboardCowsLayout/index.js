@@ -2,7 +2,7 @@ import { Btn1 } from '@cmps/Btns'
 import { H1, H2, H3 } from '@cmps/H'
 import Modal from '@cmps/Modal/Modal'
 import { P3 } from '@cmps/P'
-import P from '@cmps/P/P'
+import ROUTES from '@raiz/constants/ROUTES'
 import useCows from '@raiz/src/hooks/useCows'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
@@ -226,7 +226,7 @@ const StatusItem = ({ icon, alt, data = [] }) => {
               {cow.statuses.map((status) => (
                 <div key={status}>{status}</div>
               ))}
-              <Btn1 label="Detalles" href={`/dashboard-cows/cow/${cow.id}`} />
+              <Btn1 label="Detalles" href={`${ROUTES.cowDetails}/${cow.id}`} />
             </div>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { Btn1 } from '@cmps/Btns'
 import ButtonLink from '@cmps/ButtonLink'
+import ROUTES from '@raiz/constants/ROUTES'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import styles from './styles.module.css'
 
@@ -23,9 +24,9 @@ export default function Home() {
         </p>
         <div className={styles.actions}>
           {user ? (
-            <ButtonLink href="/dashboard-cows" label="Mis Vacas" />
+            <ButtonLink href={`${ROUTES.cows}`} label="Mis Vacas" />
           ) : (
-            <ButtonLink href="/signin" label="Ingresa " />
+            <ButtonLink href={`${ROUTES.signin}`} label="Ingresa " />
           )}
         </div>
       </div>

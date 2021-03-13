@@ -12,6 +12,7 @@ import SelectedTitle from '@cmps/SelectedTitle'
 import styles from './style.module.css'
 import EventModal from '@cmps/EventModal/EventModal'
 import { L } from '@cmps/L'
+import ROUTES from '@raiz/constants/ROUTES'
 
 export default function EventTable({
   title,
@@ -163,8 +164,9 @@ const EventRow = ({ event, hideEarring, upcomingEvents }) => {
       >
         {!hideEarring && (
           <TableCell component="th" scope="row" align="center" padding="none">
-            
-            <L href={`/dashboard-cows/cow/${event.earringId}`}>{event.earring}</L>
+            <L href={`${ROUTES.cowDetails}/${event.earringId}`}>
+              {event.earring}
+            </L>
           </TableCell>
         )}
         <>

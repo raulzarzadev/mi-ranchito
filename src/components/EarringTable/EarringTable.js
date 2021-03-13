@@ -19,6 +19,7 @@ import LastEventView from '@cmps/LastEventView'
 import Modal from '@cmps/Modal/Modal'
 import { P1, P3 } from '@cmps/P'
 import { H2 } from '@cmps/H'
+import ROUTES from '@raiz/constants/ROUTES'
 
 function RowDetails({ row }) {
   const { removeCow } = useCows()
@@ -38,12 +39,10 @@ function RowDetails({ row }) {
           <Btn2 onClick={handleOpenDeleteModal}>Eliminar</Btn2>
         </div>
         <div className="box-1">
-          <Btn1 href={`/dashboard-cows/newEvent?cowId=${row.id}`}>
-            Nuevo Evento
-          </Btn1>
+          <Btn1 href={`${ROUTES.newEvent}?cowId=${row.id}`}>Nuevo Evento</Btn1>
         </div>
         <div className="box-1">
-          <Btn1 href={`/dashboard-cows/cow/${row.id}`}>Detalles</Btn1>
+          <Btn1 href={`${ROUTES.cowDetails}/${row.id}`}>Detalles</Btn1>
         </div>
       </div>
       <div className="center">

@@ -1,3 +1,4 @@
+import ROUTES from '@raiz/constants/ROUTES'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import styles from './styles.module.css'
@@ -81,9 +82,9 @@ export default function LoginForm({ handleSubmit, isLoginPage = false }) {
             <div className={styles.form_input}>
               <div className={styles.ligth_link}>
                 {isLoginPage ? (
-                  <Link href="/signup">Registrate</Link>
+                  <Link href={`${ROUTES.signup}`}>Registrate</Link>
                 ) : (
-                  <Link href="/signin">Ingresa</Link>
+                  <Link href={`${ROUTES.signin}`}>Ingresa</Link>
                 )}
               </div>
             </div>

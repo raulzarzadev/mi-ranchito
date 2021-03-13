@@ -4,12 +4,13 @@ import styles from './styles.module.css'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
 import { Btn1, Btn2 } from '@cmps/Btns'
+import ROUTES from '@raiz/constants/ROUTES'
 
 export default function EventModal({ open, handleOpen, event }) {
   const { removeEvent } = useEvents()
   const router = useRouter()
   const handleEditEvent = (id) => {
-    router.push(`/dashboard-cows/events/edit?eventId=${id}`)
+    router.push(`${ROUTES.editEvent}?eventId=${id}`)
   }
   const handleOpenDeleteModal = () => {
     setOpenDelete(!openDelete)

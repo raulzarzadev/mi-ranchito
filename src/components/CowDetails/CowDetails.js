@@ -10,6 +10,7 @@ import useCows from '@raiz/src/hooks/useCows'
 import LastEventView from '@cmps/LastEventView'
 import { H2 } from '@cmps/H'
 import { P3 } from '@cmps/P'
+import ROUTES from '@raiz/constants/ROUTES'
 
 export default function CowDetails() {
   const router = useRouter()
@@ -67,15 +68,16 @@ export default function CowDetails() {
         <div className="box-1">
           <Btn1
             label="Nuevo Evento"
-            href={`/dashboard-cows/newEvent?cowId=${id}`}
+            href={`${ROUTES.newEvent}?cowId=${id}`}
           />
         </div>
         <div className="box-1">
-          <Btn1 label="Editar" href={`/dashboard-cows/cows/edit/${id}`} />
+          <Btn1 label="Editar" href={`${ROUTES.editCow}${id}`} />
         </div>
       </div>
       <LastEventView lastEvent={lastEvent} />
       <EventTable
+        hideEarring
         upcomingEvents
         title={`Historial de ${earring}`}
         events={events}

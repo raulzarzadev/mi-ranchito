@@ -4,6 +4,7 @@ import useCows from '@raiz/src/hooks/useCows'
 import { formatInputDate, fromNow } from '@raiz/src/utils'
 import { H2 } from '@cmps/H'
 import { Btn1 } from '@cmps/Btns'
+import ROUTES from '@raiz/constants/ROUTES'
 
 export default function NewEarring({ cow = undefined }) {
   const { addCow, getCows, editCow } = useCows()
@@ -131,13 +132,13 @@ export default function NewEarring({ cow = undefined }) {
             {actions === 'saved' && (
               <div className={styles.actions}>
                 <div className={styles.item}>
-                  <Btn1 href={`/dashboard-cows/newEvent?cowId=${form?.id}`}>
+                  <Btn1 href={`${ROUTES.newEvent}?cowId=${form?.id}`}>
                     Nuevo evento
                   </Btn1>
                 </div>
                 <div className={styles.item}>
                   <Btn1
-                    href={`/dashboard-cows/newCow`}
+                    href={`${ROUTES.newCow}`}
                     onClick={() => setActions('new')}
                   >
                     Nuevo Vaca

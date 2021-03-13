@@ -1,4 +1,5 @@
 import { L } from '@cmps/L'
+import ROUTES from '@raiz/constants/ROUTES'
 import Link from 'next/link'
 import React from 'react'
 import styles from './styles.module.css'
@@ -7,7 +8,7 @@ export default function Header({ signOut, user }) {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <L href={'/'}>
+        <L href={ROUTES.home}>
           <img
             src="/assets/Logo.svg"
             alt="hola"
@@ -15,13 +16,13 @@ export default function Header({ signOut, user }) {
           />
         </L>
 
-        <Link href="/sources">
+        <Link href={`${ROUTES.sources}`}>
           <div className={styles.nav_link}>
             <a>Recursos</a>
           </div>
         </Link>
         {!user && (
-          <Link href="/signin">
+          <Link href={`${ROUTES.signin}`}>
             <div className={styles.nav_link}>
               <a>Ingresa</a>
             </div>
@@ -42,11 +43,13 @@ const Avatar = ({ image, alt = '' }) => {
   return (
     <div>
       {image ? (
-        <img
-          className={styles.avatar}
-          src={image}
-          alt={alt.charAt(1).toUpperCase()}
-        />
+        <L href={ROUTES.home}>
+          <img
+            className={styles.avatar}
+            src={image}
+            alt={alt.charAt(1).toUpperCase()}
+          />
+        </L>
       ) : (
         <div className={styles.avatar}>{alt.charAt(0).toUpperCase()}</div>
       )}

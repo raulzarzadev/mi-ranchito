@@ -4,7 +4,7 @@ import Link from 'next/link'
 export function L({ children, href = '' }) {
   return (
     <Link href={href}>
-      <a>{children}</a>
+      <a onClick={()=> console.log('click')}>{children}</a>
     </Link>
   )
 }

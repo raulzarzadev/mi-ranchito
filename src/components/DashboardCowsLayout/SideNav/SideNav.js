@@ -1,12 +1,13 @@
 import { H3 } from '@cmps/H'
 import { L2, L } from '@cmps/L'
+import ROUTES from '@raiz/constants/ROUTES'
 import styles from './styles.module.css'
 
 export default function SideNav({ links = [] }) {
   return (
     <div className={styles.side_navigation}>
       <div className={`${styles.common} ${styles.side_logo}`}>
-        <L href={'/'}>
+        <L href={`${ROUTES.home}`}>
           <img
             src="/assets/Logo.svg"
             alt="hola"

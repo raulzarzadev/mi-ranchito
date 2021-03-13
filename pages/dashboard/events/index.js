@@ -1,6 +1,7 @@
 import { Btn1, Btn2 } from '@cmps/Btns'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EventTable from '@cmps/EventTable'
+import ROUTES from '@raiz/constants/ROUTES'
 import { getUserEvents } from '@raiz/firebaseClient'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import { formatEvent } from '@raiz/src/utils'
@@ -31,7 +32,7 @@ export default function events() {
         <title>admin / Eventos</title>
       </Head>
       <div className="box-1">
-        <Btn1 href="/dashboard-cows/upcoming"> Ver Proximos </Btn1>
+        <Btn1 href={`${ROUTES.upcommingEvents}`}> Ver Proximos </Btn1>
       </div>
       <EventTable events={events} title="Todos Los Eventos" />
     </>

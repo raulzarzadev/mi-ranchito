@@ -1,19 +1,20 @@
 import { H3 } from '@cmps/H'
 import { L2 } from '@cmps/L'
+import ROUTES from '@raiz/constants/ROUTES'
 import styles from './styles.module.css'
 
 const links = [
   {
     label: 'Vaca',
-    href: '/dashboard-cows/newCow',
+    href: ROUTES.newCow
   },
   {
     label: 'Evento',
-    href: '/dashboard-cows/newEvent',
+    href: ROUTES.newEvent
   },
   {
     label: 'Registro',
-    href: '/dashboard-cows/newRecord',
+    href: ROUTES.newRecord
   },
 ]
 export default function SubMenuNew() {
