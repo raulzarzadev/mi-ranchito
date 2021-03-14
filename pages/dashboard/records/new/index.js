@@ -3,6 +3,7 @@ import NewRecord from '@cmps/NewRecord'
 import Head from 'next/head'
 
 export default function newRecord() {
+  
   return (
     <>
       <Head>

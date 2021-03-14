@@ -9,10 +9,10 @@ import React, { useEffect, useState } from 'react'
 import { formatedTypes, formatInputDate } from '../../utils'
 import styles from './styles.module.css'
 
-export default function NewRecord({ event = null }) {
+export default function NewRecord({ record = null }) {
   const router = useRouter()
   const { getCows } = useCows()
-  const { addEvent, editEvent } = useRecords()
+  const { addRecord, editRecord } = useRecords()
   const [earrings, setEarrings] = useState()
 
   const earringNo = router?.query?.earring
@@ -37,7 +37,7 @@ export default function NewRecord({ event = null }) {
     coments: '',
     earring: earringNo || '',
     earringId: earringId || '',
-    event: '',
+    type: 'milk',
   })
 
   useEffect(() => {
@@ -45,10 +45,10 @@ export default function NewRecord({ event = null }) {
   }, [earringId])
 
   useEffect(() => {
-    if (event) {
-      setForm(event)
+    if (record) {
+      setForm(record)
     }
-  }, [event])
+  }, [record])
 
   const [labelButton, setLabelButton] = useState('Guardar Evento')
 
@@ -68,15 +68,15 @@ export default function NewRecord({ event = null }) {
   }
 
   const handleSubmit = () => {
-    event?.id ? editEvent(event?.id, form) : addEvent(form)
+    record?.id ? editRecord(record?.id, form) : addRecord(form)
     setLabelButton('Guardado')
-    setForm({ ...form, event: '', earring: '', coments: '' })
-    setTimeout(() => {
+    setForm({ ...form, earring: '', coments: '' })
+   /*  setTimeout(() => {
       router.back()
-    }, 300)
+    }, 300) */
   }
 
-  const valid = !form.earring || !form.event || labelButton === 'Guardado'
+  const valid = !form.earring || !form.type || labelButton === 'Guardado'
 
   const eventsAvaiblable = formatedTypes()?.sort((a, b) => {
     if (a.label > b.label) return 1
@@ -84,19 +84,10 @@ export default function NewRecord({ event = null }) {
     return 0
   })
 
-  const regularEvents = eventsAvaiblable.filter(
-    (event) => event.category === 'regular'
-  )
-  const specialsEvents = eventsAvaiblable.filter(
-    (event) => event.category === 'special'
-  )
-  const adminEvents = eventsAvaiblable.filter(
-    (event) => event.category === 'admin'
-  )
-
-  const optionsType = eventsAvaiblable.find(
-    (event) => event.type === form.event
-  )?.options
+  const [keysOpened, setkeysOpened] = useState(false)
+  const handleOpenKeyBoard = () => {
+    setkeysOpened(!keysOpened)
+  }
 
   return (
     <div>
@@ -129,6 +120,18 @@ export default function NewRecord({ event = null }) {
             </div>
             <div className={styles.event_form__input}>
               <span>
+                <input
+                  className={styles.date}
+                  onChange={handleChangeDate}
+                  type="date"
+                  name="date"
+                  id="event-date"
+                  value={formatInputDate(form.date)}
+                />
+              </span>
+            </div>
+            <div className={styles.event_form__input}>
+              <span>
                 <select
                   className={styles.select}
                   onChange={handleSelectCow}
@@ -147,10 +150,27 @@ export default function NewRecord({ event = null }) {
                 </select>
               </span>
             </div>
-              <NumbersInput />
-            <div className={styles.event_form__input}>
+            <div>
+              <div className={styles.event_form__input}>
+                {console.log(keysOpened.toString())}
+                <div
+                  name="liters"
+                  onClick={handleOpenKeyBoard}
+                  opened={keysOpened.toString()}
+                  className={`${styles?.textarea} 
+                    ${styles.liters}`}
+                >
+                  {form?.liters || 'Litros'}
+                </div>
+              </div>
+              {keysOpened && (
+                <NumbersInput
+                  value={form.liters}
+                  setValue={(num) => setForm({ ...form, liters: num })}
+                  hideDisplay
+                />
+              )}
             </div>
-
             <div className={styles.event_form__input}>
               <span>
                 <textarea
@@ -165,18 +185,7 @@ export default function NewRecord({ event = null }) {
                 ></textarea>
               </span>
             </div>
-            <div className={styles.event_form__input}>
-              <span>
-                <input
-                  className={styles.date}
-                  onChange={handleChangeDate}
-                  type="date"
-                  name="date"
-                  id="event-date"
-                  value={formatInputDate(form.date)}
-                />
-              </span>
-            </div>
+
             <div className={styles.event_form__input}>
               <Btn1 disabled={valid}>{labelButton}</Btn1>
             </div>

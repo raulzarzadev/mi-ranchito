@@ -1,11 +1,13 @@
 import firebaseClient from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import { doc } from 'prettier'
 import { firebaseConfig } from './firebaseConfig'
 
 !firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
 // firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
+
+const firebaizedDate = (date) =>
+  firebaseClient.firestore.Timestamp.fromDate(date)
 
 export const loginWithFacebook = async () => {
   const facebookProvider = new firebaseClient.auth.FacebookAuthProvider()
@@ -28,6 +30,7 @@ export const loginWithFacebook = async () => {
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
+          joinedAt: firebaizedDate(new Date()),
         },
         accessToken,
       }
@@ -49,6 +52,7 @@ export const loginWithGoogleMail = async () => {
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
+          joinedAt: firebaizedDate(new Date()),
         },
         accessToken,
       }
@@ -183,7 +187,11 @@ export async function getCow(id) {
 export async function newCow(cow) {
   return await db
     .collection('cows')
-    .add(cow)
+    .add({
+      ...cow,
+      createdAt: firebaizedDate(new Date()),
+      date: firebaizedDate(new Date(cow.date)),
+    })
     .catch((err) => console.log(err))
 }
 
@@ -209,14 +217,20 @@ export async function getUserCows(userId = '') {
 export function updateCow(cowId, cow) {
   const eventRef = db.collection('cows').doc(cowId)
   return eventRef
-    .update(cow)
+    .update({
+      ...cow,
+      updatedAt: firebaizedDate(new Date()),
+      date: firebaizedDate(new Date(cow.date)),
+    })
     .then(() => {
       return { ok: true, type: 'COW_UPDATED' }
     })
     .catch((err) => console.log(err))
 }
 
-/* ------------EVENTS------------ */
+/* ---------------------------------------------------------- */
+/* --------------------------EVENTS-------------------------- */
+/* ---------------------------------------------------------- */
 
 export const getEventsByCow = (cowId) => {
   return db
@@ -246,7 +260,11 @@ export const getEvent = async (id) => {
 export function newEvent(event) {
   return db
     .collection('events')
-    .add(event)
+    .add({
+      ...event,
+      createdAt: firebaizedDate(new Date()),
+      date: firebaizedDate(new Date(event.date)),
+    })
     .then(() => {
       return { ok: true, type: 'EVT_CREATED' }
     })
@@ -275,7 +293,11 @@ export async function getUserEvents(userId = '') {
 export function updateEvent(eventId, event) {
   const eventRef = db.collection('events').doc(eventId)
   return eventRef
-    .update(event)
+    .update({
+      ...event,
+      updatedAt: firebaizedDate(new Date()),
+      date: firebaizedDate(new Date(event.date)),
+    })
     .then(() => {
       return { ok: true, type: 'EVT_UPDATED' }
     })
@@ -295,9 +317,43 @@ export function deleteEvent(eventId) {
     })
 }
 
+/* ----------------------------------------------- */
+/* ------------------- RECORDS ------------------ */
+/* ----------------------------------------------- */
+
+export function fbNewRecord(record) {
+  return db
+    .collection('records')
+    .add({
+      ...record,
+      createdAt: firebaizedDate(new Date()),
+      date: firebaizedDate(new Date(record.date)),
+    })
+    .then(() => {
+      return { ok: true, type: 'RECORD_CREATED' }
+    })
+    .catch((err) => console.log(err))
+}
+
+export function fbGetUserRecords(userId) {
+  return (
+    db
+      .collection('records')
+      // .where('userId','==',userId)
+      .get()
+      .then((snapshot) => {
+        return snapshot.docs.map((doc) => {
+          return { ...doc.data() }
+        })
+      })
+  )
+}
+
 export { firebaseClient }
 
+/* ----------------------------------------------- */
 /* ------------Functions used just once----------- */
+/* ----------------------------------------------- */
 
 const updateDatesSavedToDateType = async () => {
   const events = await db
