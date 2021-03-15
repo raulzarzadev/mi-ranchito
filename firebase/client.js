@@ -1,22 +1,85 @@
-import firebaseClient from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import { firebaseConfig } from './firebaseConfig'
+import firebase from 'firebase'
 
-!firebaseClient.apps.length && firebaseClient.initializeApp(firebaseConfig)
-// firebaseClient.auth().setPersistence(firebaseClient.auth.Auth.Persistence.SESSION)
+const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+}
+
+/* ---------------------------------------------------------- */
+/* -----------------------FIREBASE UTILS ---------------------- */
+/* ---------------------------------------------------------- */
 
 const firebaizedDate = (date) =>
-  firebaseClient.firestore.Timestamp.fromDate(date)
+  firebase.firestore.Timestamp.fromDate(new Date(date))
+
+const firebaizeDates = (dates = {}) => {
+  let aux = {}
+  for (const date in dates) {
+    if (Object.hasOwnProperty.call(dates, date)) {
+      console.log(dates[date])
+      aux = { ...aux, [date]: dates[date] ? firebaizedDate(dates[date]) : null }
+    }
+  }
+  return aux
+}
+const unfierebazeDate = (date) => date?.toMillis() || null
+const unfierebazeDates = (dates = {}) => {
+  console.log(dates)
+  let aux = {}
+  for (const date in dates) {
+    aux = { ...aux, [date]: dates[date] ? unfierebazeDate(dates[date]) : null }
+  }
+  return aux
+}
+
+const normalizeDoc = (doc) => {
+  const data = doc.data()
+  const { updatedAt, registryDate, createdAt, date } = data
+  const dates = unfierebazeDates({
+    updatedAt,
+    registryDate,
+    createdAt,
+    date,
+  })
+  const id = doc.id
+  return {
+    id,
+    ...data,
+    ...dates,
+  }
+}
+
+const normalizeDocs = (docs = []) => docs.map((doc) => normalizeDoc(doc))
+
+const mapUserFromFirebase = (user) => {
+  const { email, displayName, photoURL } = user
+  return { email, name: displayName, image: photoURL, id: user.uid }
+}
+/* ---------------------------------------------------------- */
+/* ----------------------- ACCOUNTS MANAGE---------------------- */
+/* ---------------------------------------------------------- */
+
+export const onAuthStateChanged = (onChange) => {
+  return firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      const normalizeUser = mapUserFromFirebase(user)
+      onChange(normalizeUser)
+    } else {
+      onChange(null)
+    }
+  })
+}
 
 export const loginWithFacebook = async () => {
-  const facebookProvider = new firebaseClient.auth.FacebookAuthProvider()
+  const facebookProvider = new firebase.auth.FacebookAuthProvider()
+  /* export { firebase } */
 
-  return await firebaseClient
+  return await firebase
     .auth()
     .signInWithPopup(facebookProvider)
     .then((result) => {
-      /** @type {firebaseClient.auth.OAuthCredential} */
+      /** @type {firebase.auth.OAuthCredential} */
       const credential = result.credential
 
       // The signed-in user info.
@@ -38,8 +101,8 @@ export const loginWithFacebook = async () => {
 }
 
 export const loginWithGoogleMail = async () => {
-  const googleProvider = new firebaseClient.auth.GoogleAuthProvider()
-  const res = firebaseClient
+  const googleProvider = new firebase.auth.GoogleAuthProvider()
+  const res = firebase
     .auth()
     .signInWithPopup(googleProvider)
     .then((res) => {
@@ -63,7 +126,7 @@ export const loginWithGoogleMail = async () => {
 }
 
 export const loginWithEmail = async (email, pass) => {
-  const result = await firebaseClient
+  const result = await firebase
     .auth()
     .signInWithEmailAndPassword(email, pass)
     .then(({ user }) => {
@@ -83,40 +146,40 @@ export const loginWithEmail = async (email, pass) => {
 }
 
 /* export const signupEmail = async (email) => {
-  const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be in the authorized domains list in the Firebase Console.
-    url: 'https://miranchito.digital/registro',
-    // This must be true.
-    handleCodeInApp: true,
-    iOS: {
-      bundleId: 'https://miranchito.digital',
-    },
-    android: {
-      packageName: 'https://miranchito.digital',
-      installApp: true,
-      minimumVersion: '12',
-    },
-    dynamicLinkDomain: 'https://miranchito.digital/registro',
-  }
-  await firebaseClient
-    .auth()
-    .sendSignInLinkToEmail(email, actionCodeSettings)
-    .then(() => {
-      // The link was successfully sent. Inform the user.
-      // Save the email locally so you don't need to ask the user for it again
-      // if they open the link on the same device.
-      localStorage.setItem('emailForSignIn', email)
-      // ...
-      // window.location.href = '/'
-    })
-    .catch((err) => {
-      return err
-    })
-} */
+    const actionCodeSettings = {
+      // URL you want to redirect back to. The domain (www.example.com) for this
+      // URL must be in the authorized domains list in the Firebase Console.
+      url: 'https://miranchito.digital/registro',
+      // This must be true.
+      handleCodeInApp: true,
+      iOS: {
+        bundleId: 'https://miranchito.digital',
+      },
+      android: {
+        packageName: 'https://miranchito.digital',
+        installApp: true,
+        minimumVersion: '12',
+      },
+      dynamicLinkDomain: 'https://miranchito.digital/registro',
+    }
+    await firebase
+      .auth()
+      .sendSignInLinkToEmail(email, actionCodeSettings)
+      .then(() => {
+        // The link was successfully sent. Inform the user.
+        // Save the email locally so you don't need to ask the user for it again
+        // if they open the link on the same device.
+        localStorage.setItem('emailForSignIn', email)
+        // ...
+        // window.location.href = '/'
+      })
+      .catch((err) => {
+        return err
+      })
+  } */
 
 export const signupEmail = async (email, pass) => {
-  const res = await firebaseClient
+  const res = await firebase
     .auth()
     .createUserWithEmailAndPassword(email, pass)
     .catch((err) => {
@@ -126,7 +189,7 @@ export const signupEmail = async (email, pass) => {
 }
 
 export const logout = async () => {
-  firebaseClient
+  firebase
     .auth()
     .signOut()
     .then(() => {
@@ -137,16 +200,13 @@ export const logout = async () => {
     })
 }
 
-const db = firebaseClient.firestore()
+const db = firebase.firestore()
 console.log(db && 'db ok')
 
 /* ---------------- COWS and EARRIGS ---------------- */
 
-export async function deleteCowEvents(earringId) {
-  const refs = await db
-    .collection('events')
-    .where('earringId', '==', earringId)
-    .get()
+export async function fb_deleteCowEvents(earringId) {
+  const refs = await db.collection('events').where('earringId', '==', earringId)
   return await refs.docs.forEach((ref) => {
     db.collection('events')
       .doc(ref.id)
@@ -159,7 +219,7 @@ export async function deleteCowEvents(earringId) {
   })
 }
 
-export async function deleteCow(id) {
+export async function fb_deleteCow(id) {
   return db
     .collection('cows')
     .doc(id)
@@ -170,57 +230,44 @@ export async function deleteCow(id) {
     .catch((err) => console.log(err))
 }
 
-export async function getCow(id) {
+export async function fb_getCow(id) {
   return db
     .collection('cows')
     .doc(id)
     .get()
-    .then((snapshot) => {
-      if (snapshot.data()) {
-        return { ok: true, type: 'GET_USER', id, ...snapshot.data() }
-      } else {
-        return { ok: false, type: 'NOT_EXIST' }
-      }
-    })
+    .then((doc) => normalizeDoc(doc))
+    .catch((err) => console.log(err))
 }
 
-export async function newCow(cow) {
+export async function fb_newCow(cow) {
   return await db
     .collection('cows')
     .add({
       ...cow,
       createdAt: firebaizedDate(new Date()),
-      date: firebaizedDate(new Date(cow.date)),
+      date: firebaizedDate(new Date(cow.registryDate)),
     })
     .catch((err) => console.log(err))
 }
 
-export async function getUserCows(userId = '') {
+export async function fb_getUserCows(userId = '') {
   return (
     db
       .collection('cows')
       // .where('userId', '==', userId)
       .get()
-      .then((snapshot) => {
-        return snapshot.docs.map((doc) => {
-          const data = doc.data()
-          const id = doc.id
-          return {
-            id,
-            ...data,
-          }
-        })
-      })
+      .then(({ docs }) => normalizeDocs(docs))
       .catch((err) => console.log(err))
   )
 }
-export function updateCow(cowId, cow) {
+export function fb_updateCow(cowId, cow) {
+  console.log(cow)
   const eventRef = db.collection('cows').doc(cowId)
   return eventRef
     .update({
       ...cow,
       updatedAt: firebaizedDate(new Date()),
-      date: firebaizedDate(new Date(cow.date)),
+      registryDate: firebaizedDate(new Date(cow.registryDate)),
     })
     .then(() => {
       return { ok: true, type: 'COW_UPDATED' }
@@ -232,32 +279,24 @@ export function updateCow(cowId, cow) {
 /* --------------------------EVENTS-------------------------- */
 /* ---------------------------------------------------------- */
 
-export const getEventsByCow = (cowId) => {
+export const fb_getEventsByCow = (cowId) => {
   return db
     .collection('events')
     .where('earringId', '==', cowId)
     .get()
-    .then((snapshot) => {
-      return snapshot.docs.map((doc) => {
-        const data = doc.data()
-        const id = doc.id
-        return { id, ...data }
-      })
-    })
+    .then(({ docs }) => normalizeDocs(docs))
     .catch((err) => console.log(err))
 }
 
-export const getEvent = async (id) => {
+export const fb_getEvent = async (id) => {
   return db
     .collection('events')
     .doc(id)
     .get()
-    .then((snapshot) => {
-      return { id, ...snapshot.data() }
-    })
+    .then((doc) => normalizeDoc(doc))
 }
 
-export function newEvent(event) {
+export function fb_newEvent(event) {
   return db
     .collection('events')
     .add({
@@ -271,32 +310,25 @@ export function newEvent(event) {
     .catch((err) => console.log(err))
 }
 
-export async function getUserEvents(userId = '') {
+export async function fb_getUserEvents(userId = '') {
   return (
     db
       .collection('events')
       // .where('userId', '==', userId)
       .get()
-      .then((snapshot) => {
-        return snapshot.docs.map((doc) => {
-          const data = doc.data()
-          const id = doc.id
-          return {
-            id,
-            ...data,
-          }
-        })
-      })
+      .then(({ docs }) => normalizeDocs(docs))
   )
 }
 
-export function updateEvent(eventId, event) {
+export function fb_updateEvent(eventId, event) {
+  console.log(event)
   const eventRef = db.collection('events').doc(eventId)
+  const { date, updatedAt, createdAt, registryDate } = event
+  const dates = firebaizeDates({ date, updatedAt, createdAt, registryDate })
   return eventRef
     .update({
       ...event,
-      updatedAt: firebaizedDate(new Date()),
-      date: firebaizedDate(new Date(event.date)),
+      ...dates,
     })
     .then(() => {
       return { ok: true, type: 'EVT_UPDATED' }
@@ -304,7 +336,7 @@ export function updateEvent(eventId, event) {
     .catch((err) => console.log(err))
 }
 
-export function deleteEvent(eventId) {
+export function fb_deleteEvent(eventId) {
   return db
     .collection('events')
     .doc(eventId)
@@ -321,7 +353,7 @@ export function deleteEvent(eventId) {
 /* ------------------- RECORDS ------------------ */
 /* ----------------------------------------------- */
 
-export function fbNewRecord(record) {
+export function fb_NewRecord(record) {
   return db
     .collection('records')
     .add({
@@ -335,21 +367,15 @@ export function fbNewRecord(record) {
     .catch((err) => console.log(err))
 }
 
-export function fbGetUserRecords(userId) {
+export function fb_GetUserRecords(userId) {
   return (
     db
       .collection('records')
       // .where('userId','==',userId)
       .get()
-      .then((snapshot) => {
-        return snapshot.docs.map((doc) => {
-          return { ...doc.data() }
-        })
-      })
+      .then(({ docs }) => normalizeDocs(docs))
   )
 }
-
-export { firebaseClient }
 
 /* ----------------------------------------------- */
 /* ------------Functions used just once----------- */

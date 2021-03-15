@@ -4,7 +4,6 @@ import P from '@cmps/P/P'
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
 import { Btn1, Btn2 } from '@cmps/Btns'
-import { deleteCow } from '@raiz/firebaseClient'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
 import LastEventView from '@cmps/LastEventView'
@@ -14,7 +13,7 @@ import ROUTES from '@raiz/constants/ROUTES'
 
 export default function CowDetails() {
   const router = useRouter()
-  const { getCowDetails } = useCows()
+  const { getCowDetails, removeCow } = useCows()
   const { id } = router.query
   const [details, setDetails] = useState(undefined)
 
@@ -32,7 +31,7 @@ export default function CowDetails() {
   }
 
   const handleDelete = (id) => {
-    deleteCow(id)
+    removeCow(id)
   }
 
   if (details === undefined) return 'loading ...'
@@ -66,10 +65,7 @@ export default function CowDetails() {
           <Btn2 label="Eliminar" onClick={handleOpenDeleteModal} />
         </div>
         <div className="box-1">
-          <Btn1
-            label="Nuevo Evento"
-            href={`${ROUTES.newEvent}?cowId=${id}`}
-          />
+          <Btn1 label="Nuevo Evento" href={`${ROUTES.newEvent}?cowId=${id}`} />
         </div>
         <div className="box-1">
           <Btn1 label="Editar" href={`${ROUTES.editCow}${id}`} />

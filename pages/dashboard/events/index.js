@@ -1,30 +1,27 @@
-import { Btn1, Btn2 } from '@cmps/Btns'
+import { Btn1 } from '@cmps/Btns'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EventTable from '@cmps/EventTable'
 import ROUTES from '@raiz/constants/ROUTES'
-import { getUserEvents } from '@raiz/firebaseClient'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import useEvents from '@raiz/src/hooks/useEvents'
 import { formatEvent } from '@raiz/src/utils'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 
 export default function events() {
   const { user } = useAuth()
+  const { getEvents } = useEvents()
   const [events, setEvents] = useState()
 
   useEffect(() => {
     if (user) {
-      getUserEvents(user.id)
-        .then((res) => {
-          setEvents(res)
-          setEvents(res.map((event) => formatEvent(event)))
-        })
-        .catch((err) => {
-          console.log(err)
-          setEvents(null)
-        })
+      getEvents().then((res) => {
+        setEvents(res.map((event) => formatEvent(event)))
+      })
     }
   }, [user])
+
+  if (events === undefined) return 'Cargando...'
 
   return (
     <>

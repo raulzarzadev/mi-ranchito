@@ -1,13 +1,13 @@
 import {
-  deleteCow,
-  getCow,
-  deleteCowEvents,
-  getUserCows,
-  newCow,
-  getUserEvents,
-  getEventsByCow,
-  updateCow,
-} from '@raiz/firebaseClient'
+  fb_deleteCow,
+  fb_getCow,
+  fb_deleteCowEvents,
+  fb_getUserCows,
+  fb_newCow,
+  fb_updateCow,
+  fb_getUserEvents,
+  fb_getEventsByCow,
+} from '@raiz/firebase/client'
 import { useAuth } from '../context/AuthContext'
 import { formatEventsByEarrings, formatEventsCow } from '../utils'
 
@@ -15,7 +15,7 @@ export default function useCows() {
   const { user } = useAuth()
 
   const addCow = (cow) => {
-    return newCow({ userId: user.id, ...cow })
+    return fb_newCow({ userId: user.id, ...cow })
       .then((res) => {
         return res
       })
@@ -23,39 +23,46 @@ export default function useCows() {
   }
 
   const removeCow = async (cowId) => {
-    await deleteCowEvents(cowId)
+    // TODO solo colocar hide
+    await fb_deleteCowEvents(cowId)
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
-    await deleteCow(cowId)
+    await fb_deleteCow(cowId)
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
   }
 
   const getCows = async () => {
-    const cows = await getUserCows(user?.id).then((res) => {
+    const cows = await fb_getUserCows(user?.id).then((res) => {
       return res
     })
-    const events = await getUserEvents(user?.id).then((res) => {
+    const events = await fb_getUserEvents(user?.id).then((res) => {
       return res
     })
     return formatEventsByEarrings(cows, events)
   }
 
   const getCowDetails = async (cowId) => {
-    const cow = await getCow(cowId).then((res) => {
-      return res
-    })
-    const events = await getEventsByCow(cowId).then((res) => {
+    const cow = await fb_getCow(cowId)
+      .then((res) => {
+        return res
+      })
+      .catch((err) => console.log(err))
+    const events = await fb_getEventsByCow(cowId).then((res) => {
       return res
     })
     return formatEventsCow(cow, events)
   }
 
+  const getCow = (cowId) => {
+    return fb_getCow(cowId)
+  }
+
   const editCow = (cowId, newCow) => {
-    return updateCow(cowId, newCow).then((res) => {
+    return fb_updateCow(cowId, newCow).then((res) => {
       return res
     })
   }
 
-  return { getCowDetails, getCows, addCow, removeCow, editCow }
+  return { getCow, getCowDetails, getCows, addCow, removeCow, editCow }
 }

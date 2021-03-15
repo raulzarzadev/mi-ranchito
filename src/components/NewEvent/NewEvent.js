@@ -4,10 +4,11 @@ import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { formatedTypes, formatInputDate, getToday } from '../../utils'
+import { formatedTypes, formatFirebaseDateForInput } from '../../utils'
 import styles from './styles.module.css'
 
 export default function NewEvent({ event = null }) {
+  console.log(event)
   const router = useRouter()
   const { getCows } = useCows()
   const { addEvent, editEvent } = useEvents()
@@ -44,7 +45,7 @@ export default function NewEvent({ event = null }) {
 
   useEffect(() => {
     if (event) {
-      setForm(event)
+      setForm({ ...event})
     }
   }, [event])
 
@@ -101,7 +102,7 @@ export default function NewEvent({ event = null }) {
       <div className="box-1">
         <H2>{`Nuevo Evento`}</H2>
       </div>
-      
+
       <div>
         <form
           onSubmit={(e) => {
@@ -212,7 +213,7 @@ export default function NewEvent({ event = null }) {
                   type="date"
                   name="date"
                   id="event-date"
-                  value={formatInputDate(form.date)}
+                  value={formatFirebaseDateForInput(form.date)}
                 />
               </span>
             </div>

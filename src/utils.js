@@ -139,6 +139,17 @@ export function formatInputDate(date) {
   return today
 }
 
+export function formatFirebaseDateForInput(date) {
+  const dateObj = new Date(date)
+  let day = dateObj.getDate()
+  let month = dateObj.getMonth() + 1
+  const year = dateObj.getFullYear()
+  if (month < 10) month = '0' + month
+  if (day < 10) day = '0' + day
+  const today = year + '-' + month + '-' + day
+  return today
+}
+
 export const fromNow = (date) => {
   return date ? moment(date).fromNow() : moment().fromNow()
 }

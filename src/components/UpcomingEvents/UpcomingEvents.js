@@ -1,17 +1,19 @@
-import { H2, H3 } from '@cmps/H'
-import { getUserEvents } from '@raiz/firebaseClient'
-import { useAuth } from '@raiz/src/context/AuthContext'
+import { H2 } from '@cmps/H'
 import { formatEvent } from '@raiz/src/utils'
 import React, { useEffect, useState } from 'react'
 import EventTable from '../EventTable'
 import SelectedTitle from '../SelectedTitle'
 import styles from './styles.module.css'
 
-export default function UpcomingEvents() {
-  const [events, setEvents] = useState(undefined)
+export default function UpcomingEvents({ events }) {
+  useEffect(() => {
+    if (events) {
+      setUpcomingEvents(events.map((event) => formatEvent(event)))
+    }
+  }, [events])
+  
   const [range, setRange] = useState(70)
   const [upcomingEvents, setUpcomingEvents] = useState([])
-  const { user } = useAuth()
 
   const handleChangeRange = (newRange) => {
     const today = new Date().getDate()
@@ -29,20 +31,6 @@ export default function UpcomingEvents() {
     handleChangeRange(range)
   }, [events, range])
 
-  useEffect(() => {
-    if (user) {
-      getUserEvents(user.id)
-        .then((res) => {
-          setEvents(res.map((event) => formatEvent(event)))
-        })
-        .catch((err) => {
-          console.log(err)
-          setEvents(null)
-        })
-    }
-  }, [user])
-
-
   const selectOptions = [
     { label: '1 Semana', value: 7 },
 
@@ -50,7 +38,6 @@ export default function UpcomingEvents() {
     { label: '1 Mes', value: 30 },
   ]
 
-  if (events === undefined) return 'Loading...'
   return (
     <div>
       <H2>Proximos eventos</H2>

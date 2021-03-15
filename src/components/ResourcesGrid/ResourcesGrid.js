@@ -1,9 +1,9 @@
 import Recurso from '@cmps/Recurso/Recurso'
-import { RESOURCES } from '@raiz/HARD_DATA-COPY'
+import SOURCES from '@raiz/constants/SOURCES'
 import React from 'react'
 import styles from './styles.module.css'
 
-const resources = RESOURCES
+const resources = SOURCES
 
 export default function ResourcesGrid() {
   return (

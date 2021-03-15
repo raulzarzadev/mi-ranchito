@@ -130,7 +130,6 @@ export default function EerringTable({ title, earrings }) {
       setRows(earrings)
     }
   }, [earrings])
-
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)

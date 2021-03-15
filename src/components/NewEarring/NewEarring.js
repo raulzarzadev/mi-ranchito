@@ -20,8 +20,10 @@ export default function NewEarring({ cow = undefined }) {
     }
   }, [cow])
 
+  console.log(cow)
+
   const [form, setForm] = useState({
-    registryDate: new Date().toISOString(),
+    //registryDate: new Date().toISOString(),
   })
   const [earrings, setEarrings] = useState()
 

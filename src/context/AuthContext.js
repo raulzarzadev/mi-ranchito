@@ -2,24 +2,25 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 import nookies from 'nookies'
 import {
-  firebaseClient,
+  onAuthStateChanged,
   loginWithEmail,
   loginWithFacebook,
   loginWithGoogleMail,
   logout,
   signupEmail,
-} from '@raiz/firebaseClient'
+} from '@raiz/firebase/client'
 import { useRouter } from 'next/router'
 
-const AuthContext = createContext({
-  user: firebaseClient.User || null,
-})
+const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
   const router = useRouter()
 
   const [user, setUser] = useState(undefined)
   const [errors, setErrors] = useState(null)
+  useEffect(() => {
+    onAuthStateChanged(setUser)
+  }, [])
 
   const facebookLogin = async () => {
     loginWithFacebook()
@@ -56,23 +57,7 @@ export function AuthProvider({ children }) {
         setErrors(err)
       })
   }
-  useEffect(() => {
-    firebaseClient.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUser({
-          email: user.email,
-          name: user.displayName,
-          image: user.photoURL,
-          id: user.uid,
-        })
-      } else {
-        setUser(null)
-        console.log('not user')
-      }
-    })
-  }, [])
 
-  // If do know status user, return
   return (
     <AuthContext.Provider
       value={{

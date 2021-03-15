@@ -1,15 +1,15 @@
-import { fbGetUserRecords, fbNewRecord } from '@raiz/firebaseClient'
+import { fb_GetUserRecords, fb_NewRecord } from '@raiz/firebase/client'
 import { useAuth } from '../context/AuthContext'
 
 export const useRecords = () => {
   const { user } = useAuth()
   const addRecord = (newRecord) => {
-    return fbNewRecord({ userId: user.id, ...newRecord }).then((res) =>
+    return fb_NewRecord({ userId: user.id, ...newRecord }).then((res) =>
       console.log(res)
     )
   }
   const getRecords = (userId) => {
-    return fbGetUserRecords(userId).then((res) => res)
+    return fb_GetUserRecords(userId).then((res) => res)
   }
   const editRecord = () => {
     console.log('edit record')
