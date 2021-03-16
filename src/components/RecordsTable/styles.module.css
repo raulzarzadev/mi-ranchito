@@ -32,11 +32,12 @@
   right: 0;
 }
 .total_liters {
+  border: 1px solid;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 100px;
 }
 .graph_main_point {
   height: 8px;

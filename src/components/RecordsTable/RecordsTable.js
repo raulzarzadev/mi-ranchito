@@ -116,7 +116,7 @@ export default function RecordsTable({ records = [] }) {
   return (
     <>
       <div>Registros de leche</div>
-      <div className={styles.graph}>
+      <figure className={styles.graph}>
         <div className={styles.column}>
           <div className={styles.graph_labels}>
             <div>Total</div>
@@ -166,7 +166,8 @@ export default function RecordsTable({ records = [] }) {
             </div>
           </div>
         ))}
-      </div>
+      </figure>
+      <figcaption>{`A graph about the milk produced in a spacific date`}</figcaption>
     </>
   )
 }
