@@ -1,0 +1,75 @@
+.graph {
+  display: grid;
+  grid-auto-flow: column;
+  font-size: 0.7rem;
+  margin: 2rem auto;
+}
+.graph_labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.data {
+  position: relative;
+  height: 150px;
+  display: grid;
+  align-content: flex-end;
+  width: 15px;
+  margin: 0 auto;
+}
+.graph_point {
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: brown;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  cursor: pointer;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+.total_liters {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+.graph_main_point {
+  height: 8px;
+  width: 8px;
+  z-index: 1;
+}
+
+.graph_point[type='total'] {
+  background-color: rgb(91, 189, 52);
+}
+.graph_point[type='totalAverage'] {
+  background-color: rgb(66, 55, 165);
+}
+.graph_point[type='cow'] {
+  background-color: rgb(111, 215, 233);
+}
+
+.graph_point:hover {
+  height: 7px;
+  width: 7px;
+  font-size: 0.4rem;
+}
+.graph_point:hover > span {
+  background-color: white;
+  display: block;
+}
+
+.graph_point span {
+  display: none;
+  position: absolute;
+  top: -200%;
+  left: 100%;
+}
+.col_details {
+  font-size: 0.7rem;
+}

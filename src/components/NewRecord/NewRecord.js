@@ -50,7 +50,7 @@ export default function NewRecord({ record = null }) {
     }
   }, [record])
 
-  const [labelButton, setLabelButton] = useState('Guardar Evento')
+  const [labelButton, setLabelButton] = useState('Guardar')
 
   const handleSelectCow = (e) => {
     const earringNo = earrings.find((cow) => cow.id === e.target.value)?.earring
@@ -63,7 +63,7 @@ export default function NewRecord({ record = null }) {
   }
 
   const handleChange = (e) => {
-    setLabelButton('Guardar Evento')
+    setLabelButton('Guardar')
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -71,7 +71,7 @@ export default function NewRecord({ record = null }) {
     record?.id ? editRecord(record?.id, form) : addRecord(form)
     setLabelButton('Guardado')
     setForm({ ...form, earring: '', coments: '' })
-   /*  setTimeout(() => {
+    /*  setTimeout(() => {
       router.back()
     }, 300) */
   }

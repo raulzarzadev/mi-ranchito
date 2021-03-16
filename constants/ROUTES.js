@@ -18,4 +18,5 @@ export default {
   /* ---RECORDS--- */
   records: '/dashboard/records',
   newRecord: '/dashboard/records/new',
+  
 }

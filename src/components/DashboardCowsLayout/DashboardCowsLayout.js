@@ -76,6 +76,12 @@ const links = [
   },
   {
     side: 'bottom',
+    id: '12765',
+    href: ROUTES.records,
+    label: 'Regs',
+  },
+  {
+    side: 'bottom',
     id: '13',
     href: ROUTES.upcommingEvents,
     label: 'Eventos',

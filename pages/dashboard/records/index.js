@@ -13,7 +13,6 @@ export default function AllRecords() {
     getRecords().then(setRecords)
   }, [])
 
-  console.log(records)
 
   if (records === undefined) return 'Cargando...'
 

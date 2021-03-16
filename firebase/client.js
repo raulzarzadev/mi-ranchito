@@ -25,7 +25,6 @@ const firebaizeDates = (dates = {}) => {
 }
 const unfierebazeDate = (date) => date?.toMillis() || null
 const unfierebazeDates = (dates = {}) => {
-  console.log(dates)
   let aux = {}
   for (const date in dates) {
     aux = { ...aux, [date]: dates[date] ? unfierebazeDate(dates[date]) : null }
