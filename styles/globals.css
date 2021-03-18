@@ -51,6 +51,10 @@ textarea {
   --shadow-1: 1px 1px 3px var(--black);
   --shadow-2: 1px 1px 6px var(--black);
   --shadow-3: 1px 1px 6px 3px var(--black);
+
+  --graph-1: rgb(91, 189, 52);
+  --graph-2: rgb(66, 55, 165);
+  --graph-3: rgb(111, 215, 233);
 }
 
 .box-1 {

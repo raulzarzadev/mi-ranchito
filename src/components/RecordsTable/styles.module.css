@@ -22,7 +22,7 @@
   height: 5px;
   width: 5px;
   border-radius: 50%;
-  background-color: brown;
+  background-color: var(--primary);
   display: flex;
   justify-content: center;
   position: absolute;
@@ -32,7 +32,8 @@
   right: 0;
 }
 .total_liters {
-  border: 1px solid;
+  /*   border: 1px solid;
+ */
   position: absolute;
   top: 0;
   left: 0;
@@ -45,24 +46,59 @@
   z-index: 1;
 }
 
-.graph_point[type='total'] {
-  background-color: rgb(91, 189, 52);
+.graph_point[type='graph-1'] {
+  background-color: var(--graph-1);
 }
-.graph_point[type='totalAverage'] {
-  background-color: rgb(66, 55, 165);
+.graph_point[type='graph-2'] {
+  background-color: var(--graph-2);
 }
-.graph_point[type='cow'] {
-  background-color: rgb(111, 215, 233);
+.graph_point[type='graph-3'] {
+  background-color: var(--graph-3);
 }
 
+.graph_top_labels {
+  display: flex;
+}
+
+.graph_label {
+  display: flex;
+  align-items: center;
+  margin: 8px;
+  font-size: 0.7rem;
+}
+
+.square_label {
+  width: 30px;
+  height: 15px;
+  padding: 4px;
+  border-radius: 4px;
+  margin: 0 4px;
+  border: 2px dashed;
+}
+
+.square_label[color='graph-1'] {
+  background-color: var(--graph-1);
+}
+
+.square_label[color='graph-2'] {
+  background-color: var(--graph-2);
+}
+.square_label[color='graph-3'] {
+  background-color: var(--graph-3);
+}
 .graph_point:hover {
-  height: 7px;
-  width: 7px;
-  font-size: 0.4rem;
+  min-height: 7px;
+  min-width: 7px;
+  font-size: 0.7rem;
 }
 .graph_point:hover > span {
   background-color: white;
+  z-index: 1;
   display: block;
+  position: relative;
+  white-space: nowrap;
+  height: min-content;
+  padding: 4px;
 }
 
 .graph_point span {

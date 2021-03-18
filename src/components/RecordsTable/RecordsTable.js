@@ -4,9 +4,6 @@ import styles from './styles.module.css'
 export default function RecordsTable({ records = [] }) {
   if (records.length === 0) return <P2>Aun no hay registros</P2>
 
-  const formatRecords = records.map((record) => {})
-  console.log(formatRecords)
-
   const columns = [
     {
       cows: [
@@ -42,8 +39,8 @@ export default function RecordsTable({ records = [] }) {
         { earringId: '357235', earring: 'cuarta', liters: '25.5' },
         { earringId: '3535', earring: 'septima', liters: '28.5' },
       ],
-      date: '05-feb',
-      litersAverage: 12.6,
+      date: '20-feb',
+      litersAverage: 17.6,
       litersTotals: 250.9,
     },
 
@@ -56,8 +53,8 @@ export default function RecordsTable({ records = [] }) {
         { earringId: '357235', earring: 'cuarta', liters: '25.5' },
         { earringId: '3535', earring: 'septima', liters: '28.5' },
       ],
-      date: '05-feb',
-      litersAverage: 9.6,
+      date: '28-feb',
+      litersAverage: 15.6,
       litersTotals: 400.9,
     },
     {
@@ -69,9 +66,9 @@ export default function RecordsTable({ records = [] }) {
         { earringId: '357235', earring: 'cuarta', liters: '25.5' },
         { earringId: '3535', earring: 'septima', liters: '28.5' },
       ],
-      date: '05-feb',
-      litersAverage: 28.6,
-      litersTotals: 1200.9,
+      date: '05-mar',
+      litersAverage: 22.6,
+      litersTotals: 200.9,
     },
     {
       cows: [
@@ -79,43 +76,23 @@ export default function RecordsTable({ records = [] }) {
         { earringId: '2335', earring: 'segunda', liters: '16.5' },
         { earringId: '235', earring: 'tercera', liters: '18.5' },
         { earringId: '2457235', earring: 'cuarta', liters: '22' },
+        { earringId: '335', earring: 'cuarta', liters: '23.5' },
         { earringId: '357235', earring: 'cuarta', liters: '25.5' },
         { earringId: '3535', earring: 'septima', liters: '28.5' },
       ],
-      date: '05-feb',
-      litersAverage: 40.6,
-      litersTotals: 40.9,
-    },
-    {
-      cows: [
-        { earringId: '235235', earring: 'primera', liters: '12.5' },
-        { earringId: '2335', earring: 'segunda', liters: '16.5' },
-        { earringId: '235', earring: 'tercera', liters: '18.5' },
-        { earringId: '2457235', earring: 'cuarta', liters: '22' },
-        { earringId: '357235', earring: 'cuarta', liters: '25.5' },
-        { earringId: '3535', earring: 'septima', liters: '28.5' },
-      ],
-      date: '05-feb',
-      litersAverage: 30.6,
-      litersTotals: 20.9,
-    },
-    {
-      cows: [
-        { earringId: '235235', earring: 'primera', liters: '12.5' },
-        { earringId: '2335', earring: 'segunda', liters: '16.5' },
-        { earringId: '235', earring: 'tercera', liters: '18.5' },
-        { earringId: '2457235', earring: 'cuarta', liters: '22' },
-        { earringId: '357235', earring: 'cuarta', liters: '25.5' },
-        { earringId: '3535', earring: 'septima', liters: '28.5' },
-      ],
-      date: '05-feb',
-      litersAverage: 20.6,
-      litersTotals: 800.9,
+      date: '15-abr',
+      litersAverage: 24.6,
+      litersTotals: 270.9,
     },
   ]
   return (
     <>
       <div>Registros de leche</div>
+      <div className={styles.graph_top_labels}>
+        <GraphLabel label="Total" color="graph-1" />
+        <GraphLabel label="Litros %" color="graph-2" />
+        <GraphLabel label="Litros x Vaca" color="graph-3" />
+      </div>
       <figure className={styles.graph}>
         <div className={styles.column}>
           <div className={styles.graph_labels}>
@@ -136,27 +113,26 @@ export default function RecordsTable({ records = [] }) {
                   style={{
                     bottom: `calc(${Math.log(column.litersTotals) * 10}%)`,
                   }}
-                  type="total"
+                  type="graph-1"
                 >
-                  {console.log(Math.log2(column.litersTotals) * 10)}
-                  <span>{column.litersTotals}</span>
+                  <span>{column.litersTotals} L</span>
                 </div>
               </div>
               <div
                 className={`${styles.graph_point} ${styles.graph_main_point}`}
                 style={{ bottom: `calc(${column.litersAverage * 5}px - 50px)` }}
-                type="totalAverage"
+                type="graph-2"
               >
-                <span>{column.litersAverage}</span>
+                <span>{column.litersAverage} L</span>
               </div>
               {column.cows.map((cow) => (
                 <div
-                  type="cow"
+                  type="graph-3"
                   key={cow.earringId}
                   className={styles.graph_point}
                   style={{ bottom: `calc(${cow.liters * 5}px - 50px)` }}
                 >
-                  <span>{cow.liters}</span>
+                  <span>{cow.liters} L </span>
                 </div>
               ))}
             </div>
@@ -167,7 +143,20 @@ export default function RecordsTable({ records = [] }) {
           </div>
         ))}
       </figure>
-      <figcaption>{`A graph about the milk produced in a spacific date`}</figcaption>
+
+      <figcaption hidden>
+        {' '}
+        {`A graph about the milk produced in a spacific date`}
+      </figcaption>
     </>
+  )
+}
+
+function GraphLabel({ label, color }) {
+  return (
+    <span className={styles.graph_label}>
+      <div className={styles.square_label} color={color} />
+      {label}
+    </span>
   )
 }
