@@ -4,6 +4,8 @@ import ROUTES from '@raiz/constants/ROUTES'
 import styles from './styles.module.css'
 
 export default function SideNav({ links = [] }) {
+  const mainsLink = links.filter((link) => link.cat === 'main')
+  const cowsLink = links.filter((link) => link.cat === 'cows')
   return (
     <div className={styles.side_navigation}>
       <div className={`${styles.common} ${styles.side_logo}`}>
@@ -16,32 +18,26 @@ export default function SideNav({ links = [] }) {
         </L>
       </div>
       <div className={`${styles.common} ${styles.side_links}`}>
-        <div className={styles.link_section}>
-          <H3>- Ver -</H3>
-          {links.map((link, i) => (
-            <div key={i}>
-              {link.side === 'primary' && (
-                <div>
-                  <L2 href={link.href}>{link.label}</L2>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className={styles.link_section}>
-          <H3>- Nuevo -</H3>
-          {links.map((link, i) => (
-            <div key={i}>
-              {link.side === 'secondary' && (
-                <div>
-                  <L2 href={link.href}>{link.label}</L2>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        <SectionLinks links={links} title="- Panel -" category="main" />
+        <SectionLinks links={links} category="cows" />
+        <SectionLinks links={links} category="events" />
+        <SectionLinks links={links} category="records" />
       </div>
       <div className={`${styles.common} ${styles.side_options}`}>Opciones</div>
+    </div>
+  )
+}
+
+function SectionLinks({ links = [], category, title }) {
+  const filteredLinks = links.filter((link) => link.cat === category)
+  return (
+    <div className={styles.link_section}>
+      <H3>{title}</H3>
+      {filteredLinks.map((link, i) => (
+        <div key={i}>
+          <L2 href={link.href}>{link.label}</L2>
+        </div>
+      ))}
     </div>
   )
 }

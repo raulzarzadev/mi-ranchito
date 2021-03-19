@@ -1,7 +1,8 @@
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
-import { H1 } from '@cmps/H'
 import RecordsTable from '@cmps/RecordsTable/RecordsTable'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import { useRecords } from '@raiz/src/hooks/useRecords'
+import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 
 export default function AllRecords() {
@@ -13,15 +14,19 @@ export default function AllRecords() {
     getRecords().then(setRecords)
   }, [])
 
-
   if (records === undefined) return 'Cargando...'
 
   return (
     <>
-      <H1>Registros</H1>
-      <RecordsTable records={records} />
+      <Head>
+        <title>admin / registros </title>
+      </Head>
+      <PrivateRoute
+        Component={RecordsTable}
+        SecondaryLayout={DashboardCowsLayout}
+        records={records}
+        title="Registros"
+      />
     </>
   )
 }
-
-AllRecords.SecondaryLayout = DashboardCowsLayout

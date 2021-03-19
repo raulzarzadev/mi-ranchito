@@ -1,10 +1,18 @@
 import CowDetails from '@cmps/CowDetails/CowDetails'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
-
-import React from 'react'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
+import Head from 'next/head'
 
 export default function cow() {
-  return <CowDetails />
+  return (
+    <>
+      <Head>
+        <title>admin / vaca detalles</title>
+      </Head>
+      <PrivateRoute
+        Component={CowDetails}
+        SecondaryLayout={DashboardCowsLayout}
+      />
+    </>
+  )
 }
-
-cow.SecondaryLayout = DashboardCowsLayout

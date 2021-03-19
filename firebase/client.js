@@ -17,17 +17,15 @@ const firebaizeDates = (dates = {}) => {
   let aux = {}
   for (const date in dates) {
     if (Object.hasOwnProperty.call(dates, date)) {
-      console.log(dates[date])
       aux = { ...aux, [date]: dates[date] ? firebaizedDate(dates[date]) : null }
     }
   }
   return aux
 }
-const unfierebazeDate = (date) => console.log(date)
+const unfierebazeDate = (date) => (date ? date.toMillis() : null)
 const unfierebazeDates = (dates = {}) => {
   let aux = {}
   for (const date in dates) {
-    console.log(dates[date])
     if (dates[date]) {
       aux = {
         ...aux,

@@ -6,14 +6,14 @@ import { H2 } from '@cmps/H'
 import { Btn1 } from '@cmps/Btns'
 import ROUTES from '@raiz/constants/ROUTES'
 
-export default function NewEarring({ cow = undefined }) {
+export default function NewEarring({ cow = undefined, title = '' }) {
   const { addCow, getCows, editCow } = useCows()
 
   useEffect(() => {
     if (cow) {
       setForm({
         earring: cow.earring,
-        name: cow.name,
+        name: cow?.name || null,
         registryDate: cow.registryDate,
       })
       setActions('edit')
@@ -22,9 +22,7 @@ export default function NewEarring({ cow = undefined }) {
 
   console.log(cow)
 
-  const [form, setForm] = useState({
-    //registryDate: new Date().toISOString(),
-  })
+  const [form, setForm] = useState({})
   const [earrings, setEarrings] = useState()
 
   const handleChange = (e) => {
@@ -51,7 +49,6 @@ export default function NewEarring({ cow = undefined }) {
     }
   }
 
-  console.log(form)
   const handleChangeDate = (e) => {
     const registryDate = new Date(e.target.value || form.date).toISOString()
     setForm({ ...form, registryDate })
@@ -63,7 +60,7 @@ export default function NewEarring({ cow = undefined }) {
     <div className="center">
       <div>
         <div className="box-1">
-          <H2>Nueva Vaca</H2>
+          <H2>{title}</H2>
         </div>
         <form
           onSubmit={(e) => {
@@ -87,7 +84,6 @@ export default function NewEarring({ cow = undefined }) {
                 ></input>
                 <em>{alreadyExist && 'Este arete ya está registrado'}</em>
               </span>
-              <div></div>
             </div>
             <div className={styles.item}>
               <span className={styles.input_label}>
@@ -106,7 +102,7 @@ export default function NewEarring({ cow = undefined }) {
             <div className={styles.item}>
               <span className={styles.input_label}>
                 <span>
-                  {`Registro :`} <em>{fromNow(form.registryDate) || ''}</em>
+                  {`Ingreso :`} <em>(opcional)</em>
                 </span>
                 <input
                   className={styles.date}

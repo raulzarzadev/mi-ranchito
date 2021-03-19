@@ -51,7 +51,7 @@ export default function CowDetails() {
       <div>Arete: {earring}</div>
       <div>Nombre/apodo: {name}</div>
       <div>Edad : {age}</div>
-      <div>Registro: {registryDate}</div>
+      <div>Registro: {new Date(registryDate).toUTCString()}</div>
       <div className="center">
         <div className="box-1">
           <P3>Status</P3>

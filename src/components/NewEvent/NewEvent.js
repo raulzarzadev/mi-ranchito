@@ -4,10 +4,14 @@ import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { formatedTypes, formatFirebaseDateForInput } from '../../utils'
+import { formatedTypes, formatInputDate } from '../../utils'
 import styles from './styles.module.css'
 
-export default function NewEvent({ earringId, event = null }) {
+export default function NewEvent({
+  title = '',
+  earringId = null,
+  event = null,
+}) {
   const router = useRouter()
 
   const { getCows } = useCows()
@@ -16,7 +20,7 @@ export default function NewEvent({ earringId, event = null }) {
   const [labelButton, setLabelButton] = useState('Guardar')
   const [earrings, setEarrings] = useState(undefined)
   const [form, setForm] = useState({
-    date: new Date().toISOString(),
+    date: new Date(),
     coments: '',
     earring: '',
     earringId: '',
@@ -28,9 +32,11 @@ export default function NewEvent({ earringId, event = null }) {
   }, [])
 
   useEffect(() => {
-    const earringNo = earrings?.find((cow) => cow.id === earringId)?.earring
-    setForm({ ...form, earringId, earring: earringNo })
-  }, [earringId, earrings])
+    if (earringId) {
+      const earringNo = earrings?.find((cow) => cow.id === earringId)?.earring
+      setForm({ ...form, earringId, earring: earringNo })
+    }
+  }, [earringId])
 
   useEffect(() => {
     if (event) {
@@ -39,15 +45,15 @@ export default function NewEvent({ earringId, event = null }) {
   }, [event])
 
   const handleSelectCow = (e) => {
-    const earringNo = earrings?.find((cow) => cow.id === e.target.value)?.earring
+    const earringNo = earrings?.find((cow) => cow.id === e.target.value)
+      ?.earring
     setForm({ ...form, earring: earringNo, earringId: e.target.value })
   }
 
   const handleChangeDate = (e) => {
+    console.log(e.target.value)
     setForm({ ...form, date: e.target.value })
   }
-
-  console.log(form)
 
   const handleChange = (e) => {
     setLabelButton('Guardar')
@@ -86,9 +92,12 @@ export default function NewEvent({ earringId, event = null }) {
   )?.options
 
   if (earrings?.length === 0) return 'No hay vacas registras aun...'
-
+  console.log(form)
+  const foramtedDate = formatInputDate(form?.date)
+  console.log(foramtedDate)
   return (
     <div>
+      <H2>{title}</H2>
       <div>
         <form
           onSubmit={(e) => {
@@ -199,7 +208,7 @@ export default function NewEvent({ earringId, event = null }) {
                   type="date"
                   name="date"
                   id="event-date"
-                  value={form?.date}
+                  value={foramtedDate}
                 />
               </span>
             </div>

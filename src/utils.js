@@ -72,7 +72,6 @@ const setCowStatus = (events = []) => {
 }
 
 export function formatEventsCow(earring, events = []) {
-  console.log(earring)
   const registry = moment(earring.registryDate).fromNow()
   const evts = events
     .filter((event) => event.earringId === earring.id)
@@ -132,45 +131,10 @@ function formatNextEvents(events, mainDate, mainOnDay) {
 
 /*  --------------- FORMAT EVENTS ------------- */
 
-export function getToday() {
-  const date = new Date()
-  let day = date.getDate()
-  let month = date.getMonth() + 1
-  const year = date.getFullYear()
-  if (month < 10) month = '0' + month
-  if (day < 10) day = '0' + day
-  const today = year + '-' + month + '-' + day
-  return today
-}
 export function formatInputDate(date) {
-  const dateObj = date ? new Date(date) : new Date()
-  let day = dateObj.getDate()
-  let month = dateObj.getMonth() + 1
-  const year = dateObj.getFullYear()
-  if (month < 10) month = '0' + month
-  if (day < 10) day = '0' + day
-  const today = year + '-' + month + '-' + day
-  return today
-}
-
-/* export function formatFirebaseDateForInput(date) {
-  console.log(date)
-  console.log(new Date(date))
-  /*  let day = dateObj.getDate()
-  let month = dateObj.getMonth() + 1
-  const year = dateObj.getFullYear()
-  if (month < 10) month = '0' + month
-  if (day < 10) day = '0' + day
-  const today = year + '-' + month + '-' + day
-  return today 
-} */
-
-export function dateToInputFormat(date) {
-  const dateObj = new Date(date)
-  const day = dateObj.getTime()
-  console.log(new Date(day))
-  console.log(dateObj)
-  console.log(day)
+  const format = moment(date).utc(false).format('YYYY-MM-DD')
+  console.log(format)
+  return format
 }
 
 export const fromNow = (date) => {

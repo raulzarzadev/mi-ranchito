@@ -1,6 +1,8 @@
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EarringTable from '@cmps/EarringTable'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useCows from '@raiz/src/hooks/useCows'
+import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 
 export default function Cows() {
@@ -17,9 +19,16 @@ export default function Cows() {
 
   return (
     <>
-      <EarringTable earrings={cows} title={'Todos lo aretes'} />
+      <Head>
+        <title>admin / todas las vacas</title>
+      </Head>
+      <PrivateRoute
+        Component={EarringTable}
+        SecondaryLayout={DashboardCowsLayout}
+        earrings={cows}
+        title="Vacas Registradas"
+      />
     </>
   )
 }
 
-Cows.SecondaryLayout = DashboardCowsLayout

@@ -1,8 +1,7 @@
-import { Btn1 } from '@cmps/Btns'
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import EventTable from '@cmps/EventTable'
-import ROUTES from '@raiz/constants/ROUTES'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { formatEvent } from '@raiz/src/utils'
 import Head from 'next/head'
@@ -28,12 +27,13 @@ export default function events() {
       <Head>
         <title>admin / Eventos</title>
       </Head>
-      <div className="box-1">
-        <Btn1 href={`${ROUTES.upcommingEvents}`}> Ver Proximos </Btn1>
-      </div>
-      <EventTable events={events} title="Todos Los Eventos" />
+
+      <PrivateRoute
+        Component={EventTable}
+        SecondaryLayout={DashboardCowsLayout}
+        events={events}
+        title="Todos los eventos"
+      />
     </>
   )
 }
-
-events.SecondaryLayout = DashboardCowsLayout

@@ -1,6 +1,8 @@
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import NewEarring from '@cmps/NewEarring'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useCows from '@raiz/src/hooks/useCows'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -17,9 +19,16 @@ export default function editCow() {
 
   return (
     <>
-      <NewEarring cow={cow} editPage />
+      <Head>
+        <title>admin / editar vaca</title>
+      </Head>
+      <PrivateRoute
+        Component={NewEarring}
+        SecondaryLayout={DashboardCowsLayout}
+        cow={cow}
+        title="Editar Vaca"
+        editPage
+      />
     </>
   )
 }
-
-editCow.DashboardCowsLayout = DashboardCowsLayout

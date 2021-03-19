@@ -1,6 +1,8 @@
 import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
 import NewEvent from '@cmps/NewEvent'
+import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useEvents from '@raiz/src/hooks/useEvents'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -15,16 +17,21 @@ export default function EditEvent() {
       getEvent(eventId).then(setEvent)
     }
   }, [eventId])
-  console.log(event)
 
   if (event === undefined) return 'Cargando...'
 
   return (
     <>
-      <h4>Editar Evento</h4>
-      <NewEvent editPage event={event} />
+      <Head>
+        <title>admin / Editar evento</title>
+      </Head>
+      <PrivateRoute
+        Component={NewEvent}
+        SecondaryLayout={DashboardCowsLayout}
+        event={event}
+        title={`Editar Evento`}
+        editPage
+      />
     </>
   )
 }
-
-EditEvent.SecondaryLayout = DashboardCowsLayout

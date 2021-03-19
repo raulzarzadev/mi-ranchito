@@ -6,30 +6,35 @@ import styles from './styles.module.css'
 
 const links = [
   {
+    cat: 'main',
     side: 'primary',
     id: '129',
     href: ROUTES.dashboard,
-    label: 'Pizarra',
+    label: 'Panel',
   },
   {
+    cat: 'main',
     side: 'primary',
     id: '5',
     href: ROUTES.upcommingEvents,
     label: 'Proximos',
   },
   {
+    cat: 'cows',
     side: 'primary',
     id: '1',
     href: ROUTES.cows,
     label: 'Vacas',
   },
   {
+    cat: 'events',
     side: 'primary',
     id: '9',
     href: ROUTES.events,
     label: 'Eventos',
   },
   {
+    cat: 'records',
     side: 'primary',
     id: '569',
     href: ROUTES.records,
@@ -42,18 +47,21 @@ const links = [
     label: 'Registros',
   }, */
   {
+    cat: 'cows',
     side: 'secondary',
     id: '2',
     href: ROUTES.newCow,
     label: 'Nueva Vaca',
   },
   {
+    cat: 'events',
     side: 'secondary',
     id: '3',
     href: ROUTES.newEvent,
     label: 'Nuevo Evento',
   },
   {
+    cat: 'records',
     side: 'secondary',
     id: 'sdfew3',
     href: ROUTES.newRecord,
