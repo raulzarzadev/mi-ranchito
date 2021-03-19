@@ -87,7 +87,7 @@ function Row({ row = [] }) {
         </TableCell>
         <TableCell padding="none" align="center">
           {/* {row.lastEvent?.label || '-'} */}
-          {row.statuses.map((status) => (
+          {row?.statuses?.map((status) => (
             <div key={status}>{status}</div>
           ))}
         </TableCell>

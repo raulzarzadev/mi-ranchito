@@ -7,62 +7,50 @@ import React, { useEffect, useState } from 'react'
 import { formatedTypes, formatFirebaseDateForInput } from '../../utils'
 import styles from './styles.module.css'
 
-export default function NewEvent({ event = null }) {
-  console.log(event)
+export default function NewEvent({ earringId, event = null }) {
   const router = useRouter()
+
   const { getCows } = useCows()
   const { addEvent, editEvent } = useEvents()
-  const [earrings, setEarrings] = useState()
 
-  const earringNo = router?.query?.earring
-  const earringId = router?.query?.cowId
+  const [labelButton, setLabelButton] = useState('Guardar')
+  const [earrings, setEarrings] = useState(undefined)
+  const [form, setForm] = useState({
+    date: new Date().toISOString(),
+    coments: '',
+    earring: '',
+    earringId: '',
+    event: '',
+  })
 
   useEffect(() => {
     getCows().then((res) => setEarrings(res))
   }, [])
 
   useEffect(() => {
-    if (earringId && earrings) {
-      const earringNo = earrings.find((cow) => cow.id === earringId)?.earring
-      setForm({
-        ...form,
-        earring: earringNo,
-      })
-    }
-  }, [earringId, earrings])
-
-  const [form, setForm] = useState({
-    date: new Date().toISOString(),
-    coments: '',
-    earring: earringNo || '',
-    earringId: earringId || '',
-    event: '',
-  })
-
-  useEffect(() => {
+    const earringNo = earrings?.find((cow) => cow.id === earringId)?.earring
     setForm({ ...form, earringId, earring: earringNo })
-  }, [earringId])
+  }, [earringId, earrings])
 
   useEffect(() => {
     if (event) {
-      setForm({ ...event})
+      setForm({ ...event })
     }
   }, [event])
 
-  const [labelButton, setLabelButton] = useState('Guardar Evento')
-
   const handleSelectCow = (e) => {
-    const earringNo = earrings.find((cow) => cow.id === e.target.value)?.earring
+    const earringNo = earrings?.find((cow) => cow.id === e.target.value)?.earring
     setForm({ ...form, earring: earringNo, earringId: e.target.value })
   }
 
   const handleChangeDate = (e) => {
-    const date = new Date(e.target.value).toISOString()
-    setForm({ ...form, date })
+    setForm({ ...form, date: e.target.value })
   }
 
+  console.log(form)
+
   const handleChange = (e) => {
-    setLabelButton('Guardar Evento')
+    setLabelButton('Guardar')
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
@@ -97,12 +85,10 @@ export default function NewEvent({ event = null }) {
     (event) => event.type === form.event
   )?.options
 
+  if (earrings?.length === 0) return 'No hay vacas registras aun...'
+
   return (
     <div>
-      <div className="box-1">
-        <H2>{`Nuevo Evento`}</H2>
-      </div>
-
       <div>
         <form
           onSubmit={(e) => {
@@ -213,7 +199,7 @@ export default function NewEvent({ event = null }) {
                   type="date"
                   name="date"
                   id="event-date"
-                  value={formatFirebaseDateForInput(form.date)}
+                  value={form?.date}
                 />
               </span>
             </div>

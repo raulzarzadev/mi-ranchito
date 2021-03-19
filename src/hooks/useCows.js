@@ -39,18 +39,14 @@ export default function useCows() {
     const events = await fb_getUserEvents(user?.id).then((res) => {
       return res
     })
+
     return formatEventsByEarrings(cows, events)
   }
 
   const getCowDetails = async (cowId) => {
     const cow = await fb_getCow(cowId)
-      .then((res) => {
-        return res
-      })
-      .catch((err) => console.log(err))
-    const events = await fb_getEventsByCow(cowId).then((res) => {
-      return res
-    })
+    const events = await fb_getEventsByCow(cowId)
+    console.log(cow, events, cowId)
     return formatEventsCow(cow, events)
   }
 

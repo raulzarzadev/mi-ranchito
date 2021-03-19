@@ -34,7 +34,7 @@ function formatDates(date) {
 }
 
 /*  --------------- FORMAT EVENTS ------------- */
-export function formatEventsByEarrings(earrings, events) {
+export function formatEventsByEarrings(earrings = [], events = []) {
   return earrings.map((earring) => {
     const earringEvents = events.filter(
       (event) => event.earringId === earring.id
@@ -43,8 +43,14 @@ export function formatEventsByEarrings(earrings, events) {
   })
 }
 
-const setCowStatus = (evts = []) => {
-  const prevEvent = evts[1]?.event
+const setCowStatus = (events = []) => {
+  const statuses = []
+  const statusEvents = events?.filter((event) => event.eventClass === 'status')
+  console.log(statusEvents)
+
+  //if (event === 'serv') statuses.push('gestante')
+
+  /*  const prevEvent = evts[1]?.event
   const lastEvent = evts[0]?.event
   const auxArr = []
   if (lastEvent === 'serv' || lastEvent === 'palp' || lastEvent === 'seca')
@@ -55,10 +61,18 @@ const setCowStatus = (evts = []) => {
   if (prevEvent === 'parto' || lastEvent === 'palp') {
     auxArr.push('lactante')
   }
-  return auxArr
+  if (lastEvent === 'seca') {
+    const index = auxArr.indexOf('lactante')
+    console.log(index)
+    auxArr.splice(index, 1)
+    auxArr.push('seca')
+  }
+  console.log(auxArr)
+  return auxArr */
 }
 
-export function formatEventsCow(earring, events) {
+export function formatEventsCow(earring, events = []) {
+  console.log(earring)
   const registry = moment(earring.registryDate).fromNow()
   const evts = events
     .filter((event) => event.earringId === earring.id)
@@ -139,15 +153,24 @@ export function formatInputDate(date) {
   return today
 }
 
-export function formatFirebaseDateForInput(date) {
-  const dateObj = new Date(date)
-  let day = dateObj.getDate()
+/* export function formatFirebaseDateForInput(date) {
+  console.log(date)
+  console.log(new Date(date))
+  /*  let day = dateObj.getDate()
   let month = dateObj.getMonth() + 1
   const year = dateObj.getFullYear()
   if (month < 10) month = '0' + month
   if (day < 10) day = '0' + day
   const today = year + '-' + month + '-' + day
-  return today
+  return today 
+} */
+
+export function dateToInputFormat(date) {
+  const dateObj = new Date(date)
+  const day = dateObj.getTime()
+  console.log(new Date(day))
+  console.log(dateObj)
+  console.log(day)
 }
 
 export const fromNow = (date) => {

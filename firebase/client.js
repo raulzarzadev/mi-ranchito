@@ -23,11 +23,17 @@ const firebaizeDates = (dates = {}) => {
   }
   return aux
 }
-const unfierebazeDate = (date) => date?.toMillis() || null
+const unfierebazeDate = (date) => console.log(date)
 const unfierebazeDates = (dates = {}) => {
   let aux = {}
   for (const date in dates) {
-    aux = { ...aux, [date]: dates[date] ? unfierebazeDate(dates[date]) : null }
+    console.log(dates[date])
+    if (dates[date]) {
+      aux = {
+        ...aux,
+        [date]: dates[date] ? unfierebazeDate(dates[date]) : null,
+      }
+    }
   }
   return aux
 }
@@ -243,8 +249,8 @@ export async function fb_newCow(cow) {
     .collection('cows')
     .add({
       ...cow,
+      registryDate: firebaizedDate(new Date(cow.registryDate)),
       createdAt: firebaizedDate(new Date()),
-      date: firebaizedDate(new Date(cow.registryDate)),
     })
     .catch((err) => console.log(err))
 }
@@ -316,6 +322,7 @@ export async function fb_getUserEvents(userId = '') {
       // .where('userId', '==', userId)
       .get()
       .then(({ docs }) => normalizeDocs(docs))
+      .catch((err) => console.log(err))
   )
 }
 
