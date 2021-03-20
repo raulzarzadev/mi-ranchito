@@ -45,8 +45,6 @@ export function formatEventsByEarrings(earrings = [], events = []) {
 
 const setCowStatus = (events = []) => {
   const statuses = []
-  const statusEvents = events?.filter((event) => event.eventClass === 'status')
-  console.log(statusEvents)
 
   //if (event === 'serv') statuses.push('gestante')
 
@@ -82,11 +80,14 @@ export function formatEventsCow(earring, events = []) {
     })
   const formatedEvents = evts?.map((event) => formatEvent(event))
   const lastEvent = (!!evts?.length && formatEvent(evts[0])) || undefined
+  const statusEvents = evts?.filter((event) => event.eventClass === 'status')
+
   const statuses = setCowStatus(evts)
   return {
     ...earring,
     registry,
     statuses,
+    statusEvents,
     events: formatedEvents,
     lastEventLabel: lastEvent?.label,
     lastEvent,
@@ -95,7 +96,7 @@ export function formatEventsCow(earring, events = []) {
 
 export const formatEvent = (event = {}) => {
   const onDay = PERIODS[event.type || event.event]
-  const date = event.date || new Date()
+  const date = event.date || new Date().getTime()
   const setTypes = formatType(event.type || event.event)
   const setDates = formatDates(date)
   const setNextEvents = formatNextEvents(setTypes?.nextEvents, date, onDay)
@@ -133,7 +134,6 @@ function formatNextEvents(events, mainDate, mainOnDay) {
 
 export function formatInputDate(date) {
   const format = moment(date).utc(false).format('YYYY-MM-DD')
-  console.log(format)
   return format
 }
 

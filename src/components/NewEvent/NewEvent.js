@@ -36,7 +36,7 @@ export default function NewEvent({
       const earringNo = earrings?.find((cow) => cow.id === earringId)?.earring
       setForm({ ...form, earringId, earring: earringNo })
     }
-  }, [earringId])
+  }, [earringId, earrings])
 
   useEffect(() => {
     if (event) {

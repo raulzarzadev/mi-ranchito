@@ -62,6 +62,7 @@ export const EVENTS_TYPES = [
     ],
     nextEvents: ['celoFail', 'palp', 'seca', 'parto', 'next_serv'],
     category: 'regular',
+    eventClass:'status'
   },
   {
     type: 'palp',
@@ -82,6 +83,7 @@ export const EVENTS_TYPES = [
     options: [],
     nextEvents: ['parto', 'next_serv'],
     category: 'regular',
+    eventClass:'status'
   },
   {
     type: 'parto',
@@ -94,6 +96,7 @@ export const EVENTS_TYPES = [
     ],
     nextEvents: ['next_serv'],
     category: 'regular',
+    eventClass:'status'
   },
 
   /* -------------ESPECIALES----------------- */
@@ -104,6 +107,7 @@ export const EVENTS_TYPES = [
     options: [],
     nextEvents: ['rest_time'],
     category: 'special',
+    eventClass:'status'
   },
   {
     category: 'special',
@@ -118,7 +122,7 @@ export const EVENTS_TYPES = [
     type: 'celoFail',
     label: 'Celo (Gesta Fallida)',
     onDay: 21,
-    nextEvents: [],
+    nextEvents: ['serv'],
   },
 
   {

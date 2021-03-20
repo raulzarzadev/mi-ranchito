@@ -4,8 +4,6 @@ import ROUTES from '@raiz/constants/ROUTES'
 import styles from './styles.module.css'
 
 export default function SideNav({ links = [] }) {
-  const mainsLink = links.filter((link) => link.cat === 'main')
-  const cowsLink = links.filter((link) => link.cat === 'cows')
   return (
     <div className={styles.side_navigation}>
       <div className={`${styles.common} ${styles.side_logo}`}>

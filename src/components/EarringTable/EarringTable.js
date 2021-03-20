@@ -122,14 +122,14 @@ function Row({ row = [] }) {
 }
 
 export default function EerringTable({ title, earrings }) {
-  const [sortBy, setSortBy] = useState('earring')
   const [rows, setRows] = useState([])
-
+  
   useEffect(() => {
     if (earrings) {
       setRows(earrings)
     }
   }, [earrings])
+  const [sortBy, setSortBy] = useState('earring')
   const handleSortRowsBy = (title) => {
     if (title === sortBy) {
       setSortBy(`${title}-reverse`)

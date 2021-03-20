@@ -223,7 +223,7 @@ const StatusItem = ({ icon, alt, data = [] }) => {
               }}
             >
               vaca: {cow.earring} <div>status:</div>
-              {cow.statuses.map((status) => (
+              {cow?.statuses?.map((status) => (
                 <div key={status}>{status}</div>
               ))}
               <Btn1 label="Detalles" href={`${ROUTES.cowDetails}/${cow.id}`} />
