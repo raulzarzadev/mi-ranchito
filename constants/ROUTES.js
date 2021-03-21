@@ -1,9 +1,12 @@
 export default {
+  /* ---PUBLIC ROUTES--- */
   home: '/',
   signup: '/signup',
   signin: '/signin',
-  dashboard: '/dashboard',
   sources: '/sources',
+  /* ---  DASHBARD --- */
+  dashboard: '/dashboard',
+  configuration: '/dashboard/config',
   news: '/dashboard/news',
   /* ---COWS--- */
   cows: '/dashboard/cows',
@@ -18,5 +21,4 @@ export default {
   /* ---RECORDS--- */
   records: '/dashboard/records',
   newRecord: '/dashboard/records/new',
-  
 }

@@ -9,6 +9,13 @@ const links = [
     cat: 'main',
     side: 'primary',
     id: '129',
+    href: ROUTES.configuration,
+    label: 'Configuración',
+  },
+  {
+    cat: 'main',
+    side: 'primary',
+    id: '129',
     href: ROUTES.dashboard,
     label: 'Panel',
   },
@@ -19,6 +26,7 @@ const links = [
     href: ROUTES.upcommingEvents,
     label: 'Proximos',
   },
+ 
   {
     cat: 'cows',
     side: 'primary',
