@@ -8,9 +8,24 @@ import {
   fb_getUserEvents,
   fb_getEventsByCow,
 } from '@raiz/firebase/client'
+import cow from '@raiz/pages/dashboard/cows/details/[id]'
 import { useAuth } from '../context/AuthContext'
 import { formatEventsByEarrings, formatEventsCow } from '../utils'
 
+class Cow {
+  constructor({id, earring, name, birth, userId}) {
+    this.id = id
+    this.earring = earring
+    this.name = name
+    this.birth = birth
+    this.userId = userId
+  }
+
+  getEvents(){
+    return fb_getEventsByCow(this.id).then(res => console.log('res', res)
+    )
+  }
+}
 export default function useCows() {
   const { user } = useAuth()
 
@@ -34,6 +49,16 @@ export default function useCows() {
 
   const getCows = async () => {
     const cows = await fb_getUserCows(user?.id).then((res) => {
+      console.log('res', res)
+      res.forEach(cow => {
+        const obj = new Cow({...cow})
+        console.log('obj', obj)
+        console.log('events', obj.getEvents().then(res=> console.log('res', res)
+        ))
+        
+        
+      });
+      
       return res
     })
     const events = await fb_getUserEvents(user?.id).then((res) => {

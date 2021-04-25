@@ -17,6 +17,8 @@ export default function upcoming() {
     }
   }, [user])
 
+  
+
   if (events === undefined) return 'Cargando...'
 
   return (

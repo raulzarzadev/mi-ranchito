@@ -1,15 +1,16 @@
 .bottom_navigation {
-  background-color: var(--white);
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 5rem;
-
+  
   display: flex;
   justify-content: space-around;
   align-items: center;
   box-shadow: var(--shadow-2);
+  background-color: var(--background-semi);
+  color: var(--contrast-light);
 }
 
 @media (min-width: 500px) {

@@ -15,7 +15,7 @@ export default function events() {
   useEffect(() => {
     if (user) {
       getEvents().then((res) => {
-        setEvents(res.map((event) => formatEvent(event)))
+        setEvents(res?.map((event) => formatEvent(event)))
       })
     }
   }, [user])

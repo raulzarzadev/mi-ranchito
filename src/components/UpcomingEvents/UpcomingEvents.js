@@ -33,7 +33,6 @@ export default function UpcomingEvents({ events }) {
 
   const selectOptions = [
     { label: '1 Semana', value: 7 },
-
     { label: '2 Semanas', value: 14 },
     { label: '1 Mes', value: 30 },
   ]
