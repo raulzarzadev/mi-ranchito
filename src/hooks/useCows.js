@@ -20,10 +20,12 @@ class Cow {
     this.birth = birth
     this.userId = userId
   }
-
-  getEvents(){
-    return fb_getEventsByCow(this.id).then(res => console.log('res', res)
-    )
+  // get all events
+  // get current status 
+  // get 
+  async getEvents(){
+    // format events here
+   return await fb_getEventsByCow(this.id)
   }
 }
 export default function useCows() {
@@ -49,18 +51,13 @@ export default function useCows() {
 
   const getCows = async () => {
     const cows = await fb_getUserCows(user?.id).then((res) => {
-      console.log('res', res)
-      res.forEach(cow => {
-        const obj = new Cow({...cow})
-        console.log('obj', obj)
-        console.log('events', obj.getEvents().then(res=> console.log('res', res)
-        ))
-        
-        
-      });
-      
-      return res
+     return res.map(cow => {
+        return new Cow({...cow})
+      });          
     })
+
+    )
+    
     const events = await fb_getUserEvents(user?.id).then((res) => {
       return res
     })
