@@ -1,0 +1,64 @@
+
+.button{
+    /* Setting to 0 */
+    border: none;
+    background: none;
+    color: inherit;
+    /* New styles */
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.226);
+}
+.button[p='1']{
+    padding: 4px;
+}
+.button[p='2']{
+    padding: 8px;
+}
+
+
+
+.button:hover {
+    box-shadow: none;
+}
+.button:active {
+    box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.712);
+}
+
+.button[secondary]{
+    background: red;
+}
+
+.button[outlined]{
+    border: 1px solid;
+}
+/* 
+   - - - - -  - - - - - - - - - - - - -  ICON 
+*/
+.button[icon]{
+    width: auto;
+    border-radius: 50%;
+}
+/* 
+   - - - - -  - - - - - - - - - - - - -  LINK 
+*/
+.button[link]{
+    padding: none;
+    box-shadow: none;
+}
+.button[link]:hover{
+    padding: none;
+    font-weight: 600;
+}
+
+/* 
+   - - - - -  - - - - - - - - - - - - -  UNDERLINE 
+*/
+
+.selected {
+    border-top: 1px solid transparent ;
+}
+.button[underline] > .selected {
+    border-top: 1px solid white;
+}
+

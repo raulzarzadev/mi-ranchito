@@ -1,0 +1,26 @@
+
+.visualguide{
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 3%;
+}
+
+.visualguide > div {
+    width: 30%;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 4px;
+}
+.buttons > * {
+    width: 40%;
+}
+
