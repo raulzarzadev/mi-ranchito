@@ -20,6 +20,7 @@ class Cow {
     this.birth = birth
     this.userId = userId
   }
+
   // get all events
   // get current status 
   // get 
@@ -56,7 +57,6 @@ export default function useCows() {
       });          
     })
 
-    )
     
     const events = await fb_getUserEvents(user?.id).then((res) => {
       return res
