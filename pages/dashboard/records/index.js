@@ -1,4 +1,4 @@
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import RecordsTable from '@cmps/RecordsTable/RecordsTable'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import { useRecords } from '@raiz/src/hooks/useRecords'

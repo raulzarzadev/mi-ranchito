@@ -1,6 +1,6 @@
 import { Btn1 } from '@cmps/Btns'
 import { H1, H2, H3 } from '@cmps/H'
-import Modal from '@cmps/Modal/Modal'
+import Modal from '@cmps/Modals/Modal/Modal'
 import { P3 } from '@cmps/P'
 import ROUTES from '@raiz/constants/ROUTES'
 import useCows from '@raiz/src/hooks/useCows'

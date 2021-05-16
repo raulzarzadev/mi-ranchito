@@ -10,7 +10,7 @@ import { Typography } from '@material-ui/core'
 import SelectedTitle from '@cmps/SelectedTitle'
 
 import styles from './style.module.css'
-import EventModal from '@cmps/EventModal/EventModal'
+import EventModal from '@cmps/Modals/EventModal/EventModal'
 import { L } from '@cmps/L'
 import ROUTES from '@raiz/constants/ROUTES'
 

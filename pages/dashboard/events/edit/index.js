@@ -1,4 +1,4 @@
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import NewEvent from '@cmps/NewEvent'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useEvents from '@raiz/src/hooks/useEvents'

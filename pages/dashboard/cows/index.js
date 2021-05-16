@@ -1,6 +1,5 @@
 import CowsTable from '@cmps/CowsTable'
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
-import EarringTable from '@cmps/EarringTable'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useCows from '@raiz/src/hooks/useCows'
 import Head from 'next/head'
@@ -23,10 +22,11 @@ export default function Cows() {
       <Head>
         <title>admin / todas las vacas</title>
       </Head>
+      
       <PrivateRoute
         Component={CowsTable}
         SecondaryLayout={DashboardCowsLayout}
-        earrings={cows}
+        cows={cows}
         title="Vacas Registradas"
       />
     </>

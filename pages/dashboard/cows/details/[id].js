@@ -1,5 +1,5 @@
 import CowDetails from '@cmps/CowDetails/CowDetails'
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'
 

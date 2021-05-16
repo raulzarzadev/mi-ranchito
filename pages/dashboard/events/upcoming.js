@@ -1,4 +1,4 @@
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import UpcomingEvents from '@cmps/UpcomingEvents'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'

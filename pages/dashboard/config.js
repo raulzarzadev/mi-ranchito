@@ -1,5 +1,5 @@
 import ConfigurationView from '@cmps/ConfigurationView/ConfigurationView'
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 
 export default function Private() {

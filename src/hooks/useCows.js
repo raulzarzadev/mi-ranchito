@@ -5,39 +5,46 @@ import {
   fb_getUserCows,
   fb_newCow,
   fb_updateCow,
-  fb_getUserEvents,
   fb_getEventsByCow,
 } from '@raiz/firebase/client'
-import cow from '@raiz/pages/dashboard/cows/details/[id]'
 import { useAuth } from '../context/AuthContext'
-import { formatEventsByEarrings, formatEventsCow } from '../utils'
+import { Cow } from '../utils/_cow'
 
-class Cow {
-  constructor({id, earring, name, birth, userId}) {
-    this.id = id
-    this.earring = earring
-    this.name = name
-    this.birth = birth
-    this.userId = userId
-  }
-
-  // get all events
-  // get current status 
-  // get 
-  async getEvents(){
-    // format events here
-   return await fb_getEventsByCow(this.id)
-  }
-}
 export default function useCows() {
   const { user } = useAuth()
 
-  const addCow = (cow) => {
-    return fb_newCow({ userId: user.id, ...cow })
-      .then((res) => {
-        return res
-      })
-      .catch((err) => console.log(err))
+  const addCow = async (cow) => {
+    try {
+      const res = await fb_newCow({ userId: user.id, ...cow })
+      return res
+    } catch (err) {
+      return console.log(err)
+    }
+  }
+
+  const getCow = async (cowId) => {
+    const cow = await fb_getCow(cowId)
+    const events = await fb_getEventsByCow(cowId)
+    return Cow(cow, events)
+  }
+
+  const getCows = async () => {
+    const formatedCows = []
+    try {
+      const cows = await fb_getUserCows(user?.id)
+      for (const cow of cows) {
+        const cowEvents = await getCow(cow.id)
+        formatedCows.push(cowEvents)
+      }
+    } catch (error) {
+      return console.log('error', error)
+    }
+    return formatedCows
+  }
+
+  const editCow = async (cowId, newCow) => {
+    const res = await fb_updateCow(cowId, newCow)
+    return res
   }
 
   const removeCow = async (cowId) => {
@@ -50,37 +57,5 @@ export default function useCows() {
       .catch((err) => console.log(err))
   }
 
-  const getCows = async () => {
-    const cows = await fb_getUserCows(user?.id).then((res) => {
-     return res.map(cow => {
-        return new Cow({...cow})
-      });          
-    })
-
-    
-    const events = await fb_getUserEvents(user?.id).then((res) => {
-      return res
-    })
-
-    return formatEventsByEarrings(cows, events)
-  }
-
-  const getCowDetails = async (cowId) => {
-    const cow = await fb_getCow(cowId)
-    const events = await fb_getEventsByCow(cowId)
-    console.log(cow, events, cowId)
-    return formatEventsCow(cow, events)
-  }
-
-  const getCow = (cowId) => {
-    return fb_getCow(cowId)
-  }
-
-  const editCow = (cowId, newCow) => {
-    return fb_updateCow(cowId, newCow).then((res) => {
-      return res
-    })
-  }
-
-  return { getCow, getCowDetails, getCows, addCow, removeCow, editCow }
+  return { getCow, getCows, addCow, removeCow, editCow }
 }

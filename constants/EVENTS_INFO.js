@@ -1,3 +1,23 @@
+// CONFIGURACION DE EVENTOS
+
+// Los eventos que se crean son puntuales y son la base de los eventos subsecuentes
+
+// El estatus actual se define en relacion con los eventos anteriores.
+
+// No todos los eventos cambian el estatus. Por evemplo, el checkeo , o el registro
+
+// Algunos eventos definen el estado de la la vaca por ejemplo
+/*  COMO LOS EVENTOS DEFINEN LAS EL ESTADO ACTUAL 
+
+    previusEvent_2 previusEvent_1 lastEvent   upcomingEvents 
+    parto          servicio       seca        parto
+    servicio        seca          parto       servicio    
+    seca            parto         servicio    parto
+    servicio       seca*          parto       servicio
+
+
+*/
+
 /* 
 Ciclo Reproductivo
 
@@ -27,23 +47,47 @@ Ciclo Reproductivo
 } */
 
 export const PERIODS = {
-  nace: 0,
-  first_serv: 450,
-  celo: 0,
-  celoFail: 21,
-  serv: 0.5,
-  palp: 100,
-  seca: 200,
-  parto: 283,
-  next_serv: 370,
-  rest_time: 90,
-  abortion: 0,
+  BIRTH: 0,
+  FIRST_SERV: 450,
+  HEAT: 0,
+  SERV_FAIL: 21,
+  SERV: 0.5,
+  PALP: 100,
+  DRY: 200,
+  PARTO: 283,
+  NEXT_SERV: 370,
+  REST_TIME: 90,
+  ABORT: 0,
 }
 
-// TODO el flujo de los detalles no esta optimizado 
+/* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, */
+/*           LABELS             */
+/* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
+
+export const LABELS = {
+  BIRTH: 'Nacimiento',
+  FIRST_SERV: 'Primer Servicio',
+  HEAT: 'Calor',
+  SERV_FAIL: 'Servicio Fallo',
+  SERV: 'Servicio',
+  PALP: 'Palpación',
+  DRY: 'Seca',
+  PARTO: 'Parto',
+  NEXT_SERV: 'Proximo Servicio',
+  REST_TIME: 'Reposo',
+  ABORT: 'Aborto',
+}
+
+/* 
+KEY
+TYPE
+LABEL
+OPTION
+*/
+
+// TODO el flujo de los detalles no esta optimizado
 export const EVENTS_TYPES = [
   /* -------------PERIODDICOS----------------- */
-
   {
     type: 'celo',
     label: 'Celo',
@@ -62,7 +106,7 @@ export const EVENTS_TYPES = [
     ],
     nextEvents: ['celoFail', 'palp', 'seca', 'parto', 'next_serv'],
     category: 'regular',
-    eventClass:'status'
+    eventClass: 'status',
   },
   {
     type: 'palp',
@@ -83,7 +127,7 @@ export const EVENTS_TYPES = [
     options: [],
     nextEvents: ['parto', 'next_serv'],
     category: 'regular',
-    eventClass:'status'
+    eventClass: 'status',
   },
   {
     type: 'parto',
@@ -96,7 +140,7 @@ export const EVENTS_TYPES = [
     ],
     nextEvents: ['next_serv'],
     category: 'regular',
-    eventClass:'status'
+    eventClass: 'status',
   },
 
   /* -------------ESPECIALES----------------- */
@@ -107,7 +151,7 @@ export const EVENTS_TYPES = [
     options: [],
     nextEvents: ['rest_time'],
     category: 'special',
-    eventClass:'status'
+    eventClass: 'status',
   },
   {
     category: 'special',
@@ -164,3 +208,46 @@ export const EVENTS_TYPES = [
     category: 'admin',
   },
 ]
+
+/* 
+
+STATUS CHANGE
+yes             Nace                   //  DIA 0
+yes             Primer servicio        //  NACE + dia 450 (15 meses)
+yes             Servicio               //  CELO + 12 horas 
+                Palpacion              //  SERVICIO + 90 dias (3 meses)
+yes             Seca                   //  SERVICIO + 200 dias (7 meses)
+yes             Parto                  //  SERVICIO + 283 dias (9 meses)
+                ProxServ               //  PARTO   + 90  dias (3 meses)
+
+
+ 
+EVENTO        STATUS        
+nace          novilla 
+serv          preg
+palp          
+seca          not-lact
+parto         lact
+
+
+
+/* .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*, 
+
+y si en el estatus se modifica manualmente  ??
+          
+ .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
+
+
+
+export const EVENTS_TYPE_2 = {
+  BIRTH: {
+    type: '',
+    label: LABELS.BIRTH,
+    upcommingEvents: [{ type: 'FIRST_SERV', InDays: PERIODS.FIRST_SERV }],
+  },
+  FIRST_SERV: {
+    type: '',
+    label: LABELS.FIRST_SERV,
+    upcommingEvents: [{ type: 'PALP', InDays: PERIODS.PALP },{34}],
+  },
+}

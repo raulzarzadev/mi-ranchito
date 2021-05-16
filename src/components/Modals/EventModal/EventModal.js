@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Modal from '@cmps/Modal/Modal'
+import Modal from '@cmps/Modals/Modal/Modal'
 import styles from './styles.module.css'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { useRouter } from 'next/router'

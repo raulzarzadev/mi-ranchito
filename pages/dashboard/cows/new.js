@@ -1,4 +1,4 @@
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import NewEarring from '@cmps/NewEarring'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'

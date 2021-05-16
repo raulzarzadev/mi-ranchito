@@ -1,5 +1,5 @@
 import EventTable from '@cmps/EventTable'
-import Modal from '@cmps/Modal/Modal'
+import Modal from '@cmps/Modals/Modal/Modal'
 import P from '@cmps/P/P'
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
@@ -13,13 +13,13 @@ import ROUTES from '@raiz/constants/ROUTES'
 
 export default function CowDetails() {
   const router = useRouter()
-  const { getCowDetails, removeCow } = useCows()
+  const { getCow, removeCow } = useCows()
   const { id } = router.query
   const [details, setDetails] = useState(undefined)
 
   useEffect(() => {
     if (id) {
-      getCowDetails(id)
+      getCow(id)
         .then((res) => setDetails(res))
         .catch((err) => console.log(err))
     }

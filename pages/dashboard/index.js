@@ -1,5 +1,5 @@
-import CowsDasboard from '@cmps/DashboardCowsLayout'
-import DashboardCowsLayout from '@cmps/DashboardCowsLayout/DashboardCowsLayout'
+import CowsDasboard from '@raiz/src/layouts/DashboardCowsLayout'
+import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 
 export default function PrivateDashboard() {

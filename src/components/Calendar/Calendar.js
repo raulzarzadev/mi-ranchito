@@ -19,7 +19,7 @@ export default function Calendar() {
 
   return (
     <div >
-      <div className={styles.calendar}>
+      <div className={styles.calendar}>{/*  */}
         <H2>Eventos Regulares</H2>
         <div className={styles.calendar_row}>
           <div>
