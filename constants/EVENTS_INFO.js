@@ -248,6 +248,6 @@ export const EVENTS_TYPE_2 = {
   FIRST_SERV: {
     type: '',
     label: LABELS.FIRST_SERV,
-    upcommingEvents: [{ type: 'PALP', InDays: PERIODS.PALP },{34}],
+    upcommingEvents: [{ type: 'PALP', InDays: PERIODS.PALP }],
   },
 }

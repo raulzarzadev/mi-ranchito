@@ -10,39 +10,26 @@ if (!firebase.apps.length) {
 /* -----------------------FIREBASE UTILS ---------------------- */
 /* ---------------------------------------------------------- */
 
-const firebaizedDate = (date) =>
-  firebase.firestore.Timestamp.fromDate(new Date(date))
-
-const firebaizeDates = (dates = {}) => {
+/* const firebaizeDates = (dates = {}) => {
   let aux = {}
   for (const date in dates) {
     if (Object.hasOwnProperty.call(dates, date)) {
-      aux = { ...aux, [date]: dates[date] ? firebaizedDate(dates[date]) : null }
+      aux = { ...aux, [date]: dates[date] ? dateToFirebaseFormat(dates[date]) : null }
     }
   }
   return aux
-}
-const unfierebazeDate = (date) => (date ? date.toMillis() : null)
-const unfierebazeDates = (dates = {}) => {
-  let aux = {}
-  for (const date in dates) {
-    if (dates[date]) {
-      aux = {
-        ...aux,
-        [date]: dates[date] ? unfierebazeDate(dates[date]) : null,
-      }
-    }
-  }
-  return aux
-}
+} */
+
+/* FROM FIREBASE TO CLIENT */
 
 const normalizeDoc = (doc) => {
   const data = doc.data()
-  const { updatedAt, registryDate, createdAt, date } = data
+  const { updatedAt, registryDate, createdAt, date, birth } = data
   const dates = unfierebazeDates({
     updatedAt,
     registryDate,
     createdAt,
+    birth,
     date,
   })
   const id = doc.id
@@ -59,6 +46,42 @@ const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user
   return { email, name: displayName, image: photoURL, id: user.uid }
 }
+
+const unfierebazeDate = (date) => (date ? date?.toMillis() : null)
+const unfierebazeDates = (dates = {}) => {
+  let aux = {}
+  for (const date in dates) {
+    if (dates[date]) {
+      aux = {
+        ...aux,
+        [date]: dates[date] ? unfierebazeDate(dates[date]) : null,
+      }
+    }
+  }
+  return aux
+}
+/* FROM CLIENT TO FIREBASE */
+
+const dateToFirebaseFormat = (date) =>
+  firebase.firestore.Timestamp.fromDate(new Date(date)) || null
+
+const datesToFirebaseFromat = ({
+  birth,
+  registryDate,
+  createdAt,
+  date,
+  updatedAt,
+}) => {
+  const foramtedDates = {}
+  if (birth) foramtedDates.birth = dateToFirebaseFormat(birth)
+  if (date) foramtedDates.date = dateToFirebaseFormat(date)
+  if (createdAt) foramtedDates.createdAt = dateToFirebaseFormat(createdAt)
+  if (updatedAt) foramtedDates.updatedAt = dateToFirebaseFormat(updatedAt)
+  if (registryDate)
+    foramtedDates.registryDate = dateToFirebaseFormat(registryDate)
+  return foramtedDates
+}
+
 /* ---------------------------------------------------------- */
 /* ----------------------- ACCOUNTS MANAGE---------------------- */
 /* ---------------------------------------------------------- */
@@ -96,7 +119,7 @@ export const loginWithFacebook = async () => {
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
-          joinedAt: firebaizedDate(new Date()),
+          joinedAt: dateToFirebaseFormat(new Date()),
         },
         accessToken,
       }
@@ -118,7 +141,7 @@ export const loginWithGoogleMail = async () => {
           email: user.email,
           name: user.displayName,
           image: user.photoURL,
-          joinedAt: firebaizedDate(new Date()),
+          joinedAt: dateToFirebaseFormat(new Date()),
         },
         accessToken,
       }
@@ -247,8 +270,7 @@ export async function fb_newCow(cow) {
     .collection('cows')
     .add({
       ...cow,
-      registryDate: firebaizedDate(new Date(cow.registryDate)),
-      createdAt: firebaizedDate(new Date()),
+      ...datesToFirebaseFromat(cow),
     })
     .catch((err) => console.log(err))
 }
@@ -265,12 +287,14 @@ export async function fb_getUserCows(userId = '') {
 }
 export function fb_updateCow(cowId, cow) {
   console.log(cow)
+  console.log('...datesToFirebaseFromat(cow)', datesToFirebaseFromat(cow))
   const eventRef = db.collection('cows').doc(cowId)
+  const datesInFirebaseFormat = datesToFirebaseFromat(cow)
+
   return eventRef
     .update({
       ...cow,
-      updatedAt: firebaizedDate(new Date()),
-      registryDate: firebaizedDate(new Date(cow.registryDate)),
+      ...datesInFirebaseFormat,
     })
     .then(() => {
       return { ok: true, type: 'COW_UPDATED' }
@@ -304,8 +328,7 @@ export function fb_newEvent(event) {
     .collection('events')
     .add({
       ...event,
-      createdAt: firebaizedDate(new Date()),
-      date: firebaizedDate(new Date(event.date)),
+      ...datesToFirebaseFromat(event),
     })
     .then(() => {
       return { ok: true, type: 'EVT_CREATED' }
@@ -327,12 +350,10 @@ export async function fb_getUserEvents(userId = '') {
 export function fb_updateEvent(eventId, event) {
   console.log(event)
   const eventRef = db.collection('events').doc(eventId)
-  const { date, updatedAt, createdAt, registryDate } = event
-  const dates = firebaizeDates({ date, updatedAt, createdAt, registryDate })
   return eventRef
     .update({
       ...event,
-      ...dates,
+      ...datesToFirebaseFromat(event),
     })
     .then(() => {
       return { ok: true, type: 'EVT_UPDATED' }
@@ -362,8 +383,7 @@ export function fb_NewRecord(record) {
     .collection('records')
     .add({
       ...record,
-      createdAt: firebaizedDate(new Date()),
-      date: firebaizedDate(new Date(record.date)),
+      ...datesToFirebaseFromat(record),
     })
     .then(() => {
       return { ok: true, type: 'RECORD_CREATED' }

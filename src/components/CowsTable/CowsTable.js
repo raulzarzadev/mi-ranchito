@@ -1,7 +1,7 @@
-import Button from '@cmps/Button'
 import { H3 } from '@cmps/H'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import s from './styles.module.css'
+
 export default function CowsTable({ title = 'Table title', cows = [] }) {
   return (
     <div className={s.grid}>
@@ -18,11 +18,13 @@ export default function CowsTable({ title = 'Table title', cows = [] }) {
   )
 }
 
-const Row = ({ cow }) => {
-  const { statuses, nextEvent } = cow
 
+
+const Row = ({ cow }) => {
+  const { statuses, nextEvent, id } = cow
+  const router = useRouter()
   return (
-    <div className={s.grid_row} onClick={() => console.log('details')}>
+    <div className={s.grid_row} onClick={() => router.push(`/dashboard/cows/${id}`)}>
       <div>
         <div>{`${cow.earring}`}</div>
         <em>{cow.name || ' - '}</em>

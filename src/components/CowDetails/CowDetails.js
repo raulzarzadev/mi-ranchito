@@ -7,10 +7,13 @@ import { Btn1, Btn2 } from '@cmps/Btns'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
 import LastEventView from '@cmps/LastEventView'
-import { H2 } from '@cmps/H'
+import { H2, H3 } from '@cmps/H'
 import { P3 } from '@cmps/P'
 import ROUTES from '@raiz/constants/ROUTES'
-
+import Button from '@cmps/Button'
+import Link from 'next/link'
+import { fromNow } from '@raiz/src/utils/Dates'
+import CowEvents from '@cmps/CowEvents'
 export default function CowDetails() {
   const router = useRouter()
   const { getCow, removeCow } = useCows()
@@ -34,6 +37,9 @@ export default function CowDetails() {
     removeCow(id)
   }
 
+  console.log('details', details)
+  
+
   if (details === undefined) return 'loading ...'
 
   const {
@@ -47,7 +53,39 @@ export default function CowDetails() {
   } = details
   return (
     <>
-      <div>Id: {id}</div>
+      <div>
+        <H3>Detalles</H3>
+        <div className={styles.actions}>
+          <div className="box-1">
+            <Button icon deleteIcon secondary onClick={handleOpenDeleteModal} />
+          </div>
+          <div className="box-1">
+            <Button icon editIcon nextLink href={`${ROUTES.editCow}${id}`} />
+          </div>
+        </div>
+        <div className={styles.details_box}>
+          <div>
+            <div className={styles.detail_title}> Arete No. :</div>
+            <div className={styles.detail_content}>{earring}</div>
+          </div>
+          <div>
+            <div className={styles.detail_title}>Nombre :</div>
+            <div className={styles.detail_content}>{name || '-'}</div>
+          </div>
+          <div>
+            <div className={styles.detail_title}>Edad :</div>
+            <div className={styles.detail_content}>{age || '-'}</div>
+          </div>
+          <div>
+            <div className={styles.detail_title}>Registro :</div>
+            <div className={styles.detail_content}>
+              {fromNow(registryDate) || '-'}
+            </div>
+          </div>
+        </div>
+      </div>
+      <CowEvents events={events}/>
+      {/*  <div>Id: {id}</div>
       <div>Arete: {earring}</div>
       <div>Nombre/apodo: {name}</div>
       <div>Edad : {age}</div>
@@ -59,25 +97,19 @@ export default function CowDetails() {
             <H2 key={status}>{status}</H2>
           ))}
         </div>
-      </div>
-      <div className={styles.button_box}>
-        <div className="box-1">
-          <Btn2 label="Eliminar" onClick={handleOpenDeleteModal} />
-        </div>
+      </div> */}
+      {/* <div className={styles.button_box}>
         <div className="box-1">
           <Btn1 label="Nuevo Evento" href={`${ROUTES.newEvent}?cowId=${id}`} />
         </div>
-        <div className="box-1">
-          <Btn1 label="Editar" href={`${ROUTES.editCow}${id}`} />
-        </div>
-      </div>
-      <LastEventView lastEvent={lastEvent} />
+      </div> */}
+      {/*  <LastEventView lastEvent={lastEvent} />
       <EventTable
         hideEarring
         upcomingEvents
         title={`Historial de ${earring}`}
         events={events}
-      />
+      /> */}
       <Modal open={deleteModal} handleOpen={handleOpenDeleteModal}>
         <div style={{ maxWidth: '200px' }}>
           <P primary>

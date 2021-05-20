@@ -2,7 +2,7 @@ import { PERIODS } from "@raiz/constants/EVENTS_INFO"
 
 /*  This function will create a complite COW element  */
 export const Cow = (cow = {}, events = []) => {
-  console.log('events, cow', events, cow)
+  // console.log('events, cow', events, cow)
 
   const { id, earring, createdAt, name, registryDate, userId, birth } = cow
   const details = {
@@ -20,10 +20,10 @@ export const Cow = (cow = {}, events = []) => {
   const previusEvent = eventsSorted[eventsSorted.length - 2]
   const a = getEventConfig('SERV')
   
-  console.log('a', a)
+ /*  console.log('a', a)
   console.log('lastEvent', lastEvent)
   console.log('previusEvent', previusEvent)
-
+ */
   return {
     upcomingEvents: [],
     events: eventsSorted,

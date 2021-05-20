@@ -3,10 +3,26 @@
   justify-content: space-around;
 }
 
-.button_box {
+.actions {
   display: flex;
-  min-width: 200px;
-  justify-content: space-around;
-  padding: 0.5rem;
-  margin: 1rem 0;
+  justify-content: center;
+}
+
+.details_box {
+  display: flex;
+  flex-wrap: wrap;
+  width: ;
+}
+
+.details_box > div {
+  width: 50%;
+  text-align: left;
+}
+
+.detail_title {
+  font-size: var(--font-0);
+}
+.detail_content {
+  font-size: var(--font-2);
+  font-weight: 600;
 }

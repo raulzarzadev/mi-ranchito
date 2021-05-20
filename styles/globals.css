@@ -40,15 +40,22 @@ textarea {
   --primary-ligth: rgb(203, 249, 255);
   --secondary: rgb(109, 202, 90);
   --secondary-ligth: rgb(180, 255, 165);
-   
+
   --background: rgba(8, 8, 8, 0.733);
-  --background-semi:rgb(56, 56, 56);
+  --background-semi: rgb(56, 56, 56);
   --contrast: #fff;
-  --backgraund-ligth:#fff;
-  --contrast-light:#000;
+  --backgraund-ligth: #fff;
+  --contrast-light: #000;
 
   --white: #fff;
   --black: #000;
+
+  --space-1: 8px;
+  --space-2: 16px;
+
+  --font-0: 0.7rem;
+  --font-1: 1rem;
+  --font-2: 1.5rem;
 
   --success: rgb(96, 177, 76);
   --warning: rgb(149, 243, 112);

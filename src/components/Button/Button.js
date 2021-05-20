@@ -1,4 +1,7 @@
 import s from './styles.module.css'
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import EditIcon from '@material-ui/icons/Edit'
+import Link from 'next/link'
 
 export default function Button({
   Component,
@@ -9,16 +12,28 @@ export default function Button({
   primary,
   secondary,
   link,
-  icon,
+  href,
+  deleteIcon = false,
+  editIcon = false,
+  icon = false,
+  nextLink = false,
   ...rest
 }) {
+
   const WrapperButton = (props) =>
-    Component ? <Component {...props} /> : <button {...props} />
-    console.log('secondary', secondary)
-    
+    Component ? (
+      <Component {...props} />
+    ) : nextLink ? (
+      <Link href={href}>
+        <button {...props} />
+      </Link>
+    ) : (
+      <button {...props} />
+    )
+
   return (
     <WrapperButton
-    icon={icon && 'true'}
+      icon={icon && 'true'}
       underline={underline && 'true'}
       outlined={outlined && 'true'}
       primary={primary && 'true'}
@@ -27,8 +42,10 @@ export default function Button({
       className={s.button}
       {...rest}
     >
+      {deleteIcon && <DeleteForeverIcon />}
+      {editIcon && <EditIcon />}
       {children}
-      <div className={s.selected} />
+      {underline && <div className={s.selected} />}
     </WrapperButton>
   )
 }

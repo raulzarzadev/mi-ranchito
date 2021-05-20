@@ -39,6 +39,7 @@ export default function NewEarring({ cow = undefined, title = '' }) {
   const [actions, setActions] = useState('new')
 
   const handleSubmit = () => {
+    console.log('form', form)
     if (cow) {
       editCow(cow.id, form).then((res) => setActions('saved'))
     } else {
@@ -50,11 +51,12 @@ export default function NewEarring({ cow = undefined, title = '' }) {
   }
 
   const handleChangeDate = (e) => {
-    const registryDate = new Date(e.target.value || form.date).toISOString()
-    setForm({ ...form, registryDate })
+    const date = new Date(e.target.value || form.date).toISOString()
+    setForm({ ...form, [e.target.name]: date })
   }
 
   const valid = !!alreadyExist || !form?.earring
+  console.log('form', form)
 
   return (
     <div className="center">
@@ -71,7 +73,7 @@ export default function NewEarring({ cow = undefined, title = '' }) {
           <div>
             <div className={styles.item}>
               <span className={styles.input_label}>
-                {`Identificador* :`}
+                {`Arete :`}
                 <input
                   className={styles.text_input}
                   type="text"
@@ -109,6 +111,20 @@ export default function NewEarring({ cow = undefined, title = '' }) {
                   type="date"
                   name="registryDate"
                   value={formatInputDate(form.registryDate)}
+                  onChange={handleChangeDate}
+                ></input>
+              </span>
+            </div>
+            <div className={styles.item}>
+              <span className={styles.input_label}>
+                <span>
+                  {`Nacimiento :`} <em>(opcional)</em>
+                </span>
+                <input
+                  className={styles.date}
+                  type="date"
+                  name="birth"
+                  value={formatInputDate(form.birth)}
                   onChange={handleChangeDate}
                 ></input>
               </span>

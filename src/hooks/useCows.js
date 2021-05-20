@@ -8,7 +8,7 @@ import {
   fb_getEventsByCow,
 } from '@raiz/firebase/client'
 import { useAuth } from '../context/AuthContext'
-import { Cow } from '../utils/_cow'
+import { Cow } from '../utils/Cow'
 
 export default function useCows() {
   const { user } = useAuth()

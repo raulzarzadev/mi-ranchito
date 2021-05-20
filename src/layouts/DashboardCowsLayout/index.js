@@ -33,7 +33,7 @@ export default function CowsDasboard() {
         name: cow.name,
         statuses: cow.statuses,
       }
-      const cowEvents = cow.lastEvent.nextEvents.map((evt) => {
+      const cowEvents = cow.lastEvent?.nextEvents?.map((evt) => {
         const month = evt.date.getMonth()
         return { ...cowInfo, evt: { ...evt, month } }
       })
