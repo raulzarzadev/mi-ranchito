@@ -1,10 +1,13 @@
 import { Btn1 } from '@cmps/Btns'
 import { H2 } from '@cmps/H'
+import { EVENTS_TYPES_2 } from '@raiz/constants/EVENTS_INFO'
 import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
+import { formatInputDate } from '@raiz/src/utils/Dates'
+import { formatEvent } from '@raiz/src/utils/Event'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { formatedTypes, formatInputDate } from '../../utils'
+// import { formatedTypes } from '../../utils'
 import styles from './styles.module.css'
 
 export default function NewEvent({
@@ -70,31 +73,34 @@ export default function NewEvent({
   }
 
   const valid = !form.earring || !form.event || labelButton === 'Guardado'
+  const eventsAvailables = EVENTS_TYPES_2
+  console.log('eventsAvailables', eventsAvailables)
 
-  const eventsAvaiblable = formatedTypes()?.sort((a, b) => {
+  /*  const eventsAvailable = formatedTypes()?.sort((a, b) => {
     if (a.label > b.label) return 1
     if (a.label < b.label) return -1
     return 0
-  })
+  }) */
 
-  const regularEvents = eventsAvaiblable.filter(
+  /*  const regularEvents = eventsAvailable.filter(
     (event) => event.category === 'regular'
   )
-  const specialsEvents = eventsAvaiblable.filter(
+  const specialsEvents = eventsAvailable.filter(
     (event) => event.category === 'special'
   )
-  const adminEvents = eventsAvaiblable.filter(
+  const adminEvents = eventsAvailable.filter(
     (event) => event.category === 'admin'
   )
 
-  const optionsType = eventsAvaiblable.find(
+  */
+  const optionsType = eventsAvailables.find(
     (event) => event.type === form.event
   )?.options
 
   if (earrings?.length === 0) return 'No hay vacas registras aun...'
-  console.log(form)
   const foramtedDate = formatInputDate(form?.date)
-  console.log(foramtedDate)
+console.log('form', form)
+
   return (
     <div>
       <H2>{title}</H2>
@@ -140,13 +146,13 @@ export default function NewEvent({
                     {` Selecciona Evento`}
                   </option>
                   <optgroup label="Periodicos">
-                    {regularEvents?.map((event, i) => (
-                      <option key={i} value={event.type}>
+                    {eventsAvailables?.map((event, i) => (
+                      <option key={event.key} value={event.key}>
                         {event.label}
                       </option>
                     ))}
                   </optgroup>
-                  <optgroup label="Especiales">
+                  {/*  <optgroup label="Especiales">
                     {specialsEvents?.map((event, i) => (
                       <option key={i} value={event.type}>
                         {event.label}
@@ -159,7 +165,7 @@ export default function NewEvent({
                         {event.label}
                       </option>
                     ))}
-                  </optgroup>
+                  </optgroup> */}
                 </select>
               </span>
             </div>

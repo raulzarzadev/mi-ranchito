@@ -1,0 +1,26 @@
+.buttonback_container {
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2);
+}
+.buttonback {
+  background: var(--backgraund);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--space-1);
+  border: 1px solid;
+  color: var(--primary-ligth);
+  cursor: pointer;
+}
+
+.buttonback:hover {
+  box-shadow: var(--shadow-1);
+}

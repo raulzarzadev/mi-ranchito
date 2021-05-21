@@ -24,16 +24,19 @@ export default function CowEvents({ events = [] }) {
 
 const Row = ({ event }) => {
   const { label, id, date, options, coments } = event
+  
+  console.log('event', event)
+
   const router = useRouter()
   return (
     <div
       className={s.grid_row}
-      onClick={() => router.push(`/dashboard/cows/${id}`)}
+      onClick={() => router.push(`/dashboard/events/${id}`)}
     >
       <div>{label}</div>
       <div>{fromNow(date)}</div>
       <div>{options?.map((option) => option)}</div>
-      <div>{coments}</div>
+      <div>{coments || '-'}</div>
       <div>
         <Button icon deleteIcon secondary />
         <Button icon editIcon primary />

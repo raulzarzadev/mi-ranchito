@@ -14,6 +14,7 @@ import Button from '@cmps/Button'
 import Link from 'next/link'
 import { fromNow } from '@raiz/src/utils/Dates'
 import CowEvents from '@cmps/CowEvents'
+import ButtonBack from '@cmps/ButtonBack'
 export default function CowDetails() {
   const router = useRouter()
   const { getCow, removeCow } = useCows()
@@ -38,7 +39,6 @@ export default function CowDetails() {
   }
 
   console.log('details', details)
-  
 
   if (details === undefined) return 'loading ...'
 
@@ -46,13 +46,16 @@ export default function CowDetails() {
     earring,
     name,
     registryDate,
-    age,
+    birth,
     events,
     lastEvent,
     statuses,
   } = details
+  console.log('details', details)
+
   return (
     <>
+      <ButtonBack />
       <div>
         <H3>Detalles</H3>
         <div className={styles.actions}>
@@ -74,7 +77,9 @@ export default function CowDetails() {
           </div>
           <div>
             <div className={styles.detail_title}>Edad :</div>
-            <div className={styles.detail_content}>{age || '-'}</div>
+            <div className={styles.detail_content}>
+              {fromNow(birth, { showNow: true, sufix: true })}
+            </div>
           </div>
           <div>
             <div className={styles.detail_title}>Registro :</div>
@@ -84,7 +89,7 @@ export default function CowDetails() {
           </div>
         </div>
       </div>
-      <CowEvents events={events}/>
+      <CowEvents events={events} />
       {/*  <div>Id: {id}</div>
       <div>Arete: {earring}</div>
       <div>Nombre/apodo: {name}</div>

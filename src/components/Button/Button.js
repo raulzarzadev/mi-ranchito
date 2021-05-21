@@ -1,5 +1,6 @@
 import s from './styles.module.css'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
+import BackspaceIcon from '@material-ui/icons/Backspace'
 import EditIcon from '@material-ui/icons/Edit'
 import Link from 'next/link'
 
@@ -17,9 +18,9 @@ export default function Button({
   editIcon = false,
   icon = false,
   nextLink = false,
+  buttonBack = false,
   ...rest
 }) {
-
   const WrapperButton = (props) =>
     Component ? (
       <Component {...props} />
@@ -42,6 +43,7 @@ export default function Button({
       className={s.button}
       {...rest}
     >
+      {buttonBack && <BackspaceIcon />}
       {deleteIcon && <DeleteForeverIcon />}
       {editIcon && <EditIcon />}
       {children}
