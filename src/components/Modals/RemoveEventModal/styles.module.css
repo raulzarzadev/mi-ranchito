@@ -1,0 +1,10 @@
+
+.removeeventmodal{
+}
+
+.buttons_box{
+    padding: var(--space-2) 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+

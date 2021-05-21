@@ -1,19 +1,26 @@
 import Button from '@cmps/Button'
-import { H3 } from '@cmps/H'
+import { H2, H3 } from '@cmps/H'
+import RemoveEventModal from '@cmps/Modals/RemoveEventModal'
+import useEvents from '@raiz/src/hooks/useEvents'
 import { fromNow } from '@raiz/src/utils'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import s from './styles.module.css'
 
 export default function CowEvents({ events = [] }) {
   return (
     <div className={s.grid}>
-      <H3>Todos los Eventos</H3>
+      <H2>Todos los Eventos</H2>
+      <Button addNew primary p="2">
+        Evento
+      </Button>
+
       <div className={s.grid_titles}>
         <div className={s.title}>Evento</div>
         <div className={s.title}>Fecha</div>
         <div className={s.title}>Options</div>
         <div className={s.title}>Coments</div>
-        <div className={s.title}>Actions</div>
+        {/*  <div className={s.title}>Actions</div> */}
       </div>
       {events.map((event) => (
         <Row key={event.id} event={event} />
@@ -24,9 +31,15 @@ export default function CowEvents({ events = [] }) {
 
 const Row = ({ event }) => {
   const { label, id, date, options, coments } = event
-  
-  console.log('event', event)
 
+  const { removeEvent } = useEvents()
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const handleOpenDeleteModal = () => {
+    setOpenDeleteModal(!openDeleteModal)
+  }
+  const handleDeleteEvent = () => {
+    removeEvent(event.id)
+  }
   const router = useRouter()
   return (
     <div
@@ -37,10 +50,22 @@ const Row = ({ event }) => {
       <div>{fromNow(date)}</div>
       <div>{options?.map((option) => option)}</div>
       <div>{coments || '-'}</div>
-      <div>
-        <Button icon deleteIcon secondary />
+      {/* <div>
+        <Button
+          icon
+          deleteIcon
+          secondary
+          onClick={(e) => {
+            handleOpenDeleteModal()
+          }}
+        />
         <Button icon editIcon primary />
-      </div>
+      </div> */}
+      <RemoveEventModal
+        open={openDeleteModal}
+        handleOpen={handleOpenDeleteModal}
+        handleDeleteEvent={handleDeleteEvent}
+      />
     </div>
   )
 }

@@ -41,6 +41,7 @@ textarea {
   --secondary: rgb(109, 202, 90);
   --secondary-ligth: rgb(180, 255, 165);
 
+
   --background: rgba(8, 8, 8, 0.733);
   --background-semi: rgb(56, 56, 56);
   --contrast: #fff;
@@ -61,6 +62,8 @@ textarea {
   --warning: rgb(149, 243, 112);
   --danger: rgb(255, 101, 101);
   --blue-1: #185472;
+
+  
   --shadow-1: 1px 1px 3px var(--black);
   --shadow-2: 1px 1px 6px var(--black);
   --shadow-3: 1px 1px 6px 3px var(--black);

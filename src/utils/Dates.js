@@ -9,7 +9,12 @@ export const fromNow = (date, options = {}) => {
     : 'no date'
 }
 
-export function formatInputDate(date) {
+export const formatClientDate = (date) => {
+  const format = moment(date).utc(false).format('DD - MMMM - YY')
+  return format
+}
+
+export const formatInputDate = (date) => {
   const format = moment(date).utc(false).format('YYYY-MM-DD')
   return format
 }

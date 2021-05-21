@@ -1,5 +1,10 @@
-
-.eventdetails{
-    border: 1px solid #000;
+.eventdetails {
+  border: 1px solid #000;
 }
 
+.buttons_box {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  padding: var(--space-1);
+}

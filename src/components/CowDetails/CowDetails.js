@@ -60,10 +60,23 @@ export default function CowDetails() {
         <H3>Detalles</H3>
         <div className={styles.actions}>
           <div className="box-1">
-            <Button icon deleteIcon secondary onClick={handleOpenDeleteModal} />
+            <Button
+              p="2"
+              icon
+              deleteIcon
+              danger
+              onClick={handleOpenDeleteModal}
+            />
           </div>
           <div className="box-1">
-            <Button icon editIcon nextLink href={`${ROUTES.editCow}${id}`} />
+            <Button
+              p="2"
+              icon
+              editIcon
+              primary
+              nextLink
+              href={`${ROUTES.editCow}${id}`}
+            />
           </div>
         </div>
         <div className={styles.details_box}>

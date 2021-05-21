@@ -9,14 +9,15 @@ import React, { useEffect, useState } from 'react'
 export default function EditEvent() {
   const router = useRouter()
   const { getEvent } = useEvents()
-  const { eventId } = router?.query
+  const { id } = router?.query
   const [event, setEvent] = useState(undefined)
 
   useEffect(() => {
-    if (eventId) {
-      getEvent(eventId).then(setEvent)
+    if (id) {
+      getEvent(id).then(setEvent)
     }
-  }, [eventId])
+  }, [id])
+  
 
   if (event === undefined) return 'Cargando...'
 

@@ -1,35 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './styles.module.css'
-
+import CloseIcon from '@material-ui/icons/Close'
 export default function Modal({
   title = 'Modal title',
   open,
   handleOpen = () => {},
   children,
 }) {
+  useEffect(() => {
+    const a = document.getElementById('modal-1')
+    a.addEventListener('click', (e) => {
+      const { id } = e.target
+      if (id === 'modal-1') handleOpen()
+    })
+  }, [open])
   return (
     <div
       className={styles.modal}
       id="modal-1"
       style={{ display: !open && 'none' }}
-      onClick={(e) => {
-        e.preventDefault()
-        handleOpen()
-      }}
     >
-      <div className={styles.modal_dialog}>
+      <div id="modal" className={styles.modal_dialog}>
         <header className={styles.modal_header}>
           <div className={styles.modal_title}>
             <h5>{title}</h5>
           </div>
           <button
+            type="button"
+            autoFocus
             className={styles.modal_button_close}
+            id="close-button"
             onClick={(e) => {
               e.preventDefault()
               handleOpen()
             }}
           >
-            X
+            <CloseIcon />
           </button>
         </header>
         <section className={styles.modal_content}>{children}</section>
