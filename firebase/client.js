@@ -24,6 +24,9 @@ if (!firebase.apps.length) {
 
 const normalizeDoc = (doc) => {
   const data = doc.data()
+
+  if (!doc.exists) return {} // The document  not exist
+
   const { updatedAt, registryDate, createdAt, date, birth } = data
   const dates = unfierebazeDates({
     updatedAt,
@@ -32,6 +35,7 @@ const normalizeDoc = (doc) => {
     birth,
     date,
   })
+  
   const id = doc.id
   return {
     id,

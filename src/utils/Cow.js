@@ -1,4 +1,4 @@
-import { PERIODS } from "@raiz/constants/EVENTS_INFO"
+import { EVENTS_TYPES_2, PERIODS } from '@raiz/constants/EVENTS_INFO'
 
 /*  This function will create a complite COW element  */
 export const Cow = (cow = {}, events = []) => {
@@ -15,12 +15,20 @@ export const Cow = (cow = {}, events = []) => {
     birth,
   }
 
+  const _formatEvent = (event) => {
+    console.log('event', event)
+    console.log(EVENTS_TYPES_2.find(({ key }) => key === event.key))
+
+    /* 
+    return { label, id, date, options, coments } */
+  }
+
   const eventsSorted = events.sort((a, b) => a.date - b.date)
+  const formatedEvents = eventsSorted.map((event) => _formatEvent(event))
   const lastEvent = eventsSorted[eventsSorted.length - 1]
   const previusEvent = eventsSorted[eventsSorted.length - 2]
-  const a = getEventConfig('SERV')
-  
- /*  console.log('a', a)
+
+  /*  console.log('a', a)
   console.log('lastEvent', lastEvent)
   console.log('previusEvent', previusEvent)
  */
@@ -31,14 +39,4 @@ export const Cow = (cow = {}, events = []) => {
     lastEvent: {},
     ...details,
   }
-}
-
-
-export function getEventConfig(event) {
-  const events = {
-    SERV: {type:'SECA', inDays:PERIODS.seca},
-    PARTO: { type: 'SERV', inDays: PERIODS.rest_time  },
-  }
-  const e = events[event]  
-  return e
 }

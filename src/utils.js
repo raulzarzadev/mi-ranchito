@@ -1,11 +1,11 @@
-import { EVENTS_TYPES, PERIODS } from '@raiz/constants/EVENTS_INFO'
+import { EVENTS_TYPES, EVENTS_TYPES_2, PERIODS } from '@raiz/constants/EVENTS_INFO'
 import moment from 'moment'
 
 export function formatedTypes() {
   return EVENTS_TYPES.map((event) => {
     const auxArr = []
     event.nextEvents.forEach((event) => {
-      auxArr.push(EVENTS_TYPES.find(({ type }) => type === event))
+      auxArr.push(EVENTS_TYPES_2.find(({ type }) => type === event))
     })
     return { ...event, nextEvents: auxArr }
   })
@@ -46,7 +46,7 @@ export function formatEventsByEarrings(earrings = [], events = []) {
 const setCowStatus = (events = []) => {
   const statuses = []
 
-  //if (event === 'serv') statuses.push('gestante')
+  // if (event === 'serv') statuses.push('gestante')
 
   /*  const prevEvent = evts[1]?.event
   const lastEvent = evts[0]?.event

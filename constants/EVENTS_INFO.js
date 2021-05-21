@@ -237,17 +237,46 @@ y si en el estatus se modifica manualmente  ??
           
  .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
 
-
-
-export const EVENTS_TYPE_2 = {
-  BIRTH: {
+export const EVENTS_TYPES_2 = [
+  {
+    key: 'BIRTH',
     type: '',
     label: LABELS.BIRTH,
-    upcommingEvents: [{ type: 'FIRST_SERV', InDays: PERIODS.FIRST_SERV }],
+    upcommingEvents: [{ key: 'FIRST_SERV', InDays: PERIODS.FIRST_SERV }],
   },
-  FIRST_SERV: {
+  {
+    key: 'FIRST_SERV',
     type: '',
     label: LABELS.FIRST_SERV,
-    upcommingEvents: [{ type: 'PALP', InDays: PERIODS.PALP }],
+    upcommingEvents: [{ key: 'PALP', InDays: PERIODS.PALP }],
   },
+  {
+    key: 'SERV',
+    type: '',
+    label: LABELS.SERV,
+    upcommingEvents: [
+      { key: 'PALP', InDays: PERIODS.PALP },
+      { key: 'PARTO', InDays: PERIODS.PARTO },
+    ],
+  },
+  { key: 'PALP', type: '', label: LABELS.PALP, upcommingEvents: [] },
+  { key: 'DRY', type: '', label: LABELS.DRY, upcommingEvents: [] },
+  { key: 'PARTO', type: '', label: LABELS.PARTO, upcommingEvents: [] },
+]
+
+/* 
+
+export const LABELS = {
+  BIRTH: 'Nacimiento',
+  FIRST_SERV: 'Primer Servicio',
+  HEAT: 'Calor',
+  SERV_FAIL: 'Servicio Fallo',
+  SERV: 'Servicio',
+  PALP: 'Palpación',
+  DRY: 'Seca',
+  PARTO: 'Parto',
+  NEXT_SERV: 'Proximo Servicio',
+  REST_TIME: 'Reposo',
+  ABORT: 'Aborto',
 }
+*/

@@ -7,6 +7,7 @@ import {
 } from '@raiz/firebase/client'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { Event } from '../utils/Event'
 
 export default function useEvents() {
   const { user } = useAuth()
@@ -15,6 +16,7 @@ export default function useEvents() {
   const getEvents = () => {
     return fb_getUserEvents(user.id)
   }
+
   const addEvent = (event) => {
     fb_newEvent({ userId: user.id, ...event })
       .then((res) => console.log(res))
@@ -27,11 +29,11 @@ export default function useEvents() {
   }
 
   const editEvent = (eventId, event) => {
-    console.log(event)
     fb_updateEvent(eventId, event).then((res) => console.log(res))
   }
-  const getEvent = (eventId) => {
-    return fb_getEvent(eventId)
+  const getEvent = async (eventId) => {
+    const event = await fb_getEvent(eventId)
+    return Event(event)
   }
 
   return {
