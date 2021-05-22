@@ -49,9 +49,10 @@ export default function useCows() {
 
   const removeCow = async (cowId) => {
     // TODO solo colocar hide
-    await fb_updateCow(cowId, { active: false })
-      /* .then((res) => console.log(res))
-      .catch((err) => console.log(err)) */
+    console.log('removimng cowId', cowId)
+
+    return await fb_updateCow(cowId, { isHidden: true })
+     
   }
 
   return { getCow, getCows, addCow, removeCow, editCow }

@@ -44,7 +44,6 @@ export default function CowDetails() {
     lastEvent,
     statuses,
   } = details
-  console.log('details', details)
 
   return (
     <>
@@ -123,6 +122,7 @@ export default function CowDetails() {
       <RemoveCowModal
         open={openRemoveCowModal}
         handleOpen={handleOpenDeleteModal}
+        cowId={id}
       />
     </>
   )

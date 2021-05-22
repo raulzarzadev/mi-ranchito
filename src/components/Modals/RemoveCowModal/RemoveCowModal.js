@@ -1,14 +1,26 @@
 import Button from '@cmps/Button'
 import P from '@cmps/P/P'
 import useCows from '@raiz/src/hooks/useCows'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Modal from '../Modal/Modal'
 import s from './styles.module.css'
 
 export default function RemoveCowModal({ open, handleOpen, cowId }) {
+  const [deleteText, setDeleteText] = useState('Eliminar')
+  const router = useRouter()
   const { removeCow } = useCows()
-  const handleDelete = (id) => {
-    removeCow(id)
+
+  const handleDelete = () => {
+    removeCow(cowId).then((res) => {
+      if (res.type === 'COW_UPDATED') {
+        setDeleteText('Vaca eliminada')
+        setTimeout(() => {
+          router.back()
+        }, 500)
+      }
+      console.log('res', res)
+    })
   }
 
   return (
@@ -22,8 +34,8 @@ export default function RemoveCowModal({ open, handleOpen, cowId }) {
           `}
         </P>
         <div className={s.buttons_box}>
-          <Button p="2" danger onClick={() => handleDelete(cowId)}>
-            Eliminar
+          <Button p="2" danger onClick={() => handleDelete()}>
+            {deleteText}
           </Button>
           <Button p="2" onClick={handleOpen}>
             Cancelar

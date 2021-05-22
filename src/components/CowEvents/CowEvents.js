@@ -8,6 +8,8 @@ import { useState } from 'react'
 import s from './styles.module.css'
 
 export default function CowEvents({ events = [], cowId = '' }) {
+  console.log('events', events)
+  
   const router = useRouter()
   return (
     <div className={s.grid}>

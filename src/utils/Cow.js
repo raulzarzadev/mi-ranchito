@@ -1,8 +1,12 @@
-import { EVENTS_TYPES_2, PERIODS } from '@raiz/constants/EVENTS_INFO'
+import {
+  EVENTS_TYPES,
+  EVENTS_TYPES_2,
+  PERIODS,
+} from '@raiz/constants/EVENTS_INFO'
 
 /*  This function will create a complite COW element  */
 export const Cow = (cow = {}, events = []) => {
-  // console.log('events, cow', events, cow)
+  console.log('events, cow', events, cow)
 
   const { id, earring, createdAt, name, registryDate, userId, birth } = cow
   const details = {
@@ -16,8 +20,9 @@ export const Cow = (cow = {}, events = []) => {
   }
 
   const _formatEvent = (event) => {
-    console.log('event', event)
-    console.log(EVENTS_TYPES_2.find(({ key }) => key === event.key))
+    const info = EVENTS_TYPES_2.find(({ key }) => key === event.key)
+
+    return { ...info, ...event }
 
     /* 
     return { label, id, date, options, coments } */
@@ -27,6 +32,7 @@ export const Cow = (cow = {}, events = []) => {
   const formatedEvents = eventsSorted.map((event) => _formatEvent(event))
   const lastEvent = eventsSorted[eventsSorted.length - 1]
   const previusEvent = eventsSorted[eventsSorted.length - 2]
+  console.log('formatedEvents', formatedEvents)
 
   /*  console.log('a', a)
   console.log('lastEvent', lastEvent)
@@ -34,9 +40,10 @@ export const Cow = (cow = {}, events = []) => {
  */
   return {
     upcomingEvents: [],
-    events: eventsSorted,
+    events: formatedEvents,
     statuses: [],
     lastEvent: {},
+
     ...details,
   }
 }

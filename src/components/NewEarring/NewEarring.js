@@ -5,8 +5,11 @@ import { formatInputDate, fromNow } from '@raiz/src/utils'
 import { H2 } from '@cmps/H'
 import { Btn1 } from '@cmps/Btns'
 import ROUTES from '@raiz/constants/ROUTES'
+import { useRouter } from 'next/router'
 
 export default function NewEarring({ cow = undefined, title = '' }) {
+  const router = useRouter()
+  const [actions, setActions] = useState('new')
   const { addCow, getCows, editCow } = useCows()
 
   useEffect(() => {
@@ -20,7 +23,6 @@ export default function NewEarring({ cow = undefined, title = '' }) {
     }
   }, [cow])
 
-  console.log(cow)
 
   const [form, setForm] = useState({})
   const [earrings, setEarrings] = useState()
@@ -36,12 +38,17 @@ export default function NewEarring({ cow = undefined, title = '' }) {
   const alreadyExist = earrings?.find(
     (earring) => earring.earring === form.earring
   )
-  const [actions, setActions] = useState('new')
 
   const handleSubmit = () => {
     console.log('form', form)
     if (cow) {
-      editCow(cow.id, form).then((res) => setActions('saved'))
+      editCow(cow.id, form).then((res) => {
+        setActions('saved')
+        setTimeout(() => {
+          router.back()
+        }, 500);
+      }
+        )
     } else {
       addCow(form).then((res) => {
         setActions('saved')
@@ -56,7 +63,6 @@ export default function NewEarring({ cow = undefined, title = '' }) {
   }
 
   const valid = !!alreadyExist || !form?.earring
-  console.log('form', form)
 
   return (
     <div className="center">

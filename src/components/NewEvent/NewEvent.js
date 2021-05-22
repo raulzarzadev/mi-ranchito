@@ -27,12 +27,14 @@ export default function NewEvent({
     coments: '',
     earring: '',
     earringId: '',
-    event: '',
+    key: '',
   })
 
   useEffect(() => {
     getCows().then((res) => setEarrings(res))
   }, [])
+  console.log('form', form)
+  
 
   useEffect(() => {
     if (earringId) {
@@ -72,7 +74,7 @@ export default function NewEvent({
     }, 300)
   }
 
-  const valid = !form.earring || !form.event || labelButton === 'Guardado'
+  const valid = !form.earring || !form.key || labelButton === 'Guardado'
   const eventsAvailables = EVENTS_TYPES_2
   console.log('eventsAvailables', eventsAvailables)
 
@@ -94,7 +96,7 @@ export default function NewEvent({
 
   */
   const optionsType = eventsAvailables.find(
-    (event) => event.type === form.event
+    (event) => event.type === form.key
   )?.options
 
   if (earrings?.length === 0) return 'No hay vacas registras aun...'
@@ -137,8 +139,8 @@ console.log('form', form)
                 <select
                   className={styles.select}
                   onChange={handleChange}
-                  value={form?.event || ''}
-                  name="event"
+                  value={form?.key || ''}
+                  name="key"
                   id="select-animal"
                   placeholder="Selecciona una vaca"
                 >
