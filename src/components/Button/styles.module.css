@@ -12,9 +12,14 @@
   justify-content: center;
   margin: 0 auto;
 }
+
+/* 
+   - - - - -  - - - - - - - - - - - - -  SIZING 
+*/
 .button[fullwidth] {
   width: 100%;
 }
+
 .button[p='1'] {
   padding: 4px;
 }
@@ -22,6 +27,22 @@
   padding: 8px;
 }
 
+.button[my='1'] {
+  margin: 8px auto;
+}
+.button[my='2'] {
+  margin: 16px auto;
+}
+.button[mx='1'] {
+  margin: auto 8px;
+}
+.button[mx='2'] {
+  margin: auto 16px;
+}
+
+/* 
+   - - - - -  - - - - - - - - - - - - -  SEUDO CLASSES
+*/
 .button:hover {
   box-shadow: none;
 }

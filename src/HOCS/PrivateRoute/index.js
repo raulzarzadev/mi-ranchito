@@ -1,8 +1,14 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAuth } from '@raiz/src/context/AuthContext'
+import ButtonBack from '@cmps/ButtonBack'
 
-export default function PrivateRoute({ Component, SecondaryLayout, ...res }) {
+export default function PrivateRoute({
+  Component,
+  SecondaryLayout,
+  buttonBack,
+  ...res
+}) {
   const router = useRouter()
   const { user } = useAuth()
   const [userData, setUserData] = useState(undefined)
@@ -20,7 +26,8 @@ export default function PrivateRoute({ Component, SecondaryLayout, ...res }) {
 
   if (SecondaryLayout) {
     return (
-      <SecondaryLayout>
+      <SecondaryLayout buttonBack>
+       
         <Component {...res} user={userData} />
       </SecondaryLayout>
     )

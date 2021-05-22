@@ -7,13 +7,22 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import s from './styles.module.css'
 
-export default function CowEvents({ events = [] }) {
+export default function CowEvents({ events = [], cowId = '' }) {
+  const router = useRouter()
   return (
     <div className={s.grid}>
-      <H2>Todos los Eventos</H2>
-      <Button addNew primary p="2">
-        Evento
-      </Button>
+      <div className={s.grid_title}>
+        <H2>Todos los Eventos</H2>
+        <Button
+          addNew
+          primary
+          p="2"
+          my="2"
+          onClick={() => router.push(`/dashboard/events/new?cowId=${cowId}`)}
+        >
+          Evento
+        </Button>
+      </div>
 
       <div className={s.grid_titles}>
         <div className={s.title}>Evento</div>

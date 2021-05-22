@@ -1,3 +1,4 @@
+import ButtonBack from '@cmps/ButtonBack'
 import ROUTES from '@raiz/constants/ROUTES'
 import React from 'react'
 import BottomNav from './BottomNav'
@@ -110,9 +111,10 @@ const links = [
   },
 ]
 
-export default function DashboardCowsLayout({ children }) {
+export default function DashboardCowsLayout({ children , buttonBack}) {
   return (
     <div className={styles.cows_dashboard}>
+      {buttonBack && <ButtonBack />}
       <div className={styles.dash_container}>{children}</div>
       <SideNav links={links} />
       <BottomNav links={links.filter((link) => link.side === 'bottom')} />

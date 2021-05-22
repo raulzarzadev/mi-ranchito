@@ -15,12 +15,16 @@ import Link from 'next/link'
 import { fromNow } from '@raiz/src/utils/Dates'
 import CowEvents from '@cmps/CowEvents'
 import ButtonBack from '@cmps/ButtonBack'
+import RemoveCowModal from '@cmps/Modals/RemoveCowModal/RemoveCowModal'
 export default function CowDetails() {
   const router = useRouter()
   const { getCow, removeCow } = useCows()
   const { id } = router.query
   const [details, setDetails] = useState(undefined)
-
+  const [openRemoveCowModal, setOpenRemoveCowModal] = useState(false)
+  const handleOpenDeleteModal = () => {
+    setOpenRemoveCowModal(!openRemoveCowModal)
+  }
   useEffect(() => {
     if (id) {
       getCow(id)
@@ -28,17 +32,6 @@ export default function CowDetails() {
         .catch((err) => console.log(err))
     }
   }, [id])
-  const [deleteModal, setDeleteModal] = useState()
-
-  const handleOpenDeleteModal = () => {
-    setDeleteModal(!deleteModal)
-  }
-
-  const handleDelete = (id) => {
-    removeCow(id)
-  }
-
-  console.log('details', details)
 
   if (details === undefined) return 'loading ...'
 
@@ -55,7 +48,6 @@ export default function CowDetails() {
 
   return (
     <>
-      <ButtonBack />
       <div>
         <H3>Detalles</H3>
         <div className={styles.actions}>
@@ -102,7 +94,7 @@ export default function CowDetails() {
           </div>
         </div>
       </div>
-      <CowEvents events={events} />
+      <CowEvents events={events} cowId={id} />
       {/*  <div>Id: {id}</div>
       <div>Arete: {earring}</div>
       <div>Nombre/apodo: {name}</div>
@@ -128,18 +120,10 @@ export default function CowDetails() {
         title={`Historial de ${earring}`}
         events={events}
       /> */}
-      <Modal open={deleteModal} handleOpen={handleOpenDeleteModal}>
-        <div style={{ maxWidth: '200px' }}>
-          <P primary>
-            Eliminaras esta vaca y todos los eventos relacionados con esta.
-          </P>
-          <P strong>¿Estas seguro?</P>
-          <div className={styles.modal_actions}>
-            <Btn2 label="Eliminar" onClick={() => handleDelete(id)} />
-            <Btn1 label="Cancelar" />
-          </div>
-        </div>
-      </Modal>
+      <RemoveCowModal
+        open={openRemoveCowModal}
+        handleOpen={handleOpenDeleteModal}
+      />
     </>
   )
 }

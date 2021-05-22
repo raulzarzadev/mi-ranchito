@@ -12,6 +12,7 @@ export default function cow() {
       <PrivateRoute
         Component={CowDetails}
         SecondaryLayout={DashboardCowsLayout}
+        buttonBack
       />
     </>
   )

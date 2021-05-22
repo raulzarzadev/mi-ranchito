@@ -14,6 +14,7 @@ export default function Private() {
         Component={NewEarring}
         SecondaryLayout={DashboardCowsLayout}
         title="Nueva Vaca"
+        buttonBack
       />
     </>
   )

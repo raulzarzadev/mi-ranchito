@@ -6,7 +6,6 @@ import s from './styles.module.css'
 export default function CowsTable({ title = 'Table title', cows = [] }) {
   return (
     <>
-      <ButtonBack />
       <div className={s.grid}>
         <H3>Vacas</H3>
         <div className={s.grid_titles}>

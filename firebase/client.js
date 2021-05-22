@@ -291,7 +291,7 @@ export async function fb_getUserCows(userId = '') {
 }
 export function fb_updateCow(cowId, cow) {
   console.log(cow)
-  console.log('...datesToFirebaseFromat(cow)', datesToFirebaseFromat(cow))
+ /*  console.log('...datesToFirebaseFromat(cow)', datesToFirebaseFromat(cow))
   const eventRef = db.collection('cows').doc(cowId)
   const datesInFirebaseFormat = datesToFirebaseFromat(cow)
 
@@ -303,7 +303,7 @@ export function fb_updateCow(cowId, cow) {
     .then(() => {
       return { ok: true, type: 'COW_UPDATED' }
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err)) */
 }
 
 /* ---------------------------------------------------------- */

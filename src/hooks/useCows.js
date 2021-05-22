@@ -49,12 +49,9 @@ export default function useCows() {
 
   const removeCow = async (cowId) => {
     // TODO solo colocar hide
-    await fb_deleteCowEvents(cowId)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
-    await fb_deleteCow(cowId)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
+    await fb_updateCow(cowId, { active: false })
+      /* .then((res) => console.log(res))
+      .catch((err) => console.log(err)) */
   }
 
   return { getCow, getCows, addCow, removeCow, editCow }
