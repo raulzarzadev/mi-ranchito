@@ -1,24 +1,16 @@
-import EventTable from '@cmps/EventTable'
-import Modal from '@cmps/Modals/Modal/Modal'
-import P from '@cmps/P/P'
 import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
-import { Btn1, Btn2 } from '@cmps/Btns'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
-import LastEventView from '@cmps/LastEventView'
-import { H2, H3 } from '@cmps/H'
-import { P3 } from '@cmps/P'
+import { H3 } from '@cmps/H'
 import ROUTES from '@raiz/constants/ROUTES'
 import Button from '@cmps/Button'
-import Link from 'next/link'
 import { fromNow } from '@raiz/src/utils/Dates'
 import CowEvents from '@cmps/CowEvents'
-import ButtonBack from '@cmps/ButtonBack'
 import RemoveCowModal from '@cmps/Modals/RemoveCowModal/RemoveCowModal'
 export default function CowDetails() {
   const router = useRouter()
-  const { getCow, removeCow } = useCows()
+  const { getCow } = useCows()
   const { id } = router.query
   const [details, setDetails] = useState(undefined)
   const [openRemoveCowModal, setOpenRemoveCowModal] = useState(false)
@@ -27,9 +19,7 @@ export default function CowDetails() {
   }
   useEffect(() => {
     if (id) {
-      getCow(id)
-        .then((res) => setDetails(res))
-        .catch((err) => console.log(err))
+      getCow(id).then(setDetails)
     }
   }, [id])
 
@@ -93,6 +83,7 @@ export default function CowDetails() {
           </div>
         </div>
       </div>
+
       <CowEvents events={events} cowId={id} />
       {/*  <div>Id: {id}</div>
       <div>Arete: {earring}</div>

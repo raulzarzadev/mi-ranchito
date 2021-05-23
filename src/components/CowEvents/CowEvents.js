@@ -9,7 +9,7 @@ import s from './styles.module.css'
 
 export default function CowEvents({ events = [], cowId = '' }) {
   console.log('events', events)
-  
+
   const router = useRouter()
   return (
     <div className={s.grid}>
@@ -25,11 +25,10 @@ export default function CowEvents({ events = [], cowId = '' }) {
           Evento
         </Button>
       </div>
-
       <div className={s.grid_titles}>
         <div className={s.title}>Evento</div>
         <div className={s.title}>Fecha</div>
-        <div className={s.title}>Options</div>
+        <div className={s.title}>Variante</div>
         <div className={s.title}>Coments</div>
         {/*  <div className={s.title}>Actions</div> */}
       </div>
@@ -41,7 +40,7 @@ export default function CowEvents({ events = [], cowId = '' }) {
 }
 
 const Row = ({ event }) => {
-  const { label, id, date, options, coments } = event
+  const { label, id, date, variants, coments } = event
 
   const { removeEvent } = useEvents()
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -59,7 +58,11 @@ const Row = ({ event }) => {
     >
       <div>{label}</div>
       <div>{fromNow(date)}</div>
-      <div>{options?.map((option) => option)}</div>
+      <div>
+        {variants?.map((variant) => (
+          <div key={variant.key}>{variant.label}</div>
+        ))}
+      </div>
       <div>{coments || '-'}</div>
       {/* <div>
         <Button

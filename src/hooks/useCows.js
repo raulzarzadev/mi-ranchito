@@ -25,6 +25,8 @@ export default function useCows() {
   const getCow = async (cowId) => {
     const cow = await fb_getCow(cowId)
     const events = await fb_getEventsByCow(cowId)
+    console.log('events', events)
+
     return Cow(cow, events)
   }
 
@@ -34,6 +36,7 @@ export default function useCows() {
       const cows = await fb_getUserCows(user?.id)
       for (const cow of cows) {
         const cowEvents = await getCow(cow.id)
+
         formatedCows.push(cowEvents)
       }
     } catch (error) {
@@ -52,7 +55,6 @@ export default function useCows() {
     console.log('removimng cowId', cowId)
 
     return await fb_updateCow(cowId, { isHidden: true })
-     
   }
 
   return { getCow, getCows, addCow, removeCow, editCow }

@@ -9,6 +9,7 @@ export default function Button({
   children,
   href,
   nextLink = false,
+
   // form
   outlined,
   fullwidth,
@@ -17,6 +18,7 @@ export default function Button({
   addNew = false,
   icon = false,
   link,
+
   // color filled
   danger,
   success,
@@ -25,6 +27,7 @@ export default function Button({
 
   // decorations
   active,
+  disabled,
   underline,
   ...rest
 }) {
@@ -41,6 +44,7 @@ export default function Button({
 
   return (
     <WrapperButton
+      disabled={disabled}
       fullwidth={fullwidth && 'true'}
       icon={icon && 'true'}
       underline={underline && 'true'}

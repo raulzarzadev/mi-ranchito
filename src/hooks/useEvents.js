@@ -33,6 +33,7 @@ export default function useEvents() {
   }
   const getEvent = async (eventId) => {
     const event = await fb_getEvent(eventId)
+    
     return Event(event)
   }
 

@@ -1,4 +1,5 @@
 import { Btn1 } from '@cmps/Btns'
+import Button from '@cmps/Button'
 import { H2 } from '@cmps/H'
 import { EVENTS_TYPES_2 } from '@raiz/constants/EVENTS_INFO'
 import useCows from '@raiz/src/hooks/useCows'
@@ -15,6 +16,7 @@ export default function NewEvent({
   earringId = null,
   event = null,
 }) {
+  const EVENTS = EVENTS_TYPES_2
   const router = useRouter()
 
   const { getCows } = useCows()
@@ -33,8 +35,6 @@ export default function NewEvent({
   useEffect(() => {
     getCows().then((res) => setEarrings(res))
   }, [])
-  console.log('form', form)
-  
 
   useEffect(() => {
     if (earringId) {
@@ -48,6 +48,16 @@ export default function NewEvent({
       setForm({ ...event })
     }
   }, [event])
+
+  const [variants, setVariants] = useState(null)
+  useEffect(() => {
+    const variants = EVENTS.find(({ key }) => key === form.key)?.variants
+    if (variants) {
+      setVariants(variants)
+    } else {
+      setVariants(null)
+    }
+  }, [form.key])
 
   const handleSelectCow = (e) => {
     const earringNo = earrings?.find((cow) => cow.id === e.target.value)
@@ -75,8 +85,6 @@ export default function NewEvent({
   }
 
   const valid = !form.earring || !form.key || labelButton === 'Guardado'
-  const eventsAvailables = EVENTS_TYPES_2
-  console.log('eventsAvailables', eventsAvailables)
 
   /*  const eventsAvailable = formatedTypes()?.sort((a, b) => {
     if (a.label > b.label) return 1
@@ -86,22 +94,26 @@ export default function NewEvent({
 
   /*  const regularEvents = eventsAvailable.filter(
     (event) => event.category === 'regular'
-  )
-  const specialsEvents = eventsAvailable.filter(
-    (event) => event.category === 'special'
-  )
-  const adminEvents = eventsAvailable.filter(
-    (event) => event.category === 'admin'
-  )
+    )
+    const specialsEvents = eventsAvailable.filter(
+      (event) => event.category === 'special'
+      )
+      const adminEvents = eventsAvailable.filter(
+        (event) => event.category === 'admin'
+        )
+        
+        */
+  /* const eventVariants = EVENTS.find((event) => event.type === form.key)
+    
 
-  */
-  const optionsType = eventsAvailables.find(
-    (event) => event.type === form.key
-  )?.options
+    console.log('eventVariants', eventVariants)
+     */
 
-  if (earrings?.length === 0) return 'No hay vacas registras aun...'
+  console.log('variants', variants)
+  console.log('form', form)
+
+  if (earrings?.length === 0) return 'No hay vacas registradas aun...'
   const foramtedDate = formatInputDate(form?.date)
-console.log('form', form)
 
   return (
     <div>
@@ -145,10 +157,10 @@ console.log('form', form)
                   placeholder="Selecciona una vaca"
                 >
                   <option value="" disabled>
-                    {` Selecciona Evento`}
+                    {`Selecciona Evento`}
                   </option>
                   <optgroup label="Periodicos">
-                    {eventsAvailables?.map((event, i) => (
+                    {EVENTS?.map((event, i) => (
                       <option key={event.key} value={event.key}>
                         {event.label}
                       </option>
@@ -171,29 +183,28 @@ console.log('form', form)
                 </select>
               </span>
             </div>
-            {optionsType?.length > 0 && (
+            {variants?.length > 0 && (
               <div className={styles.event_form__input}>
                 <span>
                   <select
                     className={styles.select}
                     onChange={handleChange}
-                    name="eventOption"
+                    name="variant"
                     id="select-event-option"
-                    value={form?.eventOption || ''}
+                    value={form?.variant || ''}
                   >
                     <option value="" disabled>
-                      {`Detalles`}
+                      {`Variante`}
                     </option>
-                    {optionsType?.map((option, i) => (
-                      <option key={i} value={option.type}>
-                        {option.label}
+                    {variants?.map((variant, i) => (
+                      <option key={i} value={variant.key}>
+                        {variant.label}
                       </option>
                     ))}
                   </select>
                 </span>
               </div>
             )}
-
             <div className={styles.event_form__input}>
               <span>
                 <textarea
@@ -221,7 +232,9 @@ console.log('form', form)
               </span>
             </div>
             <div className={styles.event_form__input}>
-              <Btn1 disabled={valid}>{labelButton}</Btn1>
+              <Button primary p="2" my="2" disabled={valid}>
+                {labelButton}
+              </Button>
             </div>
           </div>
         </form>

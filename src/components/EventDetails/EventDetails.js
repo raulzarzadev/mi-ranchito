@@ -10,6 +10,7 @@ import s from './styles.module.css'
 
 export default function EventDetails({ event }) {
   console.log('event', event)
+  const { variants } = event
   const router = useRouter()
   const { removeEvent } = useEvents()
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -46,9 +47,9 @@ export default function EventDetails({ event }) {
           <div>Creado : {fromNow(event.date)}</div>
           <div>Fecha: {formatClientDate(event.date)}</div>
           <div>
-            <H3>Opciones</H3>
-            {event?.options ? (
-              <div>{event?.options?.map((option) => option)}</div>
+            <H3>Variante</H3>
+            {variants ? (
+              <div>{variants?.map((variant) => variant.label)}</div>
             ) : (
               '-'
             )}

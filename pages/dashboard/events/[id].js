@@ -18,7 +18,6 @@ export default function cow() {
       getEvent(id).then(setEvent)
     }
   }, [id])
-  
 
   return (
     <>

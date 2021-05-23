@@ -236,7 +236,17 @@ parto         lact
 y si en el estatus se modifica manualmente  ??
           
  .-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'*,.-°'rz */
-
+export const VARIANTS = {
+  FIRST_SERV: [
+    { key: 'INSEM', label: 'Inseminación' },
+    { key: 'MONTA_MUÑE', label: 'Monta Directa - Muñeco' },
+  ],
+  PARTO: [
+    { key: 'MACHO', label: 'Macho' },
+    { key: 'HEMBRA', label: 'Hembra' },
+    { key: 'DEAD', label: 'Muerto' },
+  ],
+}
 export const EVENTS_TYPES_2 = [
   {
     key: 'BIRTH',
@@ -246,8 +256,9 @@ export const EVENTS_TYPES_2 = [
   },
   {
     key: 'FIRST_SERV',
-    type: '',
     label: LABELS.FIRST_SERV,
+    variants: VARIANTS.FIRST_SERV,
+    type: '',
     upcommingEvents: [{ key: 'PALP', InDays: PERIODS.PALP }],
   },
   {
@@ -261,7 +272,13 @@ export const EVENTS_TYPES_2 = [
   },
   { key: 'PALP', type: '', label: LABELS.PALP, upcommingEvents: [] },
   { key: 'DRY', type: '', label: LABELS.DRY, upcommingEvents: [] },
-  { key: 'PARTO', type: '', label: LABELS.PARTO, upcommingEvents: [] },
+  {
+    key: 'PARTO',
+    type: '',
+    label: LABELS.PARTO,
+    upcommingEvents: [],
+    variants: VARIANTS.PARTO,
+  },
 ]
 
 /* 
