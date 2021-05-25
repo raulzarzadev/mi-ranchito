@@ -17,9 +17,16 @@ export default function upcoming() {
     }
   }, [user])
 
-  
-
   if (events === undefined) return 'Cargando...'
+  console.log(
+    'events',
+    events.map((event) => {
+      return {
+        date: event.date,
+        upcommingEvents: event.upcommingEvents,
+      }
+    })
+  )
 
   return (
     <>

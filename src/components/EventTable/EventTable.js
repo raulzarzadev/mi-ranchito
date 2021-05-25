@@ -7,7 +7,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 export default function EventsTable({ title = 'Table title', events = [] }) {
-  const [sortBy, setSortBy] = useState('earring')
+  const [sortBy, setSortBy] = useState('date')
   const [eventsSorted, setEventsSorted] = useState([])
 
   const handleSortBy = (field) => {

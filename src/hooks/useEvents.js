@@ -13,8 +13,10 @@ export default function useEvents() {
   const { user } = useAuth()
   const [errors, setErrors] = useState(null)
 
-  const getEvents = () => {
-    return fb_getUserEvents(user.id)
+  const getEvents = async () => {
+    const events = await fb_getUserEvents(user.id)
+    const formatedEvents = events.map((event) => Event(event))
+    return formatedEvents
   }
 
   const addEvent = (event) => {
@@ -33,7 +35,6 @@ export default function useEvents() {
   }
   const getEvent = async (eventId) => {
     const event = await fb_getEvent(eventId)
-    
     return Event(event)
   }
 

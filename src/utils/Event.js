@@ -9,6 +9,5 @@ export const formatEvent = (event) => {
 export const Event = (event) => {
   const formated = EVENTS_TYPES_2.find(({ key }) => event.key === key)
   const variants = VARIANTS[event.key]?.find(({ key }) => key === event.variant)
-
   return { ...formated, ...event, variants: (variants && [variants]) || null }
 }
