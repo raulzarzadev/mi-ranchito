@@ -1,4 +1,8 @@
-import { EVENTS_TYPES, EVENTS_TYPES_2, PERIODS } from '@raiz/constants/EVENTS_INFO'
+import {
+  EVENTS_TYPES,
+  EVENTS_TYPES_2,
+  PERIODS,
+} from '@raiz/constants/EVENTS_INFO'
 import moment from 'moment'
 
 export function formatedTypes() {
@@ -97,16 +101,17 @@ export function formatEventsCow(earring, events = []) {
 export const formatEvent = (event = {}) => {
   const onDay = PERIODS[event.type || event.event]
   const date = event.date || new Date().getTime()
+
   const setTypes = formatType(event.type || event.event)
   const setDates = formatDates(date)
   const setNextEvents = formatNextEvents(setTypes?.nextEvents, date, onDay)
   return {
     ...event,
     ...setTypes,
-    ...setDates,
-    onDay,
-    nextEvents: setNextEvents,
-    nextEvent: setNextEvents && setNextEvents[0],
+    //  ...setDates,
+    // onDay,
+    // nextEvents: setNextEvents,
+    // nextEvent: setNextEvents && setNextEvents[0],
   }
 }
 

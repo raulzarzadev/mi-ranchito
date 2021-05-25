@@ -1,7 +1,7 @@
 import { H2 } from '@cmps/H'
 import { formatEvent } from '@raiz/src/utils'
 import React, { useEffect, useState } from 'react'
-import EventTable from '../EventTable'
+import EventTable from '../EventTable-old'
 import SelectedTitle from '../SelectedTitle'
 import styles from './styles.module.css'
 

@@ -1,0 +1,64 @@
+.grid {
+  width: 100%;
+}
+.grid_title {
+  margin: var(--space-2);
+}
+.grid_titles {
+  display: flex;
+  justify-content: space-evenly;
+  padding: var(--space-1);
+}
+.grid_titles > div {
+  width: 30%;
+}
+.title {
+}
+.grid_row {
+  background-color: var(--background-semi);
+  padding: var(--space-1);
+  border-radius: var(--space-1);
+  box-shadow: var(--shadow-2);
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  cursor: pointer;
+  margin: var(--space-1) 0;
+}
+
+.grid_row:hover {
+  box-shadow: none;
+}
+.grid_row:active {
+  box-shadow: var(--shadow-inset);
+}
+
+.grid_row > div {
+  width: 30%;
+}
+
+/* Button de titulos */
+
+.button_title {
+  border: none;
+  background: none;
+  color: var(--white);
+  font-size: var(--font-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.button_title:hover {
+  font-weight: 700;
+}
+
+.selected {
+  border-top: 1px solid white;
+}
+
+.unselected {
+  border-top: 1px solid transparent;
+}

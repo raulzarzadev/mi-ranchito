@@ -1,5 +1,4 @@
-import ButtonBack from '@cmps/ButtonBack'
-import { H3 } from '@cmps/H'
+import { H2 } from '@cmps/H'
 import { useRouter } from 'next/router'
 import s from './styles.module.css'
 
@@ -7,7 +6,7 @@ export default function CowsTable({ title = 'Table title', cows = [] }) {
   return (
     <>
       <div className={s.grid}>
-        <H3>Vacas</H3>
+        <H2>Vacas</H2>
         <div className={s.grid_titles}>
           <div className={s.title}>Vaca</div>
           <div className={s.title}>Eventos</div>
