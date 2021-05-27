@@ -8,3 +8,9 @@
   justify-content: space-evenly;
   padding: var(--space-1);
 }
+.cow {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 1rem 0;
+}

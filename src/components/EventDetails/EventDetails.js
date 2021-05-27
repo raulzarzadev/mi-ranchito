@@ -1,12 +1,13 @@
 import Button from '@cmps/Button'
 import ButtonBack from '@cmps/ButtonBack'
-import { H3 } from '@cmps/H'
+import { H2, H3 } from '@cmps/H'
 import RemoveEventModal from '@cmps/Modals/RemoveEventModal'
 import useEvents from '@raiz/src/hooks/useEvents'
 import { formatClientDate, fromNow } from '@raiz/src/utils/Dates'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import s from './styles.module.css'
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
 export default function EventDetails({ event }) {
   console.log('event', event)
@@ -23,9 +24,8 @@ export default function EventDetails({ event }) {
   return (
     <>
       <div>
-        <ButtonBack />
         <div>
-          <H3>{`Detalles del Evento`} </H3>
+          <H2>{`Evento`} </H2>
           <div className={s.buttons_box}>
             <Button
               p="2"
@@ -42,7 +42,17 @@ export default function EventDetails({ event }) {
               onClick={() => router.push(`/dashboard/events/edit/${event.id}`)}
             />
           </div>
-          <div>Vaca : {event.earring}</div>
+          <div className={s.cow}>
+            <span>Vaca : {event.earring} </span>
+            <Button
+              m="none"
+              icon
+              p="1"
+              onClick={() => router.push(`/dashboard/cows/${event.earringId}`)}
+            >
+              <ArrowForwardIcon />
+            </Button>
+          </div>
           <div>Evento : {event.label}</div>
           <div>Creado : {fromNow(event.date)}</div>
           <div>Fecha: {formatClientDate(event.date)}</div>

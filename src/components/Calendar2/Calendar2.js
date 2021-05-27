@@ -1,43 +1,83 @@
 import {
-  MonthlyBody,
   MonthlyCalendar,
-  MonthlyNav,
   DefaultMonthlyEventItem,
   MonthlyDay,
+  useMonthlyBody,
+  useMonthlyCalendar,
+  MonthlyBody,
 } from '@zach.codes/react-calendar'
 import { useEffect, useState } from 'react'
-import { format, startOfMonth, subHours } from 'date-fns'
+import {
+  addMonths,
+  format,
+  getYear,
+  startOfMonth,
+  subHours,
+  subMonths,
+} from 'date-fns'
 import c from './styles.module.css'
 import e from './eventStyles.module.css'
+import { useRouter } from 'next/router'
+
+const MonthlyNav = () => {
+  const { currentMonth, onCurrentMonthChange } = useMonthlyCalendar()
+
+  return (
+    <div className="flex justify-end mb-4">
+      <button
+        onClick={() => onCurrentMonthChange(subMonths(currentMonth, 1))}
+        className="cursor-pointer"
+      >
+        Previous
+      </button>
+      <div className="ml-4 mr-4 w-32 text-center">
+        {format(
+          currentMonth,
+          getYear(currentMonth) === getYear(new Date()) ? 'LLLL' : 'LLLL yyyy'
+        )}
+      </div>
+      <button
+        onClick={() => onCurrentMonthChange(addMonths(currentMonth, 1))}
+        className="cursor-pointer"
+      >
+        Next
+      </button>
+    </div>
+  )
+}
 
 export default function Calendar({ events = [] }) {
+  const router = useRouter()
+  const [formatedEvent, setFormatedEvent] = useState([])
+  const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()))
+
   useEffect(() => {
     console.log('events', events)
     const mirrorEvents = events.reduce((prev, curr) => {
       const original = curr
-      const mirror = curr.upcomingEvents.map((event) => {
-        return { ...event, id: curr.id }
-      })
-      console.log('mirror', mirror)
 
-      return [...prev, mirror, original]
+      const mirror = curr.upcomingEvents.map((event) => {
+        const mirrorDate = curr.date + event.InDays * 24 * 60 * 60 * 1000 // dias en ms
+        return {
+          ...event,
+          earring: curr.earring,
+          id: curr.id,
+          date: mirrorDate,
+          mirrorEvent: true,
+        }
+      })
+
+      return [...prev, mirror, original].flat()
     }, [])
 
-    setFormatedEvent(mirrorEvents.flat())
+    setFormatedEvent(mirrorEvents)
   }, [])
-  /* 
-              id: '1',
-              earring: 'A-12',
-              eventLabel: 'Parto',
-              key: 'PARTO',
-              date: subHours(new Date(), 2),
-            },
-             */
-  const [formatedEvent, setFormatedEvent] = useState([])
-  const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()))
+
   const handleEventClick = (id) => {
     console.log('id', id)
+    router.push(`/dashboard/events/${id}`)
   }
+
   return (
     <div className={c.calendar}>
       <MonthlyCalendar
@@ -45,22 +85,8 @@ export default function Calendar({ events = [] }) {
         onCurrentMonthChange={(date) => setCurrentMonth(date)}
       >
         <MonthlyNav />
-        <MonthlyBody
-          events={formatedEvent}
-          /*  
-        renderDay={(data) =>
-          data.map((item, index) => (
-            <DefaultMonthlyEventItem
-            key={index}
-            title={item.title}
-            date={item.date}
-            />
-            ))
-          } 
-          */
-        >
+        <MonthlyBody events={formatedEvent}>
           <MonthlyDay
-        
             renderDay={(data) =>
               data.map((item, index) => (
                 <CalendarEvent
@@ -78,7 +104,7 @@ export default function Calendar({ events = [] }) {
 }
 
 const CalendarEvent = ({ event, onClick }) => {
-  const { earring, label, key } = event
+  const { earring, label, key, mirrorEvent } = event
   const BACKGROUND = {
     PALP: 'green',
     DRY: 'blue',
@@ -88,7 +114,7 @@ const CalendarEvent = ({ event, onClick }) => {
     <div
       onClick={onClick}
       className={e.event}
-      style={{ background: BACKGROUND[key] || 'black' }}
+      style={{ background: mirrorEvent ? BACKGROUND[key] : 'black' }}
     >
       <div>{earring}</div>
       <div>{label}</div>

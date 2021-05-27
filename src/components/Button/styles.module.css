@@ -39,6 +39,9 @@
 .button[mx='2'] {
   margin: auto 16px;
 }
+.button[m='none'] {
+  margin: 0;
+}
 
 /* 
    - - - - -  - - - - - - - - - - - - -  SEUDO CLASSES
@@ -50,7 +53,7 @@
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.712);
 }
 .button:disabled {
-  opacity: .7;
+  opacity: 0.7;
   cursor: default;
 }
 /* 

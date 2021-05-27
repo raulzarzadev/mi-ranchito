@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
-import { H3 } from '@cmps/H'
+import { H2, H3 } from '@cmps/H'
 import ROUTES from '@raiz/constants/ROUTES'
 import Button from '@cmps/Button'
 import { fromNow } from '@raiz/src/utils/Dates'
@@ -38,7 +38,7 @@ export default function CowDetails() {
   return (
     <>
       <div>
-        <H3>Detalles</H3>
+        <H2>Vaca</H2>
         <div className={styles.actions}>
           <div className="box-1">
             <Button
