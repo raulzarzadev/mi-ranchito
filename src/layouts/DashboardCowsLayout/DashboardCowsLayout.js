@@ -24,8 +24,8 @@ const links = [
     cat: 'main',
     side: 'primary',
     id: '5',
-    href: ROUTES.upcommingEvents,
-    label: 'Calendario',
+    href: ROUTES.events,
+    label: 'Eventos',
   },
 
   {
@@ -100,7 +100,7 @@ const links = [
   {
     side: 'bottom',
     id: '13',
-    href: ROUTES.upcommingEvents,
+    href: ROUTES.events,
     label: 'Eventos',
   },
   {

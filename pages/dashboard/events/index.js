@@ -6,6 +6,7 @@ import useEvents from '@raiz/src/hooks/useEvents'
 import { formatEvent } from '@raiz/src/utils'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import Events from '@cmps/Events'
 
 export default function events() {
   const { user } = useAuth()
@@ -29,10 +30,9 @@ export default function events() {
       </Head>
 
       <PrivateRoute
-        Component={EventTable}
+        Component={Events}
         SecondaryLayout={DashboardCowsLayout}
         events={events}
-        title="Todos los eventos"
       />
     </>
   )

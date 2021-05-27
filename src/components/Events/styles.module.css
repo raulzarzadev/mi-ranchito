@@ -1,0 +1,10 @@
+.events {
+  border: 1px solid #000;
+  width: 100%;
+}
+
+.switch {
+  display: flex;
+  min-width: 200px;
+  justify-content: space-evenly;
+}

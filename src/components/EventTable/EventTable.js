@@ -6,7 +6,7 @@ import s from './styles.module.css'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-export default function EventsTable({ title = 'Table title', events = [] }) {
+export default function EventsTable({ events = [] }) {
   const [sortBy, setSortBy] = useState('date')
   const [eventsSorted, setEventsSorted] = useState([])
 
@@ -42,7 +42,7 @@ export default function EventsTable({ title = 'Table title', events = [] }) {
   return (
     <>
       <div className={s.grid}>
-        <H2>Vacas</H2>
+        <H2>Eventos</H2>
         <div className={s.grid_titles}>
           <div className={s.title}>
             <ButtonTitle
