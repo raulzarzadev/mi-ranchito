@@ -1,3 +1,4 @@
+import Calendar from '@cmps/Calendar2'
 import { H2 } from '@cmps/H'
 import { formatEvent } from '@raiz/src/utils'
 import React, { useEffect, useState } from 'react'
@@ -40,25 +41,7 @@ export default function UpcomingEvents({ events }) {
   return (
     <div>
       <H2>Proximos eventos</H2>
-      <div className={styles.select_box}>
-        {selectOptions.map((option) => (
-          <SelectedTitle
-            key={option.label}
-            onClick={() => handleChangeRange(option.value)}
-            selected={range === option.value}
-            title={`${option.label}`}
-          />
-        ))}
-      </div>
-      {upcomingEvents?.length === 0 ? (
-        <>
-          <h3>No hay eventos proximos</h3>
-        </>
-      ) : (
-        <>
-          <EventTable events={upcomingEvents} upcomingEvents />
-        </>
-      )}
+      <Calendar events={events}/>
     </div>
   )
 }

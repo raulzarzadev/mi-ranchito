@@ -1,3 +1,8 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -44,6 +49,7 @@ textarea {
 
   --background: rgba(8, 8, 8, 0.733);
   --background-semi: rgb(56, 56, 56);
+  
   --contrast: #fff;
   --background-ligth: #fff;
   --contrast-light: #000;

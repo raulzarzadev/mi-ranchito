@@ -1,8 +1,11 @@
 import { AuthProvider } from '@raiz/src/context/AuthContext'
 import React from 'react'
-import '../styles/globals.css'
-import moment from 'moment'
 import Layout from '@raiz/src/layouts/Layout'
+import moment from 'moment'
+
+/* ---- CSS----  */
+import '../styles/globals.css'
+import 'tailwindcss/tailwind.css'
 
 moment.locale('es')
 

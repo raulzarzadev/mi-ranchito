@@ -252,31 +252,31 @@ export const EVENTS_TYPES_2 = [
     key: 'BIRTH',
     type: '',
     label: LABELS.BIRTH,
-    upcommingEvents: [{ key: 'FIRST_SERV', InDays: PERIODS.FIRST_SERV }],
+    upcomingEvents: [{ key: 'FIRST_SERV', InDays: PERIODS.FIRST_SERV }],
   },
   {
     key: 'FIRST_SERV',
     label: LABELS.FIRST_SERV,
     variants: VARIANTS.FIRST_SERV,
     type: '',
-    upcommingEvents: [{ key: 'PALP', InDays: PERIODS.PALP }],
+    upcomingEvents: [{ key: 'PALP', InDays: PERIODS.PALP }],
   },
   {
     key: 'SERV',
     type: '',
     label: LABELS.SERV,
-    upcommingEvents: [
+    upcomingEvents: [
       { key: 'PALP', InDays: PERIODS.PALP },
       { key: 'PARTO', InDays: PERIODS.PARTO },
     ],
   },
-  { key: 'PALP', type: '', label: LABELS.PALP, upcommingEvents: [] },
-  { key: 'DRY', type: '', label: LABELS.DRY, upcommingEvents: [] },
+  { key: 'PALP', type: '', label: LABELS.PALP, upcomingEvents: [] },
+  { key: 'DRY', type: '', label: LABELS.DRY, upcomingEvents: [] },
   {
     key: 'PARTO',
     type: '',
     label: LABELS.PARTO,
-    upcommingEvents: [],
+    upcomingEvents: [],
     variants: VARIANTS.PARTO,
   },
 ]

@@ -1,6 +1,6 @@
 .buttonback_container {
   align-items: center;
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -9,7 +9,8 @@
   padding: var(--space-2);
 }
 .buttonback {
-  background: var(--backgraund);
+  padding: var(--space-1);
+  background: var(--primary);
   border: none;
   display: flex;
   align-items: center;

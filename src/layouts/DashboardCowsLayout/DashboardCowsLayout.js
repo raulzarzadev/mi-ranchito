@@ -6,28 +6,28 @@ import SideNav from './SideNav/SideNav'
 import styles from './styles.module.css'
 
 const links = [
-  {
+  /*   {
     cat: 'main',
     side: 'primary',
     id: '129',
     href: ROUTES.configuration,
     label: 'Configuración',
-  },
-  {
+  }, */
+  /* {
     cat: 'main',
     side: 'primary',
     id: '129',
     href: ROUTES.dashboard,
     label: 'Panel',
-  },
+  }, */
   {
     cat: 'main',
     side: 'primary',
     id: '5',
     href: ROUTES.upcommingEvents,
-    label: 'Proximos',
+    label: 'Calendario',
   },
- 
+
   {
     cat: 'cows',
     side: 'primary',
@@ -111,7 +111,7 @@ const links = [
   },
 ]
 
-export default function DashboardCowsLayout({ children , buttonBack}) {
+export default function DashboardCowsLayout({ children, buttonBack }) {
   return (
     <div className={styles.cows_dashboard}>
       {buttonBack && <ButtonBack />}
