@@ -1,4 +1,4 @@
-import Button from '@cmps/Button'
+import Button from '@cmps/Inputs/Button'
 import { H2, H3 } from '@cmps/H'
 import RemoveEventModal from '@cmps/Modals/RemoveEventModal'
 import useEvents from '@raiz/src/hooks/useEvents'

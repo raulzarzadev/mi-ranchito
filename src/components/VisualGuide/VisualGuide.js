@@ -1,5 +1,5 @@
 
-import Button from '@cmps/Button'
+import Button from '@cmps/Inputs/Button'
 import s from './styles.module.css'
 	
 export default function VisualGuide () {

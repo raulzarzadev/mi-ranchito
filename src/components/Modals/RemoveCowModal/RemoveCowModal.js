@@ -1,4 +1,4 @@
-import Button from '@cmps/Button'
+import Button from '@cmps/Inputs/Button'
 import P from '@cmps/P/P'
 import useCows from '@raiz/src/hooks/useCows'
 import { useRouter } from 'next/router'

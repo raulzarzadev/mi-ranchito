@@ -1,15 +1,14 @@
-import { Btn1 } from '@cmps/Btns'
-import Button from '@cmps/Button'
+import Button from '@cmps/Inputs/Button'
 import { H2 } from '@cmps/H'
 import { EVENTS_TYPES_2 } from '@raiz/constants/EVENTS_INFO'
 import useCows from '@raiz/src/hooks/useCows'
 import useEvents from '@raiz/src/hooks/useEvents'
-import { formatInputDate } from '@raiz/src/utils/Dates'
-import { formatEvent } from '@raiz/src/utils/Event'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 // import { formatedTypes } from '../../utils'
 import styles from './styles.module.css'
+import Text from '@cmps/Inputs/Text'
+import Select from '@cmps/Inputs/Text/Select'
 
 export default function NewEvent({
   title = '',
@@ -113,14 +112,12 @@ export default function NewEvent({
   console.log('form', form)
 
   if (earrings?.length === 0) return 'No hay vacas registradas aun...'
-  const foramtedDate = formatInputDate(form?.date)
 
   return (
     <div>
       <H2>{title}</H2>
       <div>
         <form
-        className={styles.form}
           onSubmit={(e) => {
             e.preventDefault()
             handleSubmit()
@@ -128,7 +125,17 @@ export default function NewEvent({
         >
           <div>
             <div className={styles.event_form__input}>
-              <span>
+              <Select label="Arete">
+                <option value="" disabled>
+                  {`Selecciona Arete`}
+                </option>
+                {earrings?.map((earring, i) => (
+                  <option key={i} value={earring.id}>
+                    {earring.earring} {earring?.nickName}
+                  </option>
+                ))}
+              </Select>
+              {/*  <span>
                 <select
                   className={styles.select}
                   onChange={handleSelectCow}
@@ -145,29 +152,28 @@ export default function NewEvent({
                     </option>
                   ))}
                 </select>
-              </span>
+              </span> */}
             </div>
             <div className={styles.event_form__input}>
-              <span>
-                <select
-                  className={styles.select}
-                  onChange={handleChange}
-                  value={form?.key || ''}
-                  name="key"
-                  id="select-animal"
-                  placeholder="Selecciona una vaca"
-                >
-                  <option value="" disabled>
-                    {`Selecciona Evento`}
-                  </option>
-                  <optgroup label="Periodicos">
-                    {EVENTS?.map((event, i) => (
-                      <option key={event.key} value={event.key}>
-                        {event.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                  {/*  <optgroup label="Especiales">
+              <Select
+                label="Evento"
+                onChange={handleChange}
+                value={form?.key || ''}
+                name="key"
+                id="select-animal"
+                placeholder="Selecciona una vaca"
+              >
+                <option value="" disabled>
+                  {`Selecciona Evento`}
+                </option>
+                <optgroup label="Periodicos">
+                  {EVENTS?.map((event, i) => (
+                    <option key={event.key} value={event.key}>
+                      {event.label}
+                    </option>
+                  ))}
+                </optgroup>
+                {/*  <optgroup label="Especiales">
                     {specialsEvents?.map((event, i) => (
                       <option key={i} value={event.type}>
                         {event.label}
@@ -181,56 +187,48 @@ export default function NewEvent({
                       </option>
                     ))}
                   </optgroup> */}
-                </select>
-              </span>
+              </Select>
             </div>
             {variants?.length > 0 && (
               <div className={styles.event_form__input}>
-                <span>
-                  <select
-                    className={styles.select}
-                    onChange={handleChange}
-                    name="variant"
-                    id="select-event-option"
-                    value={form?.variant || ''}
-                  >
-                    <option value="" disabled>
-                      {`Variante`}
+                <Select
+                  label="Variante"
+                  onChange={handleChange}
+                  name="variant"
+                  id="select-event-option"
+                  value={form?.variant || ''}
+                >
+                  <option value="" disabled>
+                    {`Variante`}
+                  </option>
+                  {variants?.map((variant, i) => (
+                    <option key={i} value={variant.key}>
+                      {variant.label}
                     </option>
-                    {variants?.map((variant, i) => (
-                      <option key={i} value={variant.key}>
-                        {variant.label}
-                      </option>
-                    ))}
-                  </select>
-                </span>
+                  ))}
+                </Select>
               </div>
             )}
             <div className={styles.event_form__input}>
-              <span>
-                <textarea
-                  type="text"
-                  rows={2}
-                  className={styles.textarea}
-                  onChange={handleChange}
-                  name="coments"
-                  id="observaciones"
-                  value={form?.coments || ''}
-                  placeholder="Detalles"
-                ></textarea>
-              </span>
+              <Text
+                label="Detalles"
+                rows={2}
+                onChange={handleChange}
+                name="coments"
+                id="observaciones"
+                value={form?.coments || ''}
+                placeholder="Detalles"
+              />
             </div>
             <div className={styles.event_form__input}>
-              <span>
-                <input
-                  className={styles.date}
-                  onChange={handleChangeDate}
-                  type="date"
-                  name="date"
-                  id="event-date"
-                  value={foramtedDate}
-                />
-              </span>
+              <Text
+                label="Fecha"
+                type="date"
+                name="date"
+                id="event-date"
+                value={form?.date}
+                onChange={handleChangeDate}
+              />
             </div>
             <div className={styles.event_form__input}>
               <Button primary p="2" my="2" disabled={valid}>

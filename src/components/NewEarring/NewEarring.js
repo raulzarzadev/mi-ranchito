@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import useCows from '@raiz/src/hooks/useCows'
-import { formatInputDate, fromNow } from '@raiz/src/utils'
 import { H2 } from '@cmps/H'
-import { Btn1 } from '@cmps/Btns'
 import ROUTES from '@raiz/constants/ROUTES'
 import { useRouter } from 'next/router'
+import Text from '@cmps/Inputs/Text'
+import Date from '@cmps/Inputs/Date'
+import Button from '@cmps/Inputs/Button'
 
 export default function NewEarring({ cow = undefined, title = '' }) {
   const router = useRouter()
@@ -22,7 +23,6 @@ export default function NewEarring({ cow = undefined, title = '' }) {
       setActions('edit')
     }
   }, [cow])
-
 
   const [form, setForm] = useState({})
   const [earrings, setEarrings] = useState()
@@ -46,9 +46,8 @@ export default function NewEarring({ cow = undefined, title = '' }) {
         setActions('saved')
         setTimeout(() => {
           router.back()
-        }, 500);
-      }
-        )
+        }, 500)
+      })
     } else {
       addCow(form).then((res) => {
         setActions('saved')
@@ -65,110 +64,98 @@ export default function NewEarring({ cow = undefined, title = '' }) {
   const valid = !!alreadyExist || !form?.earring
 
   return (
-    <div className="center">
-      <div>
-        <div className="box-1">
-          <H2>{title}</H2>
+    <div>
+      <H2>{title}</H2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit()
+        }}
+        className={styles.form}
+      >
+        <div className={styles.item}>
+          <Text
+            label="Arete"
+            placeholder="Numero de arete"
+            name="earring"
+            value={form?.earring || ''}
+            onChange={handleChange}
+            autoFocus
+            autoComplete="off"
+          />
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleSubmit()
-          }}
-        >
-          <div>
+        <div className={styles.item}>
+          <Text
+            label="Nombre"
+            value={form?.name || ''}
+            placeholder="(opcional)"
+            name="name"
+            onChange={handleChange}
+            autoComplete="off"
+          />
+        </div>
+        <div className={styles.item}>
+          <Text
+            label="Registro"
+            type="date"
+            name="registryDate"
+            value={form.registryDate}
+            onChange={handleChangeDate}
+          />
+        </div>
+        <div className={styles.item}>
+          <Text
+            label="Nacimiento"
+            type="date"
+            name="birth"
+            value={form.birth}
+            onChange={handleChangeDate}
+          />
+        </div>
+        {actions === 'edit' && (
+          <div className={styles.actions}>
             <div className={styles.item}>
-              <span className={styles.input_label}>
-                {`Arete :`}
-                <input
-                  className={styles.text_input}
-                  type="text"
-                  placeholder="Numero de arete"
-                  name="earring"
-                  value={form?.earring || ''}
-                  onChange={handleChange}
-                  autoFocus
-                  autoComplete="off"
-                ></input>
-                <em>{alreadyExist && 'Este arete ya está registrado'}</em>
-              </span>
+              <Button disabled={!form?.earring} p="2" primary>
+                Editar
+              </Button>
             </div>
-            <div className={styles.item}>
-              <span className={styles.input_label}>
-                {`Nombre :`}
-                <input
-                  className={styles.text_input}
-                  value={form?.name || ''}
-                  type="text"
-                  placeholder="(opcional)"
-                  name="name"
-                  onChange={handleChange}
-                  autoComplete="off"
-                ></input>
-              </span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.input_label}>
-                <span>
-                  {`Ingreso :`} <em>(opcional)</em>
-                </span>
-                <input
-                  className={styles.date}
-                  type="date"
-                  name="registryDate"
-                  value={formatInputDate(form.registryDate)}
-                  onChange={handleChangeDate}
-                ></input>
-              </span>
-            </div>
-            <div className={styles.item}>
-              <span className={styles.input_label}>
-                <span>
-                  {`Nacimiento :`} <em>(opcional)</em>
-                </span>
-                <input
-                  className={styles.date}
-                  type="date"
-                  name="birth"
-                  value={formatInputDate(form.birth)}
-                  onChange={handleChangeDate}
-                ></input>
-              </span>
-            </div>
-            {actions === 'edit' && (
-              <div className={styles.actions}>
-                <div className={styles.item}>
-                  <Btn1>Editar</Btn1>
-                </div>
-              </div>
-            )}
-            {actions === 'new' && (
-              <div className={styles.actions}>
-                <div className={styles.item}>
-                  <Btn1 disabled={valid}>Guardar</Btn1>
-                </div>
-              </div>
-            )}
-            {actions === 'saved' && (
-              <div className={styles.actions}>
-                <div className={styles.item}>
-                  <Btn1 href={`${ROUTES.newEvent}?cowId=${form?.id}`}>
-                    Nuevo evento
-                  </Btn1>
-                </div>
-                <div className={styles.item}>
-                  <Btn1
-                    href={`${ROUTES.newCow}`}
-                    onClick={() => setActions('new')}
-                  >
-                    Nuevo Vaca
-                  </Btn1>
-                </div>
-              </div>
-            )}
           </div>
-        </form>
-      </div>
+        )}
+        {actions === 'new' && (
+          <div className={styles.actions}>
+            <div className={styles.item}>
+              <Button disabled={valid} p="2" primary>
+                Guardar
+              </Button>
+            </div>
+          </div>
+        )}
+        {actions === 'saved' && (
+          <div className={styles.actions}>
+            <div className={styles.item}>
+              <Button
+                p="2"
+                primary
+                nextLink
+                href={`${ROUTES.newEvent}?cowId=${form?.id}`}
+              >
+                Nuevo evento
+              </Button>
+            </div>
+            <div className={styles.item}>
+              <Button
+                p="2"
+                primary
+                nextLink
+                href={`${ROUTES.newCow}`}
+                onClick={() => setActions('new')}
+              >
+                Nuevo Vaca
+              </Button>
+            </div>
+          </div>
+        )}
+      </form>
     </div>
   )
 }

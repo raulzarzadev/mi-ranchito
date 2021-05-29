@@ -1,4 +1,4 @@
-import ButtonBack from '@cmps/ButtonBack'
+import ButtonBack from '@cmps/Inputs/ButtonBack'
 import ROUTES from '@raiz/constants/ROUTES'
 import React from 'react'
 import BottomNav from './BottomNav'

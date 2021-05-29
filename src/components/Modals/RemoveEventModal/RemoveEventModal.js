@@ -1,4 +1,4 @@
-import Button from '@cmps/Button'
+import Button from '@cmps/Inputs/Button'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Modal from '../Modal/Modal'

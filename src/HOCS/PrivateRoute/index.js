@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useAuth } from '@raiz/src/context/AuthContext'
-import ButtonBack from '@cmps/ButtonBack'
 
 export default function PrivateRoute({
   Component,
