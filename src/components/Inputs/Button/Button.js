@@ -46,7 +46,7 @@ export default function Button({
     <WrapperButton
       disabled={disabled}
       fullwidth={fullwidth && 'true'}
-      icon={icon && 'true'}
+      icon={icon ? 'true' : undefined}
       underline={underline && 'true'}
       outlined={outlined && 'true'}
       primary={primary && 'true'}

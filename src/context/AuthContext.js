@@ -34,6 +34,7 @@ export function AuthProvider({ children }) {
       })
   }
 
+
   const emailLogin = (email, pass) => {
     loginWithEmail(email, pass)
       .then((res) => setUser(res?.user))
@@ -57,6 +58,8 @@ export function AuthProvider({ children }) {
         setErrors(err)
       })
   }
+
+  
 
   return (
     <AuthContext.Provider

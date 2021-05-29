@@ -1,4 +1,3 @@
-
 import Button from '@cmps/Inputs/Button'
 import { H2 } from '@cmps/Texts/H'
 import P from '@cmps/Texts/P/P'
@@ -8,6 +7,8 @@ import styles from './styles.module.css'
 
 export default function Home() {
   const { user } = useAuth()
+  console.log('user', user)
+
   return (
     <div className="center">
       <div style={{ margin: '0 auto' }}>
@@ -26,14 +27,13 @@ export default function Home() {
         </P>
         <div className={styles.actions}>
           {user ? (
-            <Button p='2'primary nextLink href={`${ROUTES.cows}`}>Mis Vacas</Button>
+            <Button p="2" primary nextLink href={`${ROUTES.cows}`}>
+              Mis Vacas
+            </Button>
           ) : (
-            <Button
-            p='2'
-            primary
-              nextLink
-              href={`${ROUTES.signin}`}
-            >Ingresa</Button>
+            <Button p="2" primary nextLink href={`${ROUTES.signin}`}>
+              Ingresa
+            </Button>
           )}
         </div>
       </div>

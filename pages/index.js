@@ -1,5 +1,5 @@
-import Head from 'next/head'
 import Home from '@cmps/views/Home/Home'
+import Head from 'next/head'
 
 export default function HomePage() {
   return (

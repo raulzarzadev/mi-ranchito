@@ -15,6 +15,7 @@
   background-color: var(--secondary-ligth);
   color: var(--black);
   width: inherit;
+  -webkit-appearance:none;
 }
 
 .text_input::after {
