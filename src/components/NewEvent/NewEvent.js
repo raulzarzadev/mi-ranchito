@@ -120,6 +120,7 @@ export default function NewEvent({
       <H2>{title}</H2>
       <div>
         <form
+        className={styles.form}
           onSubmit={(e) => {
             e.preventDefault()
             handleSubmit()

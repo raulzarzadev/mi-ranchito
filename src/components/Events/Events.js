@@ -9,7 +9,7 @@ export default function Events({ events = [] }) {
   const [display, setDisplay] = useState('LIST')
   const handleViewOption = (opt) => {
     const { checked } = opt.target
-    setDisplay(checked ? 'LIST' : 'CALENDAR')
+    setDisplay(!checked ? 'LIST' : 'CALENDAR')
   }
 
   return (

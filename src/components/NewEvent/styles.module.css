@@ -1,3 +1,6 @@
+.form{
+  color: var(--black)
+}
 .select {
   width: 200px;
   padding: 8px;
@@ -14,6 +17,7 @@
   padding: 8px;
   font-size: 1.2rem;
   background-color: var(--secondary-ligth);
+  resize: none
 }
 .date {
   width: 200px;
