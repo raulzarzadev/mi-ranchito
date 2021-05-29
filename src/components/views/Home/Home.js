@@ -1,5 +1,7 @@
-import { Btn1 } from '@cmps/Btns'
-import ButtonLink from '@cmps/ButtonLink'
+
+import Button from '@cmps/Inputs/Button'
+import { H2 } from '@cmps/Texts/H'
+import P from '@cmps/Texts/P/P'
 import ROUTES from '@raiz/constants/ROUTES'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import styles from './styles.module.css'
@@ -9,24 +11,29 @@ export default function Home() {
   return (
     <div className="center">
       <div style={{ margin: '0 auto' }}>
-        <h1>
+        <H2>
           Bienvendido a <br /> Mi Ranchito Digital
-        </h1>
+        </H2>
         <img
           src="/assets/Logotipo.svg"
           alt="logo"
           className={styles.logotipo}
         />
 
-        <p className={styles.description}>
+        <P className={styles.description}>
           Una aplición para monitorear el ciclo
           <strong>productivo y reproductivo</strong> de las vacas lecheras.
-        </p>
+        </P>
         <div className={styles.actions}>
           {user ? (
-            <ButtonLink href={`${ROUTES.cows}`} label="Mis Vacas" />
+            <Button p='2'primary nextLink href={`${ROUTES.cows}`}>Mis Vacas</Button>
           ) : (
-            <ButtonLink href={`${ROUTES.signin}`} label="Ingresa " />
+            <Button
+            p='2'
+            primary
+              nextLink
+              href={`${ROUTES.signin}`}
+            >Ingresa</Button>
           )}
         </div>
       </div>
