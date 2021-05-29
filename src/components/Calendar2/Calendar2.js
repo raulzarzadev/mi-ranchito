@@ -7,40 +7,37 @@ import {
   MonthlyBody,
 } from '@zach.codes/react-calendar'
 import { useEffect, useState } from 'react'
-import {
-  addMonths,
-  format,
-  getYear,
-  startOfMonth,
-  subHours,
-  subMonths,
-} from 'date-fns'
+import { addMonths, format, getYear, startOfMonth, subMonths } from 'date-fns'
+import { es } from 'date-fns/locale'
 import c from './styles.module.css'
 import e from './eventStyles.module.css'
 import { useRouter } from 'next/router'
+
+console.log('locale', es)
 
 const MonthlyNav = () => {
   const { currentMonth, onCurrentMonthChange } = useMonthlyCalendar()
 
   return (
-    <div className="flex justify-center rounded-b-xl m-4 p-2 text-white bg-black  sticky  top-0 ">
+    <div className={c.month_nav}>
       <button
         onClick={() => onCurrentMonthChange(subMonths(currentMonth, 1))}
-        className="cursor-pointer"
+        className={c.month_prev}
       >
-        Previous
+        Anterior
       </button>
-      <div className="ml-4 mr-4 w-32 text-center">
+      <div className={c.month_curr}>
         {format(
           currentMonth,
-          getYear(currentMonth) === getYear(new Date()) ? 'LLLL' : 'LLLL yyyy'
+          getYear(currentMonth) === getYear(new Date()) ? 'LLLL' : 'LLLL yyyy',
+          { locale: es }
         )}
       </div>
       <button
         onClick={() => onCurrentMonthChange(addMonths(currentMonth, 1))}
-        className="cursor-pointer"
+        className={c.month_nex}
       >
-        Next
+        Siguiente
       </button>
     </div>
   )
