@@ -1,5 +1,5 @@
 import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
-import NewEvent from '@cmps/NewEvent'
+import NewEvent from '@cmps/Forms/NewEvent'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

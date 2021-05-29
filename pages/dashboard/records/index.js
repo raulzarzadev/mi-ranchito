@@ -1,5 +1,5 @@
 import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
-import RecordsTable from '@cmps/RecordsTable/RecordsTable'
+import RecordsTable from '@cmps/Tables/RecordsTable/RecordsTable'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import { useRecords } from '@raiz/src/hooks/useRecords'
 import Head from 'next/head'

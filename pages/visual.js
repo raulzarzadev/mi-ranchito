@@ -1,4 +1,4 @@
-import VisualGuide from "@cmps/VisualGuide";
+import VisualGuide from "@cmps/views/VisualGuide";
 
 export default function Visual() {
   return <VisualGuide/>

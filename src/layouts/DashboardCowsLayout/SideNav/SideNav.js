@@ -1,5 +1,5 @@
-import { H3 } from '@cmps/H'
-import { L2, L } from '@cmps/L'
+import { H3 } from '@cmps/Texts/H'
+import { L2, L } from '@cmps/Texts/L'
 import ROUTES from '@raiz/constants/ROUTES'
 import styles from './styles.module.css'
 

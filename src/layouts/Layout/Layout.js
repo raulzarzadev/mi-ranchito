@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import styles from './styles.module.css'
-import Header from '@cmps/Header/index.js/Header'
+import Header from '@cmps/views/Header/index.js/Header'
 import { useAuth } from '@raiz/src/context/AuthContext'
 
 export default function Layout({ children }) {

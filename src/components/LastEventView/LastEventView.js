@@ -1,5 +1,5 @@
-import { H3 } from '@cmps/H'
-import { P1, P3 } from '@cmps/P'
+import { H3 } from '@cmps/Texts/H'
+import { P1, P3 } from '@cmps/Texts/P'
 import styles from './styles.module.css'
 
 export default function LastEventView({ lastEvent }) {

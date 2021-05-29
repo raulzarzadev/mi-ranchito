@@ -1,5 +1,5 @@
 import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
-import NewEarring from '@cmps/NewEarring'
+import NewEarring from '@cmps/Forms/NewEarring'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'
 import React from 'react'

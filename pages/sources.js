@@ -1,5 +1,5 @@
 import Calendar from '@cmps/Calendar/Calendar'
-import ResourcesGrid from '@cmps/ResourcesGrid/ResourcesGrid'
+import ResourcesGrid from '@cmps/views/ResourcesGrid/ResourcesGrid'
 import React from 'react'
 
 export default function SourcesView() {

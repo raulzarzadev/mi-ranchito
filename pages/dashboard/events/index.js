@@ -1,5 +1,5 @@
 import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
-import EventTable from '@cmps/EventTable'
+import EventTable from '@cmps/Tables/EventTable'
 import { useAuth } from '@raiz/src/context/AuthContext'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useEvents from '@raiz/src/hooks/useEvents'

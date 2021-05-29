@@ -1,4 +1,4 @@
-import EventDetails from '@cmps/EventDetails/EventDetails'
+import EventDetails from '@cmps/Details/EventDetails/EventDetails'
 import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'

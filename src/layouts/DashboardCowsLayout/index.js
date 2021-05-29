@@ -1,12 +1,12 @@
-import { Btn1 } from '@cmps/Btns'
-import { H1, H2, H3 } from '@cmps/H'
 import Modal from '@cmps/Modals/Modal/Modal'
-import { P3 } from '@cmps/P'
+import { P3 } from '@cmps/Texts/P'
 import ROUTES from '@raiz/constants/ROUTES'
 import useCows from '@raiz/src/hooks/useCows'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
+import Button from '@cmps/Inputs/Button'
+import { H1, H2, H3 } from '@cmps/Texts/H'
 
 export default function CowsDasboard() {
   const { getCows } = useCows()
@@ -24,25 +24,27 @@ export default function CowsDasboard() {
       })
   }, [])
 
-  const formatEvts = cows
+  console.log('cows', cows)
+
+  const formatEvts = [] /* cows
     ?.reduce((acc, cow) => {
-      if (!cow.lastEvent) return [...acc]
+      if (!cow?.lastEvent) return [...acc]
       const cowInfo = {
         id: cow.id,
         earring: cow.earring,
         name: cow.name,
         statuses: cow.statuses,
       }
-      const cowEvents = cow.lastEvent?.nextEvents?.map((evt) => {
-        const month = evt.date.getMonth()
+      const cowEvents = cow?.lastEvent?.nextEvents?.map((evt) => {
+        const month = evt?.date?.getMonth()
         return { ...cowInfo, evt: { ...evt, month } }
       })
       return [...acc, cowEvents]
     }, [])
     .flat()
-    .sort((a, b) => b.evt.date - a.evt.date)
-    .filter(({ evt }) => evt.date.getYear() === new Date().getYear())
-
+    .sort((a, b) => b?.evt?.date - a?.evt?.date)
+    .filter(({ evt }) => evt?.date?.getYear() === new Date().getYear())
+ */
   const monthsNames = [
     { month: 'Ene', label: 'Enero' },
     { month: 'Feb', label: 'Febrero' },
@@ -226,7 +228,11 @@ const StatusItem = ({ icon, alt, data = [] }) => {
               {cow?.statuses?.map((status) => (
                 <div key={status}>{status}</div>
               ))}
-              <Btn1 label="Detalles" href={`${ROUTES.cowDetails}/${cow.id}`} />
+              <Button
+                nextLink
+                label="Detalles"
+                href={`${ROUTES.cowDetails}/${cow.id}`}
+              />
             </div>
           ))}
         </div>

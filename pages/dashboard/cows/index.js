@@ -1,4 +1,4 @@
-import CowsTable from '@cmps/CowsTable'
+import CowsTable from '@cmps/Tables/CowsTable'
 import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useCows from '@raiz/src/hooks/useCows'

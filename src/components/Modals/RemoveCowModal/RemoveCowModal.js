@@ -1,5 +1,5 @@
 import Button from '@cmps/Inputs/Button'
-import P from '@cmps/P/P'
+import P from '@cmps/Texts/P/P'
 import useCows from '@raiz/src/hooks/useCows'
 import { useRouter } from 'next/router'
 import { useState } from 'react'

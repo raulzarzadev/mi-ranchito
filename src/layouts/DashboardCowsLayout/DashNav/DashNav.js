@@ -1,5 +1,5 @@
 import BtnBack from '@cmps/BtnBack/BtnBack'
-import L from '@cmps/L/L'
+import L from '@cmps/Texts/L/L'
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 

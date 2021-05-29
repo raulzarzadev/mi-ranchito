@@ -1,7 +1,7 @@
 import Calendar2 from '@cmps/Calendar2'
-import EventTable from '@cmps/EventTable'
-import { H2 } from '@cmps/H'
-import Switch from '@cmps/Switch'
+import EventTable from '@cmps/Tables/EventTable'
+import { H2 } from '@cmps/Texts/H'
+import Switch from '@cmps/Inputs/Switch'
 import { useState } from 'react'
 import s from './styles.module.css'
 
