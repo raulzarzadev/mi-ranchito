@@ -1,4 +1,3 @@
-import { H2 } from '@cmps/H'
 import { fromNow } from '@raiz/src/utils'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -42,7 +41,6 @@ export default function EventsTable({ events = [] }) {
   return (
     <>
       <div className={s.grid}>
-        <H2>Eventos</H2>
         <div className={s.grid_titles}>
           <div className={s.title}>
             <ButtonTitle

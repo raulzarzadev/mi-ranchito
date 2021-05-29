@@ -23,7 +23,7 @@ const MonthlyNav = () => {
   const { currentMonth, onCurrentMonthChange } = useMonthlyCalendar()
 
   return (
-    <div className="flex justify-end mb-4">
+    <div className="flex justify-center rounded-b-xl m-4 p-2 text-white bg-black  sticky  top-0 ">
       <button
         onClick={() => onCurrentMonthChange(subMonths(currentMonth, 1))}
         className="cursor-pointer"

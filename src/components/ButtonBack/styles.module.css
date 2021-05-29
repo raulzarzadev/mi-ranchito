@@ -1,12 +1,13 @@
 .buttonback_container {
   align-items: center;
   position: sticky;
-  top: 0;
+  top: 1.5rem;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   padding: var(--space-2);
+  z-index:1
 }
 .buttonback {
   padding: var(--space-1);
