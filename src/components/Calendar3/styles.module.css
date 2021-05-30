@@ -1,0 +1,36 @@
+.calendar3 {
+  border: 1px solid #000;
+}
+
+.week_nav {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-transform: uppercase;
+  align-items: center
+}
+.week_nav .nav_month {
+    font-weight: 600;
+    font-size: 1.5rem
+}
+
+.week_body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 0;
+}
+.week_event {
+  display: flex;
+  justify-content: space-evenly;
+  background: var(--background-semi);
+  padding: 8px 0;
+  border-radius: 4px;
+  box-shadow: var(--shadow-1);
+}
+.week_event:hover {
+  box-shadow: none;
+}
+.week_event > div {
+  width: 30%;
+}

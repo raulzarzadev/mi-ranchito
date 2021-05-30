@@ -1,9 +1,9 @@
-import Calendar2 from '@cmps/Calendar2'
 import EventTable from '@cmps/Tables/EventTable'
 import { H2 } from '@cmps/Texts/H'
 import Switch from '@cmps/Inputs/Switch'
 import { useState } from 'react'
 import s from './styles.module.css'
+import Calendar3 from '@cmps/Calendar3'
 
 export default function Events({ events = [] }) {
   const [display, setDisplay] = useState('LIST')
@@ -22,7 +22,7 @@ export default function Events({ events = [] }) {
           onChange={handleViewOption}
         />
       </div>
-      {display === 'CALENDAR' && <Calendar2 events={events} />}
+      {display === 'CALENDAR' && <Calendar3 events={events} />}
       {display === 'LIST' && <EventTable events={events} />}
     </div>
   )

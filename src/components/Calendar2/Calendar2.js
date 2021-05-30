@@ -5,15 +5,28 @@ import {
   useMonthlyBody,
   useMonthlyCalendar,
   MonthlyBody,
+  useWeeklyCalendar,
+  WeeklyBody,
+  WeeklyCalendar,
+  WeeklyContainer,
+  WeeklyDays,
+  DefaultWeeklyEventItem,
 } from '@zach.codes/react-calendar'
 import { useEffect, useState } from 'react'
-import { addMonths, format, getYear, startOfMonth, subMonths } from 'date-fns'
+import {
+  addMonths,
+  format,
+  getYear,
+  startOfMonth,
+  subMonths,
+  addWeeks,
+  subWeeks,
+} from 'date-fns'
 import { es } from 'date-fns/locale'
 import c from './styles.module.css'
 import e from './eventStyles.module.css'
 import { useRouter } from 'next/router'
-
-console.log('locale', es)
+import { fromNow } from '@raiz/src/utils/Dates'
 
 const MonthlyNav = () => {
   const { currentMonth, onCurrentMonthChange } = useMonthlyCalendar()
@@ -43,13 +56,38 @@ const MonthlyNav = () => {
   )
 }
 
+const WeeklyNav = ({ week, setWeek }) => {
+  return (
+    <div className={c.month_nav}>
+      <button
+        onClick={() => setWeek(subWeeks(week, 1))}
+        className={c.month_prev}
+      >
+        Anterior
+      </button>
+      <div className={c.month_curr}>
+        {format(
+          week,
+          getYear(week) === getYear(new Date()) ? 'LLLL' : 'LLLL yyyy',
+          { locale: es }
+        )}
+      </div>
+      <button
+        onClick={() => setWeek(addWeeks(week, 1))}
+        className={c.month_nex}
+      >
+        Siguiente
+      </button>
+    </div>
+  )
+}
+
 export default function Calendar({ events = [] }) {
   const router = useRouter()
   const [formatedEvent, setFormatedEvent] = useState([])
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()))
 
   useEffect(() => {
-    console.log('events', events)
     const mirrorEvents = events.reduce((prev, curr) => {
       const original = curr
 
@@ -70,10 +108,7 @@ export default function Calendar({ events = [] }) {
     setFormatedEvent(mirrorEvents)
   }, [])
 
-  const handleEventClick = (id) => {
-    console.log('id', id)
-    router.push(`/dashboard/events/${id}`)
-  }
+  const [week, setWeek] = useState(new Date())
 
   return (
     <div className={c.calendar}>
@@ -82,7 +117,29 @@ export default function Calendar({ events = [] }) {
         onCurrentMonthChange={(date) => setCurrentMonth(date)}
       >
         <MonthlyNav />
-        <MonthlyBody events={formatedEvent}>
+        <WeeklyNav setWeek={setWeek} week={week} />
+        <WeeklyCalendar week={week}>
+          <WeeklyContainer>
+            {/* <WeeklyDays /> */}
+            <WeeklyBody
+              style={{
+                color: '#fff',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+              events={formatedEvent}
+              renderItem={({ item, showingFullWeek }) => (
+                <CalendarEvent
+                  key={item.id}
+                  onClick={() => handleEventClick(item.id)}
+                  event={item}
+                  
+                />
+              )}
+            />
+          </WeeklyContainer>
+        </WeeklyCalendar>
+        {/*  <MonthlyBody events={formatedEvent}>
           <MonthlyDay
             renderDay={(data) =>
               data.map((item, index) => (
@@ -94,14 +151,14 @@ export default function Calendar({ events = [] }) {
               ))
             }
           ></MonthlyDay>
-        </MonthlyBody>
+        </MonthlyBody> */}
       </MonthlyCalendar>
     </div>
   )
 }
 
 const CalendarEvent = ({ event, onClick }) => {
-  const { earring, label, key, mirrorEvent } = event
+  const { earring, label,date, key, mirrorEvent } = event
   const BACKGROUND = {
     PALP: 'green',
     DRY: 'blue',
@@ -115,6 +172,7 @@ const CalendarEvent = ({ event, onClick }) => {
     >
       <div>{earring}</div>
       <div>{label}</div>
+      {date && <div>{fromNow(date)}</div>}
     </div>
   )
 }
