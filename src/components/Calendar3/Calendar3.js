@@ -1,9 +1,15 @@
 import Button from '@cmps/Inputs/Button'
 import { format } from '@raiz/src/utils/Dates'
 import {
+  addDays,
   addMonths,
   addWeeks,
+  eachDayOfInterval,
+  eachWeekOfInterval,
+  endOfMonth,
+  endOfWeek,
   getDate,
+  getDay,
   getDaysInMonth,
   getMonth,
   getWeek,
@@ -81,7 +87,7 @@ const MontlyCalendar = ({ events, onClickTitle }) => {
   const handleSubMonth = () => {
     setCurrMonth(subMonths(currMonth, 1))
   }
-  const [monthEvents, setMonthEvents] = useState()
+  const [monthEvents, setMonthEvents] = useState([])
 
   useEffect(() => {
     if (events) {
@@ -92,23 +98,30 @@ const MontlyCalendar = ({ events, onClickTitle }) => {
     }
   }, [currMonth, events])
 
-  console.log('monthEvents', monthEvents, getDaysInMonth(currMonth))
+  console.log('currMonth', currMonth)
 
   const handleEventClick = (id) => {
     router.push(`/dashboard/events/${id}`)
   }
   const [daysList, setDaysList] = useState([])
   useEffect(() => {
-    const daysList = []
-    if (monthEvents) {
-      for (let i = 0; i < getDaysInMonth(currMonth); i++) {
-        const events = monthEvents.filter((event) => getDate(event.date) === i)
-        daysList.push(events)
-      }
-      setDaysList(daysList)
+    const arr = []
+    for (let i = 0; i < getDaysInMonth(currMonth); i++) {
+      const evts = monthEvents.filter(
+        (event) => getDate(event.date) === i
+      )
+      arr.push({
+        date: addDays(currMonth, i),
+        events: evts,
+      })
     }
-  }, [currMonth, monthEvents])
-
+    setDaysList(arr)
+  }, [currMonth])
+  console.log('daysList', daysList)
+  /*  [
+    {date,
+    events}
+  ] */
 
   return (
     <div>
@@ -125,19 +138,16 @@ const MontlyCalendar = ({ events, onClickTitle }) => {
         </Button>
       </div>
       <div className={s.month_body}>
-        {daysList?.map((day, i) => (
+        {daysList?.map(({ events, date }, i) => (
           <div className={s.month_day} key={i}>
-            <div className={s.month_number}>{i + 1}</div>
+            <div className={s.month_number}>{format(date, 'd')}</div>
             <div className={s.month_events}>
-              {day?.map((event) => (
+              {events?.map((event) => (
                 <MonthEvent key={event.id} event={event} />
               ))}
             </div>
           </div>
         ))}
-        {/* {weekEvents?.map((event) => (
-          
-        ))} */}
       </div>
     </div>
   )
@@ -209,7 +219,6 @@ const MonthEvent = ({ event, onClick }) => {
         onClick(id)
       }}
     >
-      <div>{format(date, 'EEE dd')}</div>
       <div>{label}</div>
       <div>{earring}</div>
     </button>
