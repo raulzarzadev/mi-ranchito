@@ -7,11 +7,11 @@
   width: 100%;
   justify-content: center;
   text-transform: uppercase;
-  align-items: center
+  align-items: center;
 }
 .week_nav .nav_month {
-    font-weight: 600;
-    font-size: 1.5rem
+  font-weight: 600;
+  font-size: 1.5rem;
 }
 
 .week_body {
@@ -33,4 +33,29 @@
 }
 .week_event > div {
   width: 30%;
+}
+
+.month_day {
+}
+
+.month_number {
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #fff2;
+  width: 100%;
+  
+}
+
+.month_event {
+  display: flex;
+  justify-content: space-evenly;
+  background: var(--background-semi);
+  padding: 8px 0;
+  border-radius: 4px;
+  box-shadow: var(--shadow-1);
+  width: -webkit-fill-available;
+  margin: 4px 0 6px 24px;
+}
+.month_event:hover {
+  box-shadow: none;
 }

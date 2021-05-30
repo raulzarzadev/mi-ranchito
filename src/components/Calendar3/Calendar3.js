@@ -1,14 +1,24 @@
 import Button from '@cmps/Inputs/Button'
-import { H2 } from '@cmps/Texts/H'
 import { format } from '@raiz/src/utils/Dates'
-import { addWeeks, getWeek, getWeekYear, startOfWeek, subWeeks } from 'date-fns'
+import {
+  addMonths,
+  addWeeks,
+  getDate,
+  getDaysInMonth,
+  getMonth,
+  getWeek,
+  startOfMonth,
+  startOfWeek,
+  subMonths,
+  subWeeks,
+} from 'date-fns'
 
-import { getWeekYearWithOptions } from 'date-fns/fp'
 import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import { useRouter } from 'next/router'
+import { H3 } from '@cmps/Texts/H'
 
 export default function Calendar3({ events = [] }) {
   const [formatEvents, setFormatEvents] = useState()
@@ -33,32 +43,125 @@ export default function Calendar3({ events = [] }) {
     setFormatEvents(mirrorEvents)
   }, [])
 
+  const handleChangeCalendarView = () => {
+    calendarView === 'semana'
+      ? setCalendarView('mes')
+      : setCalendarView('semana')
+  }
+
+  const [calendarView, setCalendarView] = useState('semana')
+
+  console.log('calendarView', calendarView)
+
   return (
     <div className={s.calendar}>
-      <WeeklyCalendar events={formatEvents} />
+      {calendarView === 'semana' && (
+        <WeeklyCalendar
+          events={formatEvents}
+          onClickTitle={handleChangeCalendarView}
+        />
+      )}
+      {calendarView === 'mes' && (
+        <MontlyCalendar
+          events={formatEvents}
+          onClickTitle={handleChangeCalendarView}
+        />
+      )}
     </div>
   )
 }
 
-const WeeklyCalendar = ({ events }) => {
-  const [currWeek, setCurrWeek] = useState(startOfWeek(new Date()))
+const MontlyCalendar = ({ events, onClickTitle }) => {
+  const router = useRouter()
+  const [currMonth, setCurrMonth] = useState(startOfMonth(new Date()))
+
+  const handleAddMonth = () => {
+    setCurrMonth(addMonths(currMonth, 1))
+  }
+  const handleSubMonth = () => {
+    setCurrMonth(subMonths(currMonth, 1))
+  }
+  const [monthEvents, setMonthEvents] = useState()
+
+  useEffect(() => {
+    if (events) {
+      const monthEvents = events.filter(
+        (event) => getMonth(event.date) === getMonth(currMonth)
+      )
+      setMonthEvents(monthEvents)
+    }
+  }, [currMonth, events])
+
+  console.log('monthEvents', monthEvents, getDaysInMonth(currMonth))
+
+  const handleEventClick = (id) => {
+    router.push(`/dashboard/events/${id}`)
+  }
+  const [daysList, setDaysList] = useState([])
+  useEffect(() => {
+    const daysList = []
+    if (monthEvents) {
+      for (let i = 0; i < getDaysInMonth(currMonth); i++) {
+        const events = monthEvents.filter((event) => getDate(event.date) === i)
+        daysList.push(events)
+      }
+      setDaysList(daysList)
+    }
+  }, [currMonth, monthEvents])
+
+
+  return (
+    <div>
+      <div className={s.week_nav}>
+        <Button p="1" primary icon onClick={handleSubMonth}>
+          <ArrowBackIos />
+        </Button>
+        <div onClick={onClickTitle}>
+          <span className={s.nav_month}>{format(currMonth, 'MMMM')}</span>
+          <H3>Mes</H3>
+        </div>
+        <Button p="1" primary icon onClick={handleAddMonth}>
+          <ArrowForwardIos />
+        </Button>
+      </div>
+      <div className={s.month_body}>
+        {daysList?.map((day, i) => (
+          <div className={s.month_day} key={i}>
+            <div className={s.month_number}>{i + 1}</div>
+            <div className={s.month_events}>
+              {day?.map((event) => (
+                <MonthEvent key={event.id} event={event} />
+              ))}
+            </div>
+          </div>
+        ))}
+        {/* {weekEvents?.map((event) => (
+          
+        ))} */}
+      </div>
+    </div>
+  )
+}
+
+const WeeklyCalendar = ({ events, onClickTitle }) => {
+  const [currMonth, setCurrMonth] = useState(startOfWeek(new Date()))
 
   const handleAddWeek = () => {
-    setCurrWeek(addWeeks(currWeek, 1))
+    setCurrMonth(addWeeks(currMonth, 1))
   }
   const handleSubWeek = () => {
-    setCurrWeek(subWeeks(currWeek, 1))
+    setCurrMonth(subWeeks(currMonth, 1))
   }
   const [weekEvents, setWeekEvents] = useState()
 
   useEffect(() => {
     if (events) {
       const weekEvents = events.filter(
-        (event) => getWeek(event.date) === getWeek(currWeek)
+        (event) => getWeek(event.date) === getWeek(currMonth)
       )
       setWeekEvents(weekEvents)
     }
-  }, [currWeek,events])
+  }, [currMonth, events])
 
   const router = useRouter()
   const handleEventClick = (id) => {
@@ -68,22 +171,23 @@ const WeeklyCalendar = ({ events }) => {
   return (
     <div>
       <div className={s.week_nav}>
-        <Button p='1' primary icon onClick={handleSubWeek}>
-            <ArrowBackIos />
+        <Button p="1" primary icon onClick={handleSubWeek}>
+          <ArrowBackIos />
         </Button>
-        <div>
+        <div onClick={onClickTitle}>
           <span className={s.nav_month}>
-            {format(addWeeks(currWeek, 1), 'MMMM')}
+            {format(addWeeks(currMonth, 1), 'MMMM')}
           </span>
+          <H3>semana</H3>
           <div>
-            {`${format(currWeek, 'dd')} - ${format(
-              addWeeks(currWeek, 1),
+            {`${format(currMonth, 'dd')} - ${format(
+              addWeeks(currMonth, 1),
               'dd'
-              )} `}
+            )} `}
           </div>
         </div>
-        <Button p='1' primary icon onClick={handleAddWeek}>
-              <ArrowForwardIos />
+        <Button p="1" primary icon onClick={handleAddWeek}>
+          <ArrowForwardIos />
         </Button>
       </div>
       <div className={s.week_body}>
@@ -92,6 +196,23 @@ const WeeklyCalendar = ({ events }) => {
         ))}
       </div>
     </div>
+  )
+}
+
+const MonthEvent = ({ event, onClick }) => {
+  const { date, label, earring, id } = event
+  return (
+    <button
+      className={s.month_event}
+      onClick={(e) => {
+        e.preventDefault()
+        onClick(id)
+      }}
+    >
+      <div>{format(date, 'EEE dd')}</div>
+      <div>{label}</div>
+      <div>{earring}</div>
+    </button>
   )
 }
 
