@@ -26,7 +26,6 @@ export default function NewEvent({
   const [form, setForm] = useState({
     date: new Date(),
     coments: '',
-    earring: '',
     earringId: '',
     key: '',
   })
@@ -59,9 +58,9 @@ export default function NewEvent({
   }, [form.key])
 
   const handleSelectCow = (e) => {
-    const earringNo = earrings?.find((cow) => cow.id === e.target.value)
-      ?.earring
-    setForm({ ...form, earring: earringNo, earringId: e.target.value })
+    /* const earringNo = earrings?.find((cow) => cow.id === e.target.value)
+      ?.earring */
+    setForm({ ...form, earringId: e.target.value })
   }
 
   const handleChangeDate = (e) => {
@@ -83,7 +82,7 @@ export default function NewEvent({
     }, 300)
   }
 
-  const valid = !form.earring || !form.key || labelButton === 'Guardado'
+  const valid = !form.earringId || !form.key || labelButton === 'Guardado'
 
   /*  const eventsAvailable = formatedTypes()?.sort((a, b) => {
     if (a.label > b.label) return 1
@@ -125,7 +124,7 @@ export default function NewEvent({
         >
           <div>
             <div className={styles.event_form__input}>
-              <Select label="Arete">
+              <Select name='earringId' label="Arete" onChange={handleSelectCow}>
                 <option value="" disabled>
                   {`Selecciona Arete`}
                 </option>

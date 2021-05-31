@@ -1,7 +1,5 @@
 import {
-  fb_deleteCow,
   fb_getCow,
-  fb_deleteCowEvents,
   fb_getUserCows,
   fb_newCow,
   fb_updateCow,
@@ -25,8 +23,6 @@ export default function useCows() {
   const getCow = async (cowId) => {
     const cow = await fb_getCow(cowId)
     const events = await fb_getEventsByCow(cowId)
-    console.log('events', events)
-
     return Cow(cow, events)
   }
 
@@ -36,7 +32,6 @@ export default function useCows() {
       const cows = await fb_getUserCows(user?.id)
       for (const cow of cows) {
         const cowEvents = await getCow(cow.id)
-
         formatedCows.push(cowEvents)
       }
     } catch (error) {

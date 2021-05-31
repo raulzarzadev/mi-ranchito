@@ -13,13 +13,13 @@ const links = [
     href: ROUTES.configuration,
     label: 'Configuración',
   }, */
-  /* {
+  {
     cat: 'main',
     side: 'primary',
     id: '129',
     href: ROUTES.dashboard,
-    label: 'Panel',
-  }, */
+    label: 'Ganado'
+  },
   {
     cat: 'main',
     side: 'primary',

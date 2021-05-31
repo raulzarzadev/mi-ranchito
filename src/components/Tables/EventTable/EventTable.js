@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import useCows from '@raiz/src/hooks/useCows'
 
 export default function EventsTable({ events = [] }) {
   const [sortBy, setSortBy] = useState('date')

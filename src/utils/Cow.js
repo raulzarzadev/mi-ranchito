@@ -27,9 +27,16 @@ export const Cow = (cow = {}, events = []) => {
       coments,
       label: info?.label,
       variants: (variant && [variant]) || null,
+      ...info,
     }
     /* 
     return { label, id, date, options, coments } */
+  }
+
+  const _getCowStatus = (events = [], date = new Date()) => {
+    console.log('events', events)
+    
+    return ['lactando', 'gestando']
   }
 
   const eventsSorted = events.sort((a, b) => a.date - b.date)
@@ -37,12 +44,10 @@ export const Cow = (cow = {}, events = []) => {
   const lastEvent = eventsSorted[eventsSorted.length - 1]
   const previusEvent = eventsSorted[eventsSorted.length - 2]
 
-  console.log('formatedEvents', formatedEvents)
-
   return {
     upcomingEvents: [],
     events: formatedEvents,
-    statuses: [],
+    statuses: _getCowStatus(events),
     lastEvent: {},
 
     ...details,

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import Button from '@cmps/Inputs/Button'
 import { H1, H2, H3 } from '@cmps/Texts/H'
+import { useRouter } from 'next/router'
 
 export default function CowsDasboard() {
   const { getCows } = useCows()
@@ -70,7 +71,11 @@ export default function CowsDasboard() {
     (cow) =>
       cow?.statuses?.includes('lactante') && cow?.statuses?.includes('gestante')
   )
-  if (loading) return <div className="center">{`Cargando...`}</div>
+  const router = useRouter()
+  const handleRedirect = (to) => {
+    router.push(to)
+  }
+  // if (lo=(ading) return <div className="center">{`Cargando...`}</div>
 
   return (
     <div className="center">
@@ -79,31 +84,35 @@ export default function CowsDasboard() {
       </Head>
       <div className={styles.cows_dasboard}>
         <div>
-          <H1>Estado actual del ganado: </H1>
+          <H1>Mi Ganado: </H1>
           <div className={styles.grid_stats}>
-            <StatusItem
+            <StatusIconItem
               icon={'/assets/icons/cows.svg'}
               alt="cows"
               data={cows}
+              onClick={() => handleRedirect('/dashboard/cows')}
             />
-            <StatusItem
+            <StatusIconItem
               icon={'/assets/icons/pregnant.svg'}
               alt="gestatnes"
               data={gestantes}
+              onClick={() => handleRedirect('/dashboard/cows')}
             />
-            <StatusItem
+            <StatusIconItem
               icon={'/assets/icons/milk.svg'}
               alt="lactantes"
               data={lactantes}
+              onClick={() => handleRedirect('/dashboard/cows')}
             />
-            <StatusItem
+            <StatusIconItem
               icon={'/assets/icons/pregAndMilk.svg'}
               alt="cows"
               data={lactAndGest}
+              onClick={() => handleRedirect('/dashboard/cows')}
             />
           </div>
 
-          <H1>Eventos por mes </H1>
+          {/* <H1>Eventos por mes </H1>
           <div className={styles.dash_grid}>
             <div className={styles.grid_row}>
               <div className={styles.grid_cell}>Evts/Mes</div>
@@ -117,7 +126,7 @@ export default function CowsDasboard() {
                 <Month key={i} events={events} month={month} />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -198,14 +207,14 @@ const Cell = ({ evts = [], handleClick, meta }) => (
   </div>
 )
 
-const StatusItem = ({ icon, alt, data = [] }) => {
+const StatusIconItem = ({ icon, alt, data = [], onClick }) => {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={styles.stats_item} onClick={() => setOpen(!open)}>
+    <div className={styles.stats_item} onClick={onClick}>
       <img key={icon} src={icon} alt={alt} className={styles.stats_icon} />
       <H2>{data?.length}</H2>
-      <Modal open={open} handleOpen={() => setOpen(!open)}>
+      {/*  <Modal open={open} handleOpen={() => setOpen(!open)} >
         <div
           style={{
             display: 'flex',
@@ -236,7 +245,7 @@ const StatusItem = ({ icon, alt, data = [] }) => {
             </div>
           ))}
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   )
 }

@@ -4,10 +4,14 @@ import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import useCows from '@raiz/src/hooks/useCows'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Cows() {
   const { getCows } = useCows()
   const [cows, setCows] = useState(undefined)
+  const {query} = useRouter()
+  console.log('query', query)
+  
 
   useEffect(() => {
     getCows().then((res) => setCows(res))

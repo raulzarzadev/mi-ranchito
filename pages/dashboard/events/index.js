@@ -15,11 +15,12 @@ export default function events() {
 
   useEffect(() => {
     if (user) {
-      getEvents().then((res) => {
-        setEvents(res?.map((event) => formatEvent(event)))
-      })
+      getEvents().then(setEvents)
     }
   }, [user])
+
+  console.log('events', events)
+  
 
   if (events === undefined) return 'Cargando...'
 

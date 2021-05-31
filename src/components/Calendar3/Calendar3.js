@@ -103,7 +103,7 @@ const MontlyCalendar = ({ events }) => {
           getMonth(event.date) === getMonth(currMonth)
       )
       arr.push({
-        date: addDays(currMonth, i),
+        date: addDays(currMonth, i-1), 
         events: evts,
       })
     }

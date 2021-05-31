@@ -247,6 +247,7 @@ export const VARIANTS = {
     { key: 'DEAD', label: 'Muerto' },
   ],
 }
+
 export const EVENTS_TYPES_2 = [
   {
     key: 'BIRTH',
