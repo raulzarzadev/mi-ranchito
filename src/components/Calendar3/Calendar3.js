@@ -96,7 +96,7 @@ const MontlyCalendar = ({ events }) => {
 
   useEffect(() => {
     const arr = []
-    for (let i = 0; i < getDaysInMonth(currMonth); i++) {
+    for (let i = 1; i <= getDaysInMonth(currMonth); i++) {
       const evts = events.filter(
         (event) =>
           getDate(event.date) === i &&
