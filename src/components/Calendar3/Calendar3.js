@@ -19,10 +19,8 @@ import s from './styles.module.css'
 
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import { useRouter } from 'next/router'
-import { H3 } from '@cmps/Texts/H'
-import Switch from '@cmps/Inputs/Switch'
 
-export default function Calendar3({ events = [] }) {
+export default function Calendar3({ events = [], view = 'semana' }) {
   const [formatEvents, setFormatEvents] = useState()
   useEffect(() => {
     const mirrorEvents = events.reduce((prev, curr) => {
@@ -43,37 +41,12 @@ export default function Calendar3({ events = [] }) {
     }, [])
 
     setFormatEvents(mirrorEvents)
-  }, [])
-
-  const handleChangeCalendarView = () => {
-    calendarView === 'semana'
-      ? setCalendarView('mes')
-      : setCalendarView('semana')
-  }
-
-  const [calendarView, setCalendarView] = useState('semana')
+  }, [view])
 
   return (
     <div className={s.calendar}>
-      <div className={s.switch}>
-        <Switch
-          id="clandar-view"
-          label={calendarView}
-          onChange={handleChangeCalendarView}
-        />
-      </div>
-      {calendarView === 'semana' && (
-        <WeeklyCalendar
-          events={formatEvents}
-          onClickTitle={handleChangeCalendarView}
-        />
-      )}
-      {calendarView === 'mes' && (
-        <MontlyCalendar
-          events={formatEvents}
-          onClickTitle={handleChangeCalendarView}
-        />
-      )}
+      {view === 'semana' && <WeeklyCalendar events={formatEvents} />}
+      {view === 'mes' && <MontlyCalendar events={formatEvents} />}
     </div>
   )
 }
@@ -97,13 +70,13 @@ const MontlyCalendar = ({ events }) => {
   useEffect(() => {
     const arr = []
     for (let i = 1; i <= getDaysInMonth(currMonth); i++) {
-      const evts = events.filter(
+      const evts = events?.filter(
         (event) =>
           getDate(event.date) === i &&
           getMonth(event.date) === getMonth(currMonth)
       )
       arr.push({
-        date: addDays(currMonth, i-1), 
+        date: addDays(currMonth, i - 1),
         events: evts,
       })
     }
@@ -150,7 +123,7 @@ const MontlyCalendar = ({ events }) => {
   )
 }
 
-const WeeklyCalendar = ({ events, onClickTitle }) => {
+const WeeklyCalendar = ({ events }) => {
   const [currMonth, setCurrMonth] = useState(startOfWeek(new Date()))
 
   const handleAddWeek = () => {
@@ -181,7 +154,7 @@ const WeeklyCalendar = ({ events, onClickTitle }) => {
         <Button p="1" primary icon onClick={handleSubWeek}>
           <ArrowBackIos />
         </Button>
-        <div onClick={onClickTitle}>
+        <div>
           <span className={s.nav_month}>{format(currMonth, 'MMMM')}</span>
           <div>
             {`${format(currMonth, 'dd')} - ${format(
@@ -195,7 +168,7 @@ const WeeklyCalendar = ({ events, onClickTitle }) => {
         </Button>
       </div>
       <div className={s.week_body}>
-        {weekEvents?.length ===0 && 'Sin Eventos'}
+        {weekEvents?.length === 0 && 'Sin Eventos'}
         {weekEvents?.map((event) => (
           <WeekEvent key={event.id} event={event} onClick={handleEventClick} />
         ))}

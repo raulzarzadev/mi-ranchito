@@ -81,7 +81,7 @@ export default function EventsTable({ events = [] }) {
 }
 
 const Row = ({ event }) => {
-  const { earring, date, id, label, cow, variants } = event
+  const {  date, id, label, cow, variants } = event
 
   const router = useRouter()
   return (
