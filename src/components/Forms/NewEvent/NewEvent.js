@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './styles.module.css'
 import Text from '@cmps/Inputs/Text'
 import Select from '@cmps/Inputs/Text/Select'
+import { formatInputDate } from '@raiz/src/utils/Dates'
 
 export default function NewEvent({
   title = '',
@@ -124,7 +125,7 @@ export default function NewEvent({
         >
           <div>
             <div className={styles.event_form__input}>
-              <Select name='earringId' label="Arete" onChange={handleSelectCow}>
+              <Select name="earringId" label="Arete" onChange={handleSelectCow}>
                 <option value="" disabled>
                   {`Selecciona Arete`}
                 </option>
@@ -225,7 +226,7 @@ export default function NewEvent({
                 type="date"
                 name="date"
                 id="event-date"
-                value={form?.date}
+                value={formatInputDate(form?.date)}
                 onChange={handleChangeDate}
               />
             </div>

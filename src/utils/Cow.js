@@ -1,4 +1,5 @@
 import { EVENTS_TYPES_2, VARIANTS } from '@raiz/constants/EVENTS_INFO'
+import { Event } from './Event'
 
 /*  This function will create a complite COW element  */
 export const Cow = (cow = {}, events = []) => {
@@ -13,26 +14,6 @@ export const Cow = (cow = {}, events = []) => {
     birth,
   }
 
-  /*  Format event according wit the predeterminated information     */
-  const _formatEvent = (event) => {
-    const info = EVENTS_TYPES_2.find(({ key }) => key === event.key)
-    const variant = VARIANTS[event.key]?.find(
-      ({ key }) => key === event.variant
-    )
-    const { id, key, coments, date } = event
-    return {
-      id,
-      key,
-      date,
-      coments,
-      label: info?.label,
-      variants: (variant && [variant]) || null,
-      ...info,
-    }
-    /* 
-    return { label, id, date, options, coments } */
-  }
-
   const _getCowStatus = (events = [], date = new Date()) => {
     console.log('events', events)
     
@@ -40,7 +21,7 @@ export const Cow = (cow = {}, events = []) => {
   }
 
   const eventsSorted = events.sort((a, b) => a.date - b.date)
-  const formatedEvents = eventsSorted.map((event) => _formatEvent(event))
+  const formatedEvents = eventsSorted.map((event) => Event(event))
   const lastEvent = eventsSorted[eventsSorted.length - 1]
   const previusEvent = eventsSorted[eventsSorted.length - 2]
 

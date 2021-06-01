@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import useCows from '@raiz/src/hooks/useCows'
 
 export default function EventsTable({ events = [] }) {
   const [sortBy, setSortBy] = useState('date')
@@ -82,7 +81,7 @@ export default function EventsTable({ events = [] }) {
 }
 
 const Row = ({ event }) => {
-  const { earring, date, id, label } = event
+  const { earring, date, id, label, cow, variants } = event
 
   const router = useRouter()
   return (
@@ -91,10 +90,14 @@ const Row = ({ event }) => {
       onClick={() => router.push(`/dashboard/events/${id}`)}
     >
       <div>
-        <div>{`${earring}`}</div>
-        <em>{event.name || ' - '}</em>
+        <div>{`${cow.earring}`}</div>
+        <em>{cow.name || ' - '}</em>
       </div>
-      <div>{label}</div>
+      <div>
+        <div>{label}</div>
+        <em>{variants?.map((variant) => variant.label)}</em>
+        <div></div>
+      </div>
       <div>{fromNow(date)}</div>
 
       {/*  <div>{events?.length}</div>

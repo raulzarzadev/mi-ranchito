@@ -18,7 +18,16 @@ export default function useEvents() {
     const cows = await getCows()
     const events = cows.map((cow) =>
       cow.events.map((event) => {
-        return { earringId: cow.id, earring: cow.earring, ...event }
+        return {
+          earringId: cow.id,
+          earring: cow.earring,
+          cow: {
+            id: cow.id,
+            name: cow.name,
+            earring: cow.earring,
+          },
+          ...event,
+        }
       })
     )
 

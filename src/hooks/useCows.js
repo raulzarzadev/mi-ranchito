@@ -7,13 +7,14 @@ import {
 } from '@raiz/firebase/client'
 import { useAuth } from '../context/AuthContext'
 import { Cow } from '../utils/Cow'
+import { Event } from '../utils/Event'
 
 export default function useCows() {
   const { user } = useAuth()
 
   const addCow = async (cow) => {
     try {
-      const res = await fb_newCow({ userId: user.id, ...cow })
+      const res = await fb_newCow({ userId: user.id, active: true, ...cow })
       return res
     } catch (err) {
       return console.log(err)
@@ -49,7 +50,7 @@ export default function useCows() {
     // TODO solo colocar hide
     console.log('removimng cowId', cowId)
 
-    return await fb_updateCow(cowId, { isHidden: true })
+    return await fb_updateCow(cowId, { active: false })
   }
 
   return { getCow, getCows, addCow, removeCow, editCow }

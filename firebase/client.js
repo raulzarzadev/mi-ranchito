@@ -283,7 +283,7 @@ export async function fb_getUserCows(userId = '') {
   return (
     db
       .collection('cows')
-      // .where('userId', '==', userId)
+      .where('active', '==', true)
       .get()
       .then(({ docs }) => normalizeDocs(docs))
       .catch((err) => console.log(err))

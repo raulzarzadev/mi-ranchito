@@ -23,6 +23,10 @@ export default function CowDetails() {
     }
   }, [id])
 
+  console.log('details', details)
+  
+  
+
   if (details === undefined) return 'loading ...'
 
   const {

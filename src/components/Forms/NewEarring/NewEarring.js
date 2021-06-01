@@ -5,8 +5,8 @@ import { H2 } from '@cmps/Texts/H'
 import ROUTES from '@raiz/constants/ROUTES'
 import { useRouter } from 'next/router'
 import Text from '@cmps/Inputs/Text'
-import Date from '@cmps/Inputs/Date'
 import Button from '@cmps/Inputs/Button'
+import { formatInputDate } from '@raiz/src/utils/Dates'
 
 export default function NewEarring({ cow = undefined, title = '' }) {
   const router = useRouter()
@@ -15,11 +15,7 @@ export default function NewEarring({ cow = undefined, title = '' }) {
 
   useEffect(() => {
     if (cow) {
-      setForm({
-        earring: cow.earring,
-        name: cow?.name || null,
-        registryDate: cow.registryDate,
-      })
+      setForm({ ...cow })
       setActions('edit')
     }
   }, [cow])
@@ -56,8 +52,8 @@ export default function NewEarring({ cow = undefined, title = '' }) {
     }
   }
 
-  const handleChangeDate = (e) => {
-    const date = new Date(e.target.value || form.date).toISOString()
+  const handleChangeDate = async (e) => {
+    const date = e.target.value
     setForm({ ...form, [e.target.name]: date })
   }
 
@@ -99,7 +95,7 @@ export default function NewEarring({ cow = undefined, title = '' }) {
             label="Registro"
             type="date"
             name="registryDate"
-            value={form.registryDate}
+            value={formatInputDate(form.registryDate)}
             onChange={handleChangeDate}
           />
         </div>
@@ -108,7 +104,7 @@ export default function NewEarring({ cow = undefined, title = '' }) {
             label="Nacimiento"
             type="date"
             name="birth"
-            value={form.birth}
+            value={formatInputDate(form.birth)}
             onChange={handleChangeDate}
           />
         </div>

@@ -1,4 +1,3 @@
-import { formatInputDate } from '@raiz/src/utils/Dates'
 import s from './styles.module.css'
 
 export default function Text({
@@ -20,7 +19,7 @@ export default function Text({
         className={s.text_input}
         placeholder={placeholder}
         name={name}
-        value={type === 'date' ? formatInputDate(value) : value}
+        value={value}
         onChange={onChange}
         {...rest}
       >
