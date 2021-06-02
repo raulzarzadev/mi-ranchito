@@ -178,7 +178,7 @@ const WeeklyCalendar = ({ events }) => {
 }
 
 const MonthEvent = ({ event, onClick }) => {
-  const { date, label, earring, id } = event
+  const {  variants, label, earring, id, coments } = event
   return (
     <button
       className={s.month_event}
@@ -187,8 +187,10 @@ const MonthEvent = ({ event, onClick }) => {
         onClick(id)
       }}
     >
-      <div>{label}</div>
       <div>{earring}</div>
+      <div>{label}</div>
+      <div>{variants?.map((variant) => variant?.label)}</div>
+      <div>{coments || ' - '}</div>
     </button>
   )
 }
@@ -203,9 +205,9 @@ const WeekEvent = ({ event, onClick = () => {} }) => {
         onClick(id)
       }}
     >
-      <div>{format(date, 'EEE dd MMM')}</div>
-      <div>{label}</div>
       <div>{earring}</div>
+      <div>{label}</div>
+      <div>{format(date, 'EEE dd')}</div>
     </button>
   )
 }

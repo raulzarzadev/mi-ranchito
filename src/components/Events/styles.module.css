@@ -10,5 +10,6 @@
 
 .buttons_box{
   display: flex;
-  justify-content: space-evenly
+  justify-content: space-evenly;
+  padding: 16px 0
 }
