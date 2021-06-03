@@ -1,4 +1,3 @@
-import { EVENTS_TYPES_2, VARIANTS } from '@raiz/constants/EVENTS_INFO'
 import { Event } from './Event'
 
 /*  This function will create a complite COW element  */
@@ -22,9 +21,9 @@ export const Cow = (cow = {}, events = []) => {
 
   const eventsSorted = events.sort((a, b) => a.date - b.date)
   const formatedEvents = eventsSorted.map((event) => Event(event))
-  const lastEvent = eventsSorted[eventsSorted.length - 1]
+ /*  const lastEvent = eventsSorted[eventsSorted.length - 1]
   const previusEvent = eventsSorted[eventsSorted.length - 2]
-
+ */
   return {
     upcomingEvents: [],
     events: formatedEvents,

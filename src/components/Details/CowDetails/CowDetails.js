@@ -2,7 +2,7 @@ import styles from './styles.module.css'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import useCows from '@raiz/src/hooks/useCows'
-import { H2, H3 } from '@cmps/Texts/H'
+import { H2 } from '@cmps/Texts/H'
 import ROUTES from '@raiz/constants/ROUTES'
 import Button from '@cmps/Inputs/Button'
 import { fromNow } from '@raiz/src/utils/Dates'
@@ -23,21 +23,9 @@ export default function CowDetails() {
     }
   }, [id])
 
-  console.log('details', details)
-  
-  
-
   if (details === undefined) return 'loading ...'
 
-  const {
-    earring,
-    name,
-    registryDate,
-    birth,
-    events,
-    lastEvent,
-    statuses,
-  } = details
+  const { earring, name, registryDate, birth, events } = details
 
   return (
     <>
@@ -87,33 +75,7 @@ export default function CowDetails() {
           </div>
         </div>
       </div>
-
       <CowEvents events={events} cowId={id} />
-      {/*  <div>Id: {id}</div>
-      <div>Arete: {earring}</div>
-      <div>Nombre/apodo: {name}</div>
-      <div>Edad : {age}</div>
-      <div>Registro: {new Date(registryDate).toUTCString()}</div>
-      <div className="center">
-        <div className="box-1">
-          <P3>Status</P3>
-          {statuses?.map((status) => (
-            <H2 key={status}>{status}</H2>
-          ))}
-        </div>
-      </div> */}
-      {/* <div className={styles.button_box}>
-        <div className="box-1">
-          <Btn1 label="Nuevo Evento" href={`${ROUTES.newEvent}?cowId=${id}`} />
-        </div>
-      </div> */}
-      {/*  <LastEventView lastEvent={lastEvent} />
-      <EventTable
-        hideEarring
-        upcomingEvents
-        title={`Historial de ${earring}`}
-        events={events}
-      /> */}
       <RemoveCowModal
         open={openRemoveCowModal}
         handleOpen={handleOpenDeleteModal}

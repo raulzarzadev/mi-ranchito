@@ -30,12 +30,7 @@ export default function useEvents() {
         }
       })
     )
-
     return events.flat()
-
-    /*     const events = await fb_getUserEvents(user.id)
-    const formatedEvents = events.map((event) => Event(event))
-    return formatedEvents */
   }
 
 

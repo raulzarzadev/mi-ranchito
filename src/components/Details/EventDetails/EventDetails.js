@@ -9,7 +9,6 @@ import s from './styles.module.css'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 
 export default function EventDetails({ event }) {
-  console.log('event', event)
   const { variants } = event
   const router = useRouter()
   const { removeEvent } = useEvents()
