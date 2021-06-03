@@ -27,3 +27,5 @@ export const formatClientDate = (date) => {
   const format = moment(date).utc(false).format('DD - MMMM - YY')
   return format
 }
+
+

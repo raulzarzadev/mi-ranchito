@@ -42,30 +42,41 @@ export default function EventDetails({ event }) {
             />
           </div>
           <div className={s.cow}>
-            <span>Vaca : {event.earring} </span>
+            <span>
+              <H2>Arete: </H2>
+              {event.earring} <em>{event.name}</em>
+            </span>
             <Button
               m="none"
               icon
-              p="1"
+              p="2"
+              secondary
               onClick={() => router.push(`/dashboard/cows/${event.earringId}`)}
             >
-              <ArrowForwardIcon />
+              Ver <ArrowForwardIcon />
             </Button>
           </div>
-          <div>Evento : {event.label}</div>
-          <div>Creado : {fromNow(event.date)}</div>
-          <div>Fecha: {formatClientDate(event.date)}</div>
-          <div>
-            <H3>Variante</H3>
-            {variants ? (
-              <div>{variants?.map((variant) => variant.label)}</div>
-            ) : (
-              '-'
-            )}
-          </div>
-          <div>
-            <H3>Coments</H3>
-            <div>{event?.coments}</div>
+          <div className={s.info}>
+            <div>
+              <H2>Evento:</H2> {event.label}
+            </div>
+            <div>
+              <H2>Fecha:</H2>
+              <div>{formatClientDate(event.date)}</div>
+              <em>{fromNow(event.date)}</em>
+            </div>
+            <div>
+              <H2>Variante</H2>
+              {variants ? (
+                <div>{variants?.map((variant) => variant.label)}</div>
+              ) : (
+                '-'
+              )}
+            </div>
+            <div>
+              <H2>Coments</H2>
+              <div>{event?.coments}</div>
+            </div>
           </div>
         </div>
       </div>

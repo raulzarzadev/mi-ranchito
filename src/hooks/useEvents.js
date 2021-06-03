@@ -38,6 +38,7 @@ export default function useEvents() {
     return formatedEvents */
   }
 
+
   const addEvent = (event) => {
     fb_newEvent({ userId: user.id, ...event })
       .then((res) => console.log(res))
