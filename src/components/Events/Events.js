@@ -15,6 +15,7 @@ export default function Events({ events = [] }) {
   return (
     <div className={s.events}>
       <H2>Eventos</H2>
+      
       <div className={s.buttons_box}>
         <Button
           onClick={() => handleChangeView('LIST')}

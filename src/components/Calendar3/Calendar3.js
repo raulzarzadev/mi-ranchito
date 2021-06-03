@@ -4,12 +4,8 @@ import {
   addDays,
   addMonths,
   addWeeks,
-  getDate,
-  getDay,
   getDayOfYear,
   getDaysInMonth,
-  getMonth,
-  getWeek,
   getYear,
   startOfMonth,
   startOfWeek,
@@ -24,32 +20,10 @@ import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import { useRouter } from 'next/router'
 
 export default function Calendar3({ events = [], view = 'semana' }) {
-  const [formatEvents, setFormatEvents] = useState()
-  useEffect(() => {
-    const mirrorEvents = events.reduce((prev, curr) => {
-      const original = curr
-
-      const mirror = curr.upcomingEvents.map((event) => {
-        const mirrorDate = curr.date + event.InDays * 24 * 60 * 60 * 1000 // dias en ms
-        return {
-          ...event,
-          earring: curr.earring,
-          id: curr.id,
-          date: mirrorDate,
-          mirrorEvent: true,
-        }
-      })
-
-      return [...prev, mirror, original].flat()
-    }, [])
-
-    setFormatEvents(mirrorEvents)
-  }, [view])
-
   return (
     <div className={s.calendar}>
-      {view === 'semana' && <WeeklyCalendar events={formatEvents} />}
-      {view === 'mes' && <MontlyCalendar events={formatEvents} />}
+      {view === 'semana' && <WeeklyCalendar events={events} />}
+      {view === 'mes' && <MontlyCalendar events={events} />}
     </div>
   )
 }
@@ -88,40 +62,12 @@ const MontlyCalendar = ({ events }) => {
 
   return (
     <div>
-      <div className={s.week_nav}>
-        <Button p="1" primary icon onClick={handleSubMonth}>
-          <ArrowBackIos />
-        </Button>
+      <CalendarNav handleAdd={handleAddMonth} handleSub={handleSubMonth}>
         <div>
           <span className={s.nav_month}>{format(currMonth, 'MMMM yy')}</span>
         </div>
-        <Button p="1" primary icon onClick={handleAddMonth}>
-          <ArrowForwardIos />
-        </Button>
-      </div>
-      <div className={s.month_body}>
-        {daysList?.map((day, i) => (
-          <div className={s.month_day} key={i}>
-            <div className={s.month_number}>
-              <span>
-                {`${format(day?.date, 'd')} `}
-                {day?.events?.length > 0
-                  ? format(day?.date, 'EEEE')
-                  : format(day.date, 'EEEEE')}
-              </span>
-            </div>
-            <div className={s.month_events}>
-              {day?.events?.map((event) => (
-                <MonthEvent
-                  key={event.id}
-                  event={event}
-                  onClick={handleEventClick}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      </CalendarNav>
+      <DaysList daysList={daysList} handleEventClick={handleEventClick} />
     </div>
   )
 }
@@ -158,60 +104,74 @@ const WeeklyCalendar = ({ events }) => {
     setDaysList(dayList)
   }, [currWeek, events])
 
-  
+  return (
+    <div>
+      <CalendarNav handleAdd={handleAddWeek} handleSub={handleSubWeek}>
+        <span className={s.nav_month}>{format(currWeek, 'MMMM yy')}</span>
+        <div>
+          {`${format(currWeek, 'dd')} - ${format(
+            addWeeks(currWeek, 1),
+            'dd'
+          )} `}
+        </div>
+      </CalendarNav>
+      <DaysList daysList={daysList} handleEventClick={handleEventClick} />
+    </div>
+  )
+}
 
+const CalendarNav = ({ handleAdd, handleSub, children }) => {
   return (
     <div>
       <div className={s.week_nav}>
-        <Button p="1" primary icon onClick={handleSubWeek}>
+        <Button p="1" primary icon onClick={handleAdd}>
           <ArrowBackIos />
         </Button>
-        <div>
-          <span className={s.nav_month}>{format(currWeek, 'MMMM yy')}</span>
-          <div>
-            {`${format(currWeek, 'dd')} - ${format(
-              addWeeks(currWeek, 1),
-              'dd'
-            )} `}
-          </div>
-        </div>
-        <Button p="1" primary icon onClick={handleAddWeek}>
+        <div>{children}</div>
+        <Button p="1" primary icon onClick={handleSub}>
           <ArrowForwardIos />
         </Button>
       </div>
-      <div className={s.week_body}>
-        {daysList?.map((day, i) => (
-          <div className={s.month_day} key={i}>
-            <div className={s.month_number}>
-              <span>
-                {`${format(day?.date, 'd')} `}
-                {day?.events?.length > 0
-                  ? format(day?.date, 'EEEE')
-                  : format(day.date, 'EEEEE')}
-              </span>
-            </div>
-            <div className={s.month_events}>
-              {day?.events?.map((event) => (
-                <MonthEvent
-                  key={event.id}
-                  event={event}
-                  onClick={handleEventClick}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-        {/*  {weekEvents?.length === 0 && 'Sin Eventos'}
-        {weekEvents?.map((event) => (
-          <WeekEvent key={event.id} event={event} onClick={handleEventClick} />
-        ))} */}
+      <div className={s.calendar_titles}>
+        <em>arete </em>
+        <em>evento</em>
+        <em>variante </em>
+        <em>comentarios</em>
       </div>
     </div>
   )
 }
 
+const DaysList = ({ daysList = [], handleEventClick }) => {
+  return (
+    <div className={s.days_body}>
+      {daysList?.map((day, i) => (
+        <div className={s.month_day} key={i}>
+          <div className={s.month_number}>
+            <span>
+              {`${format(day?.date, 'd')} `}
+              {day?.events?.length > 0
+                ? format(day?.date, 'EEEE')
+                : format(day.date, 'EEEEE')}
+            </span>
+          </div>
+          <div className={s.month_events}>
+            {day?.events?.map((event) => (
+              <MonthEvent
+                key={event.id}
+                event={event}
+                onClick={handleEventClick}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 const MonthEvent = ({ event, onClick }) => {
-  const { variants, label, earring, id, coments } = event
+  const { variants, label, id, coments, cow } = event
   return (
     <button
       className={s.month_event}
@@ -220,27 +180,13 @@ const MonthEvent = ({ event, onClick }) => {
         onClick(id)
       }}
     >
-      <div>{earring}</div>
+      <div>
+        <div>{cow.earring}</div>
+        <em>{cow.name}</em>
+      </div>
       <div>{label}</div>
-      <div>{variants?.map((variant) => variant?.label)}</div>
+      <div>{variants?.map((variant) => variant?.label) || '-'}</div>
       <div>{coments || ' - '}</div>
-    </button>
-  )
-}
-
-const WeekEvent = ({ event, onClick = () => {} }) => {
-  const { date, label, earring, id } = event
-  return (
-    <button
-      className={s.week_event}
-      onClick={(e) => {
-        e.preventDefault()
-        onClick(id)
-      }}
-    >
-      <div>{earring}</div>
-      <div>{label}</div>
-      <div>{format(date, 'EEE dd')}</div>
     </button>
   )
 }

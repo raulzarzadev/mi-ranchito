@@ -9,6 +9,30 @@ import { useAuth } from '../context/AuthContext'
 import { Event } from '../utils/Event'
 import useCows from './useCows'
 
+/* 
+
+  /* const [formatEvents, setFormatEvents] = useState()
+  useEffect(() => {
+    const mirrorEvents = events.reduce((prev, curr) => {
+      const original = curr
+
+      const mirror = curr.upcomingEvents.map((event) => {
+        const mirrorDate = curr.date + event.InDays * 24 * 60 * 60 * 1000 // dias en ms
+        return {
+          ...event,
+          earring: curr.earring,
+          id: curr.id,
+          date: mirrorDate,
+          mirrorEvent: true,
+        }
+      })
+
+      return [...prev, mirror, original].flat()
+    }, [])
+
+    setFormatEvents(mirrorEvents)
+  }, [view]) */
+
 export default function useEvents() {
   const { user } = useAuth()
   const { getCows } = useCows()
@@ -30,9 +54,31 @@ export default function useEvents() {
         }
       })
     )
-    return events.flat()
-  }
 
+    const mirrorEvents = events.flat().reduce((prev, curr) => {
+      if (!curr.upcomingEvents) return prev
+      const mirror = curr?.upcomingEvents?.map((event) => {
+        const mirrorDate = curr.date + event.InDays * 24 * 60 * 60 * 1000 // dias en meses
+        const { earring, earringId, name = null, id } = curr
+        return {
+          ...event,
+          cow: {
+            earring,
+            id: earringId,
+            name,
+          },
+          id,
+          date: mirrorDate,
+          mirrorEvent: true,
+        }
+      })
+
+      return [...prev, mirror, curr].flat()
+    }, [])
+    console.log('mirrorEvents', mirrorEvents)
+
+    return mirrorEvents
+  }
 
   const addEvent = (event) => {
     fb_newEvent({ userId: user.id, ...event })
