@@ -24,6 +24,9 @@
 .month_day {
   border-top: 1px solid #fff2;
 }
+.month_day:hover {
+  font-weight: 600;
+}
 
 .switch {
   display: flex;
@@ -36,6 +39,14 @@
   justify-content: flex-start;
   border-top: 1px solid #fff2;
   width: 100%;
+  min-height:1.7rem
+}
+.add {
+  display: none;
+  margin: 0 auto
+}
+.month_number:hover .add {
+  display: block;
 }
 
 .calendar_titles {

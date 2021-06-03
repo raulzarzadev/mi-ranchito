@@ -2,11 +2,8 @@ import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/Dashboard
 import NewEvent from '@cmps/Forms/NewEvent'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 export default function newEvent() {
-  const router = useRouter()
-  const { cowId } = router.query
   
   return (
     <>
@@ -16,7 +13,6 @@ export default function newEvent() {
       <PrivateRoute
         SecondaryLayout={DashboardCowsLayout}
         Component={NewEvent}
-        earringId={cowId}
         title="Nuevo Evento"
       />
     </>

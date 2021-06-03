@@ -11,13 +11,12 @@ import Text from '@cmps/Inputs/Text'
 import Select from '@cmps/Inputs/Text/Select'
 import { formatInputDate } from '@raiz/src/utils/Dates'
 
-export default function NewEvent({
-  title = '',
-  earringId = null,
-  event = null,
-}) {
+export default function NewEvent({ title = '', event = null }) {
   const EVENTS = EVENTS_TYPES_2
   const router = useRouter()
+  const {
+    query: { date, cowId },
+  } = router
 
   const { getCows } = useCows()
   const { addEvent, editEvent } = useEvents()
@@ -36,17 +35,23 @@ export default function NewEvent({
   }, [])
 
   useEffect(() => {
-    if (earringId) {
-      const earringNo = earrings?.find((cow) => cow.id === earringId)?.earring
-      setForm({ ...form, earringId, earring: earringNo })
+    if (cowId) {
+      const earringNo = earrings?.find((cow) => cow.id === cowId)?.earring
+      setForm({ ...form, earringId: cowId, earring: earringNo })
     }
-  }, [earringId, earrings])
+  }, [cowId, earrings])
 
   useEffect(() => {
     if (event) {
       setForm({ ...event })
     }
   }, [event])
+
+  useEffect(() => {
+    if (date) {
+      setForm({ ...form, date })
+    }
+  }, [])
 
   const [variants, setVariants] = useState(null)
   useEffect(() => {
@@ -108,8 +113,7 @@ export default function NewEvent({
     console.log('eventVariants', eventVariants)
      */
 
-  console.log('variants', variants)
-  console.log('form', form)
+  console.log('earrings', earrings)
 
   if (earrings?.length === 0) return 'No hay vacas registradas aun...'
 
@@ -125,13 +129,18 @@ export default function NewEvent({
         >
           <div>
             <div className={styles.event_form__input}>
-              <Select name="earringId" label="Arete" onChange={handleSelectCow}>
+              <Select
+                value={form?.earringId}
+                name="earringId"
+                label="Arete"
+                onChange={handleSelectCow}
+              >
                 <option value="" disabled>
                   {`Selecciona Arete`}
                 </option>
                 {earrings?.map((earring, i) => (
                   <option key={i} value={earring.id}>
-                    {earring.earring} {earring?.nickName}
+                    {earring.earring} {earring?.name}
                   </option>
                 ))}
               </Select>

@@ -86,6 +86,7 @@ const WeeklyCalendar = ({ events }) => {
   const handleEventClick = (id) => {
     router.push(`/dashboard/events/${id}`)
   }
+
   const [daysList, setDaysList] = useState()
 
   useEffect(() => {
@@ -143,6 +144,10 @@ const CalendarNav = ({ handleAdd, handleSub, children }) => {
 }
 
 const DaysList = ({ daysList = [], handleEventClick }) => {
+  const router = useRouter()
+  const handleDayClick = (date) => {
+    router.push(`/dashboard/events/new?date=${date}`)
+  }
   return (
     <div className={s.days_body}>
       {daysList?.map((day, i) => (
@@ -154,6 +159,12 @@ const DaysList = ({ daysList = [], handleEventClick }) => {
                 ? format(day?.date, 'EEEE')
                 : format(day.date, 'EEEEE')}
             </span>
+            <Button
+              onClick={() => handleDayClick(day.date)}
+              className={s.add}
+              addNew
+              primary
+            />
           </div>
           <div className={s.month_events}>
             {day?.events?.map((event) => (
