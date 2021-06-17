@@ -19,7 +19,7 @@ import s from './styles.module.css'
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
 import { useRouter } from 'next/router'
 
-export default function Calendar3({ events = [], view = 'semana' }) {
+export default function Calendar({ events = [], view = 'semana' }) {
   return (
     <div className={s.calendar}>
       {view === 'semana' && <WeeklyCalendar events={events} />}
@@ -168,7 +168,7 @@ const DaysList = ({ daysList = [], handleEventClick }) => {
           </div>
           <div className={s.month_events}>
             {day?.events?.map((event) => (
-              <MonthEvent
+              <EventRow
                 key={event.id}
                 event={event}
                 onClick={handleEventClick}
@@ -181,8 +181,9 @@ const DaysList = ({ daysList = [], handleEventClick }) => {
   )
 }
 
-const MonthEvent = ({ event, onClick }) => {
+const EventRow = ({ event, onClick }) => {
   const { variants, label, id, coments, cow } = event
+
   return (
     <button
       className={s.month_event}

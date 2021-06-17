@@ -75,8 +75,6 @@ export default function useEvents() {
 
       return [...prev, mirror, curr].flat()
     }, [])
-    console.log('mirrorEvents', mirrorEvents)
-
     return mirrorEvents
   }
 

@@ -2,7 +2,7 @@ import EventTable from '@cmps/Tables/EventTable'
 import { H2 } from '@cmps/Texts/H'
 import { useState } from 'react'
 import s from './styles.module.css'
-import Calendar3 from '@cmps/Calendar3'
+import Calendar3 from '@cmps/Calendar'
 import Button from '@cmps/Inputs/Button'
 
 export default function Events({ events = [] }) {

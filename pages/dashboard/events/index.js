@@ -19,9 +19,6 @@ export default function events() {
     }
   }, [user])
 
-  console.log('events', events)
-  
-
   if (events === undefined) return 'Cargando...'
 
   return (

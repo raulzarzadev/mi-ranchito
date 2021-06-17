@@ -14,8 +14,6 @@ export const Cow = (cow = {}, events = []) => {
   }
 
   const _getCowStatus = (events = [], date = new Date()) => {
-    console.log('events', events)
-    
     return ['lactando', 'gestando']
   }
 
