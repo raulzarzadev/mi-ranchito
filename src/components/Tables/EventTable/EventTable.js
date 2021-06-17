@@ -72,8 +72,8 @@ export default function EventsTable({ events = [] }) {
           {/* <div className={s.title}>Status</div>
           <div className={s.title}>Proximo</div> */}
         </div>
-        {eventsSorted.map((event) => (
-          <Row key={event.id} event={event} />
+        {eventsSorted.map((event,i) => (
+          <Row key={i} event={event} />
         ))}
       </div>
     </>
@@ -81,7 +81,7 @@ export default function EventsTable({ events = [] }) {
 }
 
 const Row = ({ event }) => {
-  const {  date, id, label, cow, variants } = event
+  const { date, id, label, cow, variants } = event
 
   const router = useRouter()
   return (
@@ -120,7 +120,7 @@ const Row = ({ event }) => {
 const ButtonTitle = ({ children, onClick, selected, directionDown }) => {
   return (
     <>
-      <button onClick={onClick} selected="true" className={s.button_title}>
+      <button onClick={onClick} selected={true} className={s.button_title}>
         {children}
         {selected && (
           <>{directionDown ? <ExpandLessIcon /> : <ExpandMoreIcon />}</>

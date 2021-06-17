@@ -23,7 +23,7 @@ export default function Button({
   danger,
   success,
   primary,
-  secondary,
+  secondary = false,
 
   // decorations
   active,
@@ -49,10 +49,10 @@ export default function Button({
       icon={icon ? 'true' : undefined}
       underline={underline && 'true'}
       outlined={outlined && 'true'}
-      primary={primary && 'true'}
       danger={danger && 'true'}
       success={success && 'true'}
-      secondary={secondary && 'true'}
+      primary={primary && 'true'}
+      secondary={secondary ? 'true' : 'false'}
       link={link && 'true'}
       className={s.button}
       {...rest}

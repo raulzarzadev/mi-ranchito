@@ -62,7 +62,7 @@
 .button[primary] {
   background: var(--primary);
 }
-.button[secondary] {
+.button[secondary='true'] {
   background: var(--secondary);
 }
 .button[danger] {

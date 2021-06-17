@@ -2,7 +2,7 @@ import EventTable from '@cmps/Tables/EventTable'
 import { H2 } from '@cmps/Texts/H'
 import { useState } from 'react'
 import s from './styles.module.css'
-import Calendar3 from '@cmps/Calendar'
+import Calendar from '@cmps/Calendar'
 import Button from '@cmps/Inputs/Button'
 
 export default function Events({ events = [] }) {
@@ -15,7 +15,7 @@ export default function Events({ events = [] }) {
   return (
     <div className={s.events}>
       <H2>Eventos</H2>
-      
+
       <div className={s.buttons_box}>
         <Button
           onClick={() => handleChangeView('LIST')}
@@ -28,7 +28,7 @@ export default function Events({ events = [] }) {
         <Button
           onClick={() => handleChangeView('WEEK')}
           p="1"
-          secondary={view === 'WEEK'}
+          secondary={view === 'WEEK' && true}
           primary
         >
           Semanal
@@ -36,14 +36,14 @@ export default function Events({ events = [] }) {
         <Button
           onClick={() => handleChangeView('MONTH')}
           p="1"
-          secondary={view === 'MONTH'}
+          secondary={view === 'MONTH' && true}
           primary
         >
           Mensual
         </Button>
       </div>
-      {view === 'WEEK' && <Calendar3 events={events} view={'semana'} />}
-      {view === 'MONTH' && <Calendar3 events={events} view={'mes'} />}
+      {view === 'WEEK' && <Calendar events={events} view={'semana'} />}
+      {view === 'MONTH' && <Calendar events={events} view={'mes'} />}
       {view === 'LIST' && <EventTable events={events} />}
     </div>
   )

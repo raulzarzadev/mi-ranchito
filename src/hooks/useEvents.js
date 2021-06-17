@@ -55,13 +55,14 @@ export default function useEvents() {
       })
     )
 
-    const mirrorEvents = events.flat().reduce((prev, curr) => {
+    const mirrorEvents = events.flat().reduce((prev, curr, index) => {
       if (!curr.upcomingEvents) return prev
       const mirror = curr?.upcomingEvents?.map((event) => {
         const mirrorDate = curr.date + event.InDays * 24 * 60 * 60 * 1000 // dias en meses
         const { earring, earringId, name = null, id } = curr
         return {
           ...event,
+          earring,
           cow: {
             earring,
             id: earringId,
