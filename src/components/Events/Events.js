@@ -1,21 +1,39 @@
 import EventTable from '@cmps/Tables/EventTable'
 import { H2 } from '@cmps/Texts/H'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 import Calendar from '@cmps/Calendar'
 import Button from '@cmps/Inputs/Button'
 
-export default function Events({ events = [] }) {
+export default function Events({ events = undefined }) {
+  if (!events) return 'Cargando ...'
   const [view, setView] = useState('LIST')
-
   const handleChangeView = (view) => {
     setView(view)
   }
 
+  const [filter, setFilter] = useState('ALL')
+  const handleChangeFilter = (newFilter) => {
+    setFilter(newFilter)
+  }
+
+  const [eventsFiltered, setEventsFiltered] = useState([])
+
+  useEffect(() => {
+    const filters = {
+      ALL: events,
+      REAL: events.filter((event) => event.mirrorEvent !== true),
+      MIRROR: events.filter((event) => event.mirrorEvent === true),
+      UPCOMING: events.filter(({ date }) => date > new Date().getTime()),
+      PASED: events.filter(({ date }) => date < new Date().getTime()),
+    }
+    setEventsFiltered(filters[filter])
+  }, [filter])
+
+
   return (
     <div className={s.events}>
-      <H2>Eventos</H2>
-
+      Mostrar
       <div className={s.buttons_box}>
         <Button
           onClick={() => handleChangeView('LIST')}
@@ -42,9 +60,56 @@ export default function Events({ events = [] }) {
           Mensual
         </Button>
       </div>
+      {view === 'LIST' && (
+        <>
+          Filtrar
+          <div className={s.buttons_box}>
+            <Button
+              onClick={() => handleChangeFilter('ALL')}
+              p="1"
+              secondary={filter === 'ALL'}
+              primary
+            >
+              TODOS
+            </Button>
+            <Button
+              onClick={() => handleChangeFilter('REAL')}
+              p="1"
+              secondary={filter === 'REAL'}
+              primary
+            >
+              E. reales
+            </Button>
+            <Button
+              onClick={() => handleChangeFilter('MIRROR')}
+              p="1"
+              secondary={filter === 'MIRROR'}
+              primary
+            >
+              E. espejo
+            </Button>
+            <Button
+              onClick={() => handleChangeFilter('UPCOMING')}
+              p="1"
+              secondary={filter === 'UPCOMING' && true}
+              primary
+            >
+              Proximos
+            </Button>
+            <Button
+              onClick={() => handleChangeFilter('PASED')}
+              p="1"
+              secondary={filter === 'PASED' && true}
+              primary
+            >
+              Pasados
+            </Button>
+          </div>
+        </>
+      )}
       {view === 'WEEK' && <Calendar events={events} view={'semana'} />}
       {view === 'MONTH' && <Calendar events={events} view={'mes'} />}
-      {view === 'LIST' && <EventTable events={events} />}
+      {view === 'LIST' && <EventTable events={eventsFiltered} />}
     </div>
   )
 }

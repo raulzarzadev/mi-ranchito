@@ -125,11 +125,11 @@ const CalendarNav = ({ handleAdd, handleSub, children }) => {
   return (
     <div>
       <div className={s.week_nav}>
-        <Button p="1" primary icon onClick={handleAdd}>
+        <Button p="1" primary icon onClick={handleSub}>
           <ArrowBackIos />
         </Button>
         <div>{children}</div>
-        <Button p="1" primary icon onClick={handleSub}>
+        <Button p="1" primary icon onClick={handleAdd}>
           <ArrowForwardIos />
         </Button>
       </div>

@@ -17,10 +17,8 @@ export default function Cows() {
     getCows().then((res) => setCows(res))
   }, [])
 
-  console.log(cows)
 
-  if (cows === undefined) return 'Cargando...'
-
+  
   return (
     <>
       <Head>

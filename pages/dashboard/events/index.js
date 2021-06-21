@@ -19,8 +19,6 @@ export default function events() {
     }
   }, [user])
 
-  if (events === undefined) return 'Cargando...'
-
   return (
     <>
       <Head>

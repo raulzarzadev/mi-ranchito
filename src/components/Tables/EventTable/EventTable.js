@@ -36,7 +36,7 @@ export default function EventsTable({ events = [] }) {
         })
       )
     }
-  }, [sortBy])
+  }, [sortBy, events])
 
   return (
     <>
@@ -72,7 +72,7 @@ export default function EventsTable({ events = [] }) {
           {/* <div className={s.title}>Status</div>
           <div className={s.title}>Proximo</div> */}
         </div>
-        {eventsSorted.map((event,i) => (
+        {eventsSorted.map((event, i) => (
           <Row key={i} event={event} />
         ))}
       </div>
@@ -90,8 +90,10 @@ const Row = ({ event }) => {
       onClick={() => router.push(`/dashboard/events/${id}`)}
     >
       <div>
-        <div>{`${cow.earring}`}</div>
-        <em>{cow.name || ' - '}</em>
+        <span>
+          <span>{`${cow.earring} `}</span>
+          <em>{cow?.name}</em>
+        </span>
       </div>
       <div>
         <div>{label}</div>

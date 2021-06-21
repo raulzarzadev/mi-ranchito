@@ -1,31 +1,25 @@
 import Modal from '@cmps/Modals/Modal/Modal'
 import { P3 } from '@cmps/Texts/P'
-import ROUTES from '@raiz/constants/ROUTES'
 import useCows from '@raiz/src/hooks/useCows'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import styles from './styles.module.css'
-import Button from '@cmps/Inputs/Button'
 import { H1, H2, H3 } from '@cmps/Texts/H'
 import { useRouter } from 'next/router'
 
 export default function CowsDasboard() {
   const { getCows } = useCows()
   const [cows, setCows] = useState(undefined)
-  const [loading, setLoading] = useState(true)
   useEffect(() => {
     getCows()
       .then((res) => {
-        setLoading(false)
         setCows(res)
       })
       .catch((err) => {
-        setLoading(false)
         console.log(err)
       })
   }, [])
 
-  console.log('cows', cows)
 
   const formatEvts = [] /* cows
     ?.reduce((acc, cow) => {
@@ -75,7 +69,8 @@ export default function CowsDasboard() {
   const handleRedirect = (to) => {
     router.push(to)
   }
-  // if (lo=(ading) return <div className="center">{`Cargando...`}</div>
+
+  if(!cows) return 'Cargando ...'
 
   return (
     <div className="center">

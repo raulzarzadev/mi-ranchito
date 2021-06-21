@@ -2,7 +2,8 @@ import { H2 } from '@cmps/Texts/H'
 import { useRouter } from 'next/router'
 import s from './styles.module.css'
 
-export default function CowsTable({ title = 'Table title', cows = [] }) {
+export default function CowsTable({ title = 'Table title', cows = undefined }) {
+  if(!cows) return 'Cargando ...'
   return (
     <>
       <div className={s.grid}>
@@ -32,7 +33,7 @@ const Row = ({ cow }) => {
     >
       <div>
         <div>{`${cow.earring}`}</div>
-        <em>{cow.name || ' - '}</em>
+        <em>{cow?.name}</em>
       </div>
       <div>{events.length}</div>
       <div>{events[events.length - 1]?.label}</div>

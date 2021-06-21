@@ -16,7 +16,6 @@
 }
 .grid_row {
   background-color: var(--background-semi);
-  padding: var(--space-1);
   border-radius: var(--space-1);
   box-shadow: var(--shadow-2);
   width: 100%;

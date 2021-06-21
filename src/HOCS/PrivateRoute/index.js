@@ -21,13 +21,10 @@ export default function PrivateRoute({
     if (user === null) router.replace('/')
   }, [user])
 
-  if (loading) return 'Cargando ...'
-
   if (SecondaryLayout) {
     return (
       <SecondaryLayout buttonBack>
-       
-        <Component {...res} user={userData} />
+        <Component {...res} user={loading ? {} : userData} />
       </SecondaryLayout>
     )
   }
