@@ -6,36 +6,46 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 export default function EventsTable({ events = [] }) {
-  const [sortBy, setSortBy] = useState('date')
+  const [sortBy, setSortBy] = useState('')
   const [eventsSorted, setEventsSorted] = useState([])
+  const router = useRouter()
+  const {
+    query: { sort },
+  } = router
+  useEffect(()=>{
+    sort && setSortBy(sort)
+  },[sort])
 
   const handleSortBy = (field) => {
+    let sorting
     if (field === sortBy) {
-      setSortBy(`${field}_REVERSE`)
+      sorting = `${field}_REVERSE`
     } else {
-      setSortBy(field)
+      sorting = field
     }
+
+    router.push(`?sort=${sorting}`)
+    setSortBy(sorting)
   }
+
   useEffect(() => {
     // Extract the sort title for use inside the event
     const title = sortBy.split('_')[0]
+    let sorted
     if (sortBy.includes('REVERSE')) {
-      setEventsSorted(
-        events.sort((a, b) => {
-          if (a[title] > b[title]) return 1
-          if (a[title] < b[title]) return -1
-          return 0
-        })
-      )
+      sorted = events.sort((a, b) => {
+        if (a[title] > b[title]) return 1
+        if (a[title] < b[title]) return -1
+        return 0
+      })
     } else {
-      setEventsSorted(
-        events.sort((a, b) => {
-          if (a[title] < b[title]) return 1
-          if (a[title] > b[title]) return -1
-          return 0
-        })
-      )
+      sorted = events.sort((a, b) => {
+        if (a[title] < b[title]) return 1
+        if (a[title] > b[title]) return -1
+        return 0
+      })
     }
+    setEventsSorted(sorted)
   }, [sortBy, events])
 
   return (

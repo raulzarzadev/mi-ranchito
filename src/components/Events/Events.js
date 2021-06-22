@@ -4,18 +4,31 @@ import { useEffect, useState } from 'react'
 import s from './styles.module.css'
 import Calendar from '@cmps/Calendar'
 import Button from '@cmps/Inputs/Button'
+import { useRouter } from 'next/router'
 
 export default function Events({ events = undefined }) {
   if (!events) return 'Cargando ...'
-  const [view, setView] = useState('LIST')
+  const router = useRouter()
+
+  const { query } = router
+  console.log('query', query)
+
+  const [view, setView] = useState( 'LIST')
   const handleChangeView = (view) => {
     setView(view)
+    router.push(`?view=${view}`)
   }
 
-  const [filter, setFilter] = useState('ALL')
+  const [filter, setFilter] = useState(query.filter || 'ALL')
   const handleChangeFilter = (newFilter) => {
     setFilter(newFilter)
+    router.push(`?view=LIST&filter=${newFilter}`)
   }
+
+  useEffect(()=>{
+    query.filter && setFilter(query.filter)
+    query.view && setView(query.view)
+  },[query])
 
   const [eventsFiltered, setEventsFiltered] = useState([])
 
@@ -29,7 +42,6 @@ export default function Events({ events = undefined }) {
     }
     setEventsFiltered(filters[filter])
   }, [filter])
-
 
   return (
     <div className={s.events}>
