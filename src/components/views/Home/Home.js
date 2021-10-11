@@ -26,10 +26,16 @@ export default function Home() {
           <strong>productivo y reproductivo</strong> de las vacas lecheras.
         </P>
         <div className={styles.actions}>
+
           {user ? (
-            <Button p="2" primary nextLink href={`${ROUTES.cows}`}>
-              Mis Vacas
-            </Button>
+            <>
+              <Button p="2" fullwidth primary nextLink href={`${ROUTES.cows}`}>
+                Mis Vacas
+              </Button>
+              <Button p="2" fullwidth primary nextLink href={`${ROUTES.sheeps}`}>
+                Mis Borregos
+              </Button>
+            </>
           ) : (
             <Button p="2" primary nextLink href={`${ROUTES.signin}`}>
               Ingresa

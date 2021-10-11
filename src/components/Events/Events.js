@@ -11,7 +11,7 @@ export default function Events({ events = undefined }) {
   const router = useRouter()
 
   const { query } = router
-  console.log('query', query)
+  //console.log('query', query)
 
   const [view, setView] = useState( 'LIST')
   const handleChangeView = (view) => {

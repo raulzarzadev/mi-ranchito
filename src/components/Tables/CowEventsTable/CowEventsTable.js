@@ -6,6 +6,7 @@ import { fromNow } from '@raiz/src/utils'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import s from './styles.module.css'
+import ROUTES from '@raiz/constants/ROUTES'
 
 export default function CowEventsTable({ events = [], cowId = '' }) {
   console.log('events', events)
@@ -20,7 +21,7 @@ export default function CowEventsTable({ events = [], cowId = '' }) {
           primary
           p="2"
           my="2"
-          onClick={() => router.push(`/dashboard/events/new?cowId=${cowId}`)}
+          onClick={() => router.push(`${ROUTES.events}/new?cowId=${cowId}`)}
         >
           Evento
         </Button>

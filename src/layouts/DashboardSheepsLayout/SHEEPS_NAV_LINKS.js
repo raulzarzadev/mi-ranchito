@@ -1,47 +1,47 @@
-import ROUTES from "@raiz/constants/ROUTES";
+import ROUTES from '@raiz/constants/ROUTES'
 
-export default  [
+export default [
   /*   {
     cat: 'main',
     side: 'primary',
     id: '129',
-    href: ROUTES.configuration,
+    href: `${ROUTES.sheeps}/configuration`,
     label: 'Configuración',
   }, */
   {
     cat: 'main',
     side: 'primary',
     id: '129',
-    href: ROUTES.dashboard,
+    href: `${ROUTES.sheeps}/won`,
     label: 'Ganado',
   },
   {
     cat: 'main',
     side: 'primary',
     id: '5',
-    href: ROUTES.events,
+    href: `${ROUTES.sheeps}/events`,
     label: 'Eventos',
   },
 
   {
-    cat: 'cows',
+    cat: 'sheeps',
     side: 'primary',
     id: '1',
-    href: ROUTES.cows,
-    label: 'Vacas',
+    href: `${ROUTES.sheeps}`,
+    label: 'Borregos',
   },
   {
     cat: 'events',
     side: 'primary',
     id: '9',
-    href: ROUTES.events,
+    href: `${ROUTES.sheeps}/events`,
     label: 'Eventos',
   },
   /* {
     cat: 'records',
     side: 'primary',
     id: '569',
-    href: ROUTES.records,
+    href: `${ROUTES.sheeps}/records`,
     label: 'Registros',
   }, */
   /* {
@@ -51,57 +51,57 @@ export default  [
     label: 'Registros',
   }, */
   {
-    cat: 'cows',
+    cat: 'sheeps',
     side: 'secondary',
     id: '2',
-    href: ROUTES.newCow,
-    label: 'Nueva Vaca',
+    href: `${ROUTES.sheeps}/new`,
+    label: 'Nuevo',
   },
   {
     cat: 'events',
     side: 'secondary',
     id: '3',
-    href: ROUTES.newEvent,
-    label: 'Nuevo Evento',
+    href: `${ROUTES.sheeps}/events/new`,
+    label: 'Nuevo',
   },
- /*  {
+  /*  {
     cat: 'records',
     side: 'secondary',
     id: 'sdfew3',
-    href: ROUTES.newRecord,
+    href: `${ROUTES.sheeps}/newRecord`,
     label: 'Nuevo Registro',
   },
  */
   {
     side: 'bottom',
     id: '122',
-    href: ROUTES.dashboard,
+    href: `${ROUTES.sheeps}/dashboard`,
     label: 'Dash',
     icon: '/assets/icons/farm.svg',
   },
   {
     side: 'bottom',
     id: '12',
-    href: ROUTES.cows,
+    href: `${ROUTES.sheeps}/cows`,
     label: 'Vacas',
     icon: '/assets/icons/cows.svg',
   },
- /*  {
+  /*  {
     side: 'bottom',
     id: '12765',
-    href: ROUTES.records,
+    href: `${ROUTES.sheeps}/records`,
     label: 'Regs',
   }, */
   {
     side: 'bottom',
     id: '13',
-    href: ROUTES.events,
+    href: `${ROUTES.sheeps}/events`,
     label: 'Eventos',
   },
   {
     side: 'bottom',
     id: '13',
-    href: ROUTES.news,
+    href: `${ROUTES.sheeps}/sub-menu`,
     label: 'Nuevo',
   },
 ]

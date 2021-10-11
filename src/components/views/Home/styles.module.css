@@ -1,5 +1,11 @@
 .logotipo {
   width: 80%;
   max-width: 300px;
-  margin: 0 auto
+  margin: 0 auto;
+}
+.actions {
+  display: grid;
+  gap: 16px;
+  width: 500px;
+  margin: 0 auto;
 }
