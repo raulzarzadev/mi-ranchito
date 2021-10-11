@@ -24,7 +24,7 @@ export default [
   },
 
   {
-    cat: 'cows',
+    cat: 'won',
     side: 'primary',
     id: '1',
     href: `${ROUTES.cows}/cows`,
@@ -51,7 +51,7 @@ export default [
     label: 'Registros',
   }, */
   {
-    cat: 'cows',
+    cat: 'won',
     side: 'secondary',
     id: '2',
     href: `${ROUTES.cows}/new`,

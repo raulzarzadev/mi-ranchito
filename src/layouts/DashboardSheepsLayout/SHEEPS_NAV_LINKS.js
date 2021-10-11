@@ -24,7 +24,7 @@ export default [
   },
 
   {
-    cat: 'sheeps',
+    cat: 'won',
     side: 'primary',
     id: '1',
     href: `${ROUTES.sheeps}`,
@@ -51,7 +51,7 @@ export default [
     label: 'Registros',
   }, */
   {
-    cat: 'sheeps',
+    cat: 'won',
     side: 'secondary',
     id: '2',
     href: `${ROUTES.sheeps}/new`,
