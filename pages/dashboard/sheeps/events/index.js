@@ -8,17 +8,21 @@ import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import Events from '@cmps/Events'
 import DashboardSheepsLayout from '@raiz/src/layouts/DashboardSheepsLayout/DashboardSheepsLayout'
+import { get_sheeps_events } from '@raiz/firebase/sheeps/events'
 
 export default function events() {
-  const { user } = useAuth()
+  /*   const { user } = useAuth()
   const { getEvents } = useEvents()
-  const [events, setEvents] = useState()
-
+  
   useEffect(() => {
     if (user) {
       getEvents().then(setEvents)
     }
-  }, [user])
+  }, [user]) */
+  useEffect(() => {
+    console.log(get_sheeps_events().message)
+  }, [])
+  const [events, setEvents] = useState([])
 
   return (
     <>
