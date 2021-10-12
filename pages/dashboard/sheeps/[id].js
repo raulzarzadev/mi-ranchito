@@ -1,8 +1,7 @@
-import CowDetails from '@cmps/Details/CowDetails/CowDetails'
-import DashboardCowsLayout from '@raiz/src/layouts/DashboardCowsLayout/DashboardCowsLayout'
 import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'
 import DashboardSheepsLayout from '@raiz/src/layouts/DashboardSheepsLayout/DashboardSheepsLayout'
+import SheepDetails from '@cmps/Details/SheepDetails'
 
 export default function cow() {
   return (
@@ -11,7 +10,7 @@ export default function cow() {
         <title>Detalles | Borregos</title>
       </Head>
       <PrivateRoute
-        Component={CowDetails}
+        Component={SheepDetails}
         SecondaryLayout={DashboardSheepsLayout}
         buttonBack
       />

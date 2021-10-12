@@ -1,12 +1,13 @@
-import Text from "@cmps/Inputs/Text"
-import { H2 } from "@cmps/Texts/H"
-import useSheeps from "@raiz/src/hooks/useSheeps"
-import { formatInputDate } from "@raiz/src/utils/Dates"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import Text from '@cmps/Inputs/Text'
+import { H2 } from '@cmps/Texts/H'
+import { formatDate, formatInputDate, formatInputDateFns } from '@raiz/src/utils/Dates'
+import { useEffect, useState } from 'react'
 import Button from '@cmps/Inputs/Button'
 import styles from './styles.module.css'
-import ROUTES from "@raiz/constants/ROUTES"
+import ROUTES from '@raiz/constants/ROUTES'
+import { create_sheeps, edit_sheep } from '@raiz/firebase/sheeps'
+import { useAuth } from '@raiz/src/context/AuthContext'
+import { format } from 'date-fns'
 /* import { useEffect, useState } from 'react'
 import useSheeps from '@raiz/src/hooks/useSheeps'
 import { H2 } from '@cmps/Texts/H'
@@ -15,11 +16,9 @@ import { useRouter } from 'next/router'
 import Text from '@cmps/Inputs/Text'
 import { formatInputDate } from '@raiz/src/utils/Dates'
  */
-export default function NewSheep({ sheep = undefined, title = '' }) {
-  const router = useRouter()
+export default function FormSheep({ sheep = undefined, title = '' }) {
   const [actions, setActions] = useState('new')
-  const { addSheep, getSheeps, editSheep } = useSheeps()
-
+  const { user } = useAuth()
   useEffect(() => {
     if (sheep) {
       setForm({ ...sheep })
@@ -27,37 +26,31 @@ export default function NewSheep({ sheep = undefined, title = '' }) {
     }
   }, [sheep])
 
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({
+    birth: new Date(),
+    registryDate: new Date(),
+  })
+
   const [earrings, setEarrings] = useState()
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  useEffect(() => {
-    getSheeps().then((res) => setEarrings(res))
-  }, [])
-
   const alreadyExist = earrings?.find(
     (earring) => earring.earring === form.earring
   )
 
   const handleSubmit = (form) => {
-    console.log('form', form)
-    
-  /*   if (sheep) {
-      editSheep(sheep.id, form).then((res) => {
-        setActions('saved')
-        setTimeout(() => {
-          router.back()
-        }, 500)
-      })
+    if (form?.id) {
+      edit_sheep(form.id, form)
+        .then((res) => console.log(res))
+        .catch((err) => console.log('err', err))
     } else {
-      addSheep(form).then((res) => {
-        setActions('saved')
-        setForm({ id: res?.id })
-      })
-    } */
+      create_sheeps(user.id, form)
+        .then((res) => console.log(res))
+        .catch((err) => console.log('err', err))
+    }
   }
 
   const handleChangeDate = async (e) => {
@@ -66,14 +59,13 @@ export default function NewSheep({ sheep = undefined, title = '' }) {
   }
 
   const valid = !!alreadyExist || !form?.earring
-
   return (
     <div>
       <H2>{title}</H2>
       <form
         onSubmit={(e) => {
           e.preventDefault()
-          handleSubmit()
+          handleSubmit(form)
         }}
         className={styles.form}
       >
@@ -103,7 +95,7 @@ export default function NewSheep({ sheep = undefined, title = '' }) {
             label="Registro"
             type="date"
             name="registryDate"
-            value={formatInputDate(form.registryDate)}
+            value={formatDate(form.registryDate)}
             onChange={handleChangeDate}
           />
         </div>
@@ -112,7 +104,7 @@ export default function NewSheep({ sheep = undefined, title = '' }) {
             label="Nacimiento"
             type="date"
             name="birth"
-            value={formatInputDate(form.birth)}
+            value={formatDate(form.birth)}
             onChange={handleChangeDate}
           />
         </div>
@@ -151,7 +143,7 @@ export default function NewSheep({ sheep = undefined, title = '' }) {
                 p="2"
                 primary
                 nextLink
-                href={`${ROUTES .newSheep}`}
+                href={`${ROUTES.newSheep}`}
                 onClick={() => setActions('new')}
               >
                 Nuevo Vaca

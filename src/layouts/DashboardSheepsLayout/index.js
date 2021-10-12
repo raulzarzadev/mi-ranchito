@@ -1,31 +1,27 @@
-import Modal from '@cmps/Modals/Modal/Modal'
-import { P3 } from '@cmps/Texts/P'
+import { get_sheeps } from '@raiz/firebase/sheeps'
+import { useAuth } from '@raiz/src/context/AuthContext'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import styles from './styles.module.css'
-import { H1, H2, H3 } from '@cmps/Texts/H'
-import { useRouter } from 'next/router'
-import useSheeps from '@raiz/src/hooks/useSheeps'
 
 export default function SheepsDasboard() {
-  const { getSheeps } = useSheeps()
   const [sheeps, setsheeps] = useState(undefined)
+  const { user } = useAuth()
   useEffect(() => {
-    getSheeps()
-      .then((res) => {
-        setsheeps(res)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
-
+    if (user)
+      get_sheeps(user.id)
+        .then(({ res }) => {
+          setsheeps(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+  }, [user])
   return (
     <div className="center">
       <Head>
         <title>Ganado | Borregos </title>
       </Head>
-      Ganado Borregos
+      Estado del Ganado
     </div>
   )
 }

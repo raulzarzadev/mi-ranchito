@@ -1,0 +1,28 @@
+.modal_actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.details_box {
+  display: flex;
+  flex-wrap: wrap;
+  width: ;
+}
+
+.details_box > div {
+  width: 50%;
+  text-align: left;
+}
+
+.detail_title {
+  font-size: var(--font-0);
+}
+.detail_content {
+  font-size: var(--font-2);
+  font-weight: 600;
+}

@@ -2,7 +2,7 @@ import PrivateRoute from '@raiz/src/HOCS/PrivateRoute'
 import Head from 'next/head'
 import React from 'react'
 import DashboardSheepsLayout from '@raiz/src/layouts/DashboardSheepsLayout/DashboardSheepsLayout'
-import NewSheep from '@cmps/Forms/NewSheep'
+import FormSheep from '@cmps/Forms/FormSheep/index.js'
 
 export default function Private() {
   return (
@@ -11,7 +11,7 @@ export default function Private() {
         <title>Ranchito | Nuevo borrego</title>
       </Head>
       <PrivateRoute
-        Component={NewSheep}
+        Component={FormSheep}
         SecondaryLayout={DashboardSheepsLayout}
         buttonBack
       />

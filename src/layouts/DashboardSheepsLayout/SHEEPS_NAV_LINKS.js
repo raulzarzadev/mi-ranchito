@@ -13,7 +13,7 @@ export default [
     side: 'primary',
     id: '129',
     href: `${ROUTES.sheeps}/won`,
-    label: 'Ganado',
+    label: 'General',
   },
   {
     cat: 'main',

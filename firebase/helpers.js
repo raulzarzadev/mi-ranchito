@@ -1,5 +1,7 @@
+import { addHours } from 'date-fns'
 import firebase from 'firebase'
 
+export const normalizeDocs = (docs = []) => docs.map((doc) => normalizeDoc(doc))
 export const normalizeDoc = (doc) => {
   const data = doc.data()
 
@@ -22,8 +24,6 @@ export const normalizeDoc = (doc) => {
   }
 }
 
-export const normalizeDocs = (docs = []) => docs.map((doc) => normalizeDoc(doc))
-
 export const mapUserFromFirebase = (user) => {
   const { email, displayName, photoURL } = user
   return { email, name: displayName, image: photoURL, id: user.uid }
@@ -44,8 +44,9 @@ export const unfierebazeDates = (dates = {}) => {
 }
 /* FROM CLIENT TO FIREBASE */
 
-export const dateToFirebaseFormat = (date) =>
-  firebase.firestore.Timestamp.fromDate(new Date(date)) || null
+export const dateToFirebaseFormat = (date) => {
+  return firebase.firestore.Timestamp.fromDate(addHours(new Date(date), 6)) || null
+}
 
 export const datesToFirebaseFromat = ({
   birth,
@@ -62,4 +63,8 @@ export const datesToFirebaseFromat = ({
   if (registryDate)
     foramtedDates.registryDate = dateToFirebaseFormat(registryDate)
   return foramtedDates
+}
+
+export const formatRespose = (ok, type, res) => {
+  return { ok, type, res }
 }
