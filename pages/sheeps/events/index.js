@@ -38,4 +38,3 @@ export default function events() {
     </>
   )
 }
-d .

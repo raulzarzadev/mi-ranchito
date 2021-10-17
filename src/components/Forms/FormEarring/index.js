@@ -10,6 +10,7 @@ export default function FormEarring({ handleSubmit, earring }) {
   useEffect(() => {
     if (earring) {
       setForm(earring)
+      setFormStatus('edit')
     }
   }, [earring])
   const [form, setForm] = useState({
@@ -28,10 +29,9 @@ export default function FormEarring({ handleSubmit, earring }) {
 
   const router = useRouter()
   const response = (id) => {
-    setForm({...form, id})
+    setForm({ ...form, id })
     setFormStatus('saved')
   }
-console.log('form', form)
 
   return (
     <div>
@@ -39,11 +39,20 @@ console.log('form', form)
         onSubmit={(e) => {
           e.preventDefault()
           handleSubmit(form, response)
+          form?.id && router.push(ROUTES.sheeps.details(form?.id))
           setFormStatus('saved')
         }}
         className={styles.form}
       >
         <div className={styles.item}>
+          <Text
+            label="Lote"
+            placeholder="Lote No."
+            name="lote"
+            value={form?.lote || ''}
+            onChange={handleChange}
+            autoComplete="off"
+          />
           <Text
             label="Arete"
             placeholder="Numero de arete"

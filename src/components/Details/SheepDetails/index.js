@@ -4,17 +4,16 @@ import { useRouter } from 'next/router'
 import { H2 } from '@cmps/Texts/H'
 import ROUTES from '@raiz/constants/ROUTES'
 import Button from '@cmps/Inputs/Button'
-import CowEvents from '@cmps/Tables/CowEventsTable'
-import RemoveCowModal from '@cmps/Modals/RemoveCowModal/RemoveCowModal'
-import { get_sheep } from '@raiz/firebase/sheeps'
-import { format } from 'date-fns'
+import { delete_sheep, get_sheep } from '@raiz/firebase/sheeps'
+import CardDetails from '../CardDetails'
+import DeleteModal from '@cmps/Modals/DeleteModal'
 export default function SheepDetails() {
   const router = useRouter()
   const { id } = router.query
   const [details, setDetails] = useState(undefined)
-  const [openRemoveCowModal, setOpenRemoveCowModal] = useState(false)
-  const handleOpenDeleteModal = () => {
-    setOpenRemoveCowModal(!openRemoveCowModal)
+  const [openRemoveModar, setOpenRemoveModar] = useState(false)
+  const handleOpenRemoveModal = () => {
+    setOpenRemoveModar(!openRemoveModar)
   }
   useEffect(() => {
     if (id) {
@@ -22,9 +21,16 @@ export default function SheepDetails() {
     }
   }, [id])
 
+  const handleDelete = () => {
+    delete_sheep(id)
+      .then((res) => {
+        router.replace(ROUTES.sheeps.index)
+      })
+      .catch((err) => console.log('err', err))
+  }
+
   if (details === undefined) return 'loading ...'
 
-  const { earring, name, registryDate, birth, events } = details
   return (
     <>
       <div>
@@ -36,7 +42,7 @@ export default function SheepDetails() {
               icon
               deleteIcon
               danger
-              onClick={handleOpenDeleteModal}
+              onClick={handleOpenRemoveModal}
             />
           </div>
           <div className="box-1">
@@ -50,34 +56,13 @@ export default function SheepDetails() {
             />
           </div>
         </div>
-        <div className={styles.details_box}>
-          <div>
-            <div className={styles.detail_title}> Arete No. :</div>
-            <div className={styles.detail_content}>{earring}</div>
-          </div>
-          <div>
-            <div className={styles.detail_title}>Nombre :</div>
-            <div className={styles.detail_content}>{name || '-'}</div>
-          </div>
-          <div>
-            <div className={styles.detail_title}>Edad :</div>
-            <div className={styles.detail_content}>
-              {birth ? format(birth, 'dd MMM') : '-'}
-            </div>
-          </div>
-          <div>
-            <div className={styles.detail_title}>Registro :</div>
-            <div className={styles.detail_content}>
-              {registryDate ? format(registryDate, 'dd MMM') : '-'}
-            </div>
-          </div>
-        </div>
+        <CardDetails details={details} />
       </div>
-      <CowEvents events={events} cowId={id} />
-      <RemoveCowModal
-        open={openRemoveCowModal}
-        handleOpen={handleOpenDeleteModal}
-        cowId={id}
+      {/* <CowEvents events={events} cowId={id} /> */}
+      <DeleteModal
+        open={openRemoveModar}
+        handleOpen={handleOpenRemoveModal}
+        handleDelete={handleDelete}
       />
     </>
   )

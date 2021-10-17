@@ -19,6 +19,10 @@ const RESPONSES = {
     success: 'GET_RESOURCE_SUCCESS',
     error: 'GET_RESOURCE_ERROR',
   },
+  delete: {
+    success: 'RESOURCE_DELETED',
+    error: 'RESOURCE_DELETED_ERROR',
+  },
 }
 export const get_sheep = async (sheepId) => {
   return await db
@@ -52,6 +56,15 @@ export const create_sheeps = async (userId, sheep) => {
     })
     .then((res) => formatRespose(true, RESPONSES.create.success, res))
     .catch((err) => formatRespose(false, RESPONSES.create.error, err))
+}
+
+export async function delete_sheep(id) {
+  return db
+    .collection('sheeps')
+    .doc(id)
+    .delete()
+    .then((res) => formatRespose(true, RESPONSES.delete.success, res))
+    .catch((err) => console.log(err))
 }
 
 export const edit_sheep = async (sheepId, sheep) => {
