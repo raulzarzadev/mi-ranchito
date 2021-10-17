@@ -48,8 +48,8 @@ export default function FormEarring({ handleSubmit, earring }) {
           <Text
             label="Lote"
             placeholder="Lote No."
-            name="lote"
-            value={form?.lote || ''}
+            name="batch"
+            value={form?.batch || ''}
             onChange={handleChange}
             autoComplete="off"
           />

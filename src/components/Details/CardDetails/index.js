@@ -1,16 +1,17 @@
 import styles from './styles.module.css'
-import { format } from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 
 export default function CardDetails({ details }) {
-  const { earring, name, registryDate, birth } = details
-
+  const { earring, name, registryDate, birth, batch } = details
   if (details === undefined) return 'loading ...'
   return (
     <>
       <div className={styles.details_box}>
         <div>
-          <div className={styles.detail_title}> Arete No. :</div>
-          <div className={styles.detail_content}>{earring}</div>
+          <div className={styles.detail_title}> Lote y numero :</div>
+          <div className={styles.detail_content}>{` ${
+            batch || ''
+          } - ${earring}`}</div>
         </div>
         <div>
           <div className={styles.detail_title}>Nombre :</div>
@@ -19,7 +20,7 @@ export default function CardDetails({ details }) {
         <div>
           <div className={styles.detail_title}>Edad :</div>
           <div className={styles.detail_content}>
-            {birth ? format(birth, 'dd MMM') : '-'}
+            {birth ? formatDistanceToNow(birth) : '-'}
           </div>
         </div>
         <div>
