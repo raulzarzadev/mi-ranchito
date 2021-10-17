@@ -1,5 +1,9 @@
 import moment from 'moment'
-import { addMinutes, format as fnsFormat } from 'date-fns'
+import {
+  addMinutes,
+  format as fnsFormat,
+  formatDistanceToNowStrict,
+} from 'date-fns'
 import { es } from 'date-fns/locale'
 
 // by providing a default string of 'PP' or any of its variants for `formatStr`
@@ -28,6 +32,15 @@ export const fromNow = (date, options = {}) => {
     ? moment(date).fromNow(sufix)
     : showNow
     ? moment().fromNow(sufix)
+    : 'no date'
+}
+
+export const currentAge = (date, options = {}) => {
+  const { showNow = false, sufix = false } = options
+  return date
+    ? formatDistanceToNowStrict(date, { addSuffix: sufix, locale: es })
+    : showNow
+    ? formatDistanceToNowStrict(new Date(), { addSuffix: sufix, locale: es })
     : 'no date'
 }
 

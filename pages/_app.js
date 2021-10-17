@@ -2,7 +2,6 @@ import { AuthProvider } from '@raiz/src/context/AuthContext'
 import React from 'react'
 import Layout from '@raiz/src/layouts/Layout'
 import moment from 'moment'
-import fnsDate from 'date-fns'
 /* ---- CSS----  */
 import '../styles/globals.css'
 import 'tailwindcss/tailwind.css'

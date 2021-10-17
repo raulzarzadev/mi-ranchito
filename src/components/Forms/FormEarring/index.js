@@ -52,6 +52,7 @@ export default function FormEarring({ handleSubmit, earring }) {
             value={form?.batch || ''}
             onChange={handleChange}
             autoComplete="off"
+            autoFocus
           />
           <Text
             label="Arete"
@@ -59,7 +60,6 @@ export default function FormEarring({ handleSubmit, earring }) {
             name="earring"
             value={form?.earring || ''}
             onChange={handleChange}
-            autoFocus
             autoComplete="off"
           />
         </div>

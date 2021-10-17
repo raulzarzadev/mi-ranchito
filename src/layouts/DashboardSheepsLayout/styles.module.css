@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   margin: 0 auto;
   margin-bottom: 5rem;
 }
@@ -96,13 +95,5 @@
   .cows_dashboard {
     margin-left: 8rem;
   }
-  .dash_container {
-    margin-bottom: 0;
-  }
-}
 
-@media (min-width:900px){
-  .dash_container{
-    max-width: 900px;
-  }
 }

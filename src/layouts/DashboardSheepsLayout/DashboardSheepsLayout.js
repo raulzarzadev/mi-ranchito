@@ -12,7 +12,7 @@ export default function DashboardSheepsLayout({ children, buttonBack }) {
   return (
     <div className={styles.cows_dashboard}>
       {buttonBack && <ButtonBack />}
-      <div className={styles.dash_container}>{children}</div>
+      <div className=''>{children}</div>
       <SideNav links={links} />
       <BottomNav links={links.filter((link) => link.side === 'bottom')} />
     </div>
