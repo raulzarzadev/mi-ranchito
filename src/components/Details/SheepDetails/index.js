@@ -46,7 +46,7 @@ export default function SheepDetails() {
               editIcon
               primary
               nextLink
-              href={`${ROUTES.sheeps}/edit/${id}`}
+              href={`${ROUTES.sheeps.edit(id)}`}
             />
           </div>
         </div>

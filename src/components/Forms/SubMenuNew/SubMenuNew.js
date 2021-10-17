@@ -3,23 +3,23 @@ import { L2 } from '@cmps/Texts/L'
 import ROUTES from '@raiz/constants/ROUTES'
 import styles from './styles.module.css'
 export default function SubMenuNew(props) {
-  const { wonType } = props
+  const { cattleType } = props
   const title = {
     sheeps: 'Borrego',
     cows: 'Vaca',
   }
   const links = [
     {
-      label: title[wonType],
-      href: `${ROUTES[wonType]}/new`,
+      label: title[cattleType],
+      href: `${ROUTES[cattleType]}/new`,
     },
     {
       label: 'Evento',
-      href: `${ROUTES[wonType]}/events/new`,
+      href: `${ROUTES[cattleType]}/events/new`,
     },
     {
       label: 'Registro',
-      href: `${ROUTES[wonType]}/records/new`,
+      href: `${ROUTES[cattleType]}/records/new`,
     },
   ]
   return (

@@ -44,10 +44,11 @@ export default function SheepsTable() {
 const Row = ({ sheep }) => {
   const { statuses, nextEvent, id, events } = sheep
   const router = useRouter()
+  
   return (
     <div
       className={s.grid_row}
-      onClick={() => router.push(`${ROUTES.sheeps}/${id}`)}
+      onClick={() => router.push(`${ROUTES.sheeps.details(id)}`)}
     >
       <div>
         <div>{`${sheep?.earring}`}</div>

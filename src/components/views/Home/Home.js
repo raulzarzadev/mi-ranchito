@@ -32,7 +32,7 @@ export default function Home() {
               <Button p="2" fullwidth primary nextLink href={`${ROUTES.cows}`}>
                 Mis Vacas
               </Button>
-              <Button p="2" fullwidth primary nextLink href={`${ROUTES.sheeps}`}>
+              <Button p="2" fullwidth primary nextLink href={`${ROUTES.sheeps.dashboard}`}>
                 Mis Borregos
               </Button>
             </>

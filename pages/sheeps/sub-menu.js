@@ -7,7 +7,7 @@ export default function Private() {
     <PrivateRoute
       Component={SubMenuNew}
       SecondaryLayout={DashboardSheepsLayout}
-      wonType='sheeps'
+      cattleType="sheeps"
     />
   )
 }

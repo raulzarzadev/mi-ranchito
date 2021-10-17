@@ -6,7 +6,7 @@ export default function PrivateRoute({
   Component,
   SecondaryLayout,
   buttonBack,
-  won,
+  cattle,
   ...res
 }) {
   const router = useRouter()

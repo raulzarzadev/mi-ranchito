@@ -17,7 +17,7 @@ export default function SideNav({ links = [] }) {
       </div>
       <div className={`${styles.common} ${styles.side_links}`}>
         <SectionLinks links={links} title="- Panel -" category="main" />
-        <SectionLinks links={links} category="won" />
+        <SectionLinks links={links} category="cattle" />
         <SectionLinks links={links} category="events" />
         <SectionLinks links={links} category="records" />
       </div>
