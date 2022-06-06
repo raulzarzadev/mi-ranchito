@@ -6,6 +6,8 @@ export default function HomePage() {
     <>
       <Head>
         <title>Mi Ranchito Digital</title>
+        <meta name='icon' href='/miranchito.png' />
+        <meta name='description' content='Mejora la gestión de tu granja, incrementa tus ganancias y accede a información real sobre el mejor cuidado de tus animales. Mi Ranchito Digital ' />
       </Head>
       <Home />
 
